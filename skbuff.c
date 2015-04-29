@@ -4463,7 +4463,7 @@ EXPORT_SYMBOL(alloc_skb_with_frags);
 
 static uint32_t global_identifier = 0;
 
-uint32_t get_global_identifier()
+uint32_t get_global_identifier(void)
 {
     static DEFINE_SPINLOCK(lock);
     
