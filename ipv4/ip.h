@@ -542,6 +542,15 @@ void ip_icmp_error(struct sock *sk, struct sk_buff *skb, int err, __be16 port,
 void ip_local_error(struct sock *sk, int err, __be32 daddr, __be16 dport,
 		    u32 info);
 
+/* ABPS Gab */
+extern int required_ip_local_error_notify(struct sock *sk);
+extern void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
+                                  __be16 dport, __be32 saddr, __be16 sport,
+                                  __be32 IPdgramId,
+                                  /* The following parameters are used by the client to sort packets */
+                                  u16 fragment_data_len, /* only data, not header */
+                                  u16 fragment_offset, u8 more_fragment );
+
 static inline void ip_cmsg_recv(struct msghdr *msg, struct sk_buff *skb)
 {
 	ip_cmsg_recv_offset(msg, skb, 0);

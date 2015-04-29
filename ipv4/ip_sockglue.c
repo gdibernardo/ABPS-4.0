@@ -1205,6 +1205,112 @@ int compat_ip_setsockopt(struct sock *sk, int level, int optname,
 EXPORT_SYMBOL(compat_ip_setsockopt);
 #endif
 
+/* ABPS Gab */
+int required_ip_local_error_notify(struct sock *sk)
+{
+    struct inet_sock *inet = NULL;
+    if (sk==NULL)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** required_ip_local_error_notify:"
+               " struct sock sk is NULL\n");
+        return 0;
+    }
+    inet = inet_sk(sk);
+    if (inet==NULL)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** required_ip_local_error_notify:"
+               " struct inet_sock inet is NULL\n");
+        return(0);
+    }
+    if (!inet->recverr)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** required_ip_local_error_notify:"
+               " inet->recverr is NULL, socket is not able to receive error"
+               " messages, use setsockopt IPPROTO_IP IP_RECVERR\n");
+        return(0);
+    }
+    /* required local error notify */
+    return(1);
+}
+
+/* ABPS Gab */
+void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
+                           __be16 dport, __be32 saddr, __be16 sport,
+                           uint32_t IPdgramId, /*  The following parameters
+                                                are used to the client to sort packages */
+                           u16 fragment_data_len, /* only data, no header */
+                           u16 fragment_offset, u8 more_fragment)
+{
+    struct inet_sock *inet = NULL;
+    struct sock_exterr_skb *serr;
+    struct iphdr *iph;
+    struct sk_buff *skb;
+    
+    if (sk==NULL)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " struct sock sk is NULL\n");
+        return;
+    }
+    inet = inet_sk(sk);
+    if (inet==NULL)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " struct inet_sock inet is NULL, bye\n");
+        return;
+    }
+    if (!inet->recverr) {
+        return;
+    }
+    
+    skb = alloc_skb(sizeof(struct iphdr), GFP_ATOMIC);
+    if (!skb)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " alloc failed, skb is NULL\n");
+        return;
+    }
+    
+    skb_put(skb, sizeof(struct iphdr));
+    skb_reset_network_header(skb);
+    iph = ip_hdr(skb);
+    iph->daddr = daddr;
+    
+    serr = SKB_EXT_ERR(skb);
+    if (!serr) {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " serr is NULL, bye\n");
+        return;
+    }
+    serr->ee.ee_errno = 0;  /* success */
+    serr->ee.ee_origin = SO_EE_ORIGIN_LOCAL_NOTIFY;
+    serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
+    serr->ee.ee_code = more_fragment; /* more fragment */
+    serr->ee.ee_pad = 0;
+    printk(KERN_NOTICE "prepare for sending id %u %u",IPdgramId, ntohl(IPdgramId));
+    serr->ee.ee_info = IPdgramId;  /* id datagram */
+    
+    /*
+     * 16 low order bit are offset, 16 high order bit are len
+     *
+     * I have to extract date in this way:
+     * fragment_data_len = (((unsigned long int)v32)>>16);
+     * fragment_offset = (((unsigned long int)v32)<<16)>>16;
+     */
+    serr->ee.ee_data = fragment_offset + (((u32)fragment_data_len)<<16);
+    serr->addr_offset = (u8 *)&iph->daddr - skb_network_header(skb);
+    serr->port = dport;
+    
+    __skb_pull(skb, skb_tail_pointer(skb) - skb->data);
+    skb_reset_transport_header(skb);
+    
+    if (sock_queue_err_skb(sk, skb))
+        kfree_skb(skb);
+}
+
+EXPORT_SYMBOL(required_ip_local_error_notify);
+EXPORT_SYMBOL(ip_local_error_notify);
+
 /*
  *	Get the options. Note for future reference. The GET of IP options gets
  *	the _received_ ones. The set sets the _sent_ ones.
