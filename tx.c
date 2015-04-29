@@ -854,19 +854,19 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
     /* ABPS Gab */
     if(tx->skb)
     {
-        printk(KERN_NOTICE "skb not null in sending tx more about its identifier %d \n", tx->skb->sk_buff_identifier);
+        printk(KERN_NOTICE "skb not null in sending tx more about its identifier %d \n", ntohl(tx->skb->sk_buff_identifier));
         if(tx->skb->sk)
         {
-            printk(KERN_NOTICE "skb sk is NOT null in sending tx more about its identifier %d \n", tx->skb->sk_buff_identifier);
+            printk(KERN_NOTICE "skb sk is NOT null in sending tx more about its identifier %d \n", ntohl(tx->skb->sk_buff_identifier));
         }
         else
         {
-            printk(KERN_NOTICE "skb sk is null in sending tx more about its identifier %d \n", tx->skb->sk_buff_identifier);
+            printk(KERN_NOTICE "skb sk is null in sending tx more about its identifier %d \n", ntohl(tx->skb->sk_buff_identifier));
         }
     }
     else
     {
-        printk(KERN_NOTICE "skb is null identifier %d",tx->skb->sk_buff_identifier);
+        printk(KERN_NOTICE "skb is null identifier %d",ntohl(tx->skb->sk_buff_identifier));
     }
 //    if(required_ip_local_error_notify(tx->skb->sk))
 //    {
