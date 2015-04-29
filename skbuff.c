@@ -254,7 +254,7 @@ struct sk_buff *__alloc_skb(unsigned int size, gfp_t gfp_mask,
     
     
     /* ABPS Gab */
-    skb->skb_identifier = 0;
+    skb->sk_buff_identifier = 0;
     
 	/* make sure we initialize shinfo sequentially */
 	shinfo = skb_shinfo(skb);
@@ -4461,13 +4461,13 @@ EXPORT_SYMBOL(alloc_skb_with_frags);
 
 /* ABPS Gab */
 
-static __32 global_identifier = 0;
+static uint32_t global_identifier = 0;
 
-__32 get_global_identifier()
+uint32_t get_global_identifier()
 {
     static DEFINE_SPINLOCK(lock);
     
-    __32 identifier;
+    uint32_t identifier;
     
     unsigned long flags;
     

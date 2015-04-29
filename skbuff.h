@@ -672,7 +672,7 @@ struct sk_buff {
 	atomic_t		users;
     
     /* ABPS Gab */
-    __u32 sk_buff_identifier;
+    uint32_t sk_buff_identifier;
 };
 
 #ifdef __KERNEL__
