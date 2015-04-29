@@ -676,11 +676,11 @@ slow_path:
         
         /* ABPS Gab */
         /* need to check if it is necessary to clone skb  */
-        if(skb->identifier)
+        if(skb->sk_buff_identifier)
         {
-            skb2->sk_buff_identifier = skb->skb_identifier;
+            skb2->sk_buff_identifier = skb->sk_buff_identifier;
             // network byte order ?
-            printk(KERN_NOTICE "fragmentation happened identifier %d %d",skb2->identifier, skb->identifier);
+            printk(KERN_NOTICE "fragmentation happened identifier %d %d \n",skb2->sk_buff_identifier, skb->sk_buff_identifier);
         }
 		ip_copy_metadata(skb2, skb);
 		skb_reserve(skb2, ll_rs);
