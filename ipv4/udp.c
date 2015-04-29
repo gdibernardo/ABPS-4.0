@@ -132,6 +132,8 @@ EXPORT_SYMBOL(udp_memory_allocated);
 #define MAX_UDP_PORTS 65536
 #define PORTS_PER_CHAIN (MAX_UDP_PORTS / UDP_HTABLE_SIZE_MIN)
 
+#define ABPS_DEBUG 1
+
 static int udp_lib_lport_inuse(struct net *net, __u16 num,
 			       const struct udp_hslot *hslot,
 			       unsigned long *bitmap,
@@ -873,6 +875,49 @@ out:
 }
 EXPORT_SYMBOL(udp_push_pending_frames);
 
+/* ABPS Gab */
+static int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
+{
+    printk(KERN_NOTICE "udp_cmsg_send invoked.");
+    struct cmsghdr *cmsg;
+    *pneedId=0;
+    if(ppId==NULL)
+    {
+        printk(KERN_NOTICE "udp_cmsg_send: -EFAULT\n");
+        return -EFAULT;
+    }
+    for (cmsg=CMSG_FIRSTHDR(msg); cmsg; cmsg=CMSG_NXTHDR(msg,cmsg))
+    {
+#ifdef ABPS_DEBUG
+        int i;
+#endif
+        if (!CMSG_OK(msg, cmsg))
+        {
+            printk(KERN_NOTICE "udp_cmsg_send: -EINVAL\n");
+            return -EINVAL;
+        }
+        if (cmsg->cmsg_level!=SOL_UDP)
+            continue;
+#ifdef ABPS_DEBUG
+        printk(KERN_NOTICE "cmsg_type %d len %d\n", cmsg->cmsg_type, cmsg->cmsg_len);
+#endif
+        
+#ifdef ABPS_DEBUG
+        //    for (i=0; i<cmsg->cmsg_len;i++)
+        //        printk(KERN_NOTICE "Printing cmgs data in udp_cmsg_send: %d", ((char*)cmsg)[i]);
+        //    printk(KERN_NOTICE "\n");
+#endif
+        memcpy(ppId, (USER_P_UINT32)CMSG_DATA(cmsg), sizeof(USER_P_UINT32));
+#ifdef ABPS_DEBUG
+        printk(KERN_NOTICE "udp_cmsg_send: pId %p\n", *ppId);
+        *pneedId=1;
+        return 0;
+#endif
+    }
+    return 0;
+}
+
+
 int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 		size_t len)
 {
@@ -894,6 +939,12 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	struct sk_buff *skb;
 	struct ip_options_data opt_copy;
 
+    /* ABPS Gab */
+    
+    USER_P_UINT32 pId = NULL;
+    
+    uint32_t needId = 0;
+    
 	if (len > 0xFFFF)
 		return -EMSGSIZE;
 
@@ -960,6 +1011,20 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	ipc.oif = sk->sk_bound_dev_if;
 
 	sock_tx_timestamp(sk, &ipc.tx_flags);
+    
+    /* ABPS Gab */
+    if (msg->msg_controllen)
+    {
+        err = udp_cmsg_send(msg, &needId, &pId);
+        if (err)
+        {
+            printk(KERN_NOTICE "udp_cmsg_send return err \n");
+            return err;
+        }
+        printk(KERN_NOTICE "needId %d \n", needId);
+    }
+    /* end ABPS Gab*/
+    
 
 	if (msg->msg_controllen) {
 		err = ip_cmsg_send(sock_net(sk), msg, &ipc,
@@ -1092,6 +1157,27 @@ do_append_data:
 	release_sock(sk);
 
 out:
+    /* ABPS Gab */
+    /* Set identifier field in skb.
+     Need to to move on in ip_make_skb
+     */
+    if(needId)
+    {
+        if(skb != NULL)
+        {
+            int error = set_identifier_with_sk_buff(skb);
+            if(!error)
+            {
+                printk(KERN_NOTICE "ID setted in sk_buff with value :%u \n", ntohl(skb->sk_buff_identifier));
+                // need to set id in user space
+                put_user(ntohl(skb->sk_buff_identifier), pId);
+            }
+        }
+        else
+        {
+            printk(KERN_NOTICE "SKB is null in udp_sendmsg \n");
+        }
+    }
 	ip_rt_put(rt);
 	if (free)
 		kfree(ipc.opt);

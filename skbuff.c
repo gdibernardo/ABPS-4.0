@@ -4453,3 +4453,36 @@ failure:
 	return NULL;
 }
 EXPORT_SYMBOL(alloc_skb_with_frags);
+
+
+/* ABPS Gab */
+
+static __32 global_identifier = 0;
+
+__32 get_global_identifier()
+{
+    static DEFINE_SPINLOCK(lock);
+    
+    __32 identifier;
+    
+    unsigned long flags;
+    
+    spin_lock_irqsave(&lock, flags);
+    identifier = global_identifier++;
+    spin_unlock_irqrestore(&lock, flags);
+    
+    return identifier;
+}
+
+int set_identifier_with_sk_buff(struct sk_buff *skb)
+{
+    if(skb != NULL)
+    {
+        skb->sk_buff_identifier = htonl(get_global_identifier());
+        return 0;
+    }
+    return 1;
+}
+
+
+EXPORT_SYMBOL(set_identifier_with_sk_buff);

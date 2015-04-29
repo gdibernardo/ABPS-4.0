@@ -551,7 +551,11 @@ struct sk_buff {
 	__u16			mac_len,
 				hdr_len;
 
-	/* Following fields are _not_ copied in __copy_skb_header()
+    /* ABPS Gab */
+    __u32 sk_buff_identifier;
+	
+    
+    /* Following fields are _not_ copied in __copy_skb_header()
 	 * Note that queue_mapping is here mostly to fill a hole.
 	 */
 	kmemcheck_bitfield_begin(flags1);
