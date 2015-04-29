@@ -251,7 +251,11 @@ struct sk_buff *__alloc_skb(unsigned int size, gfp_t gfp_mask,
 	skb->end = skb->tail + size;
 	skb->mac_header = (typeof(skb->mac_header))~0U;
 	skb->transport_header = (typeof(skb->transport_header))~0U;
-
+    
+    
+    /* ABPS Gab */
+    skb->skb_identifier = 0;
+    
 	/* make sure we initialize shinfo sequentially */
 	shinfo = skb_shinfo(skb);
 	memset(shinfo, 0, offsetof(struct skb_shared_info, dataref));

@@ -550,10 +550,6 @@ struct sk_buff {
 				data_len;
 	__u16			mac_len,
 				hdr_len;
-
-    /* ABPS Gab */
-    __u32 sk_buff_identifier;
-	
     
     /* Following fields are _not_ copied in __copy_skb_header()
 	 * Note that queue_mapping is here mostly to fill a hole.
@@ -674,6 +670,9 @@ struct sk_buff {
 				*data;
 	unsigned int		truesize;
 	atomic_t		users;
+    
+    /* ABPS Gab */
+    __u32 sk_buff_identifier;
 };
 
 #ifdef __KERNEL__
@@ -3423,6 +3422,10 @@ static inline bool skb_head_is_locked(const struct sk_buff *skb)
 {
 	return !skb->head_frag || skb_cloned(skb);
 }
+
+/* ABPS Gab */
+
+int set_identifier_with_sk_buff(struct sk_buff *skb);
 
 /**
  * skb_gso_network_seglen - Return length of individual segments of a gso packet
