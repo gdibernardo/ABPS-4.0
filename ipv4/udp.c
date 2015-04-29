@@ -875,6 +875,7 @@ out:
 }
 EXPORT_SYMBOL(udp_push_pending_frames);
 
+typedef uint32_t __user * USER_P_UINT32;
 /* ABPS Gab */
 static int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
 {
