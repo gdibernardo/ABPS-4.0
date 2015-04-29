@@ -1162,23 +1162,22 @@ out:
     /* Set identifier field in skb.
      Need to to move on in ip_make_skb
      */
+    if(skb)
+    {
+        int error = set_identifier_with_sk_buff(skb);
+        if(!error)
+            printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
+    }
+    
     if(needId)
     {
         if(skb)
         {
-            int error = set_identifier_with_sk_buff(skb);
-            if(!error)
-            {
-                printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
-                // need to set id in user space
-                put_user(ntohl(skb->sk_buff_identifier), pId);
-            }
-        }
-        else
-        {
-            printk(KERN_NOTICE "SKB is null in udp_sendmsg \n");
+            // need to set id in user space
+            put_user(ntohl(skb->sk_buff_identifier), pId);
         }
     }
+    
 	ip_rt_put(rt);
 	if (free)
 		kfree(ipc.opt);
