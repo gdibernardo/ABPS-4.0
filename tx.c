@@ -852,19 +852,35 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
 	*seq = (*seq + 0x10) & IEEE80211_SCTL_SEQ;
     
     /* ABPS Gab */
-    if(required_ip_local_error_notify(tx->skb->sk))
+    if(tx->skb)
     {
-        printk(KERN_NOTICE "Local error notify required in sequence number. \n");
-        int returnValue = ABPS_extract_pkt_info_with_identifier(hdr,tx->skb->sk_buff_identifier);
-        if(returnValue)
+        printk(KERN_NOTICE "skb not null in sending tx more about its identifier %d \n", tx->skb->sk_buff_identifier);
+        if(tx->skb->sk)
         {
-            printk(KERN_NOTICE "Added in ABPS list \n");
+            printk(KERN_NOTICE "skb sk is NOT null in sending tx more about its identifier %d \n", tx->skb->sk_buff_identifier);
         }
         else
         {
-            printk(KERN_NOTICE "Something went wrong adding element in ABPS list");
+            printk(KERN_NOTICE "skb sk is null in sending tx more about its identifier %d \n", tx->skb->sk_buff_identifier);
         }
     }
+    else
+    {
+        printk(KERN_NOTICE "skb is null identifier %d",tx->skb->sk_buff_identifier);
+    }
+//    if(required_ip_local_error_notify(tx->skb->sk))
+//    {
+//        printk(KERN_NOTICE "Local error notify required in sequence number. \n");
+//        int returnValue = ABPS_extract_pkt_info_with_identifier(hdr,tx->skb->sk_buff_identifier);
+//        if(returnValue)
+//        {
+//            printk(KERN_NOTICE "Added in ABPS list \n");
+//        }
+//        else
+//        {
+//            printk(KERN_NOTICE "Something went wrong adding element in ABPS list");
+//        }
+//    }
 
 	return TX_CONTINUE;
 }

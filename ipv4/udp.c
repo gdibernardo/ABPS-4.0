@@ -1164,12 +1164,12 @@ out:
      */
     if(needId)
     {
-        if(skb != NULL)
+        if(skb)
         {
             int error = set_identifier_with_sk_buff(skb);
             if(!error)
             {
-                printk(KERN_NOTICE "ID setted in sk_buff with value :%u \n", ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
                 // need to set id in user space
                 put_user(ntohl(skb->sk_buff_identifier), pId);
             }

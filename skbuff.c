@@ -4480,7 +4480,7 @@ uint32_t get_global_identifier(void)
 
 int set_identifier_with_sk_buff(struct sk_buff *skb)
 {
-    if(skb != NULL)
+    if(skb)
     {
         skb->sk_buff_identifier = htonl(get_global_identifier());
         return 0;
