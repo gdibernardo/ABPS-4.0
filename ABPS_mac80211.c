@@ -603,43 +603,40 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
     packet_info = ABPS_info_search(hdr->seq_ctrl);
     printk(KERN_NOTICE "Just performed ABPS info search in ABPS_info_response \n");
     
-//	if (packet_info != 0)
-//    {
-//		packet_info->datagram_info.acked = acked;
-//		packet_info->datagram_info.retry_count = retry_count;
-//
-//		packet_info->rx_time = CURRENT_TIME;
-//		/* questa chiamata a funzione required ... potrebbe essere eliminata
-//		 * perche' viene fatta gia' fuori prima
-//		 */
-//		if (required_ip_local_error_notify(sk)) {
-//			/* mando la notifica al socket */
-//			/*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
-//			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
-//			invece mai propagato fino all'utente */
-//			ip_local_error_notify(sk,
-//						success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
-//						-1	/* __be32 daddr */ ,
-//						-1	/* __be16 dport */ ,
-//						-1	/* __be32 saddr */ ,
-//						packet_info->datagram_info.udp_sport /* __be16 sport */ ,
-//						packet_info->datagram_info.ip_id,
-//						packet_info->datagram_info.fragment_data_len,
-//						packet_info->datagram_info.fragment_offset,
-//						packet_info->datagram_info.more_fragment );
-//		} else {
-//			;
-//#ifdef ABPS_DEBUG
-//			printk(KERN_DEBUG "*** ABPS *** ABPS_info_response:"
-//					" no required notify\n");
-//#endif
-//		}
-//#ifdef ABPS_DEBUG
-//		ABPS_info_take_response(packet_info);
-//#endif
-//		ABPS_info_remove(packet_info);
-//		return(1);
-//	}
+	if (packet_info != 0)
+    {
+		packet_info->datagram_info.acked = acked;
+		packet_info->datagram_info.retry_count = retry_count;
+
+		packet_info->rx_time = CURRENT_TIME;
+		/* questa chiamata a funzione required ... potrebbe essere eliminata
+		 * perche' viene fatta gia' fuori prima
+		 */
+			/* mando la notifica al socket */
+			/*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
+			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
+			invece mai propagato fino all'utente */
+        printk("ready to perform ip_local_error_notify \n");
+        
+        ip_local_error_notify(sk,
+                              success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
+                              -1	/* __be32 daddr */ ,
+                              -1	/* __be16 dport */ ,
+                              -1	/* __be32 saddr */ ,
+                              packet_info->datagram_info.udp_sport /* __be16 sport */ ,
+                              packet_info->datagram_info.ip_id,
+                              packet_info->datagram_info.fragment_data_len,
+                              packet_info->datagram_info.fragment_offset,
+                              packet_info->datagram_info.more_fragment );
+        
+        printk(KERN_NOTICE "ip_local_error notify performed!. \n");
+
+#ifdef ABPS_DEBUG
+		ABPS_info_take_response(packet_info);
+#endif
+		ABPS_info_remove(packet_info);
+		return(1);
+	}
 	return(0);
 }
 

@@ -1287,7 +1287,7 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_code = more_fragment; /* more fragment */
     serr->ee.ee_pad = 0;
-    printk(KERN_NOTICE "prepare for sending id %u %u",IPdgramId, ntohl(IPdgramId));
+    printk(KERN_NOTICE "prepare for sending id %d %d",IPdgramId, ntohl(IPdgramId));
     serr->ee.ee_info = IPdgramId;  /* id datagram */
     
     /*
