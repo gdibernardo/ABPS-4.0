@@ -925,42 +925,42 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
 			local->dot11FailedCount++;
 	}
 
-    /* ABPS Gab */
-//    if (skb)
-//    {
-//        struct sock *sk=skb->sk;
-//        
-//        /* *** ABPS ***
-//         * this line should be modified when the data pass through the
-//         * library functions to module ABPS
-//         */
-//        if (required_ip_local_error_notify(sk))
-//        {
-//            struct ieee80211_hdr *hdr = NULL;
-//            int ret;
-//            struct net_device *dev = skb->dev;
-//            if(dev)
-//            {
-//                sdata = IEEE80211_DEV_TO_SUB_IF(dev);
-//                if(sdata)
-//                {
-//                    hdr=(struct ieee80211_hdr *)skb->data;
-//                    ret=ABPS_info_response(sk, hw, hdr, info, sdata);
-//                    printk(KERN_DEBUG "*** ABPS *** ieee80211_tx_status:"
-//                           " ABPS_info_response value %d \n", ret);
-//                }
-//                else
-//                {
-//                    printk(KERN_NOTICE "sdata is null in in tx_status");
-//                }
-//                sdata = NULL;
-//            }
-//            else
-//            {
-//                printk(KERN_NOTICE "dev field is null in skb in tx_status");
-//            }
-//        }
-//    }
+     ABPS Gab 
+    if (skb)
+    {
+        struct sock *sk=skb->sk;
+        
+        /* *** ABPS ***
+         * this line should be modified when the data pass through the
+         * library functions to module ABPS
+         */
+        if (required_ip_local_error_notify(sk))
+        {
+            struct ieee80211_hdr *hdr = NULL;
+            int ret;
+            struct net_device *dev = skb->dev;
+            if(dev)
+            {
+                sdata = IEEE80211_DEV_TO_SUB_IF(dev);
+                if(sdata)
+                {
+                    hdr=(struct ieee80211_hdr *)skb->data;
+                    ret=ABPS_info_response(sk, hw, hdr, info, sdata);
+                    printk(KERN_DEBUG "*** ABPS *** ieee80211_tx_status:"
+                           " ABPS_info_response value %d \n", ret);
+                }
+                else
+                {
+                    printk(KERN_NOTICE "sdata is null in in tx_status");
+                }
+                sdata = NULL;
+            }
+            else
+            {
+                printk(KERN_NOTICE "dev field is null in skb in tx_status");
+            }
+        }
+    }
 
     
 	if (ieee80211_is_nullfunc(fc) && ieee80211_has_pm(fc) &&

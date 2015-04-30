@@ -533,106 +533,107 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 	struct ieee80211_local *local = hw_to_local(hw);
 	struct ABPS_info *packet_info;
 	int i;
-	/* se era richiesto l'ack */
-	if (!(info->flags & IEEE80211_TX_CTL_NO_ACK)) {
-		/* e l'ack e' arrivato */
-		if (info->flags & IEEE80211_TX_STAT_ACK)
-			success=1;
-	}
-	/* VEDERE SE RIMETTERE A POSTO
-	else {
-		if (!(info->excessive_retries))
-			success=2;
-	}
-	*/
-
-	if (info->flags & IEEE80211_TX_CTL_NO_ACK) {
-		/* ack not required */
-		acked= ACK_NOT_REQ;
-	}
-	else if (info->flags & IEEE80211_TX_STAT_TX_FILTERED) {
-		/* filtered frame */
-		acked= ACK_FILTERED;
-	}
-	else if (info->flags & IEEE80211_TX_STAT_ACK) {
-		/* frame acked */
-		struct sta_info *sta;
-		acked = ACK;
-
-		retry_count = 0;
-		/* modifiche per kernel da 2.6.27 in poi */
-		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
-			/* the HW cannot have attempted that rate */
-			if (i >= hw->max_rates) { ; }
-			else
-				retry_count += info->status.rates[i].count;
-		}
-		if (retry_count > 0)
-			retry_count--;
-
-		sta = sta_info_get(sdata, hdr->addr1);
-		if (sta)
-			filtered_count = sta->tx_filtered_count;
-		else
-			filtered_count = ACK_ERROR ;
-	}
-	else {
-		/* frame not acked, ack not recieved */
-		struct sta_info *sta;
-		acked = ACK_NOT;
-
-		retry_count = 0;
-		/* modifiche per kernel da 2.6.27 in poi */
-		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
-			/* the HW cannot have attempted that rate */
-			if (i >= hw->max_rates) { ; }
-			else
-				retry_count += info->status.rates[i].count;
-		}
-		if (retry_count > 0)
-			retry_count--;
-
-		sta = sta_info_get(sdata, hdr->addr1);
-		if (sta) filtered_count = sta->tx_filtered_count;
-		else filtered_count = ACK_ERROR;
-	}
-	packet_info = ABPS_info_search(hdr->seq_ctrl);
-	if (packet_info != 0) {
-		packet_info->datagram_info.acked = acked;
-		packet_info->datagram_info.retry_count = retry_count;
-
-		packet_info->rx_time = CURRENT_TIME;
-		/* questa chiamata a funzione required ... potrebbe essere eliminata
-		 * perche' viene fatta gia' fuori prima
-		 */
-		if (required_ip_local_error_notify(sk)) {
-			/* mando la notifica al socket */
-			/*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
-			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
-			invece mai propagato fino all'utente */
-			ip_local_error_notify(sk,
-						success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
-						-1	/* __be32 daddr */ ,
-						-1	/* __be16 dport */ ,
-						-1	/* __be32 saddr */ ,
-						packet_info->datagram_info.udp_sport /* __be16 sport */ ,
-						packet_info->datagram_info.ip_id,
-						packet_info->datagram_info.fragment_data_len,
-						packet_info->datagram_info.fragment_offset,
-						packet_info->datagram_info.more_fragment );
-		} else {
-			;
-#ifdef ABPS_DEBUG
-			printk(KERN_DEBUG "*** ABPS *** ABPS_info_response:"
-					" no required notify\n");
-#endif
-		}
-#ifdef ABPS_DEBUG
-		ABPS_info_take_response(packet_info);
-#endif
-		ABPS_info_remove(packet_info);
-		return(1);
-	}
+    printk(KERN_NOTICE "ABPS_info_response invoked \n");
+//	/* se era richiesto l'ack */
+//	if (!(info->flags & IEEE80211_TX_CTL_NO_ACK)) {
+//		/* e l'ack e' arrivato */
+//		if (info->flags & IEEE80211_TX_STAT_ACK)
+//			success=1;
+//	}
+//	/* VEDERE SE RIMETTERE A POSTO
+//	else {
+//		if (!(info->excessive_retries))
+//			success=2;
+//	}
+//	*/
+//
+//	if (info->flags & IEEE80211_TX_CTL_NO_ACK) {
+//		/* ack not required */
+//		acked= ACK_NOT_REQ;
+//	}
+//	else if (info->flags & IEEE80211_TX_STAT_TX_FILTERED) {
+//		/* filtered frame */
+//		acked= ACK_FILTERED;
+//	}
+//	else if (info->flags & IEEE80211_TX_STAT_ACK) {
+//		/* frame acked */
+//		struct sta_info *sta;
+//		acked = ACK;
+//
+//		retry_count = 0;
+//		/* modifiche per kernel da 2.6.27 in poi */
+//		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
+//			/* the HW cannot have attempted that rate */
+//			if (i >= hw->max_rates) { ; }
+//			else
+//				retry_count += info->status.rates[i].count;
+//		}
+//		if (retry_count > 0)
+//			retry_count--;
+//
+//		sta = sta_info_get(sdata, hdr->addr1);
+//		if (sta)
+//			filtered_count = sta->tx_filtered_count;
+//		else
+//			filtered_count = ACK_ERROR ;
+//	}
+//	else {
+//		/* frame not acked, ack not recieved */
+//		struct sta_info *sta;
+//		acked = ACK_NOT;
+//
+//		retry_count = 0;
+//		/* modifiche per kernel da 2.6.27 in poi */
+//		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
+//			/* the HW cannot have attempted that rate */
+//			if (i >= hw->max_rates) { ; }
+//			else
+//				retry_count += info->status.rates[i].count;
+//		}
+//		if (retry_count > 0)
+//			retry_count--;
+//
+//		sta = sta_info_get(sdata, hdr->addr1);
+//		if (sta) filtered_count = sta->tx_filtered_count;
+//		else filtered_count = ACK_ERROR;
+//	}
+//	packet_info = ABPS_info_search(hdr->seq_ctrl);
+//	if (packet_info != 0) {
+//		packet_info->datagram_info.acked = acked;
+//		packet_info->datagram_info.retry_count = retry_count;
+//
+//		packet_info->rx_time = CURRENT_TIME;
+//		/* questa chiamata a funzione required ... potrebbe essere eliminata
+//		 * perche' viene fatta gia' fuori prima
+//		 */
+//		if (required_ip_local_error_notify(sk)) {
+//			/* mando la notifica al socket */
+//			/*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
+//			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
+//			invece mai propagato fino all'utente */
+//			ip_local_error_notify(sk,
+//						success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
+//						-1	/* __be32 daddr */ ,
+//						-1	/* __be16 dport */ ,
+//						-1	/* __be32 saddr */ ,
+//						packet_info->datagram_info.udp_sport /* __be16 sport */ ,
+//						packet_info->datagram_info.ip_id,
+//						packet_info->datagram_info.fragment_data_len,
+//						packet_info->datagram_info.fragment_offset,
+//						packet_info->datagram_info.more_fragment );
+//		} else {
+//			;
+//#ifdef ABPS_DEBUG
+//			printk(KERN_DEBUG "*** ABPS *** ABPS_info_response:"
+//					" no required notify\n");
+//#endif
+//		}
+//#ifdef ABPS_DEBUG
+//		ABPS_info_take_response(packet_info);
+//#endif
+//		ABPS_info_remove(packet_info);
+//		return(1);
+//	}
 	return(0);
 }
 
