@@ -925,7 +925,7 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
 			local->dot11FailedCount++;
 	}
 
-     ABPS Gab 
+    /* ABPS Gab */
     if (skb)
     {
         struct sock *sk=skb->sk;
