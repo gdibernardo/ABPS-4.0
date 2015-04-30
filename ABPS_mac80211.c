@@ -382,7 +382,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             break;
             return 0;
     }
-    
+    printk(KERN_NOTICE "ready to perform some allocs in ABPS_extract_pkt_info_with_identifier \n" );
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
     /*
@@ -413,6 +413,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
         int ris;
         IPdatagram = ((u8*)hdr4) + hdrlen + 8;
         flen = sizeof(struct iphdr) + sizeof(struct udphdr);
+        printk(KERN_NOTICE "before invoking get_udp_info \n");
         ris = get_udp_info(IPdatagram, flen, &(p_IPDGInfo->saddr),
                            &(p_IPDGInfo->daddr), &(p_IPDGInfo->sport),
                            &(p_IPDGInfo->dport), &(p_IPDGInfo->ipdgramid),
@@ -424,7 +425,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             /* set the fields of the ABPS_info that will be put in the
              * ABPS_info list*/
             packet_info->datagram_info.ip_id =  identifier;
-            printk(KERN_DEBUG "ABPS setted id in extract %u with frame identifier %s or %d \n", ntohl(identifier), packet_info->id, packet_info->id);
+            printk(KERN_DEBUG "ABPS setted id in extract %d with frame identifier %d \n", ntohl(identifier), packet_info->id);
             /* maybe ntohs, not sure */
             packet_info->datagram_info.udp_sport = p_IPDGInfo->sport;
             packet_info->datagram_info.fragment_data_len = p_IPDGInfo->fragment_data_len;
