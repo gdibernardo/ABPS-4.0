@@ -534,71 +534,75 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 	struct ABPS_info *packet_info;
 	int i;
     printk(KERN_NOTICE "ABPS_info_response invoked \n");
-//	/* se era richiesto l'ack */
-//	if (!(info->flags & IEEE80211_TX_CTL_NO_ACK)) {
-//		/* e l'ack e' arrivato */
-//		if (info->flags & IEEE80211_TX_STAT_ACK)
-//			success=1;
-//	}
-//	/* VEDERE SE RIMETTERE A POSTO
-//	else {
-//		if (!(info->excessive_retries))
-//			success=2;
-//	}
-//	*/
-//
-//	if (info->flags & IEEE80211_TX_CTL_NO_ACK) {
-//		/* ack not required */
-//		acked= ACK_NOT_REQ;
-//	}
-//	else if (info->flags & IEEE80211_TX_STAT_TX_FILTERED) {
-//		/* filtered frame */
-//		acked= ACK_FILTERED;
-//	}
-//	else if (info->flags & IEEE80211_TX_STAT_ACK) {
-//		/* frame acked */
-//		struct sta_info *sta;
-//		acked = ACK;
-//
-//		retry_count = 0;
-//		/* modifiche per kernel da 2.6.27 in poi */
-//		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
-//			/* the HW cannot have attempted that rate */
-//			if (i >= hw->max_rates) { ; }
-//			else
-//				retry_count += info->status.rates[i].count;
-//		}
-//		if (retry_count > 0)
-//			retry_count--;
-//
-//		sta = sta_info_get(sdata, hdr->addr1);
-//		if (sta)
-//			filtered_count = sta->tx_filtered_count;
-//		else
-//			filtered_count = ACK_ERROR ;
-//	}
-//	else {
-//		/* frame not acked, ack not recieved */
-//		struct sta_info *sta;
-//		acked = ACK_NOT;
-//
-//		retry_count = 0;
-//		/* modifiche per kernel da 2.6.27 in poi */
-//		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
-//			/* the HW cannot have attempted that rate */
-//			if (i >= hw->max_rates) { ; }
-//			else
-//				retry_count += info->status.rates[i].count;
-//		}
-//		if (retry_count > 0)
-//			retry_count--;
-//
-//		sta = sta_info_get(sdata, hdr->addr1);
-//		if (sta) filtered_count = sta->tx_filtered_count;
-//		else filtered_count = ACK_ERROR;
-//	}
-//	packet_info = ABPS_info_search(hdr->seq_ctrl);
-//	if (packet_info != 0) {
+	/* se era richiesto l'ack */
+    if (!(info->flags & IEEE80211_TX_CTL_NO_ACK)) {
+		/* e l'ack e' arrivato */
+		if (info->flags & IEEE80211_TX_STAT_ACK)
+			success=1;
+	}
+	/* VEDERE SE RIMETTERE A POSTO
+	else {
+		if (!(info->excessive_retries))
+			success=2;
+	}
+	*/
+
+	if (info->flags & IEEE80211_TX_CTL_NO_ACK) {
+		/* ack not required */
+		acked= ACK_NOT_REQ;
+	}
+	else if (info->flags & IEEE80211_TX_STAT_TX_FILTERED) {
+		/* filtered frame */
+		acked= ACK_FILTERED;
+	}
+	else if (info->flags & IEEE80211_TX_STAT_ACK)
+    {
+		/* frame acked */
+		struct sta_info *sta;
+		acked = ACK;
+
+		retry_count = 0;
+		/* modifiche per kernel da 2.6.27 in poi */
+		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
+			/* the HW cannot have attempted that rate */
+			if (i >= hw->max_rates) { ; }
+			else
+				retry_count += info->status.rates[i].count;
+		}
+		if (retry_count > 0)
+			retry_count--;
+
+		sta = sta_info_get(sdata, hdr->addr1);
+		if (sta)
+			filtered_count = sta->tx_filtered_count;
+		else
+			filtered_count = ACK_ERROR ;
+	}
+	else {
+		/* frame not acked, ack not recieved */
+		struct sta_info *sta;
+		acked = ACK_NOT;
+
+		retry_count = 0;
+		/* modifiche per kernel da 2.6.27 in poi */
+		for (i = 0; i < IEEE80211_TX_MAX_RATES; i++) {
+			/* the HW cannot have attempted that rate */
+			if (i >= hw->max_rates) { ; }
+			else
+				retry_count += info->status.rates[i].count;
+		}
+		if (retry_count > 0)
+			retry_count--;
+
+		sta = sta_info_get(sdata, hdr->addr1);
+		if (sta) filtered_count = sta->tx_filtered_count;
+		else filtered_count = ACK_ERROR;
+	}
+    printk(KERN_NOTICE "Ready to perform ABPS info search! in ABPS_info_response \n");
+
+//    packet_info = ABPS_info_search(hdr->seq_ctrl);
+//	if (packet_info != 0)
+//    {
 //		packet_info->datagram_info.acked = acked;
 //		packet_info->datagram_info.retry_count = retry_count;
 //
