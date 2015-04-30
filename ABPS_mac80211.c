@@ -598,9 +598,11 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 		if (sta) filtered_count = sta->tx_filtered_count;
 		else filtered_count = ACK_ERROR;
 	}
-    printk(KERN_NOTICE "Ready to perform ABPS info search! in ABPS_info_response \n");
+    printk(KERN_NOTICE "Ready to perform ABPS info search in ABPS_info_response \n");
 
-//    packet_info = ABPS_info_search(hdr->seq_ctrl);
+    packet_info = ABPS_info_search(hdr->seq_ctrl);
+    printk(KERN_NOTICE "Just performed ABPS info search in ABPS_info_response \n");
+    
 //	if (packet_info != 0)
 //    {
 //		packet_info->datagram_info.acked = acked;

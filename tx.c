@@ -874,7 +874,7 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
         int returnValue = ABPS_extract_pkt_info_with_identifier(hdr,tx->skb->sk_buff_identifier);
         if(returnValue)
         {
-            printk(KERN_NOTICE "Added in ABPS list with identifier %d \n",tx->skb->sk_buff_identifier);
+            printk(KERN_NOTICE "Added in ABPS list with identifier %d \n",ntohl(tx->skb->sk_buff_identifier));
         }
         else
         {
