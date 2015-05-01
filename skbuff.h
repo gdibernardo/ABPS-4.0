@@ -526,9 +526,6 @@ struct sk_buff {
 	};
 	struct sock		*sk;
 	struct net_device	*dev;
-
-    /* ABPS Gab */
-    uint32_t sk_buff_identifier;
     
 	/*
 	 * This is the control buffer. It is free to use for every
@@ -665,6 +662,9 @@ struct sk_buff {
 	/* private: */
 	__u32			headers_end[0];
 	/* public: */
+    
+    /* ABPS Gab */
+    uint32_t sk_buff_identifier;
 
 	/* These elements must be at the end, see alloc_skb() for details.  */
 	sk_buff_data_t		tail;
