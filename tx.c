@@ -1178,6 +1178,8 @@ ieee80211_tx_prepare(struct ieee80211_sub_if_data *sdata,
 		     struct ieee80211_tx_data *tx,
 		     struct sk_buff *skb)
 {
+    printk (KERN_NOTICE "Preparing tx and skb identifier is %d", ntohl(skb->sk_buff_identifier));
+    
 	struct ieee80211_local *local = sdata->local;
 	struct ieee80211_hdr *hdr;
 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
