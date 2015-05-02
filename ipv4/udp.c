@@ -852,8 +852,10 @@ send:
 }
 
 
+typedef uint32_t __user * USER_P_UINT32;
+
 /* ABPS Gab */
-int udp_push_pending_frames_with_request_of_identifier(struct sock *sk,uint32_t request_of_identifier)
+int udp_push_pending_frames_with_request_of_identifier_and_user_address(struct sock *sk,uint32_t request_of_identifier,USER_P_UINT32 user_address)
 {
     struct udp_sock  *up = udp_sk(sk);
     struct inet_sock *inet = inet_sk(sk);
@@ -876,7 +878,7 @@ int udp_push_pending_frames_with_request_of_identifier(struct sock *sk,uint32_t 
     if(request_of_identifier)
     {
         // need to set id in user space
-        put_user(ntohl(skb->sk_buff_identifier), pId);
+        put_user(ntohl(skb->sk_buff_identifier), user_address);
     }
 
     
@@ -887,7 +889,7 @@ out:
     up->pending = 0;
     return err;
 }
-EXPORT_SYMBOL(udp_push_pending_frames_with_request_of_identifier);
+EXPORT_SYMBOL(udp_push_pending_frames_with_request_of_identifier_and_user_address);
 
 /*
  * Push out all pending data as one UDP datagram. Socket is locked.
@@ -913,7 +915,6 @@ out:
 }
 EXPORT_SYMBOL(udp_push_pending_frames);
 
-typedef uint32_t __user * USER_P_UINT32;
 /* ABPS Gab */
 static int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
 {
@@ -1196,7 +1197,7 @@ do_append_data:
         /*
             err = udp_push_pending_frames(sk);
         */
-        err = udp_push_pending_frames_with_request_of_identifier(sk,needId);
+        err = udp_push_pending_frames_with_request_of_identifier_and_user_address(sk,needId,pId);
     }
 	else if (unlikely(skb_queue_empty(&sk->sk_write_queue)))
 		up->pending = 0;
