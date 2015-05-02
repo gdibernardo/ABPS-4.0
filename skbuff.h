@@ -665,8 +665,8 @@ struct sk_buff {
     
     /* ABPS Gab */
     uint32_t sk_buff_identifier;
-
-	/* These elements must be at the end, see alloc_skb() for details.  */
+    
+  	/* These elements must be at the end, see alloc_skb() for details.  */
 	sk_buff_data_t		tail;
 	sk_buff_data_t		end;
 	unsigned char		*head,
