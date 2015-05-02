@@ -663,9 +663,6 @@ struct sk_buff {
 	__u32			headers_end[0];
 	/* public: */
     
-    /* ABPS Gab */
-    uint32_t sk_buff_identifier;
-    
   	/* These elements must be at the end, see alloc_skb() for details.  */
 	sk_buff_data_t		tail;
 	sk_buff_data_t		end;
@@ -673,6 +670,9 @@ struct sk_buff {
 				*data;
 	unsigned int		truesize;
 	atomic_t		users;
+    
+    /* ABPS Gab */
+    uint32_t sk_buff_identifier;
 };
 
 #ifdef __KERNEL__
