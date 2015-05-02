@@ -1014,6 +1014,7 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	sock_tx_timestamp(sk, &ipc.tx_flags);
     
     /* ABPS Gab */
+    
     if (msg->msg_controllen)
     {
         err = udp_cmsg_send(msg, &needId, &pId);
@@ -1152,32 +1153,29 @@ do_append_data:
 	if (err)
 		udp_flush_pending_frames(sk);
 	else if (!corkreq)
-		err = udp_push_pending_frames(sk);
+    {
+        /* ABPS Gab */
+        /* Set identifier field in skb.
+         Need to to move on in ip_make_skb
+         */
+        int error = set_identifier_with_sk_buff(skb);
+        if(!error)
+            printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
+        if(needId)
+        {
+            if(skb)
+            {
+                // need to set id in user space
+                put_user(ntohl(skb->sk_buff_identifier), pId);
+            }
+        }
+        err = udp_push_pending_frames(sk);
+    }
 	else if (unlikely(skb_queue_empty(&sk->sk_write_queue)))
 		up->pending = 0;
 	release_sock(sk);
 
 out:
-    /* ABPS Gab */
-    /* Set identifier field in skb.
-     Need to to move on in ip_make_skb
-     */
-    if(skb)
-    {
-        int error = set_identifier_with_sk_buff(skb);
-        if(!error)
-            printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
-    }
-    
-    if(needId)
-    {
-        if(skb)
-        {
-            // need to set id in user space
-            put_user(ntohl(skb->sk_buff_identifier), pId);
-        }
-    }
-    
 	ip_rt_put(rt);
 	if (free)
 		kfree(ipc.opt);
