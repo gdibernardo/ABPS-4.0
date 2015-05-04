@@ -962,6 +962,9 @@ static int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *p
 int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 		size_t len)
 {
+    
+    printk(KERN_NOTICE "sendmsg INVOKED!!!!!! \n");
+    
 	struct inet_sock *inet = inet_sk(sk);
 	struct udp_sock *up = udp_sk(sk);
 	struct flowi4 fl4_stack;
@@ -1156,6 +1159,7 @@ back_from_confirm:
 
 	/* Lockless fast path for the non-corking case. */
 	if (!corkreq) {
+        printk(KERN_NOTICE "non corking case");
 		skb = ip_make_skb(sk, fl4, getfrag, msg, ulen,
 				  sizeof(struct udphdr), &ipc, &rt,
 				  msg->msg_flags);
@@ -1198,6 +1202,7 @@ do_append_data:
         /*
             err = udp_push_pending_frames(sk);
         */
+        printk(KERN_NOTICE "pending frames \n");
         err = udp_push_pending_frames_with_request_of_identifier_and_user_address(sk,needId,pId);
     }
 	else if (unlikely(skb_queue_empty(&sk->sk_write_queue)))
