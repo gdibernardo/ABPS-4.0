@@ -920,13 +920,16 @@ EXPORT_SYMBOL(udp_push_pending_frames);
 static int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
 {
     printk(KERN_NOTICE "udp_cmsg_send invoked.");
+    
     struct cmsghdr *cmsg;
     *pneedId=0;
+    
     if(ppId==NULL)
     {
         printk(KERN_NOTICE "udp_cmsg_send: -EFAULT\n");
         return -EFAULT;
     }
+    
     for (cmsg=CMSG_FIRSTHDR(msg); cmsg; cmsg=CMSG_NXTHDR(msg,cmsg))
     {
 #ifdef ABPS_DEBUG
