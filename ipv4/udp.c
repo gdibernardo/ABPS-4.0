@@ -1218,7 +1218,7 @@ out:
     {
         printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d \n", ntohl(skb->sk_buff_identifier));
         // need to set id in user space
-        put_user(ntohl(skb->sk_buff_identifier), user_address);
+        put_user(ntohl(skb->sk_buff_identifier), pId);
     }
 	ip_rt_put(rt);
 	if (free)
