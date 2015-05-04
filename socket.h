@@ -81,6 +81,26 @@ struct cmsghdr {
         int		cmsg_type;	/* protocol-specific type */
 };
 
+
+
+/* ABPS Gab */
+#define ABPS_CMSG_TYPE 111
+
+
+typedef uint32_t __user * USER_P_UINT32;
+
+
+
+extern int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId);
+
+
+
+
+
+
+
+
+
 /*
  *	Ancillary data object information MACROS
  *	Table 5-14 of POSIX 1003.1g

@@ -132,6 +132,9 @@ static ssize_t sock_splice_read(struct file *file, loff_t *ppos,
 				struct pipe_inode_info *pipe, size_t len,
 				unsigned int flags);
 
+/* ABPS Gab */
+#define ABPS_DEBUG
+
 /*
  *	Socket files have a set of 'special' operations as well as the generic file ones. These don't appear
  *	in the operation structures but are done directly via the socketcall() multiplexor.
@@ -3380,3 +3383,50 @@ int kernel_sock_shutdown(struct socket *sock, enum sock_shutdown_cmd how)
 	return sock->ops->shutdown(sock, how);
 }
 EXPORT_SYMBOL(kernel_sock_shutdown);
+
+
+/* ABPS Gab */
+int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
+{
+    printk(KERN_NOTICE "udp_cmsg_send invoked.");
+    
+    struct cmsghdr *cmsg;
+    *pneedId=0;
+    
+    if(ppId==NULL)
+    {
+        printk(KERN_NOTICE "udp_cmsg_send: -EFAULT\n");
+        return -EFAULT;
+    }
+    
+    for (cmsg=CMSG_FIRSTHDR(msg); cmsg; cmsg=CMSG_NXTHDR(msg,cmsg))
+    {
+#ifdef ABPS_DEBUG
+        int i;
+#endif
+        if (!CMSG_OK(msg, cmsg))
+        {
+            printk(KERN_NOTICE "udp_cmsg_send: -EINVAL\n");
+            return -EINVAL;
+        }
+        if (cmsg->cmsg_level!=SOL_UDP)
+            continue;
+#ifdef ABPS_DEBUG
+        printk(KERN_NOTICE "cmsg_type %d len %d\n", cmsg->cmsg_type, cmsg->cmsg_len);
+#endif
+        
+#ifdef ABPS_DEBUG
+        //    for (i=0; i<cmsg->cmsg_len;i++)
+        //        printk(KERN_NOTICE "Printing cmgs data in udp_cmsg_send: %d", ((char*)cmsg)[i]);
+        //    printk(KERN_NOTICE "\n");
+#endif
+        memcpy(ppId, (USER_P_UINT32)CMSG_DATA(cmsg), sizeof(USER_P_UINT32));
+#ifdef ABPS_DEBUG
+        printk(KERN_NOTICE "udp_cmsg_send: pId %p\n", *ppId);
+        *pneedId=1;
+        return 0;
+#endif
+    }
+    return 0;
+}
+EXPORT_SYMBOL(udp_cmsg_send);
