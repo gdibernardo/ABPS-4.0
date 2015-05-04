@@ -862,7 +862,7 @@ static int __ip_append_data(struct sock *sk,
 	u32 tskey = 0;
 
 	skb = skb_peek_tail(queue);
-
+    printk(KERN_NOTICE "passing from here");
 	exthdrlen = !skb ? rt->dst.header_len : 0;
 	mtu = cork->fragsize;
 	if (cork->tx_flags & SKBTX_ANY_SW_TSTAMP &&
@@ -1415,8 +1415,9 @@ out:
 
 int ip_send_skb(struct net *net, struct sk_buff *skb)
 {
-	int err;
-
+    printk(KERN_NOTICE "ip_send_skb INVOKED");
+    int err;
+    
 	err = ip_local_out(skb);
 	if (err) {
 		if (err > 0)
