@@ -862,7 +862,9 @@ static int __ip_append_data(struct sock *sk,
 	u32 tskey = 0;
 
 	skb = skb_peek_tail(queue);
-    printk(KERN_NOTICE "passing from here");
+    int error = set_identifier_with_sk_buff(skb);
+    if(!error)
+        printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
 	exthdrlen = !skb ? rt->dst.header_len : 0;
 	mtu = cork->fragsize;
 	if (cork->tx_flags & SKBTX_ANY_SW_TSTAMP &&
