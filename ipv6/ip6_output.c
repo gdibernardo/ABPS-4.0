@@ -751,6 +751,7 @@ slow_path:
 		 */
         
         frag->sk_buff_identifier = skb->sk_buff_identifier;
+        /* ABPS Gab */
         printk(KERN_NOTICE "setted identifiers in fragment in IPv6 %d %d ", frag->sk_buff_identifier, skb->sk_buff_identifier);
 
 		ip6_copy_metadata(frag, skb);

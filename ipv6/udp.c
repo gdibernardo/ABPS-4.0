@@ -1124,6 +1124,10 @@ int udpv6_sendmsg(struct kiocb *iocb, struct sock *sk,
 	int connected = 0;
 	int is_udplite = IS_UDPLITE(sk);
 	int (*getfrag)(void *, char *, int, int, int, struct sk_buff *);
+    
+    USER_P_UINT32 pId = NULL;
+    
+    uint32_t needId = 0;
 
 	/* destination address check */
 	if (sin6) {
@@ -1243,6 +1247,20 @@ do_udp_sendmsg:
 		fl6.flowi6_oif = np->sticky_pktinfo.ipi6_ifindex;
 
 	fl6.flowi6_mark = sk->sk_mark;
+    
+    /* ABPS Gab */
+    
+    if (msg->msg_controllen)
+    {
+        err = udp_cmsg_send(msg, &needId, &pId);
+        if (err)
+        {
+            printk(KERN_NOTICE "udp_cmsg_send return err \n");
+            return err;
+        }
+        printk(KERN_NOTICE "needId %d \n", needId);
+    }
+    /* end ABPS Gab*/
 
 	if (msg->msg_controllen) {
 		opt = &opt_space;
@@ -1372,6 +1390,15 @@ release_dst:
 	}
 
 out:
+    /* ABPS Gab */
+    printk(KERN_NOTICE "prepare for exit from sendmsg in IPv6 \n");
+    if(needId)
+    {
+        printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d in IPv6 \n", ntohl(skb->sk_buff_identifier));
+        // need to set id in user space
+        put_user(ntohl(skb->sk_buff_identifier), pId);
+    }
+
 	dst_release(dst);
 	fl6_sock_release(flowlabel);
 	if (!err)
