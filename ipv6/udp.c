@@ -1125,6 +1125,7 @@ int udpv6_sendmsg(struct kiocb *iocb, struct sock *sk,
 	int is_udplite = IS_UDPLITE(sk);
 	int (*getfrag)(void *, char *, int, int, int, struct sk_buff *);
     
+    /* ABPS Gab */
     struct sk_buff *skb;
     
     USER_P_UINT32 pId = NULL;
