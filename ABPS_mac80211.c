@@ -377,12 +377,13 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     fc = le16_to_cpu(hdr->frame_control) ;
     stype = WLAN_FC_GET_STYPE(fc);
     
+    printk(KERN_NOTICE "prepare for get type!!");
     switch (WLAN_FC_GET_TYPE(fc)) {
         case IEEE80211_FTYPE_DATA:
             break;
             return 0;
     }
-    printk(KERN_NOTICE "ready to perform some allocs in ABPS_extract_pkt_info_with_identifier \n" );
+    printk(KERN_NOTICE "Not the case!!");
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
     /*
@@ -405,15 +406,16 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
         stype != IEEE80211_STYPE_DATA_CFACK &&
         stype != IEEE80211_STYPE_DATA_CFPOLL &&
         stype != IEEE80211_STYPE_DATA_CFACKPOLL)
+    {
+        printk(KERN_NOTICE "goto rx_dropped from stype");
         goto rx_dropped;
-    
+    }
     payload = ((u8*)(hdr4)) + hdrlen;
     ethertype = (payload[6] << 8) | payload[7];
     if (ethertype == ETH_P_IP) {
         int ris;
         IPdatagram = ((u8*)hdr4) + hdrlen + 8;
         flen = sizeof(struct iphdr) + sizeof(struct udphdr);
-        printk(KERN_NOTICE "before invoking get_udp_info \n");
         ris = get_udp_info(IPdatagram, flen, &(p_IPDGInfo->saddr),
                            &(p_IPDGInfo->daddr), &(p_IPDGInfo->sport),
                            &(p_IPDGInfo->dport), &(p_IPDGInfo->ipdgramid),
@@ -436,6 +438,10 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             return(1);
         }
         return(0);
+    }
+    else
+    {
+        printk(KERN_NOTICE "just not a simply ip protocol!!!");
     }
 rx_dropped:
     return 0;
