@@ -1396,6 +1396,12 @@ alloc_new_skb:
 			/*
 			 *	Fill in the control structures
 			 */
+            /* ABPS Gab */
+            int error = set_identifier_with_sk_buff(skb);
+            
+            if(!error)
+            printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
+            
 			skb->protocol = htons(ETH_P_IPV6);
 			skb->ip_summed = csummode;
 			skb->csum = 0;
