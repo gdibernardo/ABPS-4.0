@@ -399,7 +399,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     u8 *payload;
     u8 *IPdatagram;
     u16 ethertype;
-    int flen;
+    int flen, result_from_get_udp_info;
     IPdgramInfo *p_IPDGInfo;
     
     fc = le16_to_cpu(hdr->frame_control) ;
@@ -411,7 +411,6 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             break;
             return 0;
     }
-    printk(KERN_NOTICE "ready to perform some allocs in ABPS_extract_pkt_info_with_identifier \n" );
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
     /*
@@ -432,30 +431,26 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     
     stype &= ~IEEE80211_STYPE_QOS_DATA;
     
-    printk(KERN_NOTICE "prepare for some checks \n");
     if (stype != IEEE80211_STYPE_DATA &&
         stype != IEEE80211_STYPE_DATA_CFACK &&
         stype != IEEE80211_STYPE_DATA_CFPOLL &&
         stype != IEEE80211_STYPE_DATA_CFACKPOLL)
         goto rx_dropped;
     
-    printk(KERN_NOTICE "few checks \n");
     
     payload = ((u8*)(hdr4)) + hdrlen;
     ethertype = (payload[6] << 8) | payload[7];
     if (ethertype == ETH_P_IP) {
-        int ris;
         IPdatagram = ((u8*)hdr4) + hdrlen + 8;
         flen = sizeof(struct iphdr) + sizeof(struct udphdr);
-        printk(KERN_NOTICE "before invoking get_udp_info \n");
-        ris = get_udp_info(IPdatagram, flen, &(p_IPDGInfo->saddr),
+        result_from_get_udp_info = get_udp_info(IPdatagram, flen, &(p_IPDGInfo->saddr),
                            &(p_IPDGInfo->daddr), &(p_IPDGInfo->sport),
                            &(p_IPDGInfo->dport), &(p_IPDGInfo->ipdgramid),
                            &(p_IPDGInfo->fragment_data_len),
                            /* only data, not header */
                            &(p_IPDGInfo->fragment_offset),
                            &(p_IPDGInfo->more_fragment));
-        if (ris > 0) {
+        if (result_from_get_udp_info > 0) {
             /* set the fields of the ABPS_info that will be put in the
              * ABPS_info list*/
             packet_info->datagram_info.ip_id =  identifier;
@@ -477,14 +472,12 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
        if(ethertype == ETH_P_IPV6)
        {
            printk(KERN_NOTICE "IPv6 header \n");
-           int ris;
            IPdatagram = ((u8*)hdr4) + hdrlen + 8;
            flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);
-           printk(KERN_NOTICE "before invoking get_udp_info \n");
-           ris = ipv6_get_udp_info(IPdatagram,flen,&(p_IPDGInfo->sport),
+           result_from_get_udp_info = ipv6_get_udp_info(IPdatagram,flen,&(p_IPDGInfo->sport),
                                    &(p_IPDGInfo->dport));
            
-           if (ris > 0) {
+           if (result_from_get_udp_info > 0) {
             /* set the fields of the ABPS_info that will be put in the
             * ABPS_info list*/
                packet_info->datagram_info.ip_id =  identifier;
