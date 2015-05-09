@@ -1282,7 +1282,7 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
     serr->ee.ee_origin = SO_EE_ORIGIN_LOCAL_NOTIFY;
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_pad = 0;
-    printk(KERN_NOTICE "prepare for sending id %d %d",IPdgramId, ntohl(IPdgramId));
+    printk(KERN_NOTICE "prepare for sending id %d %d",datagram_identifier, ntohl(datagram_identifier));
     serr->ee.ee_info = datagram_identifier;  /* id datagram */
     
     /*
