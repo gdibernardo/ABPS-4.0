@@ -107,6 +107,7 @@ struct ABPS_info {
 	struct timespec tx_time;
 	struct timespec rx_time;
 	struct ABPS_info *next;
+    int is_ipv6;
 };
 
 /* wat the heck is that */
@@ -290,6 +291,33 @@ static void ABPS_info_remove(struct ABPS_info *packet_info)
 	}
 }
 
+
+static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *sport,__be16 *dport)
+{
+    struct ipv6hdr *payload_iphdr;
+
+    struct udphdr *payload_udphdr;
+    
+    if(data_length < sizeof(struct ip6hdr))
+    {
+        printk(KERN_DEBUG "*** ABPS *** get_udp_info: data_len less"
+               " then IPv6 header length\n");
+        return(-3);
+    }
+    
+    payload_iphdr = (struct ip6hdr *) payload;
+    
+    if(payload_iphdr->version != 6)
+    {
+        printk(KERN_NOTICE "no ipv6 header");
+        return 0;
+    }
+    
+    /* need to get port and other stuff from iphdr */
+    
+    return 1;
+}
+
 static int get_udp_info(unsigned char *payload, int data_len, __be32 *saddr,
 					__be32 *daddr, __be16 *sport, __be16 *dport,
 					__be16 *IPdatagram_id, /* the following parameters are used
@@ -437,6 +465,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             packet_info->datagram_info.fragment_data_len = p_IPDGInfo->fragment_data_len;
             packet_info->datagram_info.fragment_offset = p_IPDGInfo->fragment_offset;
             packet_info->datagram_info.more_fragment = p_IPDGInfo->more_fragment;
+            packet_info->is_ipv6 = 0;
             packet_info->tx_time = CURRENT_TIME;
             ABPS_info_add(packet_info);
             return(1);
@@ -445,7 +474,31 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     }
     else
     {
-        printk(KERN_NOTICE "not IPHeader \n");
+       if(ethertype == ETH_P_IPV6)
+       {
+           printk(KERN_NOTICE "IPv6 header \n");
+           int ris;
+           IPdatagram = ((u8*)hdr4) + hdrlen + 8;
+           flen = sizeof(struct iphdr) + sizeof(struct udphdr);
+           printk(KERN_NOTICE "before invoking get_udp_info \n");
+           ris = ipv6_get_udp_info(IPdatagram,flen,&(p_IPDGInfo->sport),
+                                   &(p_IPDGInfo->dport));
+           
+           if (ris > 0) {
+            /* set the fields of the ABPS_info that will be put in the
+            * ABPS_info list*/
+               packet_info->datagram_info.ip_id =  identifier;
+               printk(KERN_DEBUG "ABPS setted id in extract %d with frame identifier %d \n", ntohl(identifier), packet_info->id);
+               /* maybe ntohs, not sure
+           packet_info->datagram_info.udp_sport = p_IPDGInfo->sport;
+           packet_info->datagram_info.fragment_data_len = p_IPDGInfo->fragment_data_len;
+           packet_info->datagram_info.fragment_offset = p_IPDGInfo->fragment_offset;
+           packet_info->datagram_info.more_fragment = p_IPDGInfo->more_fragment; */
+               packet_info->is_ipv6 = 1;
+               packet_info->tx_time = CURRENT_TIME;
+               ABPS_info_add(packet_info);
+               return(1);
+       }
     }
 rx_dropped:
     return 0;
@@ -627,7 +680,6 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
 			invece mai propagato fino all'utente */
         printk("ready to perform ip_local_error_notify \n");
-        
         ip_local_error_notify(sk,
                               success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
                               -1	/* __be32 daddr */ ,
@@ -638,6 +690,8 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
                               packet_info->datagram_info.fragment_data_len,
                               packet_info->datagram_info.fragment_offset,
                               packet_info->datagram_info.more_fragment );
+    
+            
         
         printk(KERN_NOTICE "ip_local_error notify performed!. \n");
 
