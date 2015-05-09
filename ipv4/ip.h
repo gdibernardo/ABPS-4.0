@@ -550,6 +550,9 @@ extern void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
                                   /* The following parameters are used by the client to sort packets */
                                   u16 fragment_data_len, /* only data, not header */
                                   u16 fragment_offset, u8 more_fragment );
+extern void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identifier);
+
+
 
 static inline void ip_cmsg_recv(struct msghdr *msg, struct sk_buff *skb)
 {
