@@ -376,7 +376,8 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     
     fc = le16_to_cpu(hdr->frame_control) ;
     stype = WLAN_FC_GET_STYPE(fc);
-    
+  
+    printk(KERN_NOTICE "ready to get type \n");
     switch (WLAN_FC_GET_TYPE(fc)) {
         case IEEE80211_FTYPE_DATA:
             break;
@@ -386,8 +387,10 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
     /*
+     
      Gab ABPS 3.10
-     */
+    
+    */
     packet_info->id = hdr->seq_ctrl;
     
     fc = le16_to_cpu(hdr4->frame_ctl);
@@ -401,11 +404,14 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     
     stype &= ~IEEE80211_STYPE_QOS_DATA;
     
+    printk(KERN_NOTICE "prepare for some checks \n");
     if (stype != IEEE80211_STYPE_DATA &&
         stype != IEEE80211_STYPE_DATA_CFACK &&
         stype != IEEE80211_STYPE_DATA_CFPOLL &&
         stype != IEEE80211_STYPE_DATA_CFACKPOLL)
         goto rx_dropped;
+    
+    printk(KERN_NOTICE "few checks \n");
     
     payload = ((u8*)(hdr4)) + hdrlen;
     ethertype = (payload[6] << 8) | payload[7];
@@ -436,6 +442,10 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             return(1);
         }
         return(0);
+    }
+    else
+    {
+        printk(KERN_NOTICE "not IPHeader \n");
     }
 rx_dropped:
     return 0;
