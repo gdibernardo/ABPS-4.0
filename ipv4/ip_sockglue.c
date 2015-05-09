@@ -1234,6 +1234,72 @@ int required_ip_local_error_notify(struct sock *sk)
 }
 
 /* ABPS Gab */
+
+void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identifier)
+{
+    struct inet_sock *inet = NULL;
+    struct sock_exterr_skb *serr;
+    struct iphdr *iph;
+    struct sk_buff *skb;
+    
+    
+    if (sk==NULL)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " struct sock sk is NULL\n");
+        return;
+    }
+    inet = inet_sk(sk);
+    if (inet==NULL)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " struct inet_sock inet is NULL, bye\n");
+        return;
+    }
+    if (!inet->recverr) {
+        return;
+    }
+    
+    skb = alloc_skb(sizeof(struct iphdr), GFP_ATOMIC);
+    if (!skb)
+    {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " alloc failed, skb is NULL\n");
+        return;
+    }
+
+    skb_put(skb, sizeof(struct iphdr));
+    skb_reset_network_header(skb);
+    iph = ip_hdr(skb);
+    
+    serr = SKB_EXT_ERR(skb);
+    if (!serr) {
+        printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
+               " serr is NULL, bye\n");
+        return;
+    }
+    serr->ee.ee_errno = 0;  /* success */
+    serr->ee.ee_origin = SO_EE_ORIGIN_LOCAL_NOTIFY;
+    serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
+    serr->ee.ee_pad = 0;
+    printk(KERN_NOTICE "prepare for sending id %d %d",IPdgramId, ntohl(IPdgramId));
+    serr->ee.ee_info = datagram_identifier;  /* id datagram */
+    
+    /*
+     * 16 low order bit are offset, 16 high order bit are len
+     *
+     * I have to extract date in this way:
+     * fragment_data_len = (((unsigned long int)v32)>>16);
+     * fragment_offset = (((unsigned long int)v32)<<16)>>16;
+     */
+    
+    __skb_pull(skb, skb_tail_pointer(skb) - skb->data);
+    skb_reset_transport_header(skb);
+    
+    if (sock_queue_err_skb(sk, skb))
+        kfree_skb(skb);
+}
+
 void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
                            __be16 dport, __be32 saddr, __be16 sport,
                            uint32_t IPdgramId, /*  The following parameters
@@ -1308,8 +1374,10 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
         kfree_skb(skb);
 }
 
+
 EXPORT_SYMBOL(required_ip_local_error_notify);
 EXPORT_SYMBOL(ip_local_error_notify);
+EXPORT_SYMBOL(ipv6_local_error_notify);
 
 /*
  *	Get the options. Note for future reference. The GET of IP options gets

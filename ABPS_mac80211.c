@@ -498,11 +498,11 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
                packet_info->tx_time = CURRENT_TIME;
                ABPS_info_add(packet_info);
                return(1);
+           }
        }
     }
 rx_dropped:
     return 0;
-
 }
 
 
@@ -680,16 +680,23 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
 			invece mai propagato fino all'utente */
         printk("ready to perform ip_local_error_notify \n");
-        ip_local_error_notify(sk,
-                              success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
-                              -1	/* __be32 daddr */ ,
-                              -1	/* __be16 dport */ ,
-                              -1	/* __be32 saddr */ ,
-                              packet_info->datagram_info.udp_sport /* __be16 sport */ ,
-                              packet_info->datagram_info.ip_id,
-                              packet_info->datagram_info.fragment_data_len,
-                              packet_info->datagram_info.fragment_offset,
-                              packet_info->datagram_info.more_fragment );
+        if(!packet_info->is_ipv6)
+        {
+            ip_local_error_notify(sk,
+                                  success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
+                                  -1	/* __be32 daddr */ ,
+                                  -1	/* __be16 dport */ ,
+                                  -1	/* __be32 saddr */ ,
+                                  packet_info->datagram_info.udp_sport /* __be16 sport */ ,
+                                  packet_info->datagram_info.ip_id,
+                                  packet_info->datagram_info.fragment_data_len,
+                                  packet_info->datagram_info.fragment_offset,
+                                  packet_info->datagram_info.more_fragment );
+        }
+        else
+        {
+            ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id);
+        }
     
             
         
