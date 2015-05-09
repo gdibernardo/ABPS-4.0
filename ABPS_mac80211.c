@@ -233,7 +233,7 @@ static void Check_ABPS_info_list(void)
 		while (aux->next != NULL) {
 			if ( now.tv_sec > (aux->next->tx_time.tv_sec+10) ) {
 				struct ABPS_info *temp = aux->next->next;
-				kfree(aux->next); /*SERIOUSLY?!!!!!!!!!!!*/
+				kfree(aux->next);
 				aux->next = temp;
 				ABPS_info_counter -- ;
 #ifdef ABPS_DEBUG
