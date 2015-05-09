@@ -298,14 +298,14 @@ static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *spo
 
     struct udphdr *payload_udphdr;
     
-    if(data_length < sizeof(struct ip6hdr))
+    if(data_length < sizeof(struct ipv6hdr))
     {
         printk(KERN_DEBUG "*** ABPS *** get_udp_info: data_len less"
                " then IPv6 header length\n");
         return(-3);
     }
     
-    payload_iphdr = (struct ip6hdr *) payload;
+    payload_iphdr = (struct ipv6hdr *) payload;
     
     if(payload_iphdr->version != 6)
     {
