@@ -479,7 +479,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
            printk(KERN_NOTICE "IPv6 header \n");
            int ris;
            IPdatagram = ((u8*)hdr4) + hdrlen + 8;
-           flen = sizeof(struct iphdr) + sizeof(struct udphdr);
+           flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);
            printk(KERN_NOTICE "before invoking get_udp_info \n");
            ris = ipv6_get_udp_info(IPdatagram,flen,&(p_IPDGInfo->sport),
                                    &(p_IPDGInfo->dport));
