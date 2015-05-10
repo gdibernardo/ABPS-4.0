@@ -11,7 +11,9 @@
 #include <netinet/in.h>
 #include <netinet/udp.h> /* SOL_UDP define. */
 #include <arpa/inet.h>
+#include <linux/errqueue.h>
 #include <errno.h>
+
 
 #define SOCKET_ERROR   ((int)-1)
 
@@ -36,7 +38,7 @@ typedef struct struct_errormessage
     {
         struct sockaddr_in6	ipv6_name;
         struct sockaddr_in ipv4_name;
-    }name;
+    } name;
     
     unsigned int namelen;
     
