@@ -211,22 +211,21 @@ uint32_t receive_local_error_notify(void)
         /* need to switch along errors type */
         if(return_value == 1)
         {
-            printf("need to check \n");
-            
             for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
             {
-                printf("need to check \n");
                 
                 if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
                 {
                     struct sockaddr_in6 *from;
                     if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
                     {
+                        printf("need to check \n");
+                        
                         uint32_t identifier;
                         identifier = ntohl(error_message->ee->ee_info);
                         
-                        fprintf(stderr,"ricevuta notifica IP id %d\n", identifier);
-                        fflush(stderr);
+                        printf("ricevuta notifica IP id %d\n", identifier);
+                        fflush(stdout);
                     }
                 }
             }
