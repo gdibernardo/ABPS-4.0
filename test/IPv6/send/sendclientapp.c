@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include "libsend.h"
 
@@ -31,6 +32,6 @@ int main(int argc, char ** argv)
     strcpy(buffer,"hello from client app");
     send_packet_with_message(buffer, 2000);
     sleep(3);
-    receive_local_error_notify(void);
+    receive_local_error_notify();
     return 0;
 }
