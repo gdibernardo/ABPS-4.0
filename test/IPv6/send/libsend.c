@@ -208,12 +208,15 @@ uint32_t receive_local_error_notify(void)
         int return_value;
         ErrMsg *error_message = allocinit_ErrMsg();
         return_value = ipv6_receive_error_message_no_wait(shared_descriptor, error_message);
-        printf("need to check \n");
         /* need to switch along errors type */
         if(return_value == 1)
         {
+            printf("need to check \n");
+            
             for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
             {
+                printf("need to check \n");
+                
                 if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
                 {
                     struct sockaddr_in6 *from;
@@ -228,6 +231,7 @@ uint32_t receive_local_error_notify(void)
                 }
             }
         }
+        free(error_message);
     }
     return 0;
 }
