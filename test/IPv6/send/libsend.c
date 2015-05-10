@@ -17,54 +17,15 @@
 
 int shared_descriptor;
 
-int is_shared_instance_instantiated: 1;
+int is_shared_instance_instantiated;
 
-int is_shared_instance_ipv6: 1;
+int is_shared_instance_ipv6;
 
 
 
 struct sockaddr_in ipv4_destination_address;
 
 struct sockaddr_in6 ipv6_destionation_address;
-
-
-
-
-
-int instantiate_ipv4_shared_instance_by_address_and_port(char *address, int port)
-{
-    int error;
-    
-    is_shared_instance_ipv6 = 0;
-    is_shared_instance_instantiated = 1;
-    
-    error = create_ipv4_socket(address,port,&shared_descriptor, &ipv4_destination_address);
-    return error;
-}
-
-
-int instantiate_ipv6_shared_instance_by_address_and_port(char *address, int port)
-{
-    int error;
-    
-    is_shared_instance_ipv6 = 1;
-    is_shared_instance_instantiated = 1;
-    
-    error = create_ipv6_socket(address,port,&shared_descriptor, &ipv6_destionation_address);
-    return error;
-}
-
-
-void release_shared_instance(void)
-{
-    shared_descriptor = 0;
-    is_shared_instance_instantiated = 0;
-    is_shared_instance_ipv6 = 0;
-    
-    ipv4_destination_address = NULL;
-    ipv6_destionation_address = NULL;
-}
-
 
 
 /* create IPv4 socket */
@@ -75,9 +36,9 @@ int create_ipv4_socket(char *address, int port, int *file_descriptor, struct soc
     
     struct sockaddr_in local_address;
     
-
+    
     /* get datagram socket */
-
+    
     *file_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
     
     if(*file_descriptor == SOCKET_ERROR)
@@ -176,12 +137,51 @@ int create_ipv6_socket(char *address, int port, int *file_descriptor, struct soc
 }
 
 
+int instantiate_ipv4_shared_instance_by_address_and_port(char *address, int port)
+{
+    int error;
+    
+    is_shared_instance_ipv6 = 0;
+    is_shared_instance_instantiated = 1;
+    
+    error = create_ipv4_socket(address,port,&shared_descriptor, &ipv4_destination_address);
+    return error;
+}
+
+
+int instantiate_ipv6_shared_instance_by_address_and_port(char *address, int port)
+{
+    int error;
+    
+    is_shared_instance_ipv6 = 1;
+    is_shared_instance_instantiated = 1;
+    
+    error = create_ipv6_socket(address,port,&shared_descriptor, &ipv6_destionation_address);
+    return error;
+}
+
+
+void release_shared_instance(void)
+{
+    shared_descriptor = 0;
+    is_shared_instance_instantiated = 0;
+    is_shared_instance_ipv6 = 0;
+    
+//    ipv4_destination_address = NULL;
+//    ipv6_destionation_address = NULL;
+}
+
+
+
+
+
 
 /* Send and receive. */
 
 uint32_t send_packet_with_message(char *message, int message_length)
 {
     uint32_t identifier;
+    uint32_t result_value;
     
     if(!is_shared_instance_instantiated)
         return -1;

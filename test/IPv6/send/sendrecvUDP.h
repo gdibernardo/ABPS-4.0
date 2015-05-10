@@ -1,5 +1,3 @@
-#ifndef __SENDRECVUDP_H__
-#define __SENDRECVUDP_H__
 
 /* sendrecvUDP.h */
 
@@ -74,6 +72,5 @@ int ipv6_receive_error_message_no_wait(int descriptor, ErrMsg *em);
 
 
 
-#endif /* __SENDRECVUDP_H__ */
 
 
