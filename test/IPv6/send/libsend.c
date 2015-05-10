@@ -25,7 +25,7 @@ int is_shared_instance_ipv6;
 
 struct sockaddr_in ipv4_destination_address;
 
-struct sockaddr_in6 ipv6_destionation_address;
+struct sockaddr_in6 ipv6_destination_address;
 
 
 /* create IPv4 socket */
@@ -156,7 +156,7 @@ int instantiate_ipv6_shared_instance_by_address_and_port(char *address, int port
     is_shared_instance_ipv6 = 1;
     is_shared_instance_instantiated = 1;
     
-    error = create_ipv6_socket(address,port,&shared_descriptor, &ipv6_destionation_address);
+    error = create_ipv6_socket(address,port,&shared_descriptor, &ipv6_destination_address);
     return error;
 }
 
@@ -187,9 +187,9 @@ uint32_t send_packet_with_message(char *message, int message_length)
         return -1;
     
     if(is_shared_instance_ipv6)
-        result_value = ipv6_sendmsg_udp(shared_descriptor, message, message_length, ipv6_destionation_address, &identifier);
+        result_value = ipv6_sendmsg_udp(shared_descriptor, message, message_length, ipv6_destination_address, &identifier);
     else
-        result_value = ipv4_sendmsg_udp(shared_descriptor, message, message_length, ipv4_destionation_address, &identifier);
+        result_value = ipv4_sendmsg_udp(shared_descriptor, message, message_length, ipv4_destination_address, &identifier);
     
     if(result_value < 0)
         return result_value;

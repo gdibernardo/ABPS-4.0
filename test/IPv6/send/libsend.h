@@ -19,4 +19,4 @@ void release_shared_instance(void);
 
 uint32_t send_packet_with_message(char *message, int message_length);
 
-uint32_t receive_local_error_notify(void);
+uint32_t receive_local_error_notify();
