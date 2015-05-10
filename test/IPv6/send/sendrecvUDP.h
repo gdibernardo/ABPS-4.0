@@ -32,11 +32,11 @@ typedef unsigned int u32;
 
 typedef struct struct_errormessage
 {
-    union name
+    union
     {
         struct sockaddr_in6	ipv6_name;
         struct sockaddr_in ipv4_name;
-    };
+    }name;
     
     unsigned int namelen;
     
