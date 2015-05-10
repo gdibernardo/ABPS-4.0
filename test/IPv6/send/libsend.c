@@ -217,6 +217,7 @@ uint32_t receive_local_error_notify(void)
                 if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
                 {
                     struct sockaddr_in6 *from;
+                    error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
                     if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
                     {
                         printf("need to check \n");
