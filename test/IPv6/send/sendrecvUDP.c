@@ -143,11 +143,11 @@ int ipv6_receive_error_message_no_wait(int descriptor, ErrMsg *em)
     struct iovec iov[1];
     int return_value;
     
-    memset(&(em->name.ipv6_name),0,sizeof(em->name.ipv6_name));
-    em->name.ipv6_name.sin6_family = AF_INET6;
-    em->namelen = sizeof(em->name.ipv6_name);
+    memset(&(em->ipv6_name),0,sizeof(em->ipv6_name));
+    em->ipv6_name.sin6_family = AF_INET6;
+    em->namelen = sizeof(em->ipv6_name);
     
-    return_value = getsockname(descriptor, (struct sockaddr *)&(em->name.ipv6_name), &(em->namelen));
+    return_value = getsockname(descriptor, (struct sockaddr *)&(em->ipv6_name), &(em->namelen));
     if(return_value != 0)
     {
         perror("getsockname failed in ipv6_receive_error_message_no_wait. \n");
@@ -166,7 +166,7 @@ int ipv6_receive_error_message_no_wait(int descriptor, ErrMsg *em)
         em->msg->msg_control = em->control;
         em->msg->msg_controllen = sizeof(em->control);
         
-        return_value = recvmsg(udpfd, em->msg, MSG_ERRQUEUE|MSG_DONTWAIT);
+        return_value = recvmsg(descriptor, em->msg, MSG_ERRQUEUE|MSG_DONTWAIT);
         em->myerrno=errno;
         
     } while ((return_value < 0) && (em->myerrno == EINTR));
