@@ -200,6 +200,7 @@ uint32_t send_packet_with_message(char *message, int message_length)
 
 uint32_t receive_local_error_notify(void)
 {
+    printf("receive local invoked \n");
     if(!is_shared_instance_instantiated)
         return -1;
     if(is_shared_instance_ipv6)
@@ -207,6 +208,7 @@ uint32_t receive_local_error_notify(void)
         int return_value;
         ErrMsg *error_message = allocinit_ErrMsg();
         return_value = ipv6_receive_error_message_no_wait(shared_descriptor, error_message);
+        printf("need to check \n");
         /* need to switch along errors type */
         if(return_value == 1)
         {
