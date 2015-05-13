@@ -37,3 +37,9 @@ int disable_test_mode(void)
     log_path = NULL;
     is_test_enabled = 0;
 }
+
+
+void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier)
+{
+
+}
