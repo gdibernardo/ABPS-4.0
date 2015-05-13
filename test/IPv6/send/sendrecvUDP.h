@@ -1,6 +1,9 @@
 
 /* sendrecvUDP.h */
 
+#ifndef ____sendrecvUDP__
+#define ____sendrecvUDP__
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -77,6 +80,6 @@ int ipv6_receive_error_message_no_wait(int descriptor, ErrMsg *em);
 int ipv4_receive_error_message_no_wait(int descriptor, ErrMsg *em);
 
 
-
+#endif /* defined(____sendrecvUDP__) */
 
 
