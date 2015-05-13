@@ -59,6 +59,7 @@ typedef struct struct_errormessage
     int	lenrecv;
     int	myerrno;
     
+    int is_ipv6;
 } ErrMsg;
 
 

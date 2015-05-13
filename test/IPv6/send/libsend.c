@@ -163,7 +163,7 @@ int instantiate_ipv6_shared_instance_by_address_and_port(char *address, int port
 
 void release_shared_instance(void)
 {
-    shared_descriptor = 0;
+    shared_descriptor = -1;
     is_shared_instance_instantiated = 0;
     is_shared_instance_ipv6 = 0;
     
@@ -178,62 +178,61 @@ void release_shared_instance(void)
 
 /* Send and receive. */
 
-uint32_t send_packet_with_message(char *message, int message_length)
+int send_packet_with_message(char *message, int message_length, uint32_t identifier)
 {
-    uint32_t identifier;
-    uint32_t result_value;
+    int result_value;
     
     if(!is_shared_instance_instantiated)
         return -1;
     
     if(is_shared_instance_ipv6)
-        result_value = ipv6_sendmsg_udp(shared_descriptor, message, message_length, ipv6_destination_address, &identifier);
+        result_value = ipv6_sendmsg_udp(shared_descriptor, message, message_length, ipv6_destination_address, identifier);
     else
-        result_value = ipv4_sendmsg_udp(shared_descriptor, message, message_length, ipv4_destination_address, &identifier);
+        result_value = ipv4_sendmsg_udp(shared_descriptor, message, message_length, ipv4_destination_address, identifier);
     
-    if(result_value < 0)
-        return result_value;
-    else
-        return identifier;
+    return result_value;
 }
 
 
-uint32_t receive_local_error_notify(void)
+int receive_local_error_notify_with_error_message(ErrMsg *error_message)
 {
     printf("receive local invoked \n");
     if(!is_shared_instance_instantiated)
         return -1;
+    int return_value;
+    
     if(is_shared_instance_ipv6)
     {
-        int return_value;
-        ErrMsg *error_message = allocinit_ErrMsg();
         return_value = ipv6_receive_error_message_no_wait(shared_descriptor, error_message);
         /* need to switch along errors type */
-        if(return_value == 1)
-        {
-            for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
-            {
-                
-                if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
-                {
-                    struct sockaddr_in6 *from;
-                    error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
-                    if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
-                    {
-                        printf("need to check \n");
-                        
-                        uint32_t identifier;
-                        identifier = ntohl(error_message->ee->ee_info);
-                        
-                        printf("ricevuta notifica IP id %d\n", identifier);
-                        fflush(stdout);
-                    }
-                }
-            }
-        }
-        free(error_message);
+//        if(return_value == 1)
+//        {
+//            for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
+//            {
+//                
+//                if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
+//                {
+//                    struct sockaddr_in6 *from;
+//                    error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
+//                    if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
+//                    {
+//                        printf("need to check \n");
+//                        
+//                        uint32_t identifier;
+//                        identifier = ntohl(error_message->ee->ee_info);
+//                        
+//                        printf("ricevuta notifica IP id %d\n", identifier);
+//                        fflush(stdout);
+//                    }
+//                }
+//            }
+//        }
     }
-    return 0;
+    else
+    {
+        return_value = ipv4_receive_error_message_no_wait(shared_descriptor, error_message);
+    }
+    return return_value;
 }
 
 
