@@ -1,8 +1,8 @@
 CFLAGS=-Wall -o
 CC=clang
 
-all:	libsend.c sendrecvUDP.c sendclientapp.c
-	$(CC) $(CFLAGS) sendclientapp libsend.c sendrecvUDP.c sendclientapp.c -l json
+all:	libsend.c sendrecvUDP.c testlib.c sendclientapp.c
+	$(CC) $(CFLAGS) sendclientapp libsend.c sendrecvUDP.c testlib.c sendclientapp.c -l json
 	
 
 clean: 

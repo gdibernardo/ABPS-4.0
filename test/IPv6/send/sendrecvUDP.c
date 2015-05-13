@@ -122,7 +122,7 @@ int ipv6_sendmsg_udp(int udp_file_descriptor, char *buffer, int length, struct s
 
 
 
-ErrMsg *allocinit_ErrMsg(void)
+ErrMsg *alloc_init_ErrMsg(void)
 {
     ErrMsg *em;
     em = (ErrMsg*) malloc(sizeof(ErrMsg));
@@ -287,7 +287,7 @@ int ipv6_receive_error_message_wait(int descriptor, ErrMsg *em)
     
     em->is_ipv6 = 1;
     
-    return_value = getsockname(descriptor, (struct sockaddr *)&(em->name.ipv6_name), &(em->namelen));
+    return_value = getsockname(descriptor, (struct sockaddr *) &(em->name.ipv6_name), &(em->namelen));
     if(return_value != 0)
     {
         perror("getsockname failed in ipv6_receive_error_message_no_wait. \n");
