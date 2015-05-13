@@ -10,8 +10,19 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <json/json.h>
 
 #include "libsend.h"
+
+
+static int global_test_identifier = 0;
+
+
+int test_identifier()
+{
+    /* Need to add web service support via curl */
+    return global_test_identifier++;
+}
 
 
 void check_and_log_local_error_notify(ErrMsg *error_message)
@@ -28,13 +39,10 @@ void check_and_log_local_error_notify(ErrMsg *error_message)
                 error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
                 if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
                 {
-                    printf("need to check \n");
-                    
                     uint32_t identifier;
                     identifier = ntohl(error_message->ee->ee_info);
                     
-                    printf("ricevuta notifica IP id %d\n", identifier);
-                    fflush(stdout);
+                    ipv6_perform_log(identifier);
                 }
             }
         }
@@ -46,16 +54,17 @@ void check_and_log_local_error_notify(ErrMsg *error_message)
 }
 
 
-int ipv4_perform_log()
+int ipv4_perform_log(uint32_t identifier)
 {
-
+    
 }
 
 
 
-int ipv6_perform_log()
+int ipv6_perform_log(uint32_t identifier)
 {
-    
+    printf("ricevuta notifica IP id %d\n", identifier);
+    fflush(stdout);
 }
 
 
@@ -73,6 +82,18 @@ int main(int argc, char ** argv)
     
     /* check for error */
     instantiate_ipv6_shared_instance_by_address_and_port(address, port);
+    
+    json_object *object = json_object_new_object();
+    
+    json_object *test_identifier = json_object_new_int(test_identifier());
+    json_object *message_content = json_object_new_string("hello from client app!");
+    
+    json_object_object_add(object,"testIdentifier", test_identifier);
+    json_object_object_add(object, "messageContent", message_content);
+    
+    printf("json created %s",json_object_to_json_string(object));
+    
+    
 
     char buffer[2000];
     
