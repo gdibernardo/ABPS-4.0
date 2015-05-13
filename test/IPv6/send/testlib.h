@@ -18,6 +18,8 @@
 /* Enable log at the supplied path. */
 int enable_test_mode_with_path(char *path);
 
+int disable_test_mode(void);
+
 int get_test_identifier(void);
 
 

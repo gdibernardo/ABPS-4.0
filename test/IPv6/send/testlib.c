@@ -13,6 +13,8 @@ static char *log_path;
 
 static int shared_test_identifier = 0;
 
+static int is_test_enabled = 0;
+
 
 int get_test_identifier(void)
 {
@@ -20,3 +22,18 @@ int get_test_identifier(void)
 }
 
 
+
+int enable_test_mode_with_path(char *path)
+{
+    log_path = path;
+    is_test_enabled = 1;
+    
+    return 1;
+}
+
+
+int disable_test_mode(void)
+{
+    log_path = NULL;
+    is_test_enabled = 0;
+}
