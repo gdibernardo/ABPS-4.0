@@ -18,7 +18,7 @@
 static int global_test_identifier = 0;
 
 
-int test_identifier()
+int get_global_test_identifier()
 {
     /* Need to add web service support via curl */
     return global_test_identifier++;
@@ -85,7 +85,7 @@ int main(int argc, char ** argv)
     
     json_object *object = json_object_new_object();
     
-    json_object *test_identifier = json_object_new_int(test_identifier());
+    json_object *test_identifier = json_object_new_int(get_global_test_identifier());
     json_object *message_content = json_object_new_string("hello from client app!");
     
     json_object_object_add(object,"testIdentifier", test_identifier);
