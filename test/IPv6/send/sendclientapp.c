@@ -21,7 +21,7 @@ static int global_test_identifier = 0;
 int get_global_test_identifier()
 {
     /* Need to add web service support via curl */
-    return global_test_identifier++;
+    return ++global_test_identifier;
 }
 
 
