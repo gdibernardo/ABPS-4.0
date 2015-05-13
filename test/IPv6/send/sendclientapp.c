@@ -105,9 +105,8 @@ int main(int argc, char ** argv)
 //    
         uint32_t identifier;
         send_packet_with_message(buffer,strlen(buffer), &identifier);
-
-    
-        sleep(2);
+ 
+        
     
         ErrMsg *error_message = allocinit_ErrMsg();
     
