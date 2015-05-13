@@ -309,7 +309,7 @@ int ipv6_receive_error_message_wait(int descriptor, ErrMsg *em)
         return_value = recvmsg(descriptor, em->msg, MSG_ERRQUEUE | MSG_WAITALL);
         em->myerrno=errno;
         
-    } while ((return_value < 0) && (em->myerrno == EINTR));
+    } while ((return_value < 0) && ((em->myerrno == EINTR) || (em->myerrno == EAGAIN)));
     
     if(return_value < 0)
     {
