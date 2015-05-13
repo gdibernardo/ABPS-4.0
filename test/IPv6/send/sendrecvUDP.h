@@ -60,12 +60,13 @@ typedef struct struct_errormessage
     int	myerrno;
     
     int is_ipv6;
+    
 } ErrMsg;
 
 
-int ipv4_sendmsg_udp(int udp_file_descriptor, unsigned char *buffer, int length, struct sockaddr_in destination_address, uint32_t *pointer_for_identifier);
+int ipv4_sendmsg_udp(int udp_file_descriptor, char *buffer, int length, struct sockaddr_in destination_address, uint32_t *pointer_for_identifier);
 
-int ipv6_sendmsg_udp(int udp_file_descriptor, unsigned char *buffer, int length, struct sockaddr_in6 destination_address, uint32_t *pointer_for_identifier);
+int ipv6_sendmsg_udp(int udp_file_descriptor, char *buffer, int length, struct sockaddr_in6 destination_address, uint32_t *pointer_for_identifier);
 
 
 ErrMsg	*allocinit_ErrMsg( void );

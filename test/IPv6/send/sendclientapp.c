@@ -45,17 +45,18 @@ int main(int argc, char ** argv)
     
     int port = atoi(argv[2]);
     
-    printf("Ready to alloc shared instance with parameters %s %d",address,port);
     /* check for error */
     instantiate_ipv6_shared_instance_by_address_and_port(address, port);
 
-    unsigned char buffer[2000];
+    char buffer[2000];
     
     memset(buffer,0,2000);
     
     strcpy(buffer,"hello from client app");
     
-    send_packet_with_message(buffer, 2000);
+    uint32_t identifier;
+    send_packet_with_message(buffer, 2000, &identifier);
+
     
     sleep(2);
     
