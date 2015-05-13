@@ -61,8 +61,7 @@ int ipv4_perform_log(uint32_t identifier)
 
 int ipv6_perform_log_with_test_identifier(ErrMsg *error_message, int test_identifier)
 {
-    printf("ricevuta notifica IP id %d\n", identifier);
-    fflush(stdout);
+ 
 }
 
 
