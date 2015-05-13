@@ -145,7 +145,7 @@ int ipv4_receive_error_message_no_wait(int descriptor, ErrMsg *em)
     int return_value;
     
     memset(&(em->name.ipv4_name),0,sizeof(em->name.ipv4_name));
-    em->name.ipv6_name.sin_family = AF_INET;
+    em->name.ipv4_name.sin_family = AF_INET;
     em->namelen = sizeof(em->name.ipv4_name);
     
     em->is_ipv6 = 0;
