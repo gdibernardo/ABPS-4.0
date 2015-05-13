@@ -83,7 +83,7 @@ int main(int argc, char ** argv)
     /* check for error */
     instantiate_ipv6_shared_instance_by_address_and_port(address, port);
     
-    for(index = 0; index < 100: index++)
+    for(index = 0; index < 100; index++)
     {
         json_object *object = json_object_new_object();
     
