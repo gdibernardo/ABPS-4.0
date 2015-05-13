@@ -34,7 +34,7 @@ int ipv4_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, st
     
     struct cmsghdr *cmsg;
     
-    iov[0].iov_base = buffer;
+    iov[0].iov_base = (void *) buffer;
     iov[0].iov_len = length;
     
     
@@ -84,7 +84,7 @@ int ipv6_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, st
     
     struct cmsghdr *cmsg;
     
-    iov[0].iov_base = buffer;
+    iov[0].iov_base = (void *) buffer;
     iov[0].iov_len = length;
     
     
