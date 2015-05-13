@@ -16,7 +16,33 @@
 
 void check_and_log_local_error_notify(ErrMsg *error_message)
 {
+    if(error_message->is_ipv6)
+    {
+        /* Local error notification refers to an IPv6 message */
+        for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
+        {
+            
+            if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
+            {
+                struct sockaddr_in6 *from;
+                error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
+                if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
+                {
+                    printf("need to check \n");
+                    
+                    uint32_t identifier;
+                    identifier = ntohl(error_message->ee->ee_info);
+                    
+                    printf("ricevuta notifica IP id %d\n", identifier);
+                    fflush(stdout);
+                }
+            }
+        }
+    }
+    else
+    {
     
+    }
 }
 
 
@@ -62,7 +88,10 @@ int main(int argc, char ** argv)
     
     ErrMsg *error_message = allocinit_ErrMsg();
     
-    receive_local_error_notify_with_error_message(error_message);
+    if(receive_local_error_notify_with_error_message(error_message))
+    {
+        check_and_log_local_error_notify(error_message);
+    }
     
     free(error_message);
     

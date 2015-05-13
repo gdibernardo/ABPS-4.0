@@ -202,36 +202,10 @@ int receive_local_error_notify_with_error_message(ErrMsg *error_message)
     int return_value;
     
     if(is_shared_instance_ipv6)
-    {
-        return_value = ipv6_receive_error_message_no_wait(shared_descriptor, error_message);
-        /* need to switch along errors type */
-//        if(return_value == 1)
-//        {
-//            for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
-//            {
-//                
-//                if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
-//                {
-//                    struct sockaddr_in6 *from;
-//                    error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
-//                    if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
-//                    {
-//                        printf("need to check \n");
-//                        
-//                        uint32_t identifier;
-//                        identifier = ntohl(error_message->ee->ee_info);
-//                        
-//                        printf("ricevuta notifica IP id %d\n", identifier);
-//                        fflush(stdout);
-//                    }
-//                }
-//            }
-//        }
-    }
+      return_value = ipv6_receive_error_message_no_wait(shared_descriptor, error_message);
     else
-    {
         return_value = ipv4_receive_error_message_no_wait(shared_descriptor, error_message);
-    }
+    
     return return_value;
 }
 
