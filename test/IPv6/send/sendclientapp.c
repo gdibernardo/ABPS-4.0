@@ -79,21 +79,23 @@ int main(int argc, char ** argv)
     char *address = argv[1];
     
     int port = atoi(argv[2]);
-    
+    int index;
     /* check for error */
     instantiate_ipv6_shared_instance_by_address_and_port(address, port);
     
-    json_object *object = json_object_new_object();
+    for(index = 0; index < 100: index++)
+    {
+        json_object *object = json_object_new_object();
     
-    json_object *test_identifier = json_object_new_int(get_global_test_identifier());
-    json_object *message_content = json_object_new_string("hello from client app!");
+        json_object *test_identifier = json_object_new_int(get_global_test_identifier());
+        json_object *message_content = json_object_new_string("hello from client app!");
     
-    json_object_object_add(object,"testIdentifier", test_identifier);
-    json_object_object_add(object, "messageContent", message_content);
+        json_object_object_add(object,"testIdentifier", test_identifier);
+        json_object_object_add(object, "messageContent", message_content);
     
-    char *buffer = json_object_to_json_string(object);
+        const char *buffer = json_object_to_json_string(object);
     
-    
+        free(object);
 
 //    char buffer[2000];
 //    
@@ -101,21 +103,21 @@ int main(int argc, char ** argv)
 //    
 //    strcpy(buffer,"hello from client app");
 //    
-    uint32_t identifier;
-    send_packet_with_message(buffer,strlen(buffer), &identifier);
+        uint32_t identifier;
+        send_packet_with_message(buffer,strlen(buffer), &identifier);
 
     
-    sleep(2);
+        sleep(2);
     
-    ErrMsg *error_message = allocinit_ErrMsg();
+        ErrMsg *error_message = allocinit_ErrMsg();
     
-    if(receive_local_error_notify_with_error_message(error_message))
-    {
-        check_and_log_local_error_notify(error_message);
+        if(receive_local_error_notify_with_error_message(error_message))
+        {
+            check_and_log_local_error_notify(error_message);
+        }
+    
+        free(error_message);
     }
-    
-    free(error_message);
-    
     release_shared_instance();
     
     return 0;
