@@ -20,6 +20,6 @@ void release_shared_instance(void);
 
 /* Send and receive notify interfaces. */
 
-int send_packet_with_message(char *message, int message_length, uint32_t *identifier);
+int send_packet_with_message(const char *message, int message_length, uint32_t *identifier);
 
 int receive_local_error_notify_with_error_message(ErrMsg *error_message);

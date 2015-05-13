@@ -20,9 +20,9 @@
 #define ABPS_CMSG_TYPE 111
 
 
-int ipv4_sendmsg_udp(int udp_file_descriptor, char *buffer, int length, struct sockaddr_in destination_address, uint32_t *pointer_for_identifier)
+int ipv4_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, struct sockaddr_in destination_address, uint32_t *pointer_for_identifier)
 {
-    int address_size, result_value;
+    int result_value;
     
     char *pointer;
     
@@ -70,9 +70,9 @@ int ipv4_sendmsg_udp(int udp_file_descriptor, char *buffer, int length, struct s
 }
 
 
-int ipv6_sendmsg_udp(int udp_file_descriptor, char *buffer, int length, struct sockaddr_in6 destination_address, uint32_t *pointer_for_identifier)
+int ipv6_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, struct sockaddr_in6 destination_address, uint32_t *pointer_for_identifier)
 {
-    int address_size, result_value;
+    int result_value;
     
     char *pointer;
     
