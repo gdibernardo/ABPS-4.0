@@ -35,7 +35,7 @@ int get_test_identifier(void)
 int enable_test_mode_with_path(char *path)
 {
     
-    int log_file_descriptor = open(path, O_WRONLY | O_CREAT | O_APPEND);
+    int log_file_descriptor = open(path, O_WRONLY | O_CREAT | O_APPEND, 0777);
     if(log_file_descriptor == -1)
         return log_file_descriptor;
     
@@ -87,7 +87,11 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
     
                 if(is_test_enabled)
                 {
-                
+                    time_t current_time = time(NULL);
+                    char *log_line;
+                    asprintf(&log_line,"%s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&result)), identifier, test_identifier);
+                    
+                    printf(log_line);
                 }
             }
         }
@@ -108,3 +112,15 @@ void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message
     }
 }
 
+
+void sent_packet_with_test_identifier(int test_identifier)
+{
+    if(is_test_enabled)
+    {
+        time_t current_time = time(NULL);
+        char *log_line;
+        asprintf(&log_line,"ABPS testlib just sent packet %s - test identifier:%d \n",asctime(gmtime(&result)), test_identifier);
+        
+        printf(log_line);
+    }
+}

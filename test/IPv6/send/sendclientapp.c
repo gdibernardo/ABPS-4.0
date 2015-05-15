@@ -67,8 +67,11 @@ int main(int argc, char ** argv)
 //      strcpy(buffer,"hello from client app");
         
         uint32_t identifier;
+        
         send_packet_with_message(buffer,strlen(buffer), &identifier);
- 
+        
+        /* Log packet just sent. */
+        sent_packet_with_test_identifier(test_identifier);
         
     
         ErrMsg *error_message = alloc_init_ErrMsg();
