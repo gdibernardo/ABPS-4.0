@@ -143,7 +143,7 @@ void sent_packet_with_test_identifier(int test_identifier)
         
         printf("%s",buffer);
         
-        return_value = write(log_descriptor, buffer, strlen(buffer));
+        return_value = write(log_descriptor, "hello", strlen(5));
         
         if(return_value == -1)
         {
