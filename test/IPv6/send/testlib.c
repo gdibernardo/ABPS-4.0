@@ -28,6 +28,7 @@ static int shared_test_identifier = 0;
 static int is_test_enabled = 0;
 
 
+
 int get_test_identifier(void)
 {
     return ++shared_test_identifier;
@@ -56,14 +57,16 @@ int enable_test_mode_with_path(char *path)
 int disable_test_mode(void)
 {
     log_path = NULL;
+    
     close(log_descriptor);
+    
     is_test_enabled = 0;
     
     return 1;
 }
 
 
-int prepare_for_writing()
+int prepare_for_logging(void)
 {
     int return_value = lseek(log_descriptor, 0, SEEK_END);
     return return_value;
@@ -93,8 +96,21 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
             {
                 uint32_t identifier = ntohl(error_message->ee->ee_info);
                 
-                printf("received notification for packet %d \n", identifier);
-    
+                char packet_status;
+                
+                printf("Received notification for packet %d \n", identifier);
+                
+                uint8_t acked = error_message->ee->ee_type;
+                
+                if(acked)
+                {
+                    printf("packet with identifier %d is acked \n", identifier);
+                }
+                else
+                {
+                    printf("packet with identifier %d is not acked \n", identifier);
+                }
+                
                 if(is_test_enabled)
                 {
                     int return_value;
@@ -102,9 +118,14 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     
                     char *log_line;
                     
-                    asprintf(&log_line,"ABPS testlib just received local notification %s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&current_time)), identifier, test_identifier);
+                    if(acked)
+                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%d - test identifier:%d status:ACK\n", asctime(gmtime(&current_time)), identifier, test_identifier);
+                    else
+                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%d - test identifier:%d status:NACK\n", asctime(gmtime(&current_time)), identifier, test_identifier);
                     
-                    // return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
+                    prepare_for_logging();
+                    
+                    return_value = write(log_descriptor, log_line, strlen(log_line));
                     
                     if(return_value == -1)
                     {
@@ -143,13 +164,7 @@ void sent_packet_with_test_identifier(int test_identifier)
         char *log_line;
         asprintf(&log_line,"%sABPS testlib just sent packet - test identifier:%d \n", asctime(gmtime(&current_time)), test_identifier);
         
-        char buffer[strlen(log_line) + 1];
-        
-        memset(buffer,'\0',strlen(log_line) + 1);
-        
-        strncpy(buffer, log_line, strlen(log_line));
-        
-        prepare_for_writing();
+        prepare_for_logging();
         
         return_value = write(log_descriptor, log_line, strlen(log_line));
         

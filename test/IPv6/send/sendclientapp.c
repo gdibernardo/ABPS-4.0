@@ -16,7 +16,7 @@
 #include "testlib.h"
 
 
-#define NUMBR_OF_PACKETS 1000
+#define NUMBER_OF_PACKETS 1000
 
 #define MESSAGE_LENGTH 2000
 
@@ -68,7 +68,7 @@ int main(int argc, char ** argv)
         
         uint32_t identifier;
         
-        send_packet_with_message(buffer,strlen(buffer), &identifier);
+        send_packet_with_message(buffer, strlen(buffer), &identifier);
         
         /* Log packet just sent. */
         sent_packet_with_test_identifier(test_identifier);
@@ -87,6 +87,8 @@ int main(int argc, char ** argv)
     
         free(error_message);
     }
+    
+    disable_test_mode();
     
     release_shared_instance();
     
