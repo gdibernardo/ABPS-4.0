@@ -852,44 +852,6 @@ send:
 }
 
 
-/* ABPS Gab */
-int udp_push_pending_frames_with_request_of_identifier_and_user_address(struct sock *sk,uint32_t request_of_identifier,USER_P_UINT32 user_address)
-{
-    printk(KERN_NOTICE "ABPS custom udp_push_prending_frames invoked");
-    struct udp_sock  *up = udp_sk(sk);
-    struct inet_sock *inet = inet_sk(sk);
-    struct flowi4 *fl4 = &inet->cork.fl.u.ip4;
-    struct sk_buff *skb;
-    int err = 0;
-    
-    skb = ip_finish_skb(sk, fl4);
-    if (!skb)
-        goto out;
-    
-    /* ABPS Gab */
-    /* Set identifier field in skb.
-     Need to to move on in ip_make_skb
-     */
-    int error = set_identifier_with_sk_buff(skb);
-    if(!error)
-        printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
-   
-    if(request_of_identifier)
-    {
-        // need to set id in user space
-        put_user(ntohl(skb->sk_buff_identifier), user_address);
-    }
-
-    
-    err = udp_send_skb(skb, fl4);
-    
-out:
-    up->len = 0;
-    up->pending = 0;
-    return err;
-}
-EXPORT_SYMBOL(udp_push_pending_frames_with_request_of_identifier_and_user_address);
-
 /*
  * Push out all pending data as one UDP datagram. Socket is locked.
  */
@@ -919,9 +881,7 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 		size_t len)
 {
     
-    printk(KERN_NOTICE "sendmsg INVOKED!!!!!! \n");
-    
-	struct inet_sock *inet = inet_sk(sk);
+    struct inet_sock *inet = inet_sk(sk);
 	struct udp_sock *up = udp_sk(sk);
 	struct flowi4 fl4_stack;
 	struct flowi4 *fl4;
@@ -1155,13 +1115,7 @@ do_append_data:
 		udp_flush_pending_frames(sk);
 	else if (!corkreq)
     {
-        /* ABPS Gab */
-        
-        err = udp_push_pending_frames(sk);
-        /*
-        printk(KERN_NOTICE "pending frames \n");
-        err = udp_push_pending_frames_with_request_of_identifier_and_user_address(sk,needId,pId);
-         */
+       err = udp_push_pending_frames(sk);
     }
 	else if (unlikely(skb_queue_empty(&sk->sk_write_queue)))
 		up->pending = 0;
