@@ -1,18 +1,42 @@
 
+import sys, os
+
 import socket
 
 import argparse
 
 import json
 
+import time
 
 
-parser=argparse.ArgumentParser(description="IPv4 address and port")
+def prepareForLogging():
+    os.lseek(logFileDescriptor, 0, os.SEEK_END)
+
+
+def logJSONObject(jsonObject):
+    currentTime = time.strftime('%c')
+    testIdentifier = jsonObject['testIdentifier']
+    os.write(logFileDescriptor,"%s ABPS just received packet - test identifier:%d \n" %(currentTime, testIdentifier))
+
+
+
+
+parser = argparse.ArgumentParser(description="IPv4 address and port")
 parser.add_argument('address')
 parser.add_argument('port')
-args=parser.parse_args()
-address=args.address
-port=int(args.port)
+parser.add_argument('path')
+args = parser.parse_args()
+
+address = args.address
+
+port = int(args.port)
+
+logPath = args.path
+
+logFileDescriptor = os.open(logPath, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 777)
+
+
 
 receivingSocket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 print "Socket primed."
@@ -24,8 +48,11 @@ family, socketType, proto, canonName, socketAddress = result[0]
 receivingSocket.bind(socketAddress)
 print "Socket created."
 while 1:
-    data,address = receivingSocket.recvfrom(1000)
+    data, address = receivingSocket.recvfrom(1000)
     print str(data)
     jsonObject = json.loads(str(data))
-    print jsonObject['testIdentifier']
-    print address
+    logJSONObject(jsonObject)
+    print("Just received packet with test identifier %d and message %s" %(jsonObject['testIdentifier'], jsonObject['messageContent']))
+    #print address
+
+os.close(logFileDescriptor)

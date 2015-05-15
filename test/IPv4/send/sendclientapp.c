@@ -65,7 +65,7 @@ int main(int argc, char ** argv)
 //      memset(buffer,0,2000);
 //    
 //      strcpy(buffer,"hello from client app");
-        
+        q
         uint32_t identifier;
         
         send_packet_with_message(buffer, strlen(buffer), &identifier);
