@@ -3391,7 +3391,7 @@ int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
     printk(KERN_NOTICE "udp_cmsg_send invoked.");
     
     struct cmsghdr *cmsg;
-    *pneedId=0;
+    *pneedId = 0;
     
     if(ppId==NULL)
     {

@@ -944,20 +944,20 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
                 sdata = IEEE80211_DEV_TO_SUB_IF(dev);
                 if(sdata)
                 {
-                    hdr=(struct ieee80211_hdr *)skb->data;
-                    ret=ABPS_info_response(sk, hw, hdr, info, sdata);
+                    hdr = (struct ieee80211_hdr *) skb->data;
+                    ret = ABPS_info_response(sk, hw, hdr, info, sdata);
                     printk(KERN_DEBUG "*** ABPS *** ieee80211_tx_status:"
                            " ABPS_info_response value %d \n", ret);
                 }
                 else
                 {
-                    printk(KERN_NOTICE "sdata is null in in tx_status");
+                    printk(KERN_NOTICE "sdata is null in in tx_status \n");
                 }
                 sdata = NULL;
             }
             else
             {
-                printk(KERN_NOTICE "dev field is null in skb in tx_status");
+                printk(KERN_NOTICE "dev field is null in skb in tx_status \n");
             }
         }
     }

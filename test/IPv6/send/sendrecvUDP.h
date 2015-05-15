@@ -72,7 +72,7 @@ int ipv4_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, st
 int ipv6_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, struct sockaddr_in6 destination_address, uint32_t *pointer_for_identifier);
 
 
-ErrMsg* alloc_init_ErrMsg( void );
+ErrMsg* alloc_init_ErrMsg(void);
 
 
 int ipv6_receive_error_message_no_wait(int descriptor, ErrMsg *em);

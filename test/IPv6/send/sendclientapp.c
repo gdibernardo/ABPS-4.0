@@ -16,7 +16,9 @@
 #include "testlib.h"
 
 
+#define NUMBR_OF_PACKETS 1000
 
+#define MESSAGE_LENGTH 2000
 
 
 int main(int argc, char ** argv)
@@ -73,6 +75,7 @@ int main(int argc, char ** argv)
     
         if(receive_local_error_notify_with_error_message(error_message))
         {
+            /* Application does not use local notification info. */
             check_and_log_local_error_notify_with_test_identifier(error_message, test_identifier);
         }
         
