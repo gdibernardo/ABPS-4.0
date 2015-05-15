@@ -118,9 +118,9 @@ void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     char *log_line;
                     
                     if(acked)
-                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:ACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset test_identifier);
+                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:ACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset, test_identifier);
                     else
-                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:NACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset test_identifier);
+                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:NACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset, test_identifier);
                     
                     prepare_for_logging();
                     

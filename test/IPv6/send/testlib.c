@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
+#include <inttypes.h>
 
 #include "testlib.h"
 
@@ -76,7 +77,66 @@ int prepare_for_logging(void)
 
 void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier)
 {
-    
+    for(error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
+    {
+        if((error_message->c->cmsg_level == IPPROTO_IP) && (error_message->c->cmsg_type == IP_RECVERR))
+        {
+            struct sockaddrin *from;
+            
+            error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
+            
+            from = (struct sockaddrin *) SO_EE_OFFENDER(error_message->ee);
+            
+            if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
+            {
+                uint32_t identifier = ntohl(error_message->ee->ee_info);
+                
+                char packet_status;
+                
+                printf("Received notification for packet %" PRIu32 " \n", identifier);
+                
+                uint8_t acked = error_message->ee->ee_type;
+                
+                uint8_t more_frag = error_message->ee->ee_code;
+                uint16_t frag_len = (error_message->ee->ee_data >> 16);
+                uint16_t offset = ((error_message->ee->ee_data << 16) >> 16);
+                
+                if(acked)
+                {
+                    printf("packet with identifier %" PRIu32 " is acked \n", identifier);
+                }
+                else
+                {
+                    printf("packet with identifier %" PRIu32 " is not acked \n", identifier);
+                }
+                
+                if(is_test_enabled)
+                {
+                    int return_value;
+                    time_t current_time = time(NULL);
+                    
+                    char *log_line;
+                    
+                    if(acked)
+                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:ACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset, test_identifier);
+                    else
+                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:NACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset, test_identifier);
+                    
+                    prepare_for_logging();
+                    
+                    return_value = write(log_descriptor, log_line, strlen(log_line));
+                    
+                    if(return_value == -1)
+                    {
+                        /* Error logging this line. */
+                    }
+                    
+                    free(log_line);
+                }
+            }
+        }
+    }
+
 }
 
 
