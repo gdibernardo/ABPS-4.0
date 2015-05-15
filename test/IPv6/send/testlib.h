@@ -25,6 +25,7 @@ int disable_test_mode(void);
 
 int get_test_identifier(void);
 
+void sent_packet_with_test_identifier(int test_identifier);
 
 void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier);
 

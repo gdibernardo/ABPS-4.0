@@ -89,9 +89,9 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                 {
                     time_t current_time = time(NULL);
                     char *log_line;
-                    asprintf(&log_line,"%s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&result)), identifier, test_identifier);
+                    asprintf(&log_line,"%s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&current_time)), identifier, test_identifier);
                     
-                    printf(log_line);
+                    printf("%s",log_line);
                 }
             }
         }
@@ -119,8 +119,8 @@ void sent_packet_with_test_identifier(int test_identifier)
     {
         time_t current_time = time(NULL);
         char *log_line;
-        asprintf(&log_line,"ABPS testlib just sent packet %s - test identifier:%d \n",asctime(gmtime(&result)), test_identifier);
+        asprintf(&log_line,"ABPS testlib just sent packet %s - test identifier:%d \n",asctime(gmtime(&current_time)), test_identifier);
         
-        printf(log_line);
+        printf("%s",log_line);
     }
 }
