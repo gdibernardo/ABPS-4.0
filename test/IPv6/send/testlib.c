@@ -12,6 +12,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
 
 #include "testlib.h"
 
@@ -87,11 +89,21 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
     
                 if(is_test_enabled)
                 {
+                    int return_value;
                     time_t current_time = time(NULL);
-                    char *log_line;
-                    asprintf(&log_line,"%s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&current_time)), identifier, test_identifier);
                     
-                    printf("%s",log_line);
+                    char *log_line;
+                    
+                    asprintf(&log_line,"ABPS testlib just received local notification %s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&current_time)), identifier, test_identifier);
+                    
+                    return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
+                    
+                    if(return_value == -1)
+                    {
+                        /* Error logging this line. */
+                    }
+                    
+                    free(log_line);
                 }
             }
         }
@@ -117,10 +129,20 @@ void sent_packet_with_test_identifier(int test_identifier)
 {
     if(is_test_enabled)
     {
+        int return_value;
+        
         time_t current_time = time(NULL);
         char *log_line;
         asprintf(&log_line,"ABPS testlib just sent packet %s - test identifier:%d \n",asctime(gmtime(&current_time)), test_identifier);
         
-        printf("%s",log_line);
+        return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
+        
+        if(return_value == -1)
+        {
+            /* We have some error logging this line. */
+            
+        }
+        
+        free(log_line);
     }
 }
