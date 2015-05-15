@@ -71,7 +71,7 @@ int main(int argc, char ** argv)
         send_packet_with_message(buffer, strlen(buffer), &identifier);
         
         /* Log packet just sent. */
-        sent_packet_with_test_identifier(test_identifier);
+        sent_packet_with_packet_and_test_identifier(identifier, test_identifier);
         
     
         ErrMsg *error_message = alloc_init_ErrMsg();

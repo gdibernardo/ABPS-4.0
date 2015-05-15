@@ -154,7 +154,7 @@ void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message
 }
 
 
-void sent_packet_with_test_identifier(int test_identifier)
+void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int test_identifier)
 {
     if(is_test_enabled)
     {
@@ -162,7 +162,7 @@ void sent_packet_with_test_identifier(int test_identifier)
         
         time_t current_time = time(NULL);
         char *log_line;
-        asprintf(&log_line,"%sABPS testlib just sent packet - test identifier:%d \n", asctime(gmtime(&current_time)), test_identifier);
+        asprintf(&log_line,"%sABPS testlib just sent packet - packet identifier %d - test identifier:%d \n", asctime(gmtime(&current_time)), packet_identifier,test_identifier);
         
         prepare_for_logging();
         
