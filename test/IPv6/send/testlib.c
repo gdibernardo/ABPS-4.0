@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -55,11 +56,18 @@ int enable_test_mode_with_path(char *path)
 int disable_test_mode(void)
 {
     log_path = NULL;
+    close(log_descriptor);
     is_test_enabled = 0;
     
     return 1;
 }
 
+
+int prepare_for_writing()
+{
+    int return_value = lseek(log_descriptor, 0, SEEK_END);
+    return return_value;
+}
 
 
 
@@ -96,7 +104,7 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     
                     asprintf(&log_line,"ABPS testlib just received local notification %s - datagram identifier:%d - test identifier:%d status:\n",asctime(gmtime(&current_time)), identifier, test_identifier);
                     
-                    return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
+                    // return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
                     
                     if(return_value == -1)
                     {
@@ -143,11 +151,14 @@ void sent_packet_with_test_identifier(int test_identifier)
         
         printf("%s",buffer);
         
-        return_value = write(log_descriptor, "hello", 5);
+        prepare_for_writing();
+        
+        return_value = write(log_descriptor, buffer, strlen(buffer));
         
         if(return_value == -1)
         {
             /* We have some error logging this line. */
+            printf("testlib sent_packet_with_test_identifier error writing log line. \n");
             
         }
         
