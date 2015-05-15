@@ -11,60 +11,19 @@
 #include "sendrecvUDP.h"
 
 
-/* Need to add proper header file. */
-#define SO_EE_ORIGIN_LOCAL_NOTIFY	5
 
 
 int shared_descriptor;
 
-int is_shared_instance_instantiated: 1;
+int is_shared_instance_instantiated;
 
-int is_shared_instance_ipv6: 1;
+int is_shared_instance_ipv6;
 
 
 
 struct sockaddr_in ipv4_destination_address;
 
-struct sockaddr_in6 ipv6_destionation_address;
-
-
-
-
-
-int instantiate_ipv4_shared_instance_by_address_and_port(char *address, int port)
-{
-    int error;
-    
-    is_shared_instance_ipv6 = 0;
-    is_shared_instance_instantiated = 1;
-    
-    error = create_ipv4_socket(address,port,&shared_descriptor, &ipv4_destination_address);
-    return error;
-}
-
-
-int instantiate_ipv6_shared_instance_by_address_and_port(char *address, int port)
-{
-    int error;
-    
-    is_shared_instance_ipv6 = 1;
-    is_shared_instance_instantiated = 1;
-    
-    error = create_ipv6_socket(address,port,&shared_descriptor, &ipv6_destionation_address);
-    return error;
-}
-
-
-void release_shared_instance(void)
-{
-    shared_descriptor = 0;
-    is_shared_instance_instantiated = 0;
-    is_shared_instance_ipv6 = 0;
-    
-    ipv4_destination_address = NULL;
-    ipv6_destionation_address = NULL;
-}
-
+struct sockaddr_in6 ipv6_destination_address;
 
 
 /* create IPv4 socket */
@@ -75,9 +34,9 @@ int create_ipv4_socket(char *address, int port, int *file_descriptor, struct soc
     
     struct sockaddr_in local_address;
     
-
+    
     /* get datagram socket */
-
+    
     *file_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
     
     if(*file_descriptor == SOCKET_ERROR)
@@ -165,7 +124,7 @@ int create_ipv6_socket(char *address, int port, int *file_descriptor, struct soc
         return errno;
     }
     
-    error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)option_value, sizeof(option_value));
+    error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)&option_value, sizeof(option_value));
     if(error == SOCKET_ERROR)
     {
         printf("setsockopt for IP_RECVERR failed \n");
@@ -176,58 +135,76 @@ int create_ipv6_socket(char *address, int port, int *file_descriptor, struct soc
 }
 
 
-
-/* Send and receive. */
-
-uint32_t send_packet_with_message(char *message, int message_length)
+int instantiate_ipv4_shared_instance_by_address_and_port(char *address, int port)
 {
-    uint32_t identifier;
+    int error;
     
-    if(!is_shared_instance_instantiated)
-        return -1;
+    is_shared_instance_ipv6 = 0;
+    is_shared_instance_instantiated = 1;
     
-    if(is_shared_instance_ipv6)
-        result_value = ipv6_sendmsg_udp(shared_descriptor, message, message_length, ipv6_destionation_address, &identifier);
-    else
-        result_value = ipv4_sendmsg_udp(shared_descriptor, message, message_length, ipv4_destionation_address, &identifier);
-    
-    if(result_value < 0)
-        return result_value;
-    else
-        return identifier;
+    error = create_ipv4_socket(address,port,&shared_descriptor, &ipv4_destination_address);
+    return error;
 }
 
 
-uint32_t receive_local_error_notify(void)
+int instantiate_ipv6_shared_instance_by_address_and_port(char *address, int port)
 {
+    int error;
+    
+    is_shared_instance_ipv6 = 1;
+    is_shared_instance_instantiated = 1;
+    
+    error = create_ipv6_socket(address,port,&shared_descriptor, &ipv6_destination_address);
+    return error;
+}
+
+
+void release_shared_instance(void)
+{
+    shared_descriptor = -1;
+    is_shared_instance_instantiated = 0;
+    is_shared_instance_ipv6 = 0;
+    
+//    ipv4_destination_address = NULL;
+//    ipv6_destionation_address = NULL;
+}
+
+
+
+
+
+
+/* Send and receive. */
+
+int send_packet_with_message(const char *message, int message_length, uint32_t *identifier)
+{
+    int result_value;
+    
     if(!is_shared_instance_instantiated)
         return -1;
+    
     if(is_shared_instance_ipv6)
-    {
-        int return_value;
-        ErrMsg *error_message = allocinit_ErrMsg();
-        return_value = ipv6_receive_error_message_no_wait(shared_descriptor, error_message);
-        /* need to switch along errors type */
-        if(return_value == 1)
-        {
-            for (error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
-            {
-                if(((error_message->c->cmsg_level == IPPROTO_IPV6) && (error_message->c->cmsg_type == IPV6_RECVERR)))
-                {
-                    struct sockaddr_in6 *from;
-                    if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
-                    {
-                        uint32_t identifier;
-                        identifier = ntohl(error_message->ee->ee_info);
-                        
-                        fprintf(stderr,"ricevuta notifica IP id %d\n", identifier);
-                        fflush(stderr);
-                    }
-                }
-            }
-        }
-    }
-    return 0;
+        result_value = ipv6_sendmsg_udp(shared_descriptor, message, message_length, ipv6_destination_address, identifier);
+    else
+        result_value = ipv4_sendmsg_udp(shared_descriptor, message, message_length, ipv4_destination_address, identifier);
+    
+    return result_value;
+}
+
+
+int receive_local_error_notify_with_error_message(ErrMsg *error_message)
+{
+    printf("receive local invoked \n");
+    if(!is_shared_instance_instantiated)
+        return -1;
+    int return_value;
+    
+    if(is_shared_instance_ipv6)
+      return_value = ipv6_receive_error_message_wait(shared_descriptor, error_message);
+    else
+        return_value = ipv4_receive_error_message_no_wait(shared_descriptor, error_message);
+    
+    return return_value;
 }
 
 

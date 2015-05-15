@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "sendrecvUDP.h"
 
 
 /* Initialization and release. */
@@ -15,8 +16,8 @@ void release_shared_instance(void);
 
 
 
-/* Send and receive interfaces. */
+/* Send and receive notify interfaces. */
 
-uint32_t send_packet_with_message(char *message, int message_length);
+int send_packet_with_message(const char *message, int message_length, uint32_t *identifier);
 
-uint32_t receive_local_error_notify(void);
+int receive_local_error_notify_with_error_message(ErrMsg *error_message);
