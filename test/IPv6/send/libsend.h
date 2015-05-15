@@ -3,8 +3,6 @@
 
 #include "sendrecvUDP.h"
 
-/* Need to add proper header file. */
-#define SO_EE_ORIGIN_LOCAL_NOTIFY	5
 
 /* Initialization and release. */
 

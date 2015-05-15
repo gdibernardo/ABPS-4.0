@@ -60,19 +60,6 @@ int disable_test_mode(void)
 
 
 
-void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier)
-{
-    if(error_message->is_ipv6)
-    {
-        ipv6_check_and_log_local_error_notify_with_test_identifier(error_message, test_identifier);
-    }
-    else
-    {
-        ipv4_check_and_log_local_error_notify_with_test_identifier(error_message, test_identifier);
-    }
-}
-
-
 
 void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier)
 {
@@ -104,6 +91,20 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                 }
             }
         }
+    }
+}
+
+
+
+void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier)
+{
+    if(error_message->is_ipv6)
+    {
+        ipv6_check_and_log_local_error_notify_with_test_identifier(error_message, test_identifier);
+    }
+    else
+    {
+        ipv4_check_and_log_local_error_notify_with_test_identifier(error_message, test_identifier);
     }
 }
 
