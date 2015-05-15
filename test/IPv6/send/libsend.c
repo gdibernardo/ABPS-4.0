@@ -67,7 +67,7 @@ int create_ipv4_socket(char *address, int port, int *file_descriptor, struct soc
         return errno;
     }
     
-    error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)option_value, sizeof(option_value));
+    error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)&option_value, sizeof(option_value));
     if(error == SOCKET_ERROR)
     {
         printf("setsockopt for IP_RECVERR failed \n");
@@ -202,7 +202,7 @@ int receive_local_error_notify_with_error_message(ErrMsg *error_message)
     if(is_shared_instance_ipv6)
         return_value = ipv6_receive_error_message_wait(shared_descriptor, error_message);
     else
-        return_value = ipv4_receive_error_message_no_wait(shared_descriptor, error_message);
+        return_value = ipv4_receive_error_message_wait(shared_descriptor, error_message);
     
     return return_value;
 }
