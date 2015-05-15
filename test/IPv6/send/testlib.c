@@ -141,7 +141,7 @@ void sent_packet_with_test_identifier(int test_identifier)
         
         time_t current_time = time(NULL);
         char *log_line;
-        asprintf(&log_line,"ABPS testlib just sent packet %s - test identifier:%d \n",asctime(gmtime(&current_time)), test_identifier);
+        asprintf(&log_line,"%sABPS testlib just sent packet - test identifier:%d \n", asctime(gmtime(&current_time)), test_identifier);
         
         char buffer[strlen(log_line) + 1];
         
@@ -149,11 +149,9 @@ void sent_packet_with_test_identifier(int test_identifier)
         
         strncpy(buffer, log_line, strlen(log_line));
         
-        printf("%s",buffer);
-        
         prepare_for_writing();
         
-        return_value = write(log_descriptor, buffer, strlen(buffer));
+        return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
         
         if(return_value == -1)
         {
