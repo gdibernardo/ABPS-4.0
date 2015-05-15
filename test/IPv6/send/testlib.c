@@ -151,7 +151,7 @@ void sent_packet_with_test_identifier(int test_identifier)
         
         prepare_for_writing();
         
-        return_value = write(log_descriptor, log_line, strlen(log_line) + 1);
+        return_value = write(log_descriptor, log_line, strlen(log_line));
         
         if(return_value == -1)
         {
