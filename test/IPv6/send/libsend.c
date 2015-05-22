@@ -60,19 +60,19 @@ int create_ipv4_socket(char *address, int port, int *file_descriptor, struct soc
     /* configuring the socket */
     
     option_value = 1;
-    error = setsockopt(*file_descriptor, SOL_SOCKET, SO_REUSEADDR, (char *)&option_value, sizeof(option_value));
-    if(error == SOCKET_ERROR)
-    {
-        printf("setsockopt for reuse address failed \n");
-        return errno;
-    }
-    
-    error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)&option_value, sizeof(option_value));
-    if(error == SOCKET_ERROR)
-    {
-        printf("setsockopt for IP_RECVERR failed \n");
-        return errno;
-    }
+//    error = setsockopt(*file_descriptor, SOL_SOCKET, SO_REUSEADDR, (char *)&option_value, sizeof(option_value));
+//    if(error == SOCKET_ERROR)
+//    {
+//        printf("setsockopt for reuse address failed \n");
+//        return errno;
+//    }
+//    
+//    error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)&option_value, sizeof(option_value));
+//    if(error == SOCKET_ERROR)
+//    {
+//        printf("setsockopt for IP_RECVERR failed \n");
+//        return errno;
+//    }
     
     return 1;
 }
