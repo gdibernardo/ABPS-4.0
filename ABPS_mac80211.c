@@ -202,9 +202,13 @@ static struct ABPS_info *ABPS_info_search(__le16 id)
 	int debug_counter = 0;
 	printk(KERN_DEBUG "*** ABPS *** COUNTER %d \n", ABPS_info_counter);
 #endif
-	while (aux->next != NULL) {
-		if (id == aux->next->id) {	/* ABPS_info is found */
-			return aux->next;
+	while (aux->next != NULL)
+    {
+        printk(KERN_NOTICE "1 \n");
+        if (id == aux->next->id)
+        {	/* ABPS_info is found */
+            printk(KERN_NOTICE "2 \n");
+            return aux->next;
 		}
 #ifdef ABPS_DEBUG
 		debug_counter++;
@@ -213,6 +217,7 @@ static struct ABPS_info *ABPS_info_search(__le16 id)
 			return 0;
 		}
 #endif
+        printk(KERN_NOTICE "3 \n");
 		aux = aux->next;
 	}
 	return 0;
@@ -230,10 +235,14 @@ static void Check_ABPS_info_list(void)
 #ifdef ABPS_DEBUG
 		printk(KERN_NOTICE "*** ABPS *** Check_ABPS_info_list\n");
 #endif
-		while (aux->next != NULL) {
+		while (aux->next != NULL)
+        {
 			if ( now.tv_sec > (aux->next->tx_time.tv_sec+10) ) {
+                printk(KERN_NOTICE "6 \n");
 				struct ABPS_info *temp = aux->next->next;
-				kfree(aux->next);
+                printk(KERN_NOTICE "4 \n");
+                kfree(aux->next);
+                printk(KERN_NOTICE "5 \n");
 				aux->next = temp;
 				ABPS_info_counter -- ;
 #ifdef ABPS_DEBUG
@@ -255,16 +264,23 @@ static void Check_ABPS_info_list(void)
  */
 static void ABPS_info_add(struct ABPS_info *packet_info )
 {
+    printk(KERN_NOTICE "7 \n");
 	Check_ABPS_info_list();
-	if (sentinel.next == NULL) { /* empty list */
-		sentinel.next = packet_info;
+    printk(KERN_NOTICE "8 \n");
+	if (sentinel.next == NULL)
+    { /* empty list */
+        printk(KERN_NOTICE "9 \n");
+        sentinel.next = packet_info;
 		packet_info->next = NULL;
 	} else {
 		struct ABPS_info *aux = &sentinel;
+        printk(KERN_NOTICE "10 \n");
 		while (aux->next != NULL) {
+            printk(KERN_NOTICE "11 \n");
 			aux = aux->next;
 		}
 		aux->next = packet_info;
+        printk(KERN_NOTICE "12 \n");
 		packet_info->next = NULL;
 	}
 	ABPS_info_counter++ ;
@@ -278,15 +294,22 @@ static void ABPS_info_add(struct ABPS_info *packet_info )
  */
 static void ABPS_info_remove(struct ABPS_info *packet_info)
 {
+    printk(KERN_NOTICE "13 \n");
 	struct ABPS_info *aux = &sentinel;
 	while (aux->next != NULL) {
+        printk(KERN_NOTICE "14 \n");
 		if (aux->next->id == packet_info->id ) {
+            printk(KERN_NOTICE "15 \n");
 			struct ABPS_info *temp = aux->next->next;
+            printk(KERN_NOTICE "16 \n");
 			kfree(aux->next);
+            printk(KERN_NOTICE "17 \n");
 			aux->next = temp;
+            printk(KERN_NOTICE "18 \n");
 			ABPS_info_counter -- ;
 			break;
 		}
+        printk(KERN_NOTICE "19 \n");
 		aux = aux->next;
 	}
 }
@@ -294,6 +317,7 @@ static void ABPS_info_remove(struct ABPS_info *packet_info)
 
 static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *sport,__be16 *dport)
 {
+    printk(KERN_NOTICE "20 \n");
     struct ipv6hdr *payload_iphdr;
 
     struct udphdr *payload_udphdr;
@@ -305,8 +329,9 @@ static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *spo
         return(-3);
     }
     
+    printk(KERN_NOTICE "21 \n");
     payload_iphdr = (struct ipv6hdr *) payload;
-    
+    printk(KERN_NOTICE "22 \n");
     if(payload_iphdr->version != 6)
     {
         printk(KERN_NOTICE "no ipv6 header");
@@ -389,10 +414,10 @@ static int get_udp_info(unsigned char *payload, int data_len, __be32 *saddr,
 
 int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t identifier)
 {
-    
+    printk(KERN_NOTICE "23 \n");
     struct ABPS_info *packet_info;
     struct ieee80211_hdr_4addr *hdr4 = (struct ieee80211_hdr_4addr *)hdr;
-    
+    printk(KERN_NOTICE "24 \n");
     size_t hdrlen;
     u16 fc, type, stype, sc;
     unsigned int frag;
@@ -411,8 +436,11 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             break;
             return 0;
     }
+    printk(KERN_NOTICE "25 \n");
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
+    printk(KERN_NOTICE "26 \n");
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
+    printk(KERN_NOTICE "27 \n");
     /*
      
      Gab ABPS 3.10
@@ -425,7 +453,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     stype = WLAN_FC_GET_STYPE(fc);
     sc = le16_to_cpu(hdr4->seq_ctl);
     frag = WLAN_GET_SEQ_FRAG(sc);
-    
+    printk(KERN_NOTICE "28 \n");
     /* OLD hdrlen = ieee80211_get_hdrlen(fc); */
     hdrlen = ieee80211_hdrlen(fc);
     
@@ -439,9 +467,12 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     
     
     payload = ((u8*)(hdr4)) + hdrlen;
+    printk(KERN_NOTICE "29 \n");
     ethertype = (payload[6] << 8) | payload[7];
+    printk(KERN_NOTICE "30 \n");
     if (ethertype == ETH_P_IP) {
         IPdatagram = ((u8*)hdr4) + hdrlen + 8;
+        printk(KERN_NOTICE "31 \n");
         flen = sizeof(struct iphdr) + sizeof(struct udphdr);
         result_from_get_udp_info = get_udp_info(IPdatagram, flen, &(p_IPDGInfo->saddr),
                            &(p_IPDGInfo->daddr), &(p_IPDGInfo->sport),
@@ -451,6 +482,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
                            &(p_IPDGInfo->fragment_offset),
                            &(p_IPDGInfo->more_fragment));
         if (result_from_get_udp_info > 0) {
+            printk(KERN_NOTICE "32 \n");
             /* set the fields of the ABPS_info that will be put in the
              * ABPS_info list*/
             packet_info->datagram_info.ip_id =  identifier;
@@ -462,7 +494,9 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             packet_info->datagram_info.more_fragment = p_IPDGInfo->more_fragment;
             packet_info->is_ipv6 = 0;
             packet_info->tx_time = CURRENT_TIME;
+            printk(KERN_NOTICE "33 \n");
             ABPS_info_add(packet_info);
+            printk(KERN_NOTICE "34 \n");
             return(1);
         }
         return(0);
@@ -476,7 +510,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
            flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);
            result_from_get_udp_info = ipv6_get_udp_info(IPdatagram,flen,&(p_IPDGInfo->sport),
                                    &(p_IPDGInfo->dport));
-           
+           printk(KERN_NOTICE "35 \n");
            if (result_from_get_udp_info > 0) {
             /* set the fields of the ABPS_info that will be put in the
             * ABPS_info list*/
@@ -502,8 +536,9 @@ rx_dropped:
 int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr)
 {
 	struct ABPS_info *packet_info;
+    printk(KERN_NOTICE "36 \n");
 	struct ieee80211_hdr_4addr *hdr4 = (struct ieee80211_hdr_4addr *)hdr;
-
+    printk(KERN_NOTICE "37 \n");
 	size_t hdrlen;
 	u16 fc, type, stype, sc;
 	unsigned int frag;
@@ -512,8 +547,9 @@ int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr)
 	u16 ethertype;
 	int flen;
 	IPdgramInfo *p_IPDGInfo;
-
+    printk(KERN_NOTICE "38 \n");
 	fc = le16_to_cpu(hdr->frame_control) ;
+    printk(KERN_NOTICE "39 \n");
 	stype = WLAN_FC_GET_STYPE(fc);
 
 	switch (WLAN_FC_GET_TYPE(fc)) {
@@ -522,6 +558,7 @@ int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr)
 			return 0;
 	}
 
+    printk(KERN_NOTICE "40 \n");
 	p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
 	packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
 
@@ -586,6 +623,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 	u8 acked = -1;
 	u8 retry_count = -1;
 	unsigned long filtered_count = -1;
+    printk(KERN_NOTICE "41 \n");
 	struct ieee80211_local *local = hw_to_local(hw);
 	struct ABPS_info *packet_info;
 	int i;
@@ -596,6 +634,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 		if (info->flags & IEEE80211_TX_STAT_ACK)
 			success=1;
 	}
+    printk(KERN_NOTICE "42 \n");
 	/* VEDERE SE RIMETTERE A POSTO
 	else {
 		if (!(info->excessive_retries))
@@ -603,6 +642,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 	}
 	*/
 
+    printk(KERN_NOTICE "43 \n");
 	if (info->flags & IEEE80211_TX_CTL_NO_ACK) {
 		/* ack not required */
 		acked= ACK_NOT_REQ;
@@ -628,6 +668,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 		if (retry_count > 0)
 			retry_count--;
 
+        printk(KERN_NOTICE "44 \n");
 		sta = sta_info_get(sdata, hdr->addr1);
 		if (sta)
 			filtered_count = sta->tx_filtered_count;
@@ -636,6 +677,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 	}
 	else {
 		/* frame not acked, ack not recieved */
+        printk(KERN_NOTICE "45 \n");
 		struct sta_info *sta;
 		acked = ACK_NOT;
 
@@ -650,6 +692,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 		if (retry_count > 0)
 			retry_count--;
 
+        printk(KERN_NOTICE "46 \n");
 		sta = sta_info_get(sdata, hdr->addr1);
 		if (sta) filtered_count = sta->tx_filtered_count;
 		else filtered_count = ACK_ERROR;
@@ -661,6 +704,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
     
 	if (packet_info != 0)
     {
+        printk(KERN_NOTICE "47 \n");
 		packet_info->datagram_info.acked = acked;
 		packet_info->datagram_info.retry_count = retry_count;
 
@@ -675,6 +719,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
         printk("ready to perform ip_local_error_notify \n");
         if(!packet_info->is_ipv6)
         {
+            printk(KERN_NOTICE "48 \n");
             ip_local_error_notify(sk,
                                   success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
                                   -1	/* __be32 daddr */ ,
@@ -685,10 +730,13 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
                                   packet_info->datagram_info.fragment_data_len,
                                   packet_info->datagram_info.fragment_offset,
                                   packet_info->datagram_info.more_fragment );
+            printk(KERN_NOTICE "49 \n");
         }
         else
         {
+            printk(KERN_NOTICE "50 \n");
             ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id);
+            printk(KERN_NOTICE "51 \n");
         }
     
             
@@ -698,6 +746,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 #ifdef ABPS_DEBUG
 		ABPS_info_take_response(packet_info);
 #endif
+        printk(KERN_NOTICE "52 \n");
 		ABPS_info_remove(packet_info);
 		return(1);
 	}
