@@ -1395,9 +1395,12 @@ out:
     printk(KERN_NOTICE "prepare for exit from sendmsg in IPv6 \n");
     if(needId)
     {
-        printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d in IPv6 \n", ntohl(skb->sk_buff_identifier));
-        // need to set id in user space
-        put_user(ntohl(skb->sk_buff_identifier), pId);
+        if(skb)
+        {
+            printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d in IPv6 \n", ntohl(skb->sk_buff_identifier));
+            // need to set id in user space
+            put_user(ntohl(skb->sk_buff_identifier), pId);
+        }
     }
 
 	dst_release(dst);
