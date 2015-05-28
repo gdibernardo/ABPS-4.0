@@ -1127,20 +1127,16 @@ out:
     if(needId)
     {
         printk(KERN_NOTICE "Need id test passed \n");
-        if(skb)
+        if(skb != NULL)
         {
+            printk("this test is running \n");
             printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d \n", ntohl(skb->sk_buff_identifier));
             // need to set id in user space
             put_user(ntohl(skb->sk_buff_identifier), pId);
         }
     }
-    printk(KERN_NOTICE "passed out control \n");
-    if(rt)
-    {
-        printk(KERN_NOTICE "is not null rt \n");
-        ip_rt_put(rt);
-    }
-    printk(KERN_NOTICE "after rt check \n");
+    
+	ip_rt_put(rt);
 	if (free)
 		kfree(ipc.opt);
 	if (!err)
@@ -1159,9 +1155,7 @@ out:
 	return err;
 
 do_confirm:
-    printk(KERN_NOTICE "IN do confirm \n");
 	dst_confirm(&rt->dst);
-    printk(KERN_NOTICE "after invoking dst_confirm \n");
 	if (!(msg->msg_flags&MSG_PROBE) || len)
 		goto back_from_confirm;
 	err = 0;
