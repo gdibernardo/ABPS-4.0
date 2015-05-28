@@ -527,6 +527,9 @@ struct sk_buff {
 	struct sock		*sk;
 	struct net_device	*dev;
     
+    /* ABPS Gab */
+    uint32_t sk_buff_identifier;
+    
 	/*
 	 * This is the control buffer. It is free to use for every
 	 * layer. Please put your private variables there. If you
@@ -670,9 +673,6 @@ struct sk_buff {
 				*data;
 	unsigned int		truesize;
 	atomic_t		users;
-    
-    /* ABPS Gab */
-    uint32_t sk_buff_identifier;
 };
 
 #ifdef __KERNEL__
