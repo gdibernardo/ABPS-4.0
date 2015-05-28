@@ -406,17 +406,13 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     fc = le16_to_cpu(hdr->frame_control) ;
     stype = WLAN_FC_GET_STYPE(fc);
   
-    printk(KERN_NOTICE "ready to get type \n");
     switch (WLAN_FC_GET_TYPE(fc)) {
         case IEEE80211_FTYPE_DATA:
             break;
             return 0;
     }
-    printk(KERN_NOTICE "25 \n");
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
-    printk(KERN_NOTICE "26 \n");
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
-    printk(KERN_NOTICE "27 \n");
     /*
      
      Gab ABPS 3.10
@@ -457,7 +453,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             /* set the fields of the ABPS_info that will be put in the
              * ABPS_info list*/
             packet_info->datagram_info.ip_id =  identifier;
-            printk(KERN_DEBUG "ABPS setted id in extract %d with frame identifier %d \n", ntohl(identifier), packet_info->id);
+           
             /* maybe ntohs, not sure */
             packet_info->datagram_info.udp_sport = p_IPDGInfo->sport;
             packet_info->datagram_info.fragment_data_len = p_IPDGInfo->fragment_data_len;
@@ -587,8 +583,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
  	struct ieee80211_local *local = hw_to_local(hw);
 	struct ABPS_info *packet_info;
 	int i;
-    printk(KERN_NOTICE "ABPS_info_response invoked \n");
-	/* se era richiesto l'ack */
+ 	/* se era richiesto l'ack */
     if (!(info->flags & IEEE80211_TX_CTL_NO_ACK)) {
 		/* e l'ack e' arrivato */
 		if (info->flags & IEEE80211_TX_STAT_ACK)
@@ -652,10 +647,8 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 		if (sta) filtered_count = sta->tx_filtered_count;
 		else filtered_count = ACK_ERROR;
 	}
-    printk(KERN_NOTICE "Ready to perform ABPS info search in ABPS_info_response \n");
-
+ 
     packet_info = ABPS_info_search(hdr->seq_ctrl);
-    printk(KERN_NOTICE "Just performed ABPS info search in ABPS_info_response \n");
     
 	if (packet_info != 0)
     {
@@ -670,7 +663,6 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 			/*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
 			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
 			invece mai propagato fino all'utente */
-        printk("ready to perform ip_local_error_notify \n");
         if(!packet_info->is_ipv6)
         {
             ip_local_error_notify(sk,

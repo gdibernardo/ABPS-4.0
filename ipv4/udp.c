@@ -1084,15 +1084,10 @@ back_from_confirm:
 				  msg->msg_flags);
 		err = PTR_ERR(skb);
 		if (!IS_ERR_OR_NULL(skb))
-        {
-			err = udp_send_skb(skb, fl4);
-            printk(KERN_NOTICE "not null \n");
-        }
+            err = udp_send_skb(skb, fl4);
         else
-        {
-            printk(KERN_NOTICE "is null \n");
             skb_is_null = 1;
-        }
+        
 		goto out;
 	}
 
@@ -1134,13 +1129,10 @@ do_append_data:
 
 out:
     /* ABPS Gab */
-    printk(KERN_NOTICE "prepare for exit from sendmsg \n");
     if(needId)
     {
-        printk(KERN_NOTICE "Need id test passed \n");
         if(!skb_is_null)
         {
-            printk("this test is running \n");
             printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d \n", ntohl(skb->sk_buff_identifier));
             // need to set id in user space
             put_user(ntohl(skb->sk_buff_identifier), pId);
