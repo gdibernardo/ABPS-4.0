@@ -894,6 +894,7 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	__be16 dport;
 	u8  tos;
 	int err, is_udplite = IS_UDPLITE(sk);
+
 	int corkreq = up->corkflag || msg->msg_flags&MSG_MORE;
 	int (*getfrag)(void *, char *, int, int, int, struct sk_buff *);
 	struct sk_buff *skb;
@@ -902,6 +903,8 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
     /* ABPS Gab */
     
     USER_P_UINT32 pId = NULL;
+    
+    int skb_is_null = 0;
     
     uint32_t needId = 0;
     
@@ -1081,7 +1084,15 @@ back_from_confirm:
 				  msg->msg_flags);
 		err = PTR_ERR(skb);
 		if (!IS_ERR_OR_NULL(skb))
+        {
 			err = udp_send_skb(skb, fl4);
+            printk(KERN_NOTICE "not null \n");
+        }
+        else
+        {
+            printk(KERN_NOTICE "is null \n");
+            skb_is_null = 1;
+        }
 		goto out;
 	}
 
@@ -1127,7 +1138,7 @@ out:
     if(needId)
     {
         printk(KERN_NOTICE "Need id test passed \n");
-        if(skb != NULL)
+        if(!skb_is_null)
         {
             printk("this test is running \n");
             printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d \n", ntohl(skb->sk_buff_identifier));
