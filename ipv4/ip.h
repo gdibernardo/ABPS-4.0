@@ -549,7 +549,7 @@ extern void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
                                   __be32 IPdgramId,
                                   /* The following parameters are used by the client to sort packets */
                                   u16 fragment_data_len, /* only data, not header */
-                                  u16 fragment_offset, u8 more_fragment );
+                                  u16 fragment_offset, u8 more_fragment, u8 retry_count);
 extern void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identifier);
 
 
