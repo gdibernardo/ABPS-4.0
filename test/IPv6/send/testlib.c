@@ -113,14 +113,18 @@ void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                 if(is_test_enabled)
                 {
                     int return_value;
-                    time_t current_time = time(NULL);
+                    
+                    testlib_time current_time;
+                    
+                    current_time_with_supplied_time(&current_time);
+                    
                     
                     char *log_line;
                     
                     if(acked)
-                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:ACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset, test_identifier);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, identifier,more_frag,frag_len,offset, test_identifier);
                     else
-                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:NACK\n", asctime(gmtime(&current_time)), identifier,more_frag,frag_len,offset, test_identifier);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, identifier,more_frag,frag_len,offset, test_identifier);
                     
                     prepare_for_logging();
                     
@@ -174,14 +178,16 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                 if(is_test_enabled)
                 {
                     int return_value;
-                    time_t current_time = time(NULL);
+                    testlib_time current_time;
+                    
+                    current_time_with_supplied_time(&current_time);
                     
                     char *log_line;
                     
                     if(acked)
-                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%d - test identifier:%d status:ACK\n", asctime(gmtime(&current_time)), identifier, test_identifier);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - datagram identifier:%d - test identifier:%d status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, identifier, test_identifier);
                     else
-                        asprintf(&log_line,"%sABPS testlib just received local notification - datagram identifier:%d - test identifier:%d status:NACK\n", asctime(gmtime(&current_time)), identifier, test_identifier);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - datagram identifier:%d - test identifier:%d status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, identifier, test_identifier);
                     
                     prepare_for_logging();
                     
@@ -220,9 +226,12 @@ void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int
     {
         int return_value;
         
-        time_t current_time = time(NULL);
+        testlib_time current_time;
+        
+        current_time_with_supplied_time(&current_time);
+        
         char *log_line;
-        asprintf(&log_line,"%sABPS testlib just sent packet - packet identifier %d - test identifier:%d \n", asctime(gmtime(&current_time)), packet_identifier,test_identifier);
+        asprintf(&log_line,"%sABPS testlib just sent packet msec: %ld - packet identifier %d - test identifier:%d \n", current_time.human_readable_time_and_date,current_time.milliseconds_time, packet_identifier,test_identifier);
         
         prepare_for_logging();
         
@@ -237,4 +246,14 @@ void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int
         
         free(log_line);
     }
+}
+
+
+void current_time_with_supplied_time(testlib_time *time)
+{
+    time_t current_time = time(NULL);
+    
+    time.human_readable_time_and_date = asctime(gmtime(&current_time));
+    
+    time.milliseconds_time = current_time * 1000;
 }

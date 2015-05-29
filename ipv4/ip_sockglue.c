@@ -1282,7 +1282,6 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
     serr->ee.ee_origin = SO_EE_ORIGIN_LOCAL_NOTIFY;
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_pad = 0;
-    printk(KERN_NOTICE "prepare for sending id %d %d",datagram_identifier, ntohl(datagram_identifier));
     serr->ee.ee_info = datagram_identifier;  /* id datagram */
     
     /*
@@ -1305,7 +1304,8 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
                            uint32_t IPdgramId, /*  The following parameters
                                                 are used to the client to sort packages */
                            u16 fragment_data_len, /* only data, no header */
-                           u16 fragment_offset, u8 more_fragment)
+                           u16 fragment_offset,
+                           u8 more_fragment)
 {
     struct inet_sock *inet = NULL;
     struct sock_exterr_skb *serr;
@@ -1353,7 +1353,6 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_code = more_fragment; /* more fragment */
     serr->ee.ee_pad = 0;
-    printk(KERN_NOTICE "prepare for sending id %d %d",IPdgramId, ntohl(IPdgramId));
     serr->ee.ee_info = IPdgramId;  /* id datagram */
     
     /*

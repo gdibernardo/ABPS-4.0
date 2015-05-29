@@ -856,7 +856,6 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
     {
         if(required_ip_local_error_notify(tx->skb->sk))
         {
-            printk(KERN_NOTICE "Local error notify required in sequence number. \n");
             int return_value = ABPS_extract_pkt_info_with_identifier(hdr,tx->skb->sk_buff_identifier);
             if(return_value)
             {

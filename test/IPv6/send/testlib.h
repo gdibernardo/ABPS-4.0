@@ -16,6 +16,13 @@
 /* Need to add proper header file. */
 #define SO_EE_ORIGIN_LOCAL_NOTIFY	5
 
+/* Time struct used in testlib. */
+struct testlib_time
+{
+    long int milliseconds_time;
+    
+    char *human_readable_time_and_date;
+}
 
 
 /* Enable log at the supplied path. */
@@ -28,6 +35,10 @@ int get_test_identifier(void);
 void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int test_identifier);
 
 void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message, int test_identifier);
+
+
+/* Set current time at the supplied testlib structure. */
+void current_time_with_supplied_time(testlib_time *time);
 
 
 #endif /* defined(____testlib__) */

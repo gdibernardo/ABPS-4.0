@@ -60,12 +60,6 @@ int main(int argc, char ** argv)
     
         const char *buffer = json_object_to_json_string(object);
     
-//      char buffer[2000];
-//    
-//      memset(buffer,0,2000);
-//    
-//      strcpy(buffer,"hello from client app");
-        
         uint32_t identifier;
         
         send_packet_with_message(buffer, strlen(buffer), &identifier);
