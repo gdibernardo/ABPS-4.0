@@ -38,7 +38,7 @@ void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message
 
 
 /* Set current time at the supplied testlib structure. */
-void current_time_with_supplied_time(testlib_time *time_lib);
+void current_time_with_supplied_time(testlib_time *time);
 
 
 #endif /* defined(____testlib__) */

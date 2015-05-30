@@ -88,7 +88,6 @@ testlib_list* search_in_list(int id)
 			return return_value;
 		}
 	}
-	return NULL;
 }
 
 
