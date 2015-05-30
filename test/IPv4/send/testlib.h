@@ -17,12 +17,12 @@
 #define SO_EE_ORIGIN_LOCAL_NOTIFY	5
 
 /* Time struct used in testlib. */
-struct testlib_time
+typedef struct 
 {
     long int milliseconds_time;
     
     char *human_readable_time_and_date;
-}
+} testlib_time;
 
 
 /* Enable log at the supplied path. */
@@ -38,7 +38,7 @@ void check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_message
 
 
 /* Set current time at the supplied testlib structure. */
-void current_time_with_supplied_time(testlib_time *time);
+void current_time_with_supplied_time(testlib_time *time_lib);
 
 
 #endif /* defined(____testlib__) */

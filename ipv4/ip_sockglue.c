@@ -1283,7 +1283,7 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_pad = 0;
     serr->ee.ee_info = datagram_identifier;  /* id datagram */
-    
+    serr->ee.ee_retry_count = retry_count;
     /*
      * 16 low order bit are offset, 16 high order bit are len
      *
@@ -1299,8 +1299,7 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
         kfree_skb(skb);
 }
 
-void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
-                           __be16 dport, __be32 saddr, __be16 sport,
+void ip_local_error_notify(struct sock *sk, int sent,
                            uint32_t IPdgramId, /*  The following parameters
                                                 are used to the client to sort packages */
                            u16 fragment_data_len, /* only data, no header */
@@ -1340,7 +1339,6 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
     skb_put(skb, sizeof(struct iphdr));
     skb_reset_network_header(skb);
     iph = ip_hdr(skb);
-    iph->daddr = daddr;
     
     serr = SKB_EXT_ERR(skb);
     if (!serr) {
@@ -1353,9 +1351,8 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_code = more_fragment; /* more fragment */
     serr->ee.ee_pad = 0;
-    serr->ee_ee_retry_count = retry_count;
     serr->ee.ee_info = IPdgramId;  /* id datagram */
-    
+    serr->ee.ee_retry_count = retry_count;
     /*
      * 16 low order bit are offset, 16 high order bit are len
      *
@@ -1364,8 +1361,6 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
      * fragment_offset = (((unsigned long int)v32)<<16)>>16;
      */
     serr->ee.ee_data = fragment_offset + (((u32)fragment_data_len)<<16);
-    serr->addr_offset = (u8 *)&iph->daddr - skb_network_header(skb);
-    serr->port = dport;
     
     __skb_pull(skb, skb_tail_pointer(skb) - skb->data);
     skb_reset_transport_header(skb);

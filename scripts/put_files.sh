@@ -10,6 +10,8 @@ $CP -vaa ../skbuff.c              $1/net/core/skbuff.c
 $CP -vaa ../dev.c                 $1/net/core/dev.c
 $CP -vaa ../skbuff.h              $1/include/linux/skbuff.h
 $CP -vaa ../errqueue.h            $1/include/uapi/linux/errqueue.h
+$CP -vaa ../errqueue.h            /usr/include/linux/errqueue.h
+
 $CP -vaa ../Makefile              $1/net/mac80211/Makefile
 $CP -vaa ../socket.c              $1/net/socket.c
 
