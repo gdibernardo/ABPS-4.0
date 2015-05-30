@@ -1235,7 +1235,7 @@ int required_ip_local_error_notify(struct sock *sk)
 
 /* ABPS Gab */
 
-void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identifier)
+void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identifier, u8 retry_count)
 {
     struct inet_sock *inet = NULL;
     struct sock_exterr_skb *serr;
@@ -1352,7 +1352,8 @@ void ip_local_error_notify(struct sock *sk, int sent, __be32 daddr,
     serr->ee.ee_origin = SO_EE_ORIGIN_LOCAL_NOTIFY;
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */
     serr->ee.ee_code = more_fragment; /* more fragment */
-    serr->ee.ee_pad = retry_count;
+    serr->ee.ee_pad = 0;
+    serr->ee_ee_retry_count = retry_count;
     serr->ee.ee_info = IPdgramId;  /* id datagram */
     
     /*

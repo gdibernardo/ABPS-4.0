@@ -667,10 +667,6 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
         {
             ip_local_error_notify(sk,
                                   success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
-                                  -1	/* __be32 daddr */ ,
-                                  -1	/* __be16 dport */ ,
-                                  -1	/* __be32 saddr */ ,
-                                  packet_info->datagram_info.udp_sport /* __be16 sport */ ,
                                   packet_info->datagram_info.ip_id,
                                   packet_info->datagram_info.fragment_data_len,
                                   packet_info->datagram_info.fragment_offset,
@@ -680,7 +676,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
         }
         else
         {
-            ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id);
+            ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id, packet_info->datagram_info.retry_count);
         }
     
             
