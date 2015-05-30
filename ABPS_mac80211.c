@@ -666,16 +666,17 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
         if(!packet_info->is_ipv6)
         {
             ip_local_error_notify(sk,
-                                  success, /* ABPS DIE KURO MODIFICATO: was success now, count number of retransmissions */
+                                  success,
                                   packet_info->datagram_info.ip_id,
                                   packet_info->datagram_info.fragment_data_len,
                                   packet_info->datagram_info.fragment_offset,
                                   packet_info->datagram_info.more_fragment,
+                                  packet_info->datagram_info.retry_count
                                   );
         }
         else
         {
-            ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id);
+            ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id,packet_info->datagram_info.retry_count);
         }
     
             

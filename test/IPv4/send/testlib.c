@@ -5,7 +5,7 @@
 //  Created by Gabriele Di Bernardo on 13/05/15.
 //
 //
-#define _GNU_SOURCE 
+
 #include <stdio.h>
 #include <time.h>
 #include <stdint.h>
@@ -20,6 +20,8 @@
 
 
 #include "testlib.h"
+
+#define _GNU_SOURCE
 
 
 static char *log_path;
@@ -40,7 +42,9 @@ typedef struct testlib_list
 {
 	int id_test;
 	testlib_time time_list;
+    
 	struct testlib_list * next;
+    
 }testlib_list;
 
 
@@ -53,14 +57,12 @@ void add_in_list(testlib_list *list)
 		head = list;
 	else
 	{
-		testlib_list * temp=head;
+		testlib_list *temp=head;
 		while(temp->next != NULL)
-		{
 			temp=temp->next;
-		}
+        
 		temp->next = list; 
-
-	}
+    }
 	return;
 }
 
@@ -68,6 +70,7 @@ void add_in_list(testlib_list *list)
 testlib_list* search_in_list(int id)
 {
 	testlib_list *return_value;
+    
 	if(head->id_test == id)
 	{
 		return_value = head;
@@ -75,7 +78,7 @@ testlib_list* search_in_list(int id)
 		return return_value;
 	}
 
-	testlib_list * temp =head;
+	testlib_list * temp = head;
 	
 	while(temp->next != NULL)	
 	{
@@ -180,16 +183,16 @@ void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     
                     current_time_with_supplied_time(&current_time);
                     
-					testlib_list *ptr=search_in_list(test_identifier);
+					testlib_list *ptr = search_in_list(test_identifier);
                     
 					long int difference = current_time.milliseconds_time - ptr->time_list.milliseconds_time;                    
                     
                     char *log_line;
                     
                     if(acked)
-                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld  - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d  , retrycount:%" PRIu8 "  , status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time,  difference, identifier,more_frag,frag_len,offset, test_identifier, retry_count);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld  - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d  , retrycount:%" PRIu8 "  , status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time,  difference, identifier,more_frag, frag_len, offset, test_identifier, retry_count);
                     else
-                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld  - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d  , retrycount:%" PRIu8 "  ,status:NACK\n", current_time.human_readable_time_and_date,  current_time.milliseconds_time, difference, identifier,more_frag,frag_len,offset, test_identifier, retry_count);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld  - datagram identifier:%" PRIu32 " - more frag:%" PRIu8 " - frag length:%" PRIu16 " - offset:%" PRIu16 " test identifier:%d  , retrycount:%" PRIu8 "  ,status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, more_frag, frag_len, offset, test_identifier, retry_count);
                     
                     prepare_for_logging();
                     
@@ -201,6 +204,7 @@ void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     }
                     
                     free(log_line);
+                    free(ptr);
                 }
             }
         }
@@ -245,15 +249,15 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     testlib_time current_time;
                     current_time_with_supplied_time(&current_time);
                     
-					testlib_list *ptr=search_in_list(test_identifier);
+					testlib_list *ptr = search_in_list(test_identifier);
                     
 					long int difference = current_time.milliseconds_time - ptr->time_list.milliseconds_time;
                     char *log_line;
                     
                     if(acked)
-                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld datagram identifier:%d - test identifier:%d ,retry count:%" PRIu8 "  ,status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld datagram identifier:%" PRIu32 " - test identifier:%d ,retry count:%" PRIu8 "  ,status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
                     else
-                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld datagram identifier:%d - test identifier:%d ,retry count:%" PRIu8 "  ,status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %" PRIu32 " datagram identifier:%d - test identifier:%d ,retry count:%" PRIu8 "  ,status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
                     
                     prepare_for_logging();
                     
@@ -297,11 +301,12 @@ void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int
         
         current_time_with_supplied_time(&current_time);
         testlib_list *ptr = (testlib_list *) malloc(sizeof(testlib_list));
-		ptr->next=NULL;
+		ptr->next = NULL;
 		ptr->time_list = current_time;
 		ptr->id_test = test_identifier;
 
 		add_in_list(ptr);
+        
         char *log_line;
         asprintf(&log_line,"%sABPS testlib just sent packet msec: %ld - packet identifier %d - test identifier:%d \n", current_time.human_readable_time_and_date,current_time.milliseconds_time, packet_identifier,test_identifier);
         

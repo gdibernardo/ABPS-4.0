@@ -11,6 +11,8 @@ struct sock_extended_err {
 	__u8	ee_pad;
 	__u32   ee_info;
 	__u32   ee_data;
+    /* ABPS */
+    __u8    ee_retry_count;
 };
 
 #define SO_EE_ORIGIN_NONE	0
