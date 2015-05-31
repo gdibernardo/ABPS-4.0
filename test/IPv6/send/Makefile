@@ -1,4 +1,4 @@
-CFLAGS=-Wall -o
+CFLAGS=-Wall -D_GNU_SOURCE -o
 CC=clang
 
 all:	libsend.c sendrecvUDP.c testlib.c sendclientapp.c

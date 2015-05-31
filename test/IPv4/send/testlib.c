@@ -21,8 +21,6 @@
 
 #include "testlib.h"
 
-#define _GNU_SOURCE
-
 
 static char *log_path;
 
@@ -257,7 +255,7 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
                     if(acked)
                         asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld datagram identifier:%" PRIu32 " - test identifier:%d ,retry count:%" PRIu8 "  ,status:ACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
                     else
-                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %" PRIu32 " datagram identifier:%d - test identifier:%d ,retry count:%" PRIu8 "  ,status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
+                        asprintf(&log_line,"%sABPS testlib just received local notification msec: %ld - difference: %ld datagram identifier:%" PRIu32 " - test identifier:%d ,retry count:%" PRIu8 "  ,status:NACK\n", current_time.human_readable_time_and_date, current_time.milliseconds_time, difference, identifier, test_identifier, retry_count);
                     
                     prepare_for_logging();
                     
