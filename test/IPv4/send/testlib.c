@@ -315,7 +315,6 @@ void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int
         {
             /* We have some error logging this line. */
             printf("testlib sent_packet_with_test_identifier error writing log line. \n");
-            
         }
         
         free(log_line);
@@ -330,5 +329,5 @@ void current_time_with_supplied_time(testlib_time *time_lib)
 
     time_lib->human_readable_time_and_date = asctime(gmtime(&current_time.tv_sec));
     
-    time_lib->milliseconds_time =((current_time.tv_sec)*1000000L+current_time.tv_usec)/1000;
+    time_lib->milliseconds_time = ((current_time.tv_sec) * 1000000L + current_time.tv_usec) / 1000;
 }

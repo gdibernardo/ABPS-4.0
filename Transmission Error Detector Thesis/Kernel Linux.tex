@@ -1,0 +1,33 @@
+\documentclass[12pt,a4paper,openright,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{newlfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+
+
+
+\begin{document}
+\begin{chapter}{Cos'è un kernel}
+Il kernel rappresenta il nucleo di un sistema operativo e racchiude tutte le funzioni principali del sistema stesso come gestione della memoria, gestione delle risorse, lo scheduling e il file system.
+Le applicazioni in esecuzione nel sistema possono richiedere particolari servizi al kernel tramite chiamate di sistema ( system call ) senza accedere direttamente alle risorse fisiche.
+L'accesso diretto all'hardware può risultare anche molto complesso pertanto il kernel implementa una o più astrazioni dell'hardware, il cosiddetto Hardware Abstraction Layer. Queste astrazioni servono a nascondere 
+la complessità e a fornire un'interfaccia pulita ed omogenea dell'hardware sottostante.
+\\I kernel si possono classificare in quattro categorie:
+\begin{itemize}
+\item kernel monolitici, un unico aggregato di procedure di gestione mutuamente coordinate e astrazioni hardware
+\item micro kernel, semplici astrazioni dell'hardware gestite e coordinate da un kernel minimale, basate su un paradigma client/server, e primitive di message passing
+\item kernel ibridi simili a micro kernel con la sola differenza di eseguire alcune componenti del sistema in kernel space per questione di efficienza
+\item exo kernel non forniscono alcuna astrazione dell'hardware sottostante ma soltanto una collezione di librerie per mettere in contatto applicazioni con le risorse fisiche
+\end{itemize}
+\begin{section}{Il kernel Linux}
+Nell'aprile del 1991 Linus Torvalds, uno studente finlandese di informatica, comincia a sviluppare un semplice sistema operativo chiamato Linux. L'architettura del kernel sviluppato da Torvalds è di tipo monolitico a discapito di una struttura più moderna e flessibile come il micro kernel. Sebbene oggi il kernel possa essere compilato in modo da ottenere un'immagine binaria ridotta al minimo e i driver caricabili da moduli esterni, l'architettura originaria è chiaramente visibile: tutti i driver infatti devono avere una parte eseguita in kernel mode, anche quelli per cui ciò non sarebbe affatto necessario (ad esempio i driver dei file system). Attualmente il kernel Linux è distribuito con licenza GNU General Public License e in continua evoluzione grazie a una vastissima comunità di sviluppatori da ogni parte del mondo che contribuiscono al suo sviluppo. Il kernel Linux trova larghissima diffusione: infatti grazie alla sua flessibilità viene utilizzato dai personal computer ai grandi centri di calcolo, dai nuovi sistemi embedded agli smartphone. Il sistema mobile più diffuso al mondo Android si basa su una versione lightweight del kernel Linux.
+
+\end{section}
+\end{chapter}
+\end{document}
