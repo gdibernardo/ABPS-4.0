@@ -12,6 +12,13 @@
 \usepackage{amsthm}
 
 
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+
+\linespread{1.3}    
 
 \begin{document}
 \begin{chapter}{Lo stack di rete}
@@ -20,7 +27,7 @@ ISO/OSI è uno standard che definisce un modello composto su più livelli: ogni \e
 
 %ISO/OSI and TCP/IP
 \begin{section}{Il modello ISO/OSI}
-Il modello OSI Open System Interconnection è uno standard per le reti di calcolatori stabilito da ISO International Standard Organization che definisce l'architettura logica di rete come una struttura a strati composta da una pila di protocolli di comunicazione di rete suddivisa in 7 livelli, i quali insieme espletano in maniera logico-gerarchica tutte le funzionalità della rete. Ciascun layer racchiude in sé a livello logico uno o più aspetti fra loro correlati della comunicazione fra due nodi di una rete. I layers vanno dal livello fisico (quello del mezzo fisico, ossia del cavo o delle onde radio) fino al livello delle applicazioni, attraverso cui si realizza la comunicazione di alto livello. Come già accennato ciascun livello fornisce servizi e funzionalità al livello superiore utilizzando le astrazioni fornite dal livello inferiore. Ma vediamo brevemente le funzioni di ciascun livello all'interno dello stack ISO/OSI.
+Il modello OSI (Open System Interconnection) è uno standard per le reti di calcolatori stabilito da ISO (International Standard Organization) che definisce l'architettura logica di rete come una struttura a strati composta da una pila di protocolli di comunicazione di rete suddivisa in 7 livelli, i quali insieme espletano in maniera logico-gerarchica tutte le funzionalità della rete. Ciascun layer racchiude in sé a livello logico uno o più aspetti fra loro correlati della comunicazione fra due nodi di una rete. I layers vanno dal livello fisico (quello del mezzo fisico, ossia del cavo o delle onde radio) fino al livello delle applicazioni, attraverso cui si realizza la comunicazione di alto livello. Come già accennato ciascun livello fornisce servizi e funzionalità al livello superiore utilizzando le astrazioni fornite dal livello inferiore. Ma vediamo brevemente le funzioni di ciascun livello all'interno dello stack ISO/OSI.
 \\
 %Physical Layer
 \begin{paragraph}{Physical Layer}
@@ -88,8 +95,8 @@ L'architettura di una WLAN è caratterizzata da diverse componenti.
 In una WLAN ciascun dispositivo munito di Wireless Network Interface Controllers (WNICs) e che quindi può comunicare senza fili è detto stazione.
 Vi sono due categorie di stazioni:
 \begin{itemize}
-\item access points (AP) ovvero dispositivi elettronici che ricevono/trasmettono segnali radio da/verso nodi mobili equipaggiati con schede di rete Wi-Fi
-\item clients tutti i nodi mobili che possono essere equipaggiati con una wireless network interface come ad esempio laptops, smartphones, workstations
+\item Access Points (AP) ovvero dispositivi elettronici che ricevono/trasmettono segnali radio da/verso nodi mobili equipaggiati con schede di rete Wi-Fi.
+\item Clients tutti i nodi mobili che possono essere equipaggiati con una wireless network interface come ad esempio laptops, smartphones, workstations.
 \end{itemize}
 \end{paragraph}
 
@@ -98,8 +105,8 @@ Il Basic Service Set (BSS) è un insieme di tutte le stazioni che possono comunic
 \\
 Vi sono due tipi di BSS:
 \begin{itemize}
-\item Indipendent BSS (IBSS) ovvero una \emph{rete ad-hoc} caratterizzata dall'assenza di un access point. Questo tipo di BSS non può quindi essere interconnesso con altri Basic Service Set
-\item Infrastructure BSS caratterizzati dalla presenza di un access point, un BSS di questo tipo può essere connesso con altri Basic Service Set
+\item Indipendent BSS (IBSS) ovvero una \emph{rete ad-hoc} caratterizzata dall'assenza di un access point. Questo tipo di BSS non può quindi essere interconnesso con altri Basic Service Set.
+\item Infrastructure BSS caratterizzati dalla presenza di un access point, un BSS di questo tipo può essere connesso con altri Basic Service Set.
 \end{itemize}
 \end{paragraph}
 
@@ -117,8 +124,8 @@ Il Distribution System (DS) interconnette tra loro gli access point di diversi E
 \\	%WLAN types
 Esistono due tipologie di rete WLAN che differiscono dalle modalità di comunicazione:
 \begin{itemize}
-\item infrastructure i nodi comunicano tra loro attraverso a una base station che funge da wireless access point
-\item reti ad-hoc, ovvero una rete dove le stazioni possono comunicare peer-to-peer (P2P) senza alcun access point. Questo viene realizzato tramite IBSS
+\item Infrastructure, i nodi comunicano tra loro attraverso a una base station che funge da wireless access point.
+\item Reti ad-hoc, ovvero una rete dove le stazioni possono comunicare peer-to-peer (P2P) senza alcun access point. Questo viene realizzato tramite IBSS.
 \end{itemize}
 
 \end{subsection}
@@ -131,7 +138,6 @@ Il sistema di numerazione 802.11 è dovuto a IEEE che utilizza 802.x per indicare
 IEEE 802.11b  è stato il primo protocollo largamente utilizzato seguito da 802.11a, 802.11g, 802.11n, and 802.11ac. Vi sono altri standard nella famiglia 802.11 (c-f, h, j) che sono per lo più piccole modifiche, estensioni o correzioni alle precedenti specifiche.
 \\
 Per quanto concerne le performance lo stream data rate può arrivare fino a 780 Mbit/s in 802.11ac grazie anche alla tecnologia MIMO (Multiple-Input and Multiple-Output) che consente di aumentare la capacità del canale trasmissivo usando più trasmittenti e ricevitori sfruttando così il fenomeno del \emph{multipath-propagation} ovvero un segnale radio può raggiungere un ricevitore attraverso diversi percorsi, \emph{path}.
-\end{section}
 
 %Physical Layer in 802.11
 \begin{subsection}{Physical Layer in 802.11}
@@ -170,12 +176,12 @@ Come si può vedere dalla figura \ref{fig:HiddenNodeProblemImage} la stazione A e
 \\
 Per ovviare a questo problema IEEE 802.11 definisce un meccanismo opzionale che introduce due tipi di pacchetti di controllo, in particolare:
 \begin{itemize}
-\item \emph{RTS} (Request To Send), quando un nodo vuole trasmettere, prima di inviare il frame vero e proprio, invia al destinatario un pacchetto di tipo RTS contenente destinatario del messaggio, mittente e durata della trasmissione che seguirà 
-\item \emph{CTS} (Clear To Send), quando un nodo riceve un pacchetto di tipo RTS risponde con un pacchetto di tipo CTS che contiene essenzialmente le stesse informazioni contenute nel frame di tipo RTS; quando il nodo mittente avrà ricevuto il frame CTS potrà cominciare l'inoltro del frame effettivo precedentemente annunciato tramite il rispettivo RTS
+\item \emph{RTS} (Request To Send), quando un nodo vuole trasmettere, prima di inviare il frame vero e proprio, invia al destinatario un pacchetto di tipo RTS contenente destinatario del messaggio, mittente e durata della trasmissione che seguirà. 
+\item \emph{CTS} (Clear To Send), quando un nodo riceve un pacchetto di tipo RTS risponde con un pacchetto di tipo CTS che contiene essenzialmente le stesse informazioni contenute nel frame di tipo RTS; quando il nodo mittente avrà ricevuto il frame CTS potrà cominciare l'inoltro del frame effettivo precedentemente annunciato tramite il rispettivo RTS.
 \end{itemize}
 I pacchetti RTS e CTS vengono inoltrati a tutte le stazioni comprese quindi anche quelle nascoste al mittente che si metteranno in attesa per tutta la durata della trasmissione come specificato dai frame di controllo.
 \\
-Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (up to 2347 Bytes).
+Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (up to 2347 bytes).
 \\
 Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame di controllo il messaggio verrà inoltrato immediatamente senza prima generare il corrispettivo RTS.
 
@@ -191,9 +197,9 @@ Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame 
 \begin{subsection}{IEEE 802.11 frame}
 IEEE 802.11 definisce tre tipologie di frame:
 \begin{itemize}
-\item	DATA, contengono meramente dati
-\item CTRL, servono per facilitare l'interscambio di data frame tra le stazione; appartengono a questa categoria i frame RTS, CTS e ACK
-\item MGMT, frame utili al mantenimento della comunicazione; i \emph{beacon frame} (frame inviato periodicamente da un AP per annunciare al sua presenza e il suo SSID) appartengono a questa categoria
+\item	DATA, contengono meramente dati.
+\item CTRL, servono per facilitare l'interscambio di data frame tra le stazione; appartengono a questa categoria i frame RTS, CTS e ACK.
+\item MGMT, frame utili al mantenimento della comunicazione; i \emph{beacon frame} (frame inviato periodicamente da un AP per annunciare al sua presenza e il suo SSID) appartengono a questa categoria.
 \end{itemize}
 Ciascun frame è composto da un \emph{MAC header}, un \emph{payload} e un \emph{frame check sequence (FCS)}.
 
@@ -205,30 +211,30 @@ Ciascun frame è composto da un \emph{MAC header}, un \emph{payload} e un \emph{f
 \end{figure}
 
 \begin{paragraph}{MAC header}
-I primi due Byte del MAC header contengono un campo molto interessante, il \emph{frame control}. Il frame control contiene diversi sottocampi:
+I primi due byte del MAC header contengono un campo molto interessante, il \emph{frame control}. Il frame control contiene diversi sottocampi:
 \begin{itemize}
-\item Protocol Version, ovvero due bit rappresentanti la versione del protocollo, posto sempre a zero; altri valori sono riservati per un uso futuro
-\item Type, due bit identificanti appunto il tipo di frame
-\item Subtype, quattro bit che identificano il sottotipo del frame; ad esempio come beacon è un sottotipo di MGMT
-\item ToDS \& FromDS, ciascun campo occupa un bit e indica se un data frame è diretto o proviene da un distribution system. I frame di tipo CTRL e MGMT hanno entrambi i flag settati a zero
-\item More Fragments, bit settato quando un pacchetto è viene frammentato in più frame per la trasmissione; tutti i pacchetti con eccezione dell'ultimo inviato avranno questo flag settato
+\item Protocol Version, ovvero due bit rappresentanti la versione del protocollo, posto sempre a zero; altri valori sono riservati per un uso futuro.
+\item Type, due bit identificanti appunto il tipo di frame.
+\item Subtype, quattro bit che identificano il sottotipo del frame; ad esempio come beacon è un sottotipo di MGMT.
+\item ToDS \& FromDS, ciascun campo occupa un bit e indica se un data frame è diretto o proviene da un distribution system. I frame di tipo CTRL e MGMT hanno entrambi i flag settati a zero.
+\item More Fragments, bit settato quando un pacchetto è viene frammentato in più frame per la trasmissione; tutti i pacchetti con eccezione dell'ultimo inviato avranno questo flag settato.
 \item Retry, indica se un frame è stato oggetto di ritrasmissione; utile per eliminare eventuali frame duplicati.
-\item Power Management: indica il \emph{power management state} (ovvero se la stazione è in power-save state o meno) del mittente settato dopo la trasmissione. Gli AP non setteranno mai questo bit in quanto sempre attivi per la gestione delle connessioni
-\item More Data, questo bit indica che c'è almeno un pacchetto disponibile; settato dagli AP per facilitare le stazioni in power-save mode
-\item Protected, indica se il payload del frame è stato cifrato o meno
-\item Order, questo bit è settato solamente quando i frame sono inviati in ordine uno dietro l'altro; spesso ciò non avviene per motivi di performance
+\item Power Management: indica il \emph{power management state} (ovvero se la stazione è in power-save state o meno) del mittente settato dopo la trasmissione. Gli AP non setteranno mai questo bit in quanto sempre attivi per la gestione delle connessioni.
+\item More Data, questo bit indica che c'è almeno un pacchetto disponibile; settato dagli AP per facilitare le stazioni in power-save mode.
+\item Protected, indica se il payload del frame è stato cifrato o meno.
+\item Order, questo bit è settato solamente quando i frame sono inviati in ordine uno dietro l'altro; spesso ciò non avviene per motivi di performance.
 \end{itemize}
 Gli altri campi contenuti nell'header MAC sono la durata di trasmissione, gli indirizzi MAC ( \emph{source}, \emph{destination}, \emph{transmitter} e \emph{receiver} ) e il \emph{Sequence Control}.
 \\
-Il campo Sequence Control è composto da due Byte usato per identificare l'ordine dei frame spediti. I primi 4 bit corrispondono al \emph{fregmentation number} e gli ultimi 12 bit sono il \emph{sequence number}. Il fragmentation number indica il numero di ogni pacchetto precedentemente frammentato, il sequence number, invece, è un valore modulo 4096 assegnato a un frame e rimane costante per ogni ritrasmissione o per ciascun fragment di quel pacchetto.
+Il campo Sequence Control è composto da due byte usato per identificare l'ordine dei frame spediti. I primi 4 bit corrispondono al \emph{fregmentation number} e gli ultimi 12 bit sono il \emph{sequence number}. Il fragmentation number indica il numero di ogni pacchetto precedentemente frammentato, il sequence number, invece, è un valore modulo 4096 assegnato a un frame e rimane costante per ogni ritrasmissione o per ciascun fragment di quel pacchetto.
 \end{paragraph}
 \begin{paragraph}{Payload}
-Il Payload ha dimensione variabile da 0 a 2304 Byte; contiene informazioni provenienti dai livelli di rete superiori.
+Il Payload ha dimensione variabile da 0 a 2304 byte; contiene informazioni provenienti dai livelli di rete superiori.
 \end{paragraph}
 \begin{paragraph}{Frame check sequence (FCS)}
 Spesso detto anche \emph{Cyclic Redundancy Check} (CRC) permette di verificare l'integrità di un frame appena ricevuto: quando un frame sta per essere spedito la stazione sorgente calcola questo valore e lo appende al frame IEEE 802.11. Quando un nodo riceve il frame ricalcola l'FCS sulla base dei dati ricevuti e lo confronta con il valore contenuto nel \emph{trailer} del pacchetto; se i due valori coincidono il frame non ha subito delle modifiche durante la trasmissione.
 \\
-Il campo FCS occupa gli ultimi quattro Byte del frame IEEE 802.11 
+Il campo FCS occupa gli ultimi quattro byte del frame IEEE 802.11 
 \end{paragraph}
 \end{subsection}
 % IEEE 802.11 security. http://www.sans.org/reading-room/whitepapers/wireless/overview-80211-wireless-network-security-standards-mechanisms-1530
@@ -262,16 +268,159 @@ Il WPA è caratterizzato da tre componenti principali:
 \\
 Molte funzioni di crittografia sono built-in nell'hardware di rete per tanto, non essendo possibile un aggiornamento software, per rendere compatibile a pieno WPA con il precedente hardware IEEE 802.11 il nuovo standard sfrutta alcune delle feature usate anche da WEP: in particolare anche WPA fa utilizzo di RC4. WPA inoltre utilizza un meccanismo di \emph{key hierarchy} ovvero la chiave principale ( Pairwise Master Key ) viene utilizzata per generare chiavi temporanee come le sessione key, group keys etc etc. In particolare WPA sfrutta RC4 in modo diverso rispetto a WEP ovvero RC4 viene utilizzato per generare una chiave temporanea a partire dalla shared key anzichè per cifrare direttamente il messaggio. La prima chiave a essere generata è la \emph{session key} che sarà poi utilizzata come seme per la generazione delle future \emph{per-packet key}.
 \\
-Ciascuna per-packet key, lunga 104 bit, è generata da una funzione hash che calcola un digest a partire dall'indirizzo MAC sorgente, il vettore di inizializzazione ( che in WPA è stato esteso da 24 a 48 bit ed è implementato come un contatore, emph{sequence counter}, per evitare \emph{replay attack} ) e la session key. Una volta ottenuta la per-packet key le operazioni di cifratura e decifratura sono identiche a quelle di WEP con la sola differenza che il vettore di inizializzazione è sostituito con i 16 bit meno significativi del IV di WPA e con un dummy Byte inserito in mezzo.
+Ciascuna per-packet key, lunga 104 bit, è generata da una funzione hash che calcola un digest a partire dall'indirizzo MAC sorgente, il vettore di inizializzazione ( che in WPA è stato esteso da 24 a 48 bit ed è implementato come un contatore, emph{sequence counter}, per evitare \emph{replay attack} ) e la session key. Una volta ottenuta la per-packet key le operazioni di cifratura e decifratura sono identiche a quelle di WEP con la sola differenza che il vettore di inizializzazione è sostituito con i 16 bit meno significativi del IV di WPA e con un dummy byte inserito in mezzo.
 \\
 TKIP risulta quindi essere un sistema di cifratura a 128 bit a chiave dinamica molto più sicuro rispetto al sistema adottato da WEP che prevedeva 24 bit dinamici con una chiave di 40 o 104 bit statica.
-\item MIC (Message Integrity Code) detto anche \emph{Michael} è una funzione hash con chiave pensata per proteggere l'integrità di un pacchetto. Il valore calcolato a partire dall'intero pacchetto non criptato è un digest di 8 Byte. La funzione hash utilizzata da MIC è una funzione progettata per poter essere eseguita su dispositivi con capacità di calcolo scarse come possono essere appunto le schede di rete. A causa del bassa capacità di calcolo la funzione hash utilizzata fornisce protezione pari a un algoritmo di cifratura con con una chiave a 20 bit considerato lo standard per una bassa protezione. Per compensare quindi una bassa protezione WPA introduce una serie di contromisure per proteggere la rete 
-
+\item MIC (Message Integrity Code) detto anche \emph{Michael} è una funzione hash con chiave pensata per proteggere l'integrità di un pacchetto. Il valore calcolato a partire dall'intero pacchetto non criptato è un digest di 8 byte. La funzione hash utilizzata da MIC è una funzione progettata per poter essere eseguita su dispositivi con capacità di calcolo scarse come possono essere appunto le schede di rete. A causa del bassa capacità di calcolo la funzione hash utilizzata fornisce protezione pari a un algoritmo di cifratura con con una chiave a 20 bit considerato lo standard per una bassa protezione. Per compensare quindi una bassa protezione WPA introduce una serie di contromisure per proteggere la rete da eventuali modifiche dei pacchetti da parti di terzi ( packets modification attack ) ovvero quando la rete intercetta un pacchetto compromesso disabilità il collegamento wireless con gli host coinvolti per 60 secondi ed ogni dispositivo compromesso deve richiedere forzatamente una nuova session key.
+\\
+Il pericolo causato da questo tipo di contromisura che un malintenzionato può intenzionalmente forgiare pacchetti invalidi in modo tale che l'access point adotti questo approccio di continuo generando così un denial of service.
+\item 802.1x Port based Network Access Control è un protocollo per il controllo degli accessi in una rete wireless basato sul controllo delle porte di accesso alla rete ( switch  e/o access point ). Questo protocollo divide la rete in tre entità principali ovvero \emph{supplicant}, cioè il client che vuole connettersi alla rete, l'\emph{authenticator} ovvero il punto di accesso alla rete dove il supplicant vuole fisicamente connettersi ( tendenzialmente uno switch o un access point che collega il nodo alla rete ) e l'\emph{authentication server} il cui compito è quello di validare l'accesso alla rete del client. 
+\\
+In una rete che adotta 802.1x un nodo deve prima autenticarsi prima di poter accedere e comunicare nella rete wireless. Uno switch o un access point accetta come traffico proveniente da un client non autentificato soltanto messaggi di autenticazione di tipo EAP (Extensible Authentication Protocol) bloccando qualsiasi altra forma di traffico fino a che il client non effettua l'accesso con successo. 802.1x è inoltre responsabile della generazione e della consegna della session key una volta che il nodo si è autentificato con successo. 
 \end{itemize}
-
 \end{paragraph}
+%WPA2
+\begin{paragraph}{IEEE 802.11i (a.k.a. WPA2)}
+La più sostanziale differenza tra WPA e IEEE 802.11i (WPA2) è che 802.11i adotta AES (Advanced-Encription Standard) per cifrare i frame. AES è un algoritmo di cifratura a blocchi che rappresenta lo stato dell'arte per quel che riguarda algoritmi di cifratura. L'unico inconveniente è che le schede di rete che supportano esclusivamente WEP non possono essere aggiornate via software per supportare AES e quindi IEEE 802.11i. Se una rete volesse adottare IEEE 802.11i tutte le stazioni dovrebbero montare hardware di rete compatibile con WPA2. 
+\end{paragraph}
+\end{subsection}
+\end{section}
+
+%Network in IEEE 802.11
+\begin{section}{Livello Network}
+Qui in seguito verranno presentati i principali protocolli utilizzati a livello rete ovvero il terzo livello dello stack ISO/OSI.
+\begin{subsection}{IPv4}
+IPv4 (Internet Protocol version 4), come descritto nel RFC 791 dell'IETF del 1981, è un protocollo connectionless per l'uso su reti a commutazione di pacchetto, come ad esempio Ethernet. È un protocollo di tipo \emph{best-effort} ovvero non viene garantita l'effettiva consegna o se i pacchetti saranno recapitati nel giusto ordine oppure duplicati. I pacchetti scambiati a livello network sono detti \emph{datagram}. 
+\begin{paragraph}{Indirizzi IPv4}
+IPv4 utilizza indirizzi a 32 bit ( suddivisi in quattro gruppi da un byte tramite la \emph{decimal dotted notation} ) per identificare univocamente un singolo host . Molti degli indirizzi IP sono però riservati per scopi particolari ( reti domestiche o indirizzi di \emph{multicast} ) facendo si che l'effettivo \emph{pool} di indirizzi IP disponibili sia piuttosto ridotto in confronto alla diffusione degli ultimi anni dei dispositivi che possono connettersi alla rete. 
+\\
+Un indirizzo IP, ad esempio, può essere 192.168.1.102 ( indirizzo IP classe C ); in un indirizzo IP, a seconda della classe e dello scopo, i bit più significativi vengono utilizzati per identificare la rete quelli meno significativi, invece, sono utilizzati per indirizzare direttamente i singoli host. Il numero di bit utilizzati per individuare la rete o gli host dipende dalla classe dell'indirizzo IP e da come è stata progettata la rete stessa.
+\end{paragraph}
+\begin{paragraph}{IPv4 header}
+Un datagram IP è formato da un header e da una porzione dati. La dimensione massima del datagram può essere di 65535 byte.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{IPv4HeaderImage}
+    \caption{Formato dell'header IPv4}
+     \label{fig:IPv4HeaderImage}
+\end{figure}
+
+I campi dell'header IP sono:
+\begin{itemize}
+\item \textbf{Version}, 4 bit indicanti la versione del protocollo IP del pacchetto; in IPv4 questo campo assume il valore 4.
+\item \textbf{Internet Header Length} (IHL), 4 bit indicanti la lunghezza dell'header IP ( in word da 32 bit ); l'header può avere dimensione variabile a seconda se il campo \emph{Options} è settato o meno.
+\item \textbf{Type of Service} (TOS), ottetto che nelle specifiche iniziali del protocollo ( RFC 791 ) davano la possibilità all'host mittente di specificare il modo e la priorità con cui il nodo destinatario doveva trattare il datagram. In realtà questo campo non è mai stato largamente utilizzato e negli ultimi e recentemente questi 8 bit sono stati ridefiniti e hanno la funzione di \emph{Differentiated services} (DiffServ) nell'IETF e \emph{Explicit Congestion Notification} (ECN) codepoints  (RFC 3168) necessari per le tecnologie basate su streaming in tempo reale come ad esempio per il \emph{Voice over IP} (VoIP).
+\item \textbf{Total Length}, 16 bit, indica la dimensione massima in byte dell'intero dagram IP ( header e dati ); tale lunghezza può variare da un minimo di 20 byte (header minimo e senza alcun dato) a un massimo di 65535 byte. In ogni momento un host deve poter gestire datagrammi di dimensione minima 576 byte mente, se necessario, possono frammentare datagram di dimensione maggiore.
+\item \textbf{Identification}, 16 bit, definito per identificare univocamente i vari frammenti in cui può essere suddiviso un datagram IP. Può essere anche utilizzato per valutare la presenza di datagram ridondanti ( indirizzo IP sorgente più Identification identificano univocamente un pacchetto ).
+\item \textbf{Flags} ovvero 3 bit utilizzati per il controllo del protocollo e la frammentazione dei datagrammi. Il primo bit detto \emph{Reserved} è sempre settato a zero; vi sono poi DF (Don't Fragment) che se settato a 1 indica che il pacchetto non deve essere frammentato e MF (More Fragment) che se settato a 0 indica che è l'ultimo frammento ( o il solo frammento originario ) e tutti gli altri frammenti avranno quindi questo flag posto a 1.
+\item \textbf{Fragment Offset}, 13 bit, indica l'offset, misurato in blocchi da 8 byte, di un particolare frammento relativamente all'inizio del datagram IP originario. L'offset massimo risulta pertanto essere 65526 byte che, sommato la dimensione dell'header IP, potrebbe eccedere la dimensione massima di 65535 byte prevista per un datagram IP.
+\item \textbf{Time To Live} (TTL), 8 bit, indica il \emph{tempo di vita} di un pacchetto necessario per evitarne la persistenza indefinita sulla rete nel caso in cui non si riesca a recapitarlo al destinatario. Storicamente il TTL misurava i "secondi di vita" del pacchetto, mentre ora esso misura il numero di "salti" da nodo a nodo della rete: ogni router che riceve il pacchetto prima di inoltrarlo ne decrementa il TTL ( modificando quindi anche il campo Header Checksum ), quando questo arriva a zero il pacchetto non viene più inoltrato ma scartato. Tipicamente, quando un pacchetto viene scartato per esaurimento del TTL, viene automaticamente inviato un messaggio ICMP al mittente del pacchetto, specificando il codice di richiesta scaduta; la ricezione di questo messaggio ICMP è alla base del meccanismo di traceroute.
+\item \textbf{Protocol}, 8 bit, indica il codice associato al protocollo utilizzato nel campo dati del pacchetto IP.
+\item \textbf{Header Checksum}, 16 bit, è un campo usato per il controllo degli errori dell'header. Ad ogni hop, il checksum viene ricalcolato (secondo la definizione data in RFC 791) e confrontato con il valore di questo campo: se non c'è corrispondenza il pacchetto viene scartato. È da notare che non viene effettuato alcun controllo sulla presenza di errori nel campo Data deputandolo ai livelli superiori.
+\item \textbf{Source Address}, 32 bit, indirizzo IP associato all'host del mittente del datagram.
+\item \textbf{Destination Address}, 32 bit, indirizzo IP associato all'host del destinatario del datagram.
+\item \textbf{Options} contiene opzione facoltative e poco usate per usi più specifici del protocollo. La dimensione del campo Options deve essere multipla di 32 bit altrimenti, per raggiungere tale scopo, vengono aggiunti dei bit privi di significato, \textbf{padding}.
+\end{itemize}
+\end{paragraph}
+\end{subsection}
+%NAT
+\begin{subsection}{NAT}
+NAT Network Address Translation è una tecnica che consente di mappare uno o più indirizzi IP di un \emph{address space} in un indirizzo IP appartenente a uno spazio di indirizzi diverso: questo avviene molto semplicemente modificando le informazioni sugli indirizzi di rete presenti in un datagram IP in transito su di un dispositivo di routing. Questa tecnica è stata originariamente pensata per semplificare le operazioni di rerouting del traffico IP in una rete senza rinumerare ciascun host di quella rete: ad esempio hosts appartenenti a una rete privata possono essere mappati su di un unico indirizzo IP appartenente a uno spazio di indirizzamento differente ( tendenzialmente un indirizzo IP pubblico ). Questo meccanismo viene realizzato memorizzando in un dispositivo di routing delle \emph{translation table} che mappano gli indirizzi IP non visibili dall'esterno in uno ( o più ) indirizzi IP pubblici modificando i datagram in uscita facendo sembrare dall'esterno che il mittente del pacchetto è il routing device. Quando viene ricevuto un pacchetto dall'esterno verso la rete interna privata il routing device, che mantiene le translation table, inoltrerà il pacchetto all'effettivo host destinatario. 
+\\
+Questa tecnica è molto utilizzata anche per preservare il consumo di indirizzi IPv4. Gli indirizzi IPv4 essendo formati da 32 bit possono generare un pool di 4.294.967.296 indirizzi: se si considerano i vari diversi indirizzi riservati e la sempre più diffusione di dispositivi che possono connettersi alla rete come laptop, smartphone e IoT questo può rappresentare un limite molto serio. Per tanto a partire dal 2004 è disponibile una nuova versione dell'internet protocol IPv6 che adotta indirizzi di dimensione pari a 128 bit. 
+\end{subsection}
+\begin{subsection}{ARP}
+Il protocollo ARP (Address Resolution Protocol) è usato per determinare, dato un indirizzo IP, il corrispettivo indirizzo hardware di livello data-link. Quando un host vuole spedire un datagramma ad un altro nodo conoscendo il suo indirizzo IP ma non quello fisico, fa una richiesta ARP in broadcast sulla rete di appartenenza, chi ha l?indirizzo richiesto risponde con il proprio indirizzo MAC.
+\\
+Il corrispettivo protocollo ovvero che consente di risalire all'indirizzo IP di un host dato il suo MAC address è il protocollo RARP (Reverse Address Resolution Protocol).
+\end{subsection}
+
+%Frammentazione
+\begin{subsection}{Frammentazione}
+Per rendere il protocollo tollerante alle eventuali differenze di specifiche sottoreti è possibile effettuare la frammentazione dei datagram IP. In particolare ogni qual volta un datagram IP deve essere trasmesso attraverso un link con MTU (Maximum Transfer Unit, che rappresenta un limite superiore alla dimensione di un frame di livello data-link dipendente dall'hardware di rete) inferiore alla dimensione del pacchetto stesso questo verrà frammentato in più fragment che soddisfano il valore della MTU. Il router quindi preleverà il payload dal datagram IP e lo frammenterà in modo tale che il nuovo segmento dati più l'header IP possa essere contenuto come body di un frame di livello data-linke e facendo si che ogni payload del datagram abbia dimensione multipla di 8 byte ( campo Offset in header IP). In tutti i frammenti tranne l'ultimo inviato, che in genere avrà anche una dimensione minore rispetto ai precedenti, avranno il flag MF (More Fragment) settato a 1.
+\end{subsection}
+
+%Routing
+\begin{subsection}{Routing}
+Uno dei compiti caratteristici del livello rete è il \emph{routing} ovvero decidere su quale interfaccia di rete o porta inoltrare un pacchetto ricevuto verso la sua destinazione finale. In particolare i router mantengono delle tabelle di instradamento che possono essere popolate manualmente ( \emph{routing statico}, poco scalabile adatto esclusivamente per reti molto piccole ) o popolate da appositi protocolli di routing che mantengono le tabelle di routing aggiornate a seconda del variare della topologia della rete. Vi sono due tipologie principali di protocolli di routing: \emph{Distance Vector} e \emph{Link State}. Nel protocollo Distance Vector ogni router misura la distanza ( utilizzando una metrica che può tenere conto di diversi fattori ) dai nodi adiacenti tramite le informazioni ricevute dai nodi vicini. In un protocollo Link State, invece, ciascun nodo acquisisce informazione sullo stato dei collegamenti adiacenti e inoltra queste informazioni a tutti gli altri nodi sulla rete attraverso un pacchetto di tipo Link State trasmesso tramite un algoritmo di \emph{link state broadcast}.
+\end{subsection}
+
+\begin{subsection}{IPv6}
+Internet Protocol version 6 è la versione più recente dell'Internet Protocol formalizzato nel 1998 da IETF a seguito della recente crescita esponenziale dei dispositivi che accedono ad internet. IPv6 adotta indirizzi a 128 bit fornendo così $2^{128}$ indirizzi ovvero circa 3,4 x $10^{38}$ indirizzi. I protocolli IPv4 e IPv6 non sono stati progettati per essere interoperabili complicando così la transizione verso l'ultima versione dell'Internet Protocol seppure siano stati ideati dei meccanismi di transizione da un protocollo verso l'altro. Tuttavia la migrazione completa verso IPv6 dovrebbe venire nel 2025 con la deprecazione definitiva di IPv4.
+\\
+IPv6 oltre a estendere lo spazio di indirizzamento porta con se alcune nuove feature come la dimensione fissa dell'header a 40 byte, datagram non frammentabili dai router e la rimozione del checksum dall'header (ridondate in quanto presente in altri layer dello stack di rete).
+Inoltre è stati aggiunto il supporto nativo alla sicurezza (IPsec) e inseriti meccanismi di autoconfigurazione come ad esempio ARP. 
+\\
+Gli indirizzi IPv6, composti da 128 bit, sono rappresentati come 8 gruppi di 4 cifre esadecimali ( 8 word di 16 bit ciascuna ) in cui le lettere vengono scritte in forma minuscola. Ad esempio fe80:0000:0000:0000:a4f5:f1ff:fe49:8d93 rappresenta un indirizzo IPv6 valido. In un indirizzo IPv6 una sequenza di zeri contigui composta da 2 o più gruppi può essere contratta con la semplice sequenza \emph{::} riducendo così l'indirizzo appena illustrato a fe80::a4f5:f1ff:fe49:8d93.
+
+\begin{paragraph}{Datagram IPv6}
+IPv6 specifica un nuovo header rispetto a IPv4 semplificandolo di molto eliminando alcuni campi poco usati e spostandoli in estensioni separate. Come già detto l'header IPv6 ha una dimensione fissa di 40 byte.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{IPv6HeaderImage}
+    \caption{Header datagram IPv6}
+     \label{fig:IPv6HeaderImage}
+\end{figure}
+
+In particolare eventuali estensioni vengono inviate successivamente: il campo \emph{next header} infatti definisce il tipo dell'header successivo nel caso siano inviate delle estensione altrimenti indica il protocollo del pacchetto incapsulato nel payload del datagram. È	quindi possibile avere più di un estensione per ciascun datagram.
+Alcune tra le estensioni più comuni sono:
+\begin{itemize}
+\item \textbf{Hop-by-hop options} definisce un insieme arbitrario di opzioni intese per ogni hop attraversato.
+\item \textbf{Routing packet} definisce un metodo per permettere al mittente di specificare la rotta da segure per un datagramma.
+\item \textbf{Fragment packet} usato quando un datagramma viene frammentato.
+\item \textbf{No next header} indica che i dati nel payload del datagramma non sono incapsulati in nessun altro protocollo.
+\item \textbf{Destination options} definisce un insieme arbitrario di opzioni di interesse del solo destinatario.
+\item \textbf{Mobility options} usato per Mobile IPv6.
+\item \textbf{Altri protocolli (TCP, UDP, etc etc.)} indica il protocollo del pacchetto incapsulato nel payload.
+\end{itemize}
+\end{paragraph}
+\end{subsection}
+\end{section}
+%Transport Layer
+\begin{section}{Transport Layer}
+Il livello trasporto è il quarto livello dello stack di rete ISO/OSI che ha lo scopo di fornire un canale di comunicazione \emph{end-to-end} tra processi residenti in host diversi.
+\\
+Uno dei diversi protocolli di livello trasporto è il TCP (Transmission Control Protocol). TCP è un protocollo connection-oriented tramite il quale un flusso di dati inviato viene recapitato al destinatario senza errori. I frammenti dello stream vengono impacchettati e passati ai layer inferiori, sarà poi compito del ricevente provvedere a riassemblare ciascun pacchetto ed eventualmente, in caso di errori, chiederne il rinvio. TCP implementa inoltre un meccanismo per il \emph{flow control}, non permette cioè ad una sorgente "veloce" di congestionare un ricevente "lento", assieme al \emph{congestion control} che consente di evitare di congestionare i router che sono tra i due end-point.
+\\
+Considerato lo scenario e il contesto di questa tesi il protocollo di livello trasporto che più è degno di approfondimento è il protocollo UDP.
+%UDP Protocol
+\begin{paragraph}{Protocollo UDP}
+Il protocollo UDP (User Datagram Protocol, RFC 768 INSERIRE NOTEEEE ) è un protocollo di livello trasporto connection-less e best-effort cioè non assicura che un pacchetto sia effettivamente consegnato a destinazione. Applicazioni in esecuzione su host differenti possono scambiarsi messaggi, detti datagram, consegnandoli su appositi socket dedicati. Essendo un protocollo inaffidabile una volta inviato un datagram verso la rete l'applicazione sorgente non potrà mai sapere se effettivamente è stato consegnato a destinazione o meno. Ciascun datagram inviato è indipendente dai restanti datagram inviati ed inoltre non viene effettuata alcun tipo di frammentazione a livello trasporto. Non viene effettuato alcun tipo di controllo nemmeno per quanto riguarda l'ordine con cui i pacchetti vengono ricevuti dall'end-system. Tutti questi motivi UDP è un protocollo molto leggero e veloce ideale per applicazioni che necessitano di interattività così come ad esempio servizi di streaming audio/video in real-time. 
+\\
+L'header UDP, visti i pochi controlli di cui si fa carico il protocollo, risulta essere molto snello introducendo così un overhead molto basso.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{UDPHeader}
+    \caption{Header UDP}
+     \label{fig:UDPHeaderImage}
+\end{figure}
+
+Nell'header UDP, oltre alle porte che indicano sostanzialmente le applicazioni (sorgente e destinataria) coinvolte nelle comunicazione, vi è il campo checksum. Questo campo è opzionale se la trasmissione avviene over IPv4 mentre obbligatorio se si utilizza IPv6 (header IPv6 non contiene campo sull'integrità datagram).
+\end{paragraph}
+\end{section}
+%Application Layer
+\begin{section}{Application Layer}
+Il livello applicazioni si colloca nella parte più alta dello stack ISO/OSI e coinvolge tutta una serie di protocolli che si occupano di fornire servizi per i processi delle applicazioni usate dagli utenti finali. I protocolli appartenenti a questo livello sono davvero numerosissimi e utilizzati dalle più disparate applicazioni come ad esempio FTP (File Transfer Protocol) o HTTP (HyperText Transfer Protocol) alla base del World Wide Web. 
+\\
+Per quanto riguarda il livello applicazione si vuole ora approfondire i protocolli coinvolti nella tecnologia VoIP in quanto la applicazioni che sfruttano questa tecnologia possono toccare con mano l'oggetto di questa tesi.
+
+%VoIP
+\begin{subsection}{VoIP}
+VoIP (Voice over IP)  è una famiglia di tecnologie internet e protocolli di comunicazione per la distribuzione di comunicazioni vocali e sessioni multimediali attraverso il protocollo IP. 
+\\
+Il VoIP richiede due tipologie di protocolli di comunicazione in parallelo, una per il trasporto dei dati (pacchetti voce su IP), ed una per la segnalazione della conversazione, come la ricostruzione del frame audio, la sincronizzazione e l?identificazione del chiamante. 
+\\
+Per quanto riguarda la trasmissione dati la maggioranza delle implementazioni VoIP adottano il protocollo RTP (Real-time Transfer Protocol, basato su UDP). RTP viene usato assieme a RTPC (RTP Control Protocol) che monitora la \emph{qualità del servizio} (QoS) inviando periodicamente delle statistiche ai partecipanti dello streaming multimediale senza però trasportare alcun tipo di dato relativo alla comunicazione vera e propria. È stato inoltre definito SRTP (Secure Real-time Transfer Protocol) che introduce crittografia, autenticazione e integrità in RTP.
+\\
+Per quanto concerne i protocolli di segnalazione, invece, nel corso degli anni ne sono stati sviluppati diversi. H.323 definito dalla ITU (International Telecommunications Union) è stato uno dei primi protocolli pensati per il VoIP. H.323 nasce in ambito telefonico e delinea un'architettura completa per lo svolgimento di conferenze multimediali. Comprende la definizione dei formati di codifica a livello applicativo, la definizione dei formati per la segnalazione e il controllo, per il trasporto dei flussi multimediali ( audio, video e dati ). H.323 definisce anche alcuni meccanismi legati agli aspetti relativi alla sicurezza.
+\\
+Vi è poi SIP (Session Initiation Protocol) definito da IETF che gestisce in modo generale una sessione di comunicazione tra due o più entità, ovvero fornisce meccanismi per instaurare, modificare e terminare (rilasciare) una sessione. Fornisce funzionalità di instaurazione e terminazione di una sessione, operazioni di segnalazione, tono di chiamata, chiamata in attesa, identificazione del chiamante e molto altro ancora. SIP è più recente e viene largamente utilizzando riscontrando un maggiore successo di H.323.
 
 \end{subsection}
 
+\end{section}
 \end{chapter}
 \end{document}
