@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper,openright,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\graphicspath{ {Images/}  }
+\usepackage{newlfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+
+
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+
+\linespread{1.3}  
+
+\begin{document}
+\begin{chapter}{Architettura}
+Tutti i dispositivi mobili attualmente offrono diverse modalità di accesso ad internet basti pensare a uno smartphone che consente l'accesso a internet sia in modalità Wi-Fi che attraverso la telefonia mobile con la tecnologia 3G fino alla più recente tecnologia 4G.
+\\
+In questo capitolo si vuole descrivere un'architettura che consente a un user app che fornisce un servizio multimediale in esecuzione su di un mobile device \emph{multi-homed}, ovvero che monta più di un'interfaccia di rete, di sfruttare tutte le sue NIC (Network Interface Card). In particolare un servizio multimediale ( come può essere una trasmissione audio o video ) viene solitamente realizzato tramite protocollo UDP: l'architettura presentata in questo capitolo fornisce un meccanismo in grado da rendere possibile l'inoltro di ciascun datagram UDP attraverso l'interfaccia di rete più adatta al momento della trasmissione. Questa architettura è detta ABPS ( Always Best Packet Switching ) ma prima di descriverne i suoi principali aspetti verrà descritto lo stato dell'arte per quel che riguarda la gestione della mobilità dei nodi mobili.
+
+\begin{section}{Seamless Host Mobility \& State Of the Art}
+Nel corso degli ultimi anni sono state sviluppate diverse architetture che consentono a un nodo mobile in movimento di avere accesso continuo a servizi di rete in particolare sono stati sviluppati diversi approcci che cercano di far si che device che montano più interfacce di rete possano effettuare un \emph{handover} da un interfaccia di rete all'altra in maniera del tutto trasparente all'app utente in esecuzione, \emph{seamless}. 
+Per handover o handoff si intende il processo di cambio di interfaccia di telecomunicazione da parte di un dispositivo multi-homed (\emph{vertical handoff}) oppure il cambio di punto di accesso mantenendo la stessa tecnologia (\emph{horizontal handoff}, ad esempio cambio di AP all'interno di una stessa rete WLAN).
+\\
+In generale un'architettura per la seamless mobility dovrebbe essere responsabile di identificare univocamente ciascun nodo mobile, permettere a un nodo mobile di essere raggiungibile dall'altro nodo coinvolto nella comunicazione (Correspondent Node) che può anch'esso essere un nodo mobile e dovrebbe monitorare la QoS fornita dalle diverse reti a cui il nodo mobile potrebbe connettersi in modo da prevedere la necessità di un handoff ed eventualmente, quindi, il cambio di interfaccia di rete e quindi effettuare l'handoff in maniera \emph{seamless} assicurando la continuità della comunicazione.
+\\
+Vediamo ora una rassegna di tutte le soluzioni sviluppate finora per implementare meccanismi di seamless handoff in un contesto di un nodo mobile che attraversa reti eterogenee. 
+% K. Kong et al, ?Mobility management for All-IP mobile networks: Mobile IPv6 vs. Proxy Mobile IPv6?, IEEE Wireless Communications, April 2008.
+\begin{paragraph}{Implementazioni a livello network}
+Tra le architetture presenti che lavorano a livello network vi è Mobile IP version 6 e le sue ottimizzazioni come ad esempio FMIP (Fast Handover Mobile IPv6), HMIP (Hierarchical Mobile IPv6) e PMIP (Proxy Mobile IPv6). Tutte queste architetture adottano un \emph{Home Agent} ovvero un'entità aggiuntiva che opera all'interno della rete alla quale il nodo mobile appartiene. L'home agent ricopre il ruolo di \emph{location registry} ovvero un servizio \emph{always on}: quando un nodo mobile cambia interfaccia di rete e quindi indirizzo IP lo comunica al location registry (\emph{registration phase}) che tiene una mappa degli indirizzi. Quando un Correspondent Node vuole comunicare con il nodo mobile invia al location registry una \emph{lookup phase} per ottenere l'indirizzo corrente del mobile node. Tutti i nodi coinvolti devono avere il supporto a IPv6: in particolare l'indirizzo attuale e l'identificativo univoco del nodo mobile sono trasmessi attraverso delle estensioni di IPv6. Il fatto che tutti i nodi debbano necessariamente supportare IPv6 rappresenta un limite di questo approccio architetturale. Un altro limite di questo approccio è che presso un home agent può essere registrato l'indirizzo di una sola interfaccia di rete per ogni nodo impedendo così un supporto al multihoming visto che la latenza introdotta dai numerosi messaggi di autenticazione procurerebbe un overhead insostenibile per la tipologia di comunicazione multimediale che dovrebbe essere veloce e snella.
+\end{paragraph}
+\begin{paragraph}{Implementazioni tra livello rete e trasporto}
+Esistono alcune possibili implementazioni di architetture per la seamless host mobility che introducono un nuovo layer posto tra il livello rete e quello trasporto: questa nuova astrazione dovrà essere aggiunta su tutti i nodi prendenti parte alla comunicazione. Alcuni esempi possono essere HIP (Host Identity Protocol) e LIN6 (Location Independet Addressing for IPv6). Il location registry si comporta in maniera simile a un server DNS mappando l'identificativo di un host e la sua attuale posizione restando però all'esterno della rete di appartenenza del nodo mobile. Un limite di questo approccio è nella necessità di modificare lo stack di rete di tutti i nodi coinvolti.
+\end{paragraph}
+\begin{paragraph}{Implementazioni a livello trasporto}
+Vi sono alcuni protocolli che operano a livello trasporto: ogni nodo coinvolto in una comunicazione si comporta in maniera pro-attiva fungendo da location registry informando direttamente il proprio Correspondent Node ogni qualvolta la configurazione di rete cambia. Il limite di questo approccio sta nel fatto che se entrambi i mobile end-system cambiano contemporaneamente gli indirizzi IP a seguito di un handoff diventano mutuamente irraggiungibili. Inoltre, come nel precedente approccio, questo tipo di architettura richiederebbe una modifica delle applicazioni sia sul nodo mobile che sul suo correspondent node.
+\end{paragraph}
+\begin{paragraph}{Implementazioni a livello Sessione}
+Sono state progettato alcune soluzioni che operano a livello sessione come ad esempio TMSP (Terminal Mobility Support Protocol) che sfrutta un SIP server ausiliario collocato fuori dalla rete di un nodo mobile che funge da location registry che mappa ciascun identificativo SIP di utente al suo indirizzo IP attuale. Ogni nodo mobile esegue un client SIP che manda un messaggio di tipo REGISTER per aggiornare il suo indirizzo IP. I messaggi INVITE, al solito, sono utilizzati per avviare comunicazioni con altri nodi così come i messaggi di tipo re-INVITE.
+Gli approcci operanti a livello Session non sembrano essere particolarmente efficienti per i ritardi introdotti dal pattern message/response dei sistemi basati SIP.
+%The session-layer solutions seem to be not efficient as they invoke an external localization service when an IP reconfiguration occurs. In particular, the SIP-based services introduce an additional delay due to their message/response behavior; in case of reconfiguration the MN interrupts the communication, sends a SIP signaling message to the CN and waits for the response before resuming the transmission. With this in view, the IHMAS work presented in [6] provides a solution to minimize handoff delays by exploiting a SIP-based, IMS compliant proactive mechanism that performs registration and renegotiation phases for novel connections while keeping the media flows active over old connections, if these are available.
+\end{paragraph}
+\end{section}
+\begin{section}{Always Best Packet Switching}
+Un'architettura progettata all'interno del Dipartimento di Informatica dell'Università di Bologna che supera i limiti delle implementazioni precedentemente descritte è ABPS (Always Best Packet Switching).
+L'architettura ABPS è composta da due componenti principale:
+\begin{itemize}
+\item \textbf{fixed proxy server}, una macchina esterna alla rete in cui si trova il mobile node; munito di IP pubblico statico e fuori da qualsiasi firewall o NAT. Il fixed proxy server gestisce e mantiene tutte le comunicazione da un mobile node verso l'esterno e viceversa: nel caso di un handoff e quindi di una riconfigurazione delle interfacce di rete del nodo mobile il fixed proxy server nasconde questi cambiamenti al correspondent node facendo si che la comunicazione continui in maniera del tutto trasparente.
+\item \textbf{proxy client}, in esecuzione su ogni mobile node, mantiene per ogni NIC una connessione verso il fixed proxy server. Applicazioni in esecuzioni su un mobile node possono quindi sfruttare un multi-path virtuale creato tra il proxy client e il fixed proxy server per comunicare con il resto del mondo.
+\end{itemize}
+
+\end{section}
+\end{chapter}
+
+\end{document}
