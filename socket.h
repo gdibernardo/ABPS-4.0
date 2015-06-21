@@ -84,14 +84,9 @@ struct cmsghdr {
 
 
 /* ABPS Gab */
-#define ABPS_CMSG_TYPE 111
-
-
 typedef uint32_t __user * USER_P_UINT32;
 
-
-
-extern int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId);
+extern int udp_cmsg_send(struct msghdr *msg, uint32_t *is_identifier_required, USER_P_UINT32 *pointer_to_identifier);
 
 
 

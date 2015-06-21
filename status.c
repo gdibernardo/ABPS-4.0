@@ -928,13 +928,8 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
     /* ABPS Gab */
     if (skb)
     {
-        struct sock *sk=skb->sk;
-        
-        /* *** ABPS ***
-         * this line should be modified when the data pass through the
-         * library functions to module ABPS
-         */
-        
+        struct sock *sk = skb->sk;
+ 
         if (required_ip_local_error_notify(sk))
         {
             struct ieee80211_hdr *hdr = NULL;
@@ -952,13 +947,13 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
                 }
                 else
                 {
-                    printk(KERN_NOTICE "sdata is null in in tx_status \n");
+                    printk(KERN_NOTICE "Transmission Error Detector: sdata is null in ieee80211_tx_status \n");
                 }
                 sdata = NULL;
             }
             else
             {
-                printk(KERN_NOTICE "dev field is null in skb in tx_status \n");
+                printk(KERN_NOTICE "Transmission Error Detector: skb dev field is null in skb in ieee80211_tx_status \n");
             }
         }
     }

@@ -1209,14 +1209,14 @@ EXPORT_SYMBOL(compat_ip_setsockopt);
 int required_ip_local_error_notify(struct sock *sk)
 {
     struct inet_sock *inet = NULL;
-    if (sk==NULL)
+    if (sk == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** required_ip_local_error_notify:"
                " struct sock sk is NULL\n");
         return 0;
     }
     inet = inet_sk(sk);
-    if (inet==NULL)
+    if (inet == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** required_ip_local_error_notify:"
                " struct inet_sock inet is NULL\n");
@@ -1233,8 +1233,8 @@ int required_ip_local_error_notify(struct sock *sk)
     return(1);
 }
 
-/* ABPS Gab */
 
+/* ABPS Gab */
 void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identifier, u8 retry_count)
 {
     struct inet_sock *inet = NULL;
@@ -1242,15 +1242,14 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
     struct iphdr *iph;
     struct sk_buff *skb;
     
-    
-    if (sk==NULL)
+    if (sk == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
                " struct sock sk is NULL\n");
         return;
     }
     inet = inet_sk(sk);
-    if (inet==NULL)
+    if (inet == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
                " struct inet_sock inet is NULL, bye\n");
@@ -1311,14 +1310,14 @@ void ip_local_error_notify(struct sock *sk, int sent,
     struct iphdr *iph;
     struct sk_buff *skb;
     
-    if (sk==NULL)
+    if (sk == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
                " struct sock sk is NULL\n");
         return;
     }
     inet = inet_sk(sk);
-    if (inet==NULL)
+    if (inet == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
                " struct inet_sock inet is NULL, bye\n");

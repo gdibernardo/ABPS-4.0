@@ -901,12 +901,11 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	struct ip_options_data opt_copy;
 
     /* ABPS Gab */
-    
-    USER_P_UINT32 pId = NULL;
+    USER_P_UINT32 pointer_to_identifier = NULL;
     
     int skb_is_null = 0;
     
-    uint32_t needId = 0;
+    uint32_t is_identifier_required = 0;
     
 	if (len > 0xFFFF)
 		return -EMSGSIZE;
@@ -976,16 +975,14 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	sock_tx_timestamp(sk, &ipc.tx_flags);
     
     /* ABPS Gab */
-    
     if (msg->msg_controllen)
     {
-        err = udp_cmsg_send(msg, &needId, &pId);
+        err = udp_cmsg_send(msg, &is_identifier_required, &pointer_to_identifier);
         if (err)
         {
-            printk(KERN_NOTICE "udp_cmsg_send return err \n");
+            printk(KERN_NOTICE "Transmission Error Detector udp_cmsg_send failed with error in udp_sendmsg.\n");
             return err;
         }
-        printk(KERN_NOTICE "needId %d \n", needId);
     }
     /* end ABPS Gab*/
     
@@ -1078,15 +1075,17 @@ back_from_confirm:
 
 	/* Lockless fast path for the non-corking case. */
 	if (!corkreq) {
-        printk(KERN_NOTICE "non corking case");
-		skb = ip_make_skb(sk, fl4, getfrag, msg, ulen,
+      	skb = ip_make_skb(sk, fl4, getfrag, msg, ulen,
 				  sizeof(struct udphdr), &ipc, &rt,
 				  msg->msg_flags);
 		err = PTR_ERR(skb);
 		if (!IS_ERR_OR_NULL(skb))
             err = udp_send_skb(skb, fl4);
         else
+        {
+            /* ABPS Gab */
             skb_is_null = 1;
+        }
         
 		goto out;
 	}
@@ -1113,8 +1112,7 @@ back_from_confirm:
 
 do_append_data:
 	up->len += ulen;
-    printk(KERN_NOTICE "ready to appending data \n\n\n");
-	err = ip_append_data(sk, fl4, getfrag, msg, ulen,
+  	err = ip_append_data(sk, fl4, getfrag, msg, ulen,
 			     sizeof(struct udphdr), &ipc, &rt,
 			     corkreq ? msg->msg_flags|MSG_MORE : msg->msg_flags);
 	if (err)
@@ -1129,13 +1127,12 @@ do_append_data:
 
 out:
     /* ABPS Gab */
-    if(needId)
+    if(is_identifier_required)
     {
         if(!skb_is_null)
         {
-            printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d \n", ntohl(skb->sk_buff_identifier));
-            // need to set id in user space
-            put_user(ntohl(skb->sk_buff_identifier), pId);
+            // Datagram identifier setted in user space
+            put_user(ntohl(skb->sk_buff_identifier), pointer_to_identifier);
         }
     }
     

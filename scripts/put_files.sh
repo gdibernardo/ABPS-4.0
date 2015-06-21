@@ -7,7 +7,6 @@ $CP -vaa ../ABPS_mac80211.h       $1/net/mac80211/ABPS_mac80211.h
 $CP -vaa ../status.c              $1/net/mac80211/status.c
 $CP -vaa ../tx.c                  $1/net/mac80211/tx.c
 $CP -vaa ../skbuff.c              $1/net/core/skbuff.c
-$CP -vaa ../dev.c                 $1/net/core/dev.c
 $CP -vaa ../skbuff.h              $1/include/linux/skbuff.h
 
 $CP -vaa ../uapi/errqueue.h       $1/include/uapi/linux/errqueue.h

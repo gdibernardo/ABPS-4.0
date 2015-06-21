@@ -752,7 +752,7 @@ slow_path:
         
         frag->sk_buff_identifier = skb->sk_buff_identifier;
         /* ABPS Gab */
-        printk(KERN_NOTICE "setted identifiers in fragment in IPv6 %d %d ", frag->sk_buff_identifier, skb->sk_buff_identifier);
+        printk(KERN_NOTICE "Transmission Error Detector: IPv6 fragmentation happened. Fragments identifier: %d %d ", frag->sk_buff_identifier, skb->sk_buff_identifier);
 
 		ip6_copy_metadata(frag, skb);
 		skb_reserve(frag, hroom);
@@ -1400,7 +1400,7 @@ alloc_new_skb:
             int error = set_identifier_with_sk_buff(skb);
             
             if(!error)
-            printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
+            printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value: %d \n", ntohl(skb->sk_buff_identifier));
             
 			skb->protocol = htons(ETH_P_IPV6);
 			skb->ip_summed = csummode;

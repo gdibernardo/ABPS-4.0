@@ -30,6 +30,5 @@ $CP -v $1/net/mac80211/status.c			../
 $CP -v $1/include/linux/skbuff.h		../
 
 $CP -v $1/net/core/skbuff.c			../
-$CP -v $1/net/core/dev.c			../
 
 

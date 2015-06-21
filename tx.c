@@ -859,11 +859,11 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
             int return_value = ABPS_extract_pkt_info_with_identifier(hdr,tx->skb->sk_buff_identifier);
             if(return_value)
             {
-                printk(KERN_NOTICE "Added in ABPS list with identifier %d \n",ntohl(tx->skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: added new datagram with identifier %d in TED packets list. \n",ntohl(tx->skb->sk_buff_identifier));
             }
             else
             {
-                printk(KERN_NOTICE "Something went wrong adding element in ABPS list.\n");
+                printk(KERN_NOTICE "Transmission Error Detector: something went wrong adding new element in TED packet list. \n");
             }
         }
     }

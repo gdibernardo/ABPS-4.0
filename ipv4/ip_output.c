@@ -678,7 +678,7 @@ slow_path:
         /* need to check if it is necessary to clone skb  */
         skb2->sk_buff_identifier = skb->sk_buff_identifier;
         // network byte order ?
-        printk(KERN_NOTICE "fragmentation happened identifier %d %d \n",skb2->sk_buff_identifier, skb->sk_buff_identifier);
+        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",skb2->sk_buff_identifier, skb->sk_buff_identifier);
         
 		ip_copy_metadata(skb2, skb);
 		skb_reserve(skb2, ll_rs);
@@ -982,7 +982,7 @@ alloc_new_skb:
             int error = set_identifier_with_sk_buff(skb);
             
             if(!error)
-                printk(KERN_NOTICE "ID setted in sk_buff with value :%d \n", ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value :%d \n", ntohl(skb->sk_buff_identifier));
             
 			skb->ip_summed = csummode;
 			skb->csum = 0;

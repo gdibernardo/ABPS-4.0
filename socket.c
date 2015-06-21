@@ -3386,16 +3386,14 @@ EXPORT_SYMBOL(kernel_sock_shutdown);
 
 
 /* ABPS Gab */
-int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
+int udp_cmsg_send(struct msghdr *msg, uint32_t *is_identifier_required, USER_P_UINT32 *pointer_to_identifier)
 {
-    printk(KERN_NOTICE "udp_cmsg_send invoked.");
-    
     struct cmsghdr *cmsg;
-    *pneedId = 0;
+    *is_identifier_required = 0;
     
-    if(ppId==NULL)
+    if(pointer_to_identifier == NULL)
     {
-        printk(KERN_NOTICE "udp_cmsg_send: -EFAULT\n");
+        printk(KERN_NOTICE "Transmission Error Detector udp_cmsg_send returned: -EFAULT\n");
         return -EFAULT;
     }
     
@@ -3403,7 +3401,7 @@ int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
     {
         if (!CMSG_OK(msg, cmsg))
         {
-            printk(KERN_NOTICE "udp_cmsg_send: -EINVAL\n");
+            printk(KERN_NOTICE "Transmission Error Detector udp_cmsg_send returned: -EINVAL\n");
             return -EINVAL;
         }
         
@@ -3412,10 +3410,10 @@ int udp_cmsg_send(struct msghdr *msg, uint32_t *pneedId, USER_P_UINT32 *ppId)
         
         if(cmsg->cmsg_type == ABPS_CMSG_TYPE)
         {
-            memcpy(ppId, (USER_P_UINT32)CMSG_DATA(cmsg), sizeof(USER_P_UINT32));
+            memcpy(pointer_to_identifier, (USER_P_UINT32)CMSG_DATA(cmsg), sizeof(USER_P_UINT32));
 
-            printk(KERN_NOTICE "udp_cmsg_send: pId %p\n", *ppId);
-            *pneedId=1;
+            printk(KERN_NOTICE "udp_cmsg_send: pointer_to_identier just setted to %p\n", *pointer_to_identifier);
+            *is_identifier_required=1;
             return 0;
         }
     }
