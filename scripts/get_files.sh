@@ -15,8 +15,8 @@ $CP -v $1/net/ipv6/udp.c			../ipv6/
 $CP -v $1/net/ipv6/ip6_output.c			../ipv6/
 
 
-$CP -v $1/include/uapi/linux/errqueue.h		../
-
+$CP -v $1/include/uapi/linux/errqueue.h		../uapi/
+$CP -v $1/include/uapi/linux/socket.h		../uapi/
 
 $CP -v $1/net/mac80211/tx.c			../
 $CP -v $1/net/mac80211/main.c			../

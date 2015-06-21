@@ -8,16 +8,15 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <netinet/udp.h> /* per la define di SOL_UDP */
+#include <netinet/udp.h> /* SOL_UDP */
 #include <arpa/inet.h>
 #include <errno.h>
 #include <linux/types.h>
 #include <linux/errqueue.h>
+#include <linux/socket.h> /* ABPS_CMSG_TYPE */
 #include <sys/uio.h>
 
 #include "sendrecvUDP.h"
-
-#define ABPS_CMSG_TYPE 111
 
 
 int ipv4_sendmsg_udp(int udp_file_descriptor, const char *buffer, int length, struct sockaddr_in destination_address, uint32_t *pointer_for_identifier)

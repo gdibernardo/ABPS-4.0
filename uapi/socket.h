@@ -18,4 +18,7 @@ struct __kernel_sockaddr_storage {
 				/* _SS_MAXSIZE value minus size of ss_family */
 } __attribute__ ((aligned(_K_SS_ALIGNSIZE)));	/* force desired alignment */
 
+/* ABPS Gab */
+#define ABPS_CMSG_TYPE 111
+
 #endif /* _UAPI_LINUX_SOCKET_H */
