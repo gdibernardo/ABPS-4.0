@@ -31,7 +31,6 @@ q/*
 #include <net/ip.h>
 #include "ABPS_mac80211.h"
 
-#include "ieee80211_i.h"
 #include "driver-ops.h"
 #include "led.h"
 #include "mesh.h"

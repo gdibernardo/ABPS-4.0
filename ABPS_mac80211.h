@@ -10,6 +10,8 @@
 #include <net/sock.h>					/* per definizione struct sock  */
 
 
+#include "ieee80211_i.h"
+
 /* usato in net/mac80211/tx.c */
 extern int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr);
 
