@@ -980,7 +980,7 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
         err = udp_cmsg_send(msg, &is_identifier_required, &pointer_to_identifier);
         if (err)
         {
-            printk(KERN_NOTICE "Transmission Error Detector udp_cmsg_send failed with error in udp_sendmsg.\n");
+            printk(KERN_NOTICE "Transmission Error Detector: udp_cmsg_send failed with error in udp_sendmsg.\n");
             return err;
         }
     }

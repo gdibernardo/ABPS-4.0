@@ -860,7 +860,7 @@ static int __ip_append_data(struct sock *sk,
 	int csummode = CHECKSUM_NONE;
 	struct rtable *rt = (struct rtable *)cork->dst;
 	u32 tskey = 0;
-
+    
 	skb = skb_peek_tail(queue);
 	exthdrlen = !skb ? rt->dst.header_len : 0;
 	mtu = cork->fragsize;
@@ -979,9 +979,7 @@ alloc_new_skb:
 			 */
             
             /* ABPS Gab */
-            int error = set_identifier_with_sk_buff(skb);
-            
-            if(!error)
+            if(!set_identifier_with_sk_buff(skb))
                 printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value :%d \n", ntohl(skb->sk_buff_identifier));
             
 			skb->ip_summed = csummode;
