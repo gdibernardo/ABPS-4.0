@@ -268,80 +268,96 @@ void ipv6_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
             
             from = (struct sockaddrin_6 *) SO_EE_OFFENDER(error_message->ee);
             
-            if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
+            switch (error_message->ee->ee_origin)
             {
-
-				
-
-                uint32_t identifier = ntohl(error_message->ee->ee_info);
-				uint8_t retry_count = error_message->ee->ee_retry_count;
-                
-                printf("Received notification for packet %d \n", identifier);
-                
-                uint8_t acked = error_message->ee->ee_type;
-                
-                if(acked)
+                case SO_EE_ORIGIN_LOCAL_NOTIFY:
                 {
-                    printf("packet with identifier %d is acked \n", identifier);
+                    if(error_message->ee->ee_errno == 0)
+                    {
+                        uint32_t identifier = ntohl(error_message->ee->ee_info);
+                        uint8_t retry_count = error_message->ee->ee_retry_count;
+                        
+                        printf("Received notification for packet %d \n", identifier);
+                        
+                        uint8_t acked = error_message->ee->ee_type;
+                        
+                        if(acked)
+                        {
+                            printf("packet with identifier %d is acked \n", identifier);
+                        }
+                        else
+                        {
+                            printf("packet with identifier %d is not acked \n", identifier);
+                        }
+                        
+                        if(is_test_enabled)
+                        {
+                            json_object *logobj = json_object_new_object();
+                            testlib_time current_time;
+                            current_time_with_supplied_time(&current_time);
+                            
+                            testlib_list *ptr = search_in_list(test_identifier);
+                            
+                            long int difference = current_time.milliseconds_time - ptr->time_list.milliseconds_time;
+                            
+                            
+                            json_object *testIdJ = json_object_new_int(test_identifier);
+                            json_object *retrycountJ = json_object_new_int(retry_count);
+                            json_object *timeJ = json_object_new_int(difference);
+                            json_object *typeJ = json_object_new_int(type);
+                            json_object *ackJ = json_object_new_boolean(acked);
+                            
+                            json_object *versionJ = json_object_new_string("ipv6");
+                            //json_object *date = json_object_new_string("hello from client app!\n");
+                            
+                            
+                            
+                            json_object_object_add(logobj,"testId", testIdJ);
+                            json_object_object_add(logobj, "type", typeJ);
+                            json_object_object_add(logobj,"ack", ackJ);
+                            json_object_object_add(logobj, "time", timeJ);
+                            json_object_object_add(logobj,"retrycount", retrycountJ);
+                            
+                            json_object_object_add(logobj,"ipVersion", versionJ);
+                            //json_object_object_add(logobj, "date", data); /* usare ? */
+                            if (hopV==1){
+                                char str[150];
+                                strcpy(str,json_object_to_json_string(logobj));
+                                strcat(str,end_string_file);
+                                strcat(str, "\0");
+                                fseek( fp, -4, SEEK_END  );
+                                fputs(str, fp);
+                                
+                            }
+                            else
+                            {
+                                char str[150];
+                                strcpy(str, ",\n");
+                                strcat(str,json_object_to_json_string(logobj));
+                                strcat(str,end_string_file);
+                                strcat(str, "\0");
+                                fseek( fp, -3, SEEK_END  );
+                                fputs(str, fp);
+                                
+                            }
+                            
+                            free(logobj);
+                            free(ptr);
+                        }
+                    }
+                    else
+                    {
+                        // handle errno for local notify
+                    }
+                    break;
                 }
-                else
+                default:
                 {
-                    printf("packet with identifier %d is not acked \n", identifier);
-                }
-                
-                if(is_test_enabled)
-                {
-					json_object *logobj = json_object_new_object();
-                    testlib_time current_time;
-                    current_time_with_supplied_time(&current_time);
-                    
-					testlib_list *ptr = search_in_list(test_identifier);
-                    
-					long int difference = current_time.milliseconds_time - ptr->time_list.milliseconds_time;
-                    
-
-					json_object *testIdJ = json_object_new_int(test_identifier);
-					json_object *retrycountJ = json_object_new_int(retry_count);
-					json_object *timeJ = json_object_new_int(difference);
-					json_object *typeJ = json_object_new_int(type);
-					json_object *ackJ = json_object_new_boolean(acked);
-
-					json_object *versionJ = json_object_new_string("ipv6");
-					//json_object *date = json_object_new_string("hello from client app!\n");
-
-
-
-					json_object_object_add(logobj,"testId", testIdJ);
-					json_object_object_add(logobj, "type", typeJ);
-					json_object_object_add(logobj,"ack", ackJ);
-					json_object_object_add(logobj, "time", timeJ);
-					json_object_object_add(logobj,"retrycount", retrycountJ);
-
-					json_object_object_add(logobj,"ipVersion", versionJ);
-					//json_object_object_add(logobj, "date", data); /* usare ? */
-					if (hopV==1){
-						char str[150];
-						strcpy(str,json_object_to_json_string(logobj));
-						strcat(str,end_string_file);
-						strcat(str, "\0");
-						fseek( fp, -4, SEEK_END  );
-						fputs(str, fp);
-
-					}
-					else
-					{
-						char str[150];
-						strcpy(str, ",\n");
-						strcat(str,json_object_to_json_string(logobj));
-						strcat(str,end_string_file);
-						strcat(str, "\0");
-						fseek( fp, -3, SEEK_END  );
-						fputs(str, fp);
-
-					}
-
-					free(logobj);
-					free(ptr);
+                    if(error_message->ee->ee_errno != 0)
+                    {
+                        printf(strerror(error_message->ee->ee_errno));
+                    }
+                    break;
                 }
             }
         }

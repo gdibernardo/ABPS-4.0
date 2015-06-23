@@ -1397,10 +1397,8 @@ alloc_new_skb:
 			 *	Fill in the control structures
 			 */
             /* ABPS Gab */
-            int error = set_identifier_with_sk_buff(skb);
-            
-            if(!error)
-            printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value: %d \n", ntohl(skb->sk_buff_identifier));
+            if(!set_identifier_with_sk_buff(skb))
+                printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value: %d \n", ntohl(skb->sk_buff_identifier));
             
 			skb->protocol = htons(ETH_P_IPV6);
 			skb->ip_summed = csummode;
