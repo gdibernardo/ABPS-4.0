@@ -1128,9 +1128,9 @@ int udpv6_sendmsg(struct kiocb *iocb, struct sock *sk,
     /* ABPS Gab */
     struct sk_buff *skb;
     
-    USER_P_UINT32 pId = NULL;
+    USER_P_UINT32 pointer_to_identifier = NULL;
     
-    uint32_t needId = 0;
+    uint32_t is_identifier_required = 0;
 
 	/* destination address check */
 	if (sin6) {
@@ -1255,13 +1255,13 @@ do_udp_sendmsg:
     
     if (msg->msg_controllen)
     {
-        err = udp_cmsg_send(msg, &needId, &pId);
+        err = udp_cmsg_send(msg, &is_identifier_required, &pointer_to_identifier);
         if (err)
         {
             printk(KERN_NOTICE "udp_cmsg_send return err \n");
             return err;
         }
-        printk(KERN_NOTICE "needId %d \n", needId);
+        printk(KERN_NOTICE "is_identifier_required %d \n", is_identifier_required);
     }
     /* end ABPS Gab*/
 
@@ -1392,14 +1392,12 @@ release_dst:
 
 out:
     /* ABPS Gab */
-    printk(KERN_NOTICE "prepare for exit from sendmsg in IPv6 \n");
-    if(needId)
+    if(is_identifier_required)
     {
         if(skb)
         {
-            printk(KERN_NOTICE "ID already setted in sk_buff along skb make something with value :%d in IPv6 \n", ntohl(skb->sk_buff_identifier));
-            // need to set id in user space
-            put_user(ntohl(skb->sk_buff_identifier), pId);
+            // need to set identifier in user space
+            put_user(ntohl(skb->sk_buff_identifier), pointer_to_identifier);
         }
     }
 

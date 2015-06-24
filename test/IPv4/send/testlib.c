@@ -383,18 +383,16 @@ void sent_packet_with_packet_and_test_identifier(uint32_t packet_identifier, int
 {
     if(is_test_enabled)
     {
-        
         testlib_time current_time;
         
         current_time_with_supplied_time(&current_time);
+        
         testlib_list *ptr = (testlib_list *) malloc(sizeof(testlib_list));
 		ptr->next = NULL;
 		ptr->time_list = current_time;
 		ptr->id_test = test_identifier;
 
 		add_in_list(ptr);
-        
-
     }
 }
 

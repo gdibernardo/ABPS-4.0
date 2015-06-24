@@ -28,7 +28,6 @@
 #include "ABPS_mac80211.h"
 
 
-/* ABPS Gab */
 /*Developed by Lorenzo Sorace and VIC, may 2009 */
 static void (*ABPSmonitor_statistic_handler)(
                                              struct ieee80211_hw *hw,
@@ -763,12 +762,6 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
 
 	sband = local->hw.wiphy->bands[info->band];
 	fc = hdr->frame_control;
-    
-    /* Developed by Lorenzo Sorace and VIC, may 2009 */
-    if(ABPSmonitor_statistic_handler != NULL)
-        ABPSmonitor_statistic_handler(hw,sta,hdr,info,local);
-    /* Developed by Lorenzo Sorace and VIC */
-
 
 	for_each_sta_info(local, hdr->addr1, sta, tmp) {
 		/* skip wrong virtual interface */

@@ -162,7 +162,7 @@ static void ABPS_info_take_response(struct ABPS_info *packet_info)
 		packet_info->datagram_info.retry_count,
 		packet_info->datagram_info.acked
 		);
- */
+
 
 	printk(KERN_DEBUG "*** ABPS *** frame id : %d\n",
 			le16_to_cpu(packet_info->id));
@@ -312,7 +312,7 @@ static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *spo
     payload_iphdr = (struct ipv6hdr *) payload;
     if(payload_iphdr->version != 6)
     {
-        printk(KERN_NOTICE "no ipv6 header");
+        printk(KERN_NOTICE "Transmission Error Detector: no IPv6 header in ipv6_get_udp_info");
         return 0;
     }
     
@@ -413,11 +413,6 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     }
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
-    /*
-     
-     Gab ABPS 3.10
-    
-    */
     packet_info->id = hdr->seq_ctrl;
     
     fc = le16_to_cpu(hdr4->frame_ctl);
@@ -478,15 +473,11 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             /* set the fields of the ABPS_info that will be put in the
             * ABPS_info list*/
                packet_info->datagram_info.ip_id =  identifier;
-               printk(KERN_DEBUG "ABPS setted id in extract %d with frame identifier %d \n", ntohl(identifier), packet_info->id);
-               /* maybe ntohs, not sure
-           packet_info->datagram_info.udp_sport = p_IPDGInfo->sport;
-           packet_info->datagram_info.fragment_data_len = p_IPDGInfo->fragment_data_len;
-           packet_info->datagram_info.fragment_offset = p_IPDGInfo->fragment_offset;
-           packet_info->datagram_info.more_fragment = p_IPDGInfo->more_fragment; */
                packet_info->is_ipv6 = 1;
                packet_info->tx_time = CURRENT_TIME;
+            
                ABPS_info_add(packet_info);
+               
                return(1);
            }
        }
@@ -656,13 +647,11 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
 		packet_info->datagram_info.retry_count = retry_count;
 
 		packet_info->rx_time = CURRENT_TIME;
-		/* questa chiamata a funzione required ... potrebbe essere eliminata
-		 * perche' viene fatta gia' fuori prima
-		 */
-			/* mando la notifica al socket */
-			/*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
-			estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
-			invece mai propagato fino all'utente */
+        /* mando la notifica al socket */
+        /*NOTA ABPS DIE KURO: adesso estrae solo data_len, offset e more_frags, comunque non potevo
+        estrearre dati da udp in caso di frammentazione, l'indirizzo ip invece non e'
+        invece mai propagato fino all'utente */
+        
         if(!packet_info->is_ipv6)
         {
             ip_local_error_notify(sk,
@@ -678,11 +667,7 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
         {
             ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id,packet_info->datagram_info.retry_count);
         }
-    
-            
         
-        printk(KERN_NOTICE "ip_local_error notify performed!. \n");
-
 #ifdef ABPS_DEBUG
 		ABPS_info_take_response(packet_info);
 #endif
