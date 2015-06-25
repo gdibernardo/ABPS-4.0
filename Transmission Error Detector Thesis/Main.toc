@@ -1,17 +1,64 @@
 \select@language {italian}
 \select@language {italian}
 \contentsline {chapter}{Introduzione}{i}
-\contentsline {chapter}{\numberline {1}Primo Capitolo}{1}
-\contentsline {section}{\numberline {1.1}Prima Sezione}{1}
-\contentsline {section}{\numberline {1.2}Seconda Sezione}{1}
-\contentsline {section}{\numberline {1.3}Altra Sezione}{2}
-\contentsline {subsection}{\numberline {1.3.1}Altra SottoSezione}{2}
-\contentsline {subsubsection}{SottoSottoSezione}{2}
-\contentsline {section}{\numberline {1.4}Altra Sezione}{2}
-\contentsline {section}{\numberline {1.5}Altra Sezione}{3}
-\contentsline {subsection}{\numberline {1.5.1}Listati dei programmi}{3}
-\contentsline {subsubsection}{Primo Listato}{3}
-\contentsline {chapter}{Conclusioni}{5}
-\contentsline {chapter}{\numberline {A}Prima Appendice}{7}
-\contentsline {chapter}{\numberline {B}Seconda Appendice}{9}
-\contentsline {chapter}{Bibliografia}{11}
+\contentsline {chapter}{\numberline {1}Cos'\`e un kernel}{ix}
+\contentsline {section}{\numberline {1.1}Il kernel Linux}{x}
+\contentsline {chapter}{\numberline {2}Lo stack di rete}{xi}
+\contentsline {section}{\numberline {2.1}Il modello ISO/OSI}{xi}
+\contentsline {paragraph}{Physical Layer}{xii}
+\contentsline {paragraph}{Datalink Layer}{xii}
+\contentsline {paragraph}{Network Layer}{xii}
+\contentsline {paragraph}{Transport Layer}{xiii}
+\contentsline {paragraph}{Session Layer}{xiii}
+\contentsline {paragraph}{Presentation Layer}{xiii}
+\contentsline {paragraph}{Application Layer}{xiv}
+\contentsline {section}{\numberline {2.2}ISO/OSI vs TCP/IP}{xiv}
+\contentsline {section}{\numberline {2.3}Wi-Fi}{xiv}
+\contentsline {subsection}{\numberline {2.3.1}WLAN architecture and types}{xv}
+\contentsline {paragraph}{Stazioni}{xv}
+\contentsline {paragraph}{Basic service set}{xvi}
+\contentsline {paragraph}{Extended Service Set}{xvi}
+\contentsline {paragraph}{Distribution System}{xvi}
+\contentsline {section}{\numberline {2.4}IEEE 802.11}{xvii}
+\contentsline {subsection}{\numberline {2.4.1}Physical Layer in 802.11}{xvii}
+\contentsline {subsection}{\numberline {2.4.2}Media Access Control}{xviii}
+\contentsline {subsection}{\numberline {2.4.3}CSMA/CA}{xviii}
+\contentsline {subsection}{\numberline {2.4.4}Il problema dei nodi nascosti}{xix}
+\contentsline {subsection}{\numberline {2.4.5}IEEE 802.11 frame}{xxi}
+\contentsline {paragraph}{MAC header}{xxii}
+\contentsline {paragraph}{Payload}{xxiii}
+\contentsline {paragraph}{Frame check sequence (FCS)}{xxiii}
+\contentsline {subsection}{\numberline {2.4.6}Security in IEEE 802.11}{xxiv}
+\contentsline {paragraph}{Access Control List}{xxiv}
+\contentsline {paragraph}{WEP ( Wired Equivalent Privacy )}{xxv}
+\contentsline {paragraph}{WPA ( Wi-Fi Protected Access)}{xxvi}
+\contentsline {paragraph}{IEEE 802.11i (a.k.a. WPA2)}{xxviii}
+\contentsline {section}{\numberline {2.5}Livello Network}{xxviii}
+\contentsline {subsection}{\numberline {2.5.1}IPv4}{xxviii}
+\contentsline {paragraph}{Indirizzi IPv4}{xxix}
+\contentsline {paragraph}{IPv4 header}{xxix}
+\contentsline {subsection}{\numberline {2.5.2}NAT}{xxxii}
+\contentsline {subsection}{\numberline {2.5.3}ARP}{xxxiii}
+\contentsline {subsection}{\numberline {2.5.4}Frammentazione}{xxxiii}
+\contentsline {subsection}{\numberline {2.5.5}Routing}{xxxiii}
+\contentsline {subsection}{\numberline {2.5.6}IPv6}{xxxiv}
+\contentsline {paragraph}{Datagram IPv6}{xxxv}
+\contentsline {section}{\numberline {2.6}Transport Layer}{xxxvi}
+\contentsline {paragraph}{Protocollo UDP}{xxxvi}
+\contentsline {section}{\numberline {2.7}Application Layer}{xxxvii}
+\contentsline {subsection}{\numberline {2.7.1}VoIP}{xxxviii}
+\contentsline {chapter}{\numberline {3}Scenario}{xli}
+\contentsline {section}{\numberline {3.1}Seamless Host Mobility \& State Of the Art}{xlii}
+\contentsline {paragraph}{Implementazioni a livello network}{xlii}
+\contentsline {paragraph}{Implementazioni tra livello rete e trasporto}{xliii}
+\contentsline {paragraph}{Implementazioni a livello trasporto}{xliii}
+\contentsline {paragraph}{Implementazioni a livello Sessione}{xliv}
+\contentsline {section}{\numberline {3.2}Always Best Packet Switching}{xliv}
+\contentsline {subsection}{\numberline {3.2.1}Architettura}{xlvii}
+\contentsline {paragraph}{Fixed proxy server}{xlvii}
+\contentsline {paragraph}{Mobile node}{xlvii}
+\contentsline {section}{\numberline {3.3}Considerazioni finali}{xlix}
+\contentsline {chapter}{Conclusioni}{li}
+\contentsline {chapter}{\numberline {A}Prima Appendice}{liii}
+\contentsline {chapter}{\numberline {B}Seconda Appendice}{lv}
+\contentsline {chapter}{Bibliografia}{lvii}

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  20 JUN 2015 16:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  25 JUN 2015 01:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**Architettura.tex
-(./Architettura.tex
+**KernelLinux.tex
+(./KernelLinux.tex
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/book.cls
@@ -195,8 +195,8 @@ Package: amsthm 2004/08/06 v2.20
 \thm@headsep=\skip57
 \dth@everypar=\toks28
 )
-(./Architettura.aux)
-\openout1 = `Architettura.aux'.
+(./KernelLinux.aux)
+\openout1 = `KernelLinux.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
@@ -283,76 +283,65 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Capitolo 1.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 31.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 31.
  [1
 
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<Images/KernelLinuxArchitectureImage.png, id=9, 479.14072pt x 328.96928pt>
+File: Images/KernelLinuxArchitectureImage.png Graphic file (type png)
+
+<use Images/KernelLinuxArchitectureImage.png>
+Package pdftex.def Info: Images/KernelLinuxArchitectureImage.png used on input 
+line 43.
+(pdftex.def)             Requested size: 390.0pt x 267.77379pt.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2] [3]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 57.
- (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 57.
- [4]
-<Images/ABPSArchitectureImage.png, id=20, 936.49875pt x 425.08812pt>
-File: Images/ABPSArchitectureImage.png Graphic file (type png)
-
-<use Images/ABPSArchitectureImage.png>
-Package pdftex.def Info: Images/ABPSArchitectureImage.png used on input line 63
-.
-(pdftex.def)             Requested size: 390.0pt x 177.02448pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 68--74
-
- []
-
-[5 <./Images/ABPSArchitectureImage.png>]
-<Images/ABPSSIPImage.png, id=26, 1179.90813pt x 498.86375pt>
-File: Images/ABPSSIPImage.png Graphic file (type png)
-
-<use Images/ABPSSIPImage.png>
-Package pdftex.def Info: Images/ABPSSIPImage.png used on input line 77.
-(pdftex.def)             Requested size: 390.0pt x 164.89197pt.
-
+[2 <./Images/KernelLinuxArchitectureImage.png>] [3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6 <./Images/ABPSSIPImage.png>] [7] [8]
-<Images/ABPSMobileNodeArchitectureImage.png, id=38, 1218.5525pt x 698.10812pt>
-File: Images/ABPSMobileNodeArchitectureImage.png Graphic file (type png)
+ [4]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<use Images/ABPSMobileNodeArchitectureImage.png>
-Package pdftex.def Info: Images/ABPSMobileNodeArchitectureImage.png used on inp
-ut line 105.
-(pdftex.def)             Requested size: 390.0pt x 223.43112pt.
- [9 <./Images/ABPSMobileNodeArchitectureImage.png>] [10] (./Architettura.aux) )
- 
+ [5]
+Overfull \hbox (32.694pt too wide) in paragraph at lines 101--106
+\OT1/cmr/m/n/12 ce-du-to al sot-to-si-ste-ma mac80211 in-vo-can-do la sua entry
+-point ieee \OT1/cmr/bx/n/12 ieee80211[]xmit
+ []
+
+
+Underfull \vbox (badness 1931) has occurred while \output is active []
+
+ [6]
+[7] [8] (./KernelLinux.aux) ) 
 Here is how much of TeX's memory you used:
- 3480 strings out of 493117
- 45604 string characters out of 6135433
- 119719 words of memory out of 5000000
- 6882 multiletter control sequences out of 15000+600000
- 7018 words of font info for 25 fonts, out of 8000000 for 9000
+ 3466 strings out of 493117
+ 45205 string characters out of 6135433
+ 120699 words of memory out of 5000000
+ 6870 multiletter control sequences out of 15000+600000
+ 6413 words of font info for 23 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,43p,1529b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
-/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></us
-r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Architettura.pdf (10 pages, 1494426 bytes).
+ 38i,11n,43p,896b,435s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti12.pfb>
+Output written on KernelLinux.pdf (8 pages, 209552 bytes).
 PDF statistics:
- 64 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 54 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

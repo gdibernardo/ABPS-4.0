@@ -1,6 +1,17 @@
 \select@language {italian}
 \select@language {italian}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces legenda elenco figure}}{1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Stack di rete ISO/OSI e TCP/IP}}{xv}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Il problema dei nodi nascosti}}{xix}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces \emph {Four-way handshake} via RTS/CTS}}{xxi}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces IEEE 802.11 frame}}{xxii}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Formato dell'header IPv4}}{xxix}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Header datagram IPv6}}{xxxv}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Header UDP}}{xxxvii}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architettura ABPS}}{xlv}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Architettura ABPS per una comunicazione VoIP via protocollo SIP e RTP/RTCP}}{xlvi}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Infrastruttura Mobile Node in ABPS}}{xlix}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

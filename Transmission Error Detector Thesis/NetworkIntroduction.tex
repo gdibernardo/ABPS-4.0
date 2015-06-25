@@ -133,20 +133,20 @@ Esistono due tipologie di rete WLAN che differiscono dalle modalità di comunicaz
 
 %IEEE 802.11
 \begin{section}{IEEE 802.11}
-IEEE 802.11 è uno standard di trasmissione per reti WLAN operanti su frequenze 2.4 e 5 GHz che definisce un interfaccia di comunicazione base per comunicazione Wi-Fi. Le specifiche definite nello standard 802.11 si focalizzano sul livello fisico e MAC del modello ISO/OSI. 
+IEEE 802.11 è uno standard di trasmissione per reti WLAN operanti su frequenze 2.4, 3.6, 5 e 60 GHz che definisce un interfaccia di comunicazione base per comunicazione Wi-Fi. Le specifiche definite nello standard 802.11 si focalizzano sul livello fisico e MAC del modello ISO/OSI. 
 Il sistema di numerazione 802.11 è dovuto a IEEE che utilizza 802.x per indicare una famiglia di standard per le comunicazione di rete tra cui lo standard \emph{Ethernet} (IEEE 802.3). Per tanto  IEEE 802.11 si adegua perfettamente agli altri standard 802.x per reti locali wired e le applicazioni che lo utilizzano non dovrebbero notare nessuna differenza logica, una degradazione delle performance invece è tuttavia possibile.
-IEEE 802.11b  è stato il primo protocollo largamente utilizzato seguito da 802.11a, 802.11g, 802.11n e 802.11ac. Vi sono altri standard nella famiglia 802.11 (c-f, h, j) che sono per lo più piccole modifiche, estensioni o correzioni alle precedenti specifiche.
+IEEE 802.11b  è stato il primo protocollo largamente utilizzato seguito da 802.11a, 802.11g, 802.11n, and 802.11ac. Vi sono altri standard nella famiglia 802.11 (c-f, h, j) che sono per lo più piccole modifiche, estensioni o correzioni alle precedenti specifiche.
 \\
 Per quanto concerne le performance lo stream data rate può arrivare fino a 780 Mbit/s in 802.11ac grazie anche alla tecnologia MIMO (Multiple-Input and Multiple-Output) che consente di aumentare la capacità del canale trasmissivo usando più trasmittenti e ricevitori sfruttando così il fenomeno del \emph{multipath-propagation} ovvero un segnale radio può raggiungere un ricevitore attraverso diversi percorsi, \emph{path}.
 
 %Physical Layer in 802.11
 \begin{subsection}{Physical Layer in 802.11}
-Come già detto IEEE 802.11 utilizza le bande di frequenza  2.4 e 5 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
+Come già detto IEEE 802.11 utilizza le bande di frequenza  2.4, 3.6, 5 e 60 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
 \end{subsection}
 
-%MAC Medium Access Control
-\begin{subsection}{Medium Access Control}
-Medium Access Control (MAC) è un \emph{sublayer} del livello \emph{Data Link} del modello OSI. MAC fornisce meccanismi di indirizzamento e di controllo di accesso al canale che consentono a nodi mobili di comunicare attraverso una rete con medium condiviso. L'hardware che implementa MAC è detto \emph{medium access controller}.
+%MAC Media Access Control
+\begin{subsection}{Media Access Control}
+Media Access Control (MAC) è un \emph{sublayer} del livello \emph{Data Link} del modello OSI. MAC fornisce meccanismi di indirizzamento e di controllo di accesso al canale che consentono a nodi mobili di comunicare attraverso una rete con medium condiviso. L'hardware che implementa MAC è detto \emph{media access controller}.
 Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al mezzo fisico, frammentazione dati  in frame e riconoscimento frame stessi e controllo degli errori.
 \end{subsection}
 
@@ -154,7 +154,7 @@ Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al 
 \begin{subsection}{CSMA/CA}
 Carrier Sense Multiple Access with Collision Avoidance è un protocollo di accesso multiplo in cui i nodi cercano di evitare a priori il verificarsi di collisioni in trasmissione. Questo approccio è l'ideale per tipologie di reti nella quale non risulta possibile ( oppure poco affidabile e dispendioso ) rilevare un'avvenuta collisione.
 \\
-Quando un nodo vuole effettuare una trasmissione ascolta il canale \emph{(listen-before-talk)} (LBT): se il canale risulta \emph{idle} il nodo aspetta un certo \emph{DISF time (Distribuited Inter Frame Space)} trascorso il quale, se il canale risulta ancora libero, comincerà a trasmettere. A termine della trasmissione il nodo sorgente aspetterà per un certo intervallo \emph{SISF (Short Inter Frame Space)}, più piccolo di DISF, la ricezione di un \emph{ACK}. Se il nodo sorgente non riceve alcun ACK ritrasmetterà il messaggio per un certo numero di volte.
+Quando un nodo vuole effettuare una trasmissione ascolta il canale \emph{(listen-before-talk)} (LBT): se il canale risulta \emph{idle} il nodo aspetta un certo \emph{DISF time (Distribuited Inter Frame Space)} trascorso il quale, se il canale risulta ancora libero, comincerà a trasmettere. A termine della trasmissione il nodo sorgente aspetterà per certo intervallo \emph{SISF (Short Inter Frame Space)}, più piccolo di DISF, la ricezione di un \emph{ACK}. Se il nodo sorgente non riceve alcun ACK ritrasmetterà il messaggio per un certo numero di volte.
 \\
 Per tutta la durata della trasmissione e per la durata dello SISF time le altre stazioni, trovando il canale occupato, non avvieranno altre comunicazioni evitando così collisioni. La durata dello SISF inferiore a quello dell'intervallo di DISF assicura che nessuna stazione comincerà una trasmissione prima della ricezione dell'eventuale messaggio di acknowledgment da parte del nodo che ha appena concluso la trasmissione.
 \\
@@ -181,7 +181,7 @@ Per ovviare a questo problema IEEE 802.11 definisce un meccanismo opzionale che 
 \end{itemize}
 I pacchetti RTS e CTS vengono inoltrati a tutte le stazioni comprese quindi anche quelle nascoste al mittente che si metteranno in attesa per tutta la durata della trasmissione come specificato dai frame di controllo.
 \\
-Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (fino a 2347 bytes).
+Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (up to 2347 bytes).
 \\
 Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame di controllo il messaggio verrà inoltrato immediatamente senza prima generare il corrispettivo RTS.
 
@@ -268,12 +268,14 @@ Il WPA è caratterizzato da tre componenti principali:
 \\
 Molte funzioni di crittografia sono built-in nell'hardware di rete per tanto, non essendo possibile un aggiornamento software, per rendere compatibile a pieno WPA con il precedente hardware IEEE 802.11 il nuovo standard sfrutta alcune delle feature usate anche da WEP: in particolare anche WPA fa utilizzo di RC4. WPA inoltre utilizza un meccanismo di \emph{key hierarchy} ovvero la chiave principale ( Pairwise Master Key ) viene utilizzata per generare chiavi temporanee come le sessione key, group keys etc etc. In particolare WPA sfrutta RC4 in modo diverso rispetto a WEP ovvero RC4 viene utilizzato per generare una chiave temporanea a partire dalla shared key anzichè per cifrare direttamente il messaggio. La prima chiave a essere generata è la \emph{session key} che sarà poi utilizzata come seme per la generazione delle future \emph{per-packet key}.
 \\
-Ciascuna per-packet key, lunga 104 bit, è generata da una funzione hash che calcola un digest a partire dall'indirizzo MAC sorgente, il vettore di inizializzazione ( che in WPA è stato esteso da 24 a 48 bit ed è implementato come un contatore, emph{sequence counter}, per evitare \emph{replay attack} ) e la session key. Una volta ottenuta la per-packet key le operazioni di cifratura e decifratura sono identiche a quelle di WEP con la sola differenza che il vettore di inizializzazione è sostituito con i 16 bit meno significativi del IV di WPA e con un dummy byte inserito in mezzo.
+Ciascuna per-packet key, lunga 104 bit, è generata da una funzione hash che calcola un digest a partire dall'indirizzo MAC sorgente, il vettore di inizializzazione ( che in WPA è stato esteso da 24 a 48 bit ed è implementato come un contatore, \emph{sequence counter}, per evitare \emph{replay attack} ) e la session key. Una volta ottenuta la per-packet key le operazioni di cifratura e decifratura sono identiche a quelle di WEP con la sola differenza che il vettore di inizializzazione è sostituito con i 16 bit meno significativi del IV di WPA e con un dummy byte inserito in mezzo.
 \\
 TKIP risulta quindi essere un sistema di cifratura a 128 bit a chiave dinamica molto più sicuro rispetto al sistema adottato da WEP che prevedeva 24 bit dinamici con una chiave di 40 o 104 bit statica.
 \item MIC (Message Integrity Code) detto anche \emph{Michael} è una funzione hash con chiave pensata per proteggere l'integrità di un pacchetto. Il valore calcolato a partire dall'intero pacchetto non criptato è un digest di 8 byte. La funzione hash utilizzata da MIC è una funzione progettata per poter essere eseguita su dispositivi con capacità di calcolo scarse come possono essere appunto le schede di rete. A causa del bassa capacità di calcolo la funzione hash utilizzata fornisce protezione pari a un algoritmo di cifratura con con una chiave a 20 bit considerato lo standard per una bassa protezione. Per compensare quindi una bassa protezione WPA introduce una serie di contromisure per proteggere la rete da eventuali modifiche dei pacchetti da parti di terzi ( packets modification attack ) ovvero quando la rete intercetta un pacchetto compromesso disabilità il collegamento wireless con gli host coinvolti per 60 secondi ed ogni dispositivo compromesso deve richiedere forzatamente una nuova session key.
 \\
 Il pericolo causato da questo tipo di contromisura che un malintenzionato può intenzionalmente forgiare pacchetti invalidi in modo tale che l'access point adotti questo approccio di continuo generando così un denial of service.
+\\
+Il MIC viene posto tra il payload dati e il campo CRC del frame IEEE 802.11.
 \item 802.1x Port based Network Access Control è un protocollo per il controllo degli accessi in una rete wireless basato sul controllo delle porte di accesso alla rete ( switch  e/o access point ). Questo protocollo divide la rete in tre entità principali ovvero \emph{supplicant}, cioè il client che vuole connettersi alla rete, l'\emph{authenticator} ovvero il punto di accesso alla rete dove il supplicant vuole fisicamente connettersi ( tendenzialmente uno switch o un access point che collega il nodo alla rete ) e l'\emph{authentication server} il cui compito è quello di validare l'accesso alla rete del client. 
 \\
 In una rete che adotta 802.1x un nodo deve prima autenticarsi prima di poter accedere e comunicare nella rete wireless. Uno switch o un access point accetta come traffico proveniente da un client non autentificato soltanto messaggi di autenticazione di tipo EAP (Extensible Authentication Protocol) bloccando qualsiasi altra forma di traffico fino a che il client non effettua l'accesso con successo. 802.1x è inoltre responsabile della generazione e della consegna della session key una volta che il nodo si è autentificato con successo. 
@@ -405,20 +407,26 @@ Nell'header UDP, oltre alle porte che indicano sostanzialmente le applicazioni (
 \begin{section}{Application Layer}
 Il livello applicazioni si colloca nella parte più alta dello stack ISO/OSI e coinvolge tutta una serie di protocolli che si occupano di fornire servizi per i processi delle applicazioni usate dagli utenti finali. I protocolli appartenenti a questo livello sono davvero numerosissimi e utilizzati dalle più disparate applicazioni come ad esempio FTP (File Transfer Protocol) o HTTP (HyperText Transfer Protocol) alla base del World Wide Web. 
 \\
+Se considerato il livello Application dello standard \emph{de jure} TCP/IP questo include anche i livelli presentazione e sessione del modello OSI.
 Per quanto riguarda il livello applicazione si vuole ora approfondire i protocolli coinvolti nella tecnologia VoIP in quanto la applicazioni che sfruttano questa tecnologia possono toccare con mano l'oggetto di questa tesi.
 
 %VoIP
 \begin{subsection}{VoIP}
 VoIP (Voice over IP)  è una famiglia di tecnologie internet e protocolli di comunicazione per la distribuzione di comunicazioni vocali e sessioni multimediali attraverso il protocollo IP. 
 \\
-Il VoIP richiede due tipologie di protocolli di comunicazione in parallelo, una per il trasporto dei dati (pacchetti voce su IP), ed una per la segnalazione della conversazione, come la ricostruzione del frame audio, la sincronizzazione e l?identificazione del chiamante. 
+Il VoIP richiede due tipologie di protocolli di comunicazione in parallelo, una per il trasporto dei dati (pacchetti voce su IP), ed una per la segnalazione della conversazione che comprende la ricostruzione del frame audio, la sincronizzazione, l'identificazione del chiamante lo scambio di altri parametri di comunicazione così come indirizzp IP, porte e codec audio/video. 
 \\
 Per quanto riguarda la trasmissione dati la maggioranza delle implementazioni VoIP adottano il protocollo RTP (Real-time Transfer Protocol, basato su UDP). RTP viene usato assieme a RTPC (RTP Control Protocol) che monitora la \emph{qualità del servizio} (QoS) inviando periodicamente delle statistiche ai partecipanti dello streaming multimediale senza però trasportare alcun tipo di dato relativo alla comunicazione vera e propria. È stato inoltre definito SRTP (Secure Real-time Transfer Protocol) che introduce crittografia, autenticazione e integrità in RTP.
 \\
 Per quanto concerne i protocolli di segnalazione, invece, nel corso degli anni ne sono stati sviluppati diversi. H.323 definito dalla ITU (International Telecommunications Union) è stato uno dei primi protocolli pensati per il VoIP. H.323 nasce in ambito telefonico e delinea un'architettura completa per lo svolgimento di conferenze multimediali. Comprende la definizione dei formati di codifica a livello applicativo, la definizione dei formati per la segnalazione e il controllo, per il trasporto dei flussi multimediali ( audio, video e dati ). H.323 definisce anche alcuni meccanismi legati agli aspetti relativi alla sicurezza.
 \\
-Vi è poi SIP (Session Initiation Protocol) definito da IETF che gestisce in modo generale una sessione di comunicazione tra due o più entità, ovvero fornisce meccanismi per instaurare, modificare e terminare (rilasciare) una sessione. Fornisce funzionalità di instaurazione e terminazione di una sessione, operazioni di segnalazione, tono di chiamata, chiamata in attesa, identificazione del chiamante e molto altro ancora. SIP è più recente e viene largamente utilizzando riscontrando un maggiore successo di H.323.
-
+Vi è poi SIP (Session Initiation Protocol) definito da IETF, operante a livello sessione del modello OSI, che gestisce in modo generale una sessione di comunicazione tra due o più entità, ovvero fornisce meccanismi per instaurare, modificare e terminare (rilasciare) una sessione. Fornisce funzionalità di instaurazione e terminazione di una sessione, operazioni di segnalazione , tono di chiamata, chiamata in attesa, identificazione del chiamante e molto altro ancora. Adotta un un pattern message/response e i messaggi principali di SIP sono:
+\begin{itemize}
+\item REGISTER, inviato da un client verso un server SIP che mantiene una mappa degli utenti SIP e la loro posizione (indirizzi IP).
+\item INVITE, utilizzato per inizializzare una sessione di comunicazione specificando l'identificativo dell'utente con la quale si vuole comunicare; inviato da un client verso un server SIP che risponde con l'indirizzo dell'altro end-node con la quale si vuole avviare la sessione assieme ad altri parametri di configurazione.
+\item re-INVITE, viene utilizzato quando uno dei parametri di configurazione cambia (ad esempio l'indirizzo IP).
+\end{itemize}
+SIP è più recente e viene largamente utilizzando riscontrando un maggiore successo di H.323.
 \end{subsection}
 
 \end{section}

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  16 JUN 2015 12:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  24 JUN 2015 22:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"Kernel Linux.tex"
-(./Kernel Linux.tex
+**NetworkIntroduction.tex
+(./NetworkIntroduction.tex
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/book.cls
@@ -195,23 +195,23 @@ Package: amsthm 2004/08/06 v2.20
 \thm@headsep=\skip57
 \dth@everypar=\toks28
 )
-(./Kernel Linux.aux)
-\openout1 = `"Kernel Linux.aux"'.
+(./NetworkIntroduction.aux)
+\openout1 = `NetworkIntroduction.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Info: Redefining \it@ocap on input line 15.
-LaTeX Info: Redefining \it@ccap on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Info: Redefining \it@ocap on input line 23.
+LaTeX Info: Redefining \it@ccap on input line 23.
 
 
 File italian.ldf warning: 
@@ -219,7 +219,7 @@ italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting 
-italian.ldf    on input line 15.
+italian.ldf    on input line 23.
 
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -283,34 +283,172 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Capitolo 1.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 23.
-(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
+
+ []
+
+[1
+
+
+{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2] [3] <Images/ISOOSI.png, id=16, 350.2686pt x 232.7094pt>
+File: Images/ISOOSI.png Graphic file (type png)
+
+<use Images/ISOOSI.png>
+Package pdftex.def Info: Images/ISOOSI.png used on input line 82.
+(pdftex.def)             Requested size: 390.0pt x 259.11652pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--86
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--86
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--86
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--92
+
+ []
+
+[4]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 23.
- [1
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
+
+Overfull \hbox (13.79036pt too wide) in paragraph at lines 98--99
+[]\OT1/cmr/m/n/12 Access Poin-ts (AP) ov-ve-ro di-spo-si-ti-vi elet-tro-ni-ci c
+he ri-ce-vo-no/trasmettono
+ []
+
+[5 <./Images/ISOOSI.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 121--126
+
+ []
+
+[6] [7] [8]
+<Images/HiddenNodeProblemImage.png, id=34, 669.50125pt x 598.235pt>
+File: Images/HiddenNodeProblemImage.png Graphic file (type png)
+
+<use Images/HiddenNodeProblemImage.png>
+Package pdftex.def Info: Images/HiddenNodeProblemImage.png used on input line 1
+70.
+(pdftex.def)             Requested size: 117.00119pt x 104.54663pt.
+ [9 <./Images/HiddenNodeProblemImage.png>] <Images/HiddenNodeFourWayHandshake.j
+pg, id=40, 277.035pt x 279.29344pt>
+File: Images/HiddenNodeFourWayHandshake.jpg Graphic file (type jpg)
+
+<use Images/HiddenNodeFourWayHandshake.jpg>
+Package pdftex.def Info: Images/HiddenNodeFourWayHandshake.jpg used on input li
+ne 190.
+(pdftex.def)             Requested size: 272.99881pt x 275.22711pt.
 
 
-{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-(./Kernel Linux.aux) ) 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 2042) has occurred while \output is active []
+
+ [10]
+<Images/802dot11FrameImage.png, id=44, 540.0175pt x 255.95625pt>
+File: Images/802dot11FrameImage.png Graphic file (type png)
+
+<use Images/802dot11FrameImage.png>
+Package pdftex.def Info: Images/802dot11FrameImage.png used on input line 208.
+(pdftex.def)             Requested size: 390.0pt x 184.85466pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11 <./Images/HiddenNodeFourWayHandshake.jpg>] [12 <./Images/802dot11FrameImage
+.png>] [13] [14]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15]
+[16] [17] [18] <Images/IPv4HeaderImage.png, id=70, 521.95pt x 180.675pt>
+File: Images/IPv4HeaderImage.png Graphic file (type png)
+
+<use Images/IPv4HeaderImage.png>
+Package pdftex.def Info: Images/IPv4HeaderImage.png used on input line 306.
+(pdftex.def)             Requested size: 390.0pt x 135.00139pt.
+ [19 <./Images/IPv4HeaderImage.png>] [20]
+[21]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22]
+[23]
+LaTeX Font Info:    Try loading font information for U+lasy on input line 352.
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 352.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 352.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (7.38353pt too wide) in paragraph at lines 352--358
+\OT1/cmr/m/n/12 quen-za \OT1/cmr/m/it/12 :: \OT1/cmr/m/n/12 ri-du-cen-do cos^^R
+^^P l'in-di-riz-zo ap-pe-na il-lu-stra-to a fe80::a4f5:f1ff:fe49:8d93. 
+ []
+
+[24] <Images/IPv6HeaderImage.jpg, id=92, 547.04375pt x 210.7875pt>
+File: Images/IPv6HeaderImage.jpg Graphic file (type jpg)
+
+<use Images/IPv6HeaderImage.jpg>
+Package pdftex.def Info: Images/IPv6HeaderImage.jpg used on input line 364.
+(pdftex.def)             Requested size: 390.0pt x 150.27771pt.
+ [25 <./Images/IPv6HeaderImage.jpg>] [26]
+<Images/UDPHeader.jpg, id=100, 578.16pt x 199.74625pt>
+File: Images/UDPHeader.jpg Graphic file (type jpg)
+
+<use Images/UDPHeader.jpg>
+Package pdftex.def Info: Images/UDPHeader.jpg used on input line 398.
+(pdftex.def)             Requested size: 390.0pt x 134.73755pt.
+ [27 <./Images/UDPHeader.jpg>] [28] [29]
+(./NetworkIntroduction.aux) ) 
 Here is how much of TeX's memory you used:
- 3452 strings out of 493117
- 44889 string characters out of 6135433
- 117865 words of memory out of 5000000
- 6860 multiletter control sequences out of 15000+600000
- 5759 words of font info for 21 fonts, out of 8000000 for 9000
+ 3560 strings out of 493117
+ 47204 string characters out of 6135433
+ 120764 words of memory out of 5000000
+ 6932 multiletter control sequences out of 15000+600000
+ 11426 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,5n,43p,1192b,213s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmsl12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb>
-Output written on "Kernel Linux.pdf" (2 pages, 49059 bytes).
+ 38i,10n,43p,1257b,464s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsl12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmti12.pfb>
+Output written on NetworkIntroduction.pdf (29 pages, 454114 bytes).
 PDF statistics:
- 27 PDF objects out of 1000 (max. 8388607)
- 18 compressed objects within 1 object stream
+ 131 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

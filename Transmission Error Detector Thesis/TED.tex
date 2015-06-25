@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper,openright,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\graphicspath{ {Images/}  }
+\usepackage{newlfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{listings}
+
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+\linespread{1.3}  
+\begin{document}
+
+\begin{chapter}{Transmission Error Detector}
+In questo capitolo si vuole illustrare le fasi di progettazione e implementazione di un modulo TED per ABPS per kernel Linux 4.0.
+Nel precedente capito si è descritto brevemente il funzionamento di TED e il suo funzionamento nel sistema ABPS pensato per il supporto alla mobilità.
+\\
+Il meccanismo di Transmission Error Detection può essere applicato a qualsiasi interfaccia di rete di un dispositivo mobile. In questa capitolo verrà illustrata la progettazione di un modulo TED per Wi-Fi.
+\\
+Transmission Error Detector è implementato in maniera \emph{cross-layer} lungo lo stack di rete del kernel Linux e ha lo scopo di monitorare ciascun datagram UDP in invio da una certa interfaccia di rete e notificare ad un eventuale ABPS proxy client lo stato di consegna del pacchetto all'access point. Per far ciò TED introduce una notifica di tipo \emph{First-hop Transmission Notification} che sarà fatta pervenire al proxy client.
+\\
+Per monitorare uno specifico datagram il proxy client necessità di un identificativo che identifichi univocamente un dato datagram. A tal proposito si è estesa la system call \emph{sendmsg} in modo tale che ritorni un id univoco per il messaggio appena spedito.  
+\begin{section}{Progettazione e implementazione}
+Transmission Error Detector opera su più layer dello stack di rete del kernel Linux e ha il compito di monitorare ciascun datagram trasmesso da un proxy client ABPS e notificarne lo stato di consegna in modo tale da poter valutare la QoS di quel collegamento ed eventualmente inoltrare quello stesso datagram attraverso un'altra NIC del nodo mobile.
+\\
+Come già precedentemente accennato TED è implementato in maniera cross-layer su più livelli dello stack di rete del kernel di Linux.
+\begin{subsection}{Livello trasporto}
+Le applicazioni per le quali ABPS vuole essere un supporto alla mobilità sono le applicazioni multimedia-oriented che come già trattato nei capitoli precedenti sono solitamente progettate per utilizzare UDP. Un'applicazione che utilizza UDP per le sue comunicazioni di rete sfrutta uno o più socket datagram ovvero di tipo connectionless.
+\\
+Per poter valutare la ritrasmissione di un dato messaggio il proxy client necessita di un meccanismo di identificazione per ciascun datagram. A tal proposito si è esteso la system call \emph{sendmsg} in modo tale che possa ritornare un \textbf{id} univoco per il messaggio in invio cosicché il proxy client possa mantenerlo e usarlo per riferirsi a quel preciso datagram. Tutte le notifiche ricevute poi in seguito dal proxy client e provenienti da TED faranno riferimento a un datagram utilizzando lo stesso identificativo. 
+\\
+La system call sendmsg consente di inviare, assieme al contenuto del messaggio, delle informazioni di controllo aggiuntive dette \emph{ancillary data} che non saranno però trasmesse lungo la rete. Dal punto di vista implementativo i dati di tipo ancillary sono realizzati in POSIX tramite una sequenza di strutture \textbf{struct cmsghdr} contenenti le informazioni di controllo. L'estensione di sendmsg in particolare prevede l'utilizzo di ancillary data in fase di invio:
+\begin{itemize}
+\item Per segnalare a TED che l'app invocante la system call sendmsg richiede di poter ricevere l'id per il messaggio in invio. Per far ciò viene introdotto un nuovo valore non utilizzato per il campo \textbf{cmsg\_type} della struct cmsghdr.
+\item Per passare a TED un'indirizzo di memoria in user space dove TED potrà assegnare l'id generata per il datagram in invio.
+\end{itemize}
+
+\end{subsection}
+
+
+\end{section}
+
+\end{chapter}
+\end{document}
