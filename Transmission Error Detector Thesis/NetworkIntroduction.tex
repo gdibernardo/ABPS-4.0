@@ -379,6 +379,20 @@ Alcune tra le estensioni più comuni sono:
 \end{itemize}
 \end{paragraph}
 \end{subsection}
+\begin{subsection}{Frammentazione in IPv6}
+Come già brevemente accennato nell'ultima versione dell'Internet Protocol viene rimossa la frammentazione di una datagram IPv6 da parte dei router.
+\\ 
+\\
+A differenza della versione 4 dell'Internet Protocol, in IPv6, la frammentazione avviene esclusivamente in maniera end-to-end ovvero ciascun datagram sarà frammentato dall'host sorgente e poi riassemblato dall'host destinatario senza ulteriore frammentazione da parte dei router intermedi.
+\\
+Rimuovendo la frammentazione da parte dei nodi intermedi di una trasmissione viene abbattuto l'overhead dovuto alla framentazione che era a carico dei router incrementando così il numero di pacchetti gestiti per unità di tempo.
+\\
+Il protocollo IPv6 richiede che ogni link supporti la trasmissione di datagram di dimensione fino a 1280 byte.
+\\
+In caso di una frammentazione viene utilizzata l'estensione precedentemente accennata \emph{Fragment packet}. 
+\\
+Quando un host deve inviare un datagram IPv6 può valutare se tutti gli eventuali suoi frammenti abbiano una dimensione massima di 1280 byte oppure se utilizzare un algoritmo di discovery che gli consenta di scoprire qual è la dimensione minima supportata su uno dei link da attraversare per arrivare a destinazione. IETF suggerisce l'utilizzo del secondo approccio anche se questo potrebbe rappresentare un limite in quanto il percorso di ciascun datagram sarebbe ben definito e statico: nel caso un router non riesca per qualche motivo instradare il datagram su uno dei link predefiniti manderà un messaggio di errore all'host sorgente che calcolerà un nuove percorso.
+\end{subsection}
 \end{section}
 %Transport Layer
 \begin{section}{Transport Layer}

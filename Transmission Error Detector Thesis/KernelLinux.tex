@@ -70,12 +70,19 @@ La struttura socket buffer contiene diversi campi che memorizzano le informazion
 \\
 Essendo lo stack di rete implementato su più livelli, dove ciascun layer aggiunge ( o rimuove ) delle proprie informazioni di intestazione ad un messaggio, mantenere per ogni livello di rete una struttura diversa per identificare un certo pacchetto appartenente a quel dato layer potrebbe risultare parecchio oneroso in termini di memoria in quanto si finirebbe per copiare grandi quantità di dati da un buffer ad un altro. Anche questo motivo, nel kernel Linux, si è deciso di mantenere un'unica struttura accessibile da qualsiasi layer dello stack di rete. 
 \\
-La struttura sk\_buff mantiene un union field per ciascun livello di rete dello stack TCP/IP ( trasporto, network, data-link ) dove ciascun campo ( h, nh, mac ) rappresenta un header di un protocollo di comunicazione adotabbile per quel livello.
+La struttura sk\_buff mantiene un union field per ciascun livello di rete dello stack TCP/IP ( trasporto, network, data-link ) dove ciascun campo ( h, nh, mac ) rappresenta un header di un protocollo di comunicazione adotabbile per quel livello. Ciascun campo di queste union punteranno poi effettivamente a un header per quel livello.
 \\
-Il campo \emph{data} punta invece al payload del pacchetto che, però, può avere diversi significati a seconda del livello di rete trattato. Ad esempio in fase di ricezione di un pacchetto la funzione responsabile di trattare un datagram a livello network punterà all'header contenuto nel campo nh della struct socket buffer e il campo data sarà reinizializzato a partire dall'offset di inizio del payload per il livello rete perdendo così tutte le informazioni di intestazione ( e non ) memorizzate prima di quel offset (in ricezione il pacchetto sarà già stato trattato dai layer inferiori a quello attuale ).
+Il campo \emph{data} punta all'inizio di tutti i dati relativi al pacchetto ( header compresi ) variando a seconda del layer in cui il socket buffer è utilizzato: in particolare quando una funzione ad un certo livello dello stack di rete tratta una struttura sk\_buff il campo data punterà all'header del messaggio per quel livello. Ad esempio in fase di ricezione di un pacchetto a livello network il campo nh di sk\_buff sarà inizializzato all'header puntato dal campo data. Se si vorrà accedere, per qualche motivo al payload del datagram IP si potrà farlo calcolando l'offset a partire dal puntatore data; inoltrando il pacchetto ad un layer superiore l'header relativo al livello di rete corrente potrà essere rimosso tramite la routine \textbf{skb\_pull()}. 
 \\
 In fase di invio il procedimento è molto simile ma con la difficoltà di dover appendere eventuali header man mano che si percorre lo stack di rete verso il basso. A tale scopo vi è una funzione di manipolazione delle strutture sk\_buff chiamata \textbf{skb\_reserve}, in genere invocata dopo un allocazione di un socket buffer, che consente di riservare dello spazio per gli header dei diversi protocolli.
 \end{paragraph}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{SocketBufferImage}
+    \caption{La struttura \emph{sk\_buff}.}
+     \label{fig:SocketBufferImage}
+\end{figure}
 
 \begin{paragraph}{struct net\_device} questa struttura rappresenta una scheda di rete, anche virtuale: può essere infatti che ci si riferisca ad una scheda di rete virtuale ottenuta dopo aver effettuato un \emph{bonding}, ovvero è possibile assegnare un unico indirizzo IP a due o più NIC ( vedendole così come un unico device ) in modo da migliorare le performance. 
 \\
