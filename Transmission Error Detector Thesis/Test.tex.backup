@@ -46,12 +46,11 @@ Access point utilizzato durante i test. È stata impostata la modalità Wi-Fi 802.
 
 \begin{paragraph}{LB-LINK BL-WN151}
 Adattatore Wireless USB. Velocità fino a 150Mb/s, supporta 802.11b/g/n.
-È stata utilizzata principalmente sui Raspberry, visto che non dispongono di wireless integrato.
+
 \end{paragraph}
 
 \begin{paragraph}{NETGEAR WG111}
 Adattatore Wireless USB. Velocità fino a 54Mb/s, supporta 802.11b/g.
-Questo adattatore è più lento ed è stato usato sul computer HP quando il wireless integrato dava dei problemi. 
 
 \end{paragraph}
 
@@ -59,22 +58,22 @@ Questo adattatore è più lento ed è stato usato sul computer HP quando il wireles
 Questo notebook è stato utilizzato come client. Abbiamo montato un kernel versione 4.0.1, modificato tramite la procedura illustrata precedentemente. 
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Linux versione 4.0.1 modificata.
- \item Processore: Intel Core i5 CPU M 430.
- \item Sistema operativo: Ubuntu 14.04 LTS 64-bit.
- \item Scheda di rete: Broadcom BCM43225 802.11b/g/n.
+ \item Kernel: Linux versione 4.0.1 modificata
+ \item Processore: Intel Core i5 CPU M 430 @ 2.27GHz x 4 
+ \item Sistema operativo: Ubuntu 14.04 LTS 64-bit
+ \item Scheda di rete: Broadcom BCM43225 802.11b/g/n
 \end{itemize}
 
 \end{paragraph}
 
 \begin{paragraph}{DELL Latitude E6400}
-Anche questo notebook è stato utilizzato come client, e vi è quindi montato un kernel versione 4.0.1 modificato. 
+Questo notebook è stato utilizzato come client. Abbiamo montato un kernel versione 4.0.1, modificato tramite la procedura illustrata precedentemente. 
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Linux versione 4.0.1 modificata.
- \item Processore: Intel Core 2 Duo.
- \item Sistema operativo: Ubuntu 14.04 LTS 32-bit.
- \item Scheda di rete: Intel Corporation WiFi Link 5100 802.11a/g/n.
+ \item Kernel: Linux versione 4.0.1 modificata
+ \item Processore: Intel Core 2 Duo 
+ \item Sistema operativo: Ubuntu 14.04 LTS 32-bit
+ \item Scheda di rete: Intel Corporation WiFi Link 5100 [802.11a/g/n (1x2)]
 \end{itemize}
 
 \end{paragraph}
@@ -84,9 +83,9 @@ Le specifiche tecniche sono:
 Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Linux versione 3.18.0-20-rpi2.
- \item Processore: 900MHz quad-core ARM Cortex-A7.
- \item Sistema operativo: Raspbian.
+ \item Kernel: Linux versione 3.18.0-20-rpi2  
+ \item Processore: 900MHz quad-core ARM Cortex-A7
+ \item Sistema operativo: Raspbian
  
 \end{itemize}
 
@@ -97,9 +96,9 @@ Le specifiche tecniche sono:
 Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Kernel Linux 3.0.35.
- \item Processore: Freescale i.MX 6 ARM Cortex-A9 CPU Dual/Quad core 1GHz.
- \item Sistema operativo: UDOObuntu.
+ \item Kernel: Kernel Linux 3.0.35
+ \item Processore: Freescale i.MX 6 ARM Cortex-A9 CPU Dual/Quad core 1GHz 
+ \item Sistema operativo: UDOObuntu
  
 \end{itemize}
 
@@ -175,23 +174,6 @@ In particolare abbiamo combinato l'utilizzo di uno o più dispositivi contemporan
 \begin{section}{Risultati}
 
 Andiamo ora ad analizzare i risultati ottenuti.
-
-\begin{table}[h]
-\centering
-\caption{Prima tabella}
-\label{FirstTable}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
-prima  & ye  & ery & rey & 456 \\ \hline
-seconda & ye  & ye  & ey  & ru  \\ \hline
-terza & ewy & ye  & yer & 54  \\ \hline
-quarta & ewy & ye  & yer & 54  \\ \hline \hline
-Media & ewy & ye  & yer & 54  \\ \hline
-
-\end{tabular}
-\end{table}
-
 \end{section}
 
 

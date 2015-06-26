@@ -21,7 +21,7 @@
 \linespread{1.3}    
 
 \begin{document}
-\begin{chapter}{Lo stack di rete}
+\begin{chapter}{LO STACK DI RETE}
 In questo capitolo si vuole presentare la suite di protocolli utilizzata nel progetto di tesi. Verrà descritto brevemente il modello ISO/OSI per poi soffermarsi con particolare attenzione sulla tecnologia Wi-Fi e sui protocolli toccati dal progetto di tesi.
 ISO/OSI è uno standard che definisce un modello composto su più livelli: ogni \emph{layer} si occupa di uno specifico aspetto delle comunicazioni di rete fornendo delle funzionalità a livello superiore e sfruttando le astrazioni fornite dal livello immediatamente inferiore. In questo modo è possibile ridurre la complessità non banale delle comunicazioni di rete. 
 
@@ -133,15 +133,15 @@ Esistono due tipologie di rete WLAN che differiscono dalle modalità di comunicaz
 
 %IEEE 802.11
 \begin{section}{IEEE 802.11}
-IEEE 802.11 è uno standard di trasmissione per reti WLAN operanti su frequenze 2.4, 3.6, 5 e 60 GHz che definisce un interfaccia di comunicazione base per comunicazione Wi-Fi. Le specifiche definite nello standard 802.11 si focalizzano sul livello fisico e MAC del modello ISO/OSI. 
+IEEE 802.11 è uno standard di trasmissione per reti WLAN operanti su frequenze 2.4 e 5 GHz che definisce un interfaccia di comunicazione base per comunicazione Wi-Fi. Le specifiche definite nello standard 802.11 si focalizzano sul livello fisico e MAC del modello ISO/OSI. 
 Il sistema di numerazione 802.11 è dovuto a IEEE che utilizza 802.x per indicare una famiglia di standard per le comunicazione di rete tra cui lo standard \emph{Ethernet} (IEEE 802.3). Per tanto  IEEE 802.11 si adegua perfettamente agli altri standard 802.x per reti locali wired e le applicazioni che lo utilizzano non dovrebbero notare nessuna differenza logica, una degradazione delle performance invece è tuttavia possibile.
-IEEE 802.11b  è stato il primo protocollo largamente utilizzato seguito da 802.11a, 802.11g, 802.11n, and 802.11ac. Vi sono altri standard nella famiglia 802.11 (c-f, h, j) che sono per lo più piccole modifiche, estensioni o correzioni alle precedenti specifiche.
+IEEE 802.11b  è stato il primo protocollo largamente utilizzato seguito da 802.11a, 802.11g, 802.11n, e 802.11ac. Vi sono altri standard nella famiglia 802.11 (c-f, h, j) che sono per lo più piccole modifiche, estensioni o correzioni alle precedenti specifiche.
 \\
 Per quanto concerne le performance lo stream data rate può arrivare fino a 780 Mbit/s in 802.11ac grazie anche alla tecnologia MIMO (Multiple-Input and Multiple-Output) che consente di aumentare la capacità del canale trasmissivo usando più trasmittenti e ricevitori sfruttando così il fenomeno del \emph{multipath-propagation} ovvero un segnale radio può raggiungere un ricevitore attraverso diversi percorsi, \emph{path}.
 
 %Physical Layer in 802.11
 \begin{subsection}{Physical Layer in 802.11}
-Come già detto IEEE 802.11 utilizza le bande di frequenza  2.4, 3.6, 5 e 60 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
+Come già detto IEEE 802.11 utilizza le bande di frequenza  2.4 e 5 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
 \end{subsection}
 
 %MAC Media Access Control
@@ -154,7 +154,7 @@ Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al 
 \begin{subsection}{CSMA/CA}
 Carrier Sense Multiple Access with Collision Avoidance è un protocollo di accesso multiplo in cui i nodi cercano di evitare a priori il verificarsi di collisioni in trasmissione. Questo approccio è l'ideale per tipologie di reti nella quale non risulta possibile ( oppure poco affidabile e dispendioso ) rilevare un'avvenuta collisione.
 \\
-Quando un nodo vuole effettuare una trasmissione ascolta il canale \emph{(listen-before-talk)} (LBT): se il canale risulta \emph{idle} il nodo aspetta un certo \emph{DISF time (Distribuited Inter Frame Space)} trascorso il quale, se il canale risulta ancora libero, comincerà a trasmettere. A termine della trasmissione il nodo sorgente aspetterà per certo intervallo \emph{SISF (Short Inter Frame Space)}, più piccolo di DISF, la ricezione di un \emph{ACK}. Se il nodo sorgente non riceve alcun ACK ritrasmetterà il messaggio per un certo numero di volte.
+Quando un nodo vuole effettuare una trasmissione ascolta il canale \emph{(listen-before-talk)} (LBT): se il canale risulta \emph{idle} il nodo aspetta un certo \emph{DISF time (Distribuited Inter Frame Space)} trascorso il quale, se il canale risulta ancora libero, comincerà a trasmettere. A termine della trasmissione il nodo sorgente aspetterà per un certo intervallo \emph{SISF (Short Inter Frame Space)}, più piccolo di DISF, la ricezione di un \emph{ACK}. Se il nodo sorgente non riceve alcun ACK ritrasmetterà il messaggio per un certo numero di volte.
 \\
 Per tutta la durata della trasmissione e per la durata dello SISF time le altre stazioni, trovando il canale occupato, non avvieranno altre comunicazioni evitando così collisioni. La durata dello SISF inferiore a quello dell'intervallo di DISF assicura che nessuna stazione comincerà una trasmissione prima della ricezione dell'eventuale messaggio di acknowledgment da parte del nodo che ha appena concluso la trasmissione.
 \\
@@ -181,7 +181,7 @@ Per ovviare a questo problema IEEE 802.11 definisce un meccanismo opzionale che 
 \end{itemize}
 I pacchetti RTS e CTS vengono inoltrati a tutte le stazioni comprese quindi anche quelle nascoste al mittente che si metteranno in attesa per tutta la durata della trasmissione come specificato dai frame di controllo.
 \\
-Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (up to 2347 bytes).
+Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (fino a 2347 bytes).
 \\
 Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame di controllo il messaggio verrà inoltrato immediatamente senza prima generare il corrispettivo RTS.
 

@@ -20,8 +20,8 @@
 \linespread{1.3}  
 \begin{document}
 
-\begin{chapter}{Transmission Error Detector}
-In questo capitolo si vuole illustrare le fasi di progettazione e implementazione di un modulo TED per ABPS su kernel Linux 4.0.
+\begin{chapter}{TRANSMISSION ERROR DETECTOR}
+In questo capitolo si vogliono illustrare le fasi di progettazione e implementazione di un modulo TED per ABPS su kernel Linux 4.0.
 \\
 Nel precedente capito si è descritto brevemente il funzionamento di TED e il suo ruolo nel sistema ABPS ideato come supporto alla mobilità.
 \\
@@ -47,7 +47,7 @@ La system call sendmsg consente di inviare, assieme al contenuto del messaggio, 
 \item Per passare a TED un'indirizzo di memoria in user space dove TED potrà assegnare l'id generata per il datagram in invio.
 \end{itemize} 
 
-Una volta inviato il messaggio e il Socket Interface Layer avrà passato il controllo alla funzione di livello trasporto udp\_sendmsg, come spiegato nel capitolo 2, tramite una funzione appositamente sviluppata e contenuta nel file socket.c del kernel Linux, si andrà ad analizzare i dati di tipo ancillary contenuti nella struttura struct msghdr passata come parametro della udp\_sendmsg. La struttura struct msghdr mantiene il messaggio passato alla system call dall'app a livello utente e gli eventuali dati di controllo: una volta analizzati gli ancillary data se l'utente ha specificato di essere interessato a ricevere l'identificativo del messaggio inviato verrà settato un apposito flag is\_identifier\'required e verrà mantenuto l'indirizzo di memoria user space specificato l'app dove TED potrà settare l'identificativo calcolato per il pacchetto in invio.
+Una volta che il messaggio sarà stato inviato ed il Socket Interface Layer avrà passato il controllo alla funzione di livello trasporto udp\_sendmsg, come spiegato nel capitolo 2, tramite una funzione appositamente sviluppata e contenuta nel file socket.c del kernel Linux, si andrà ad analizzare i dati di tipo ancillary contenuti nella struttura struct msghdr passata come parametro della udp\_sendmsg. La struttura struct msghdr mantiene il messaggio passato alla system call dall'app a livello utente e gli eventuali dati di controllo: una volta analizzati gli ancillary data se l'utente ha specificato di essere interessato a ricevere l'identificativo del messaggio inviato verrà settato un apposito flag is\_identifier\_required e verrà mantenuto l'indirizzo di memoria user space specificato l'app dove TED potrà settare l'identificativo calcolato per il pacchetto in invio.
 \\
 Quando il controllo viene passato momentaneamente a livello rete, come descritto nel capitolo 2, e verrà allocato il socket buffer relativo al messaggio in invio, sarà calcolato l'identificativo per quel pacchetto e assegnato alla struttura sk\_buff ( maggiore dettagli in seguito ).
 \\

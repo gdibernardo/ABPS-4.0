@@ -21,7 +21,7 @@
 \linespread{1.3}  
 
 \begin{document}
-\begin{chapter}{Scenario}
+\begin{chapter}{SCENARIO}
 Tutti i dispositivi mobili attualmente offrono diverse modalità di accesso ad internet basti pensare a uno smartphone che consente l'accesso a internet sia in modalità Wi-Fi che attraverso la telefonia mobile sfruttando tecnologie come il 3G fino al più recente 4G.
 \\
 In questo capitolo si vuole descrivere un'architettura che consente a un user app che fornisce un servizio multimediale in esecuzione su di un mobile device \emph{multi-homed}, ovvero che monta più di un'interfaccia di rete, di sfruttare tutte le sue NIC (Network Interface Card) in un contesto di mobilità. È interessante studiare uno scenario che fa uso di un'app multimediale ( come può essere ad esempio un'applicazione per chiamate VoIP ) in quanto sono app \emph{real-time} e generano una grande mole di traffico. Le app appartenenti alle categorie dei servizi multimedial real-time vengono solitamente realizzate sfruttando il protocollo UDP: l'architettura presentata in questo capitolo fornisce un meccanismo in grado da rendere possibile l'inoltro di ciascun datagram UDP attraverso l'interfaccia di rete più adatta e disponibile al momento della trasmissione. Questa architettura è detta ABPS ( Always Best Packet Switching ) ma prima di descriverne i suoi principali aspetti verrà descritto lo stato dell'arte per quel che riguarda la gestione della mobilità dei nodi mobili.
@@ -120,4 +120,4 @@ ABPS può essere utilizzato in qualsiasi contesto VoIP.
 \end{section}
 \end{chapter}
 
-%\end{document}
+\end{document}
