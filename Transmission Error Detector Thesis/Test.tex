@@ -1,0 +1,159 @@
+\documentclass[12pt,a4paper,openright,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{newlfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+
+
+
+\begin{document}
+\begin{chapter}{TEST E VALUTAZIONI SPERIMENTALI}
+Dopo aver illustrato il funzionamento e l'implementazione del TED, passiamo ora ad analizzare i dati relativi alla trasmissione di pacchetti tramite la nostra applicazione.
+Lo scopo dei test effettuati è quello di analizzare la QoS del segnale e come può variare in diversi scenari.
+Questo ci è utile in quanto, in base ai risultati ottenuti, si può decidere se cambiare NIC per l'invio di determinati pacchetti.
+
+
+Andremo ora a mostrare quali test sono stati effettuati. In particolare mostreremo quali dispositivi sono stati utilizzati per fare le prove, i parametri di valutazione ed i risultati ottenuti.
+\\
+Lo scopo di questi test è di andare ad osservare la QoS del segnale e come può variare in scenari diversi.
+
+
+
+\begin{section}{Dispositivi}
+Per effettuare delle prove sperimentali, sono stati utilizzati diversi dispositivi. In particolare tre per simulare il client ( o nodo mobile ) ed altri per creare traffico nella rete, in modo da impegnare il canale per avere condizioni simili ad un tipico scenario di utilizzo.
+Per ogni dispositivo è interessante mostrare per cosa è stato utilizzato. Nel caso di un nodo della rete, mostreremo anche il sistema operativo, il kernel, il processore e scheda di rete.
+
+
+
+
+\begin{paragraph}{ZyXEL NBG4615 v2}
+Access point utilizzato durante i test. È stata impostata la modalità Wi-Fi 802.11b/g/n.
+
+\end{paragraph}
+
+
+\begin{paragraph}{LB-LINK}
+Adattatore Wi-Fi USB. Velocità fino a 150Mb/s
+
+\end{paragraph}
+
+
+
+\begin{paragraph}{HP Pavilion dv6 Entertainment PC}
+Questo notebook è stato utilizzato come client. Abbiamo montato un kernel versione 4.0.1, modificato tramite la procedura illustrata precedentemente. 
+Le specifiche tecniche sono: 
+\begin{itemize}
+ \item Kernel: Linux versione 4.0.1 modificata
+ \item Processore: Intel Core i5 CPU M 430 @ 2.27GHz x 4 
+ \item Sistema operativo: Ubuntu 14.04 LTS 64-bit
+ 
+\end{itemize}
+
+\end{paragraph}
+
+\begin{paragraph}{Raspberry Pi Model 2}
+Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
+Le specifiche tecniche sono: 
+\begin{itemize}
+ \item Kernel: Linux versione 3.18.0-20-rpi2  
+ \item Processore: 900MHz quad-core ARM Cortex-A7 CPU 
+ \item Sistema operativo: Raspbian Wheezy
+ 
+\end{itemize}
+
+\end{paragraph}
+
+
+\begin{paragraph}{UDOO Quad}
+Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
+Le specifiche tecniche sono: 
+\begin{itemize}
+ \item Kernel: 
+ \item Processore: Freescale i.MX 6 ARM Cortex-A9 CPU Dual/Quad core 1GHz 
+ \item Sistema operativo: Raspbian Wheezy
+ 
+\end{itemize}
+
+\end{paragraph}
+
+
+
+\begin{paragraph}{Raspberry Pi Model B}
+Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
+Le specifiche tecniche sono: 
+\begin{itemize}
+ \item Kernel: 
+ \item Processore: 
+ \item Sistema operativo: Raspbian Wheezy
+ 
+\end{itemize}
+
+\end{paragraph}
+
+
+\end{section}
+
+
+
+
+\begin{section}{Parametri di valutazione}
+Per poter analizzare i test in modo ottimale e per avere dei dati su cui lavorare abbiamo deciso di controllare alcuni parametri.
+\\
+I parametri che ci interessano maggiormente sono:
+
+\begin{itemize}
+ \item Id: l'Id del pacchetto inviato.
+ \item ACK: se è stato ricevuto un ACK o un NACK da parte dell'AP. 
+ \item Data: è dato dalla data e dall'orario di invio del pacchetto.
+ \item Tempo: è il tempo in millisecondi tra l'invio del pacchetto e la ricezione della notifica da parte dell'access point.
+ \item {Retry count}: è il numero di tentativi di invio di un determinato pacchetto
+ \item {Versione IP}: IPv4 o IPv6
+ \item Configurazione: è la configurazione dei dispositivi utilizzati durante l'esperimento.
+ \item Wait: indica se la recv è bloccante.
+ 
+\end{itemize}
+Abbiamo scelto questi parametri perché ci permettono di poter giudicare in maniera chiara l'andamento dei pacchetti e la situazione della rete.
+In particolare sono molto significativi il tempo, l'ACK ed il retry count.
+Grazie a questi dati si può analizzare in modo dettagliato la situazione di ogni singolo pacchetto. L'applicazione può leggere l'ACK e successivamente decidere di rimandare il pacchetto in base ai millisecondi passati prima di ricevere la notifica.
+Il numero di retry count risulta rilevante per confrontare differenti situazioni di traffico, oppure per notare cosa succede in caso di trasmissione in movimento.
+Gli altri parametri che abbiamo deciso di utilizzare hanno un valore più trascurabile per un singolo pacchetto, ma possono diventare eloquenti per analizzare i dati a posteriori.
+In particolare si potrebbe notare in base all'orario se c'è un evidente rallentamento della trasmissione. Ad esempio si potrebbe notare come in una zona industriale la QoS migliori durante la sera/notte.
+Un altro dato che può essere utilizzato per esaminare i dati raccolti è la versione IP, si può controllare se c'è un differenza notevole tra IPv6 e IPv4 a parità di condizioni.
+Le configurazioni, invece, riguardano i dispositivi utilizzati durante un test e lo scenario applicativo. Andremo a mostrare quali configurazioni sono state provate in modo più dettagliato successivamente.
+Per quanto riguarda la wait abbiamo deciso di fare sia una recv bloccante che una non bloccante. Abbiamo fatto dei test con entrambe e abbiamo analizzato le differenze, che andremo a descrivere più avanti.
+
+Si potrebbero utilizzare anche altre informazioni ( ad esempio la bitrate ) per analizzare meglio i risultati, che saranno approfondite negli sviluppi futuri.
+
+
+
+
+
+
+
+
+\end{section}
+
+\begin{section}{Configurazioni}
+Per ottenere dei risultati che potessero rispecchiare un reale utilizzo da parte di un nodo mobile abbiamo creato diverse configurazioni di dispositivi.
+In particolare abbiamo combinato l'utilizzo di uno o più dispositivi 
+\end{section}
+
+    
+
+\begin{section}{Risultati}
+
+Andiamo ora ad analizzare i risultati ottenuti.
+\end{section}
+
+
+
+
+\end{chapter}
+
+\end{document}
