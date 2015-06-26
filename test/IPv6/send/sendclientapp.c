@@ -16,9 +16,9 @@
 #include "testlib.h"
 
 
-#define NUMBER_OF_PACKETS 1000
+#define NUMBER_OF_PACKETS 5000
 
-#define MESSAGE_LENGTH 2000
+#define MESSAGE_LENGTH 1050
 
 
 int main(int argc, char ** argv)
@@ -58,14 +58,17 @@ int main(int argc, char ** argv)
     instantiate_ipv6_shared_instance_by_address_and_port(address, port);
     
     
-    for(index = 0; index < 5000; index++)
+    for(index = 0; index < NUMBER_OF_PACKETS; index++)
     {
         int test_identifier = get_test_identifier();
-        
+        char stringaInvio[MESSAGE_LENGTH];
+		memset(stringaInvio,'c',MESSAGE_LENGTH-1);
+		stringaInvio[MESSAGE_LENGTH-1]='\0';
+  
         json_object *object = json_object_new_object();
     
         json_object *test_identifier_content = json_object_new_int(test_identifier);
-        json_object *message_content = json_object_new_string("hello from client app!");
+        json_object *message_content = json_object_new_string(stringaInvio);
     
         json_object_object_add(object,"testIdentifier", test_identifier_content);
         json_object_object_add(object, "messageContent", message_content);
@@ -73,7 +76,8 @@ int main(int argc, char ** argv)
         const char *buffer = json_object_to_json_string(object);
     
         uint32_t identifier;
-        
+        printf("lunghezza: %lu e id:%d  \n", strlen(buffer), test_identifier );	
+	    
         send_packet_with_message(buffer, strlen(buffer), &identifier);
         
         /* Log packet just sent. */

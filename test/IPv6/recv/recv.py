@@ -45,7 +45,7 @@ family, socketType, proto, canonName, socketAddress = result[0]
 receivingSocket.bind(socketAddress)
 print "Socket created."
 while 1:
-    data, address = receivingSocket.recvfrom(1000)
+    data, address = receivingSocket.recvfrom(1100)
     print str(data)
     jsonObject = json.loads(str(data))
     logJSONObject(jsonObject)

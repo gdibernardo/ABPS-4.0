@@ -90,7 +90,10 @@ testlib_list* search_in_list(int id)
 			return_value->next = NULL;
 			return return_value;
 		}
+		temp=temp->next;
+
 	}
+
 	return NULL;
 }
 
