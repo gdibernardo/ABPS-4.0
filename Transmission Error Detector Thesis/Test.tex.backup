@@ -46,11 +46,12 @@ Access point utilizzato durante i test. È stata impostata la modalità Wi-Fi 802.
 
 \begin{paragraph}{LB-LINK BL-WN151}
 Adattatore Wireless USB. Velocità fino a 150Mb/s, supporta 802.11b/g/n.
-
+È stata utilizzata principalmente sui Raspberry, visto che non dispongono di wireless integrato.
 \end{paragraph}
 
 \begin{paragraph}{NETGEAR WG111}
 Adattatore Wireless USB. Velocità fino a 54Mb/s, supporta 802.11b/g.
+Questo adattatore è più lento ed è stato usato sul computer HP quando il wireless integrato dava dei problemi. 
 
 \end{paragraph}
 
@@ -58,22 +59,22 @@ Adattatore Wireless USB. Velocità fino a 54Mb/s, supporta 802.11b/g.
 Questo notebook è stato utilizzato come client. Abbiamo montato un kernel versione 4.0.1, modificato tramite la procedura illustrata precedentemente. 
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Linux versione 4.0.1 modificata
- \item Processore: Intel Core i5 CPU M 430 @ 2.27GHz x 4 
- \item Sistema operativo: Ubuntu 14.04 LTS 64-bit
- \item Scheda di rete: Broadcom BCM43225 802.11b/g/n
+ \item Kernel: Linux versione 4.0.1 modificata.
+ \item Processore: Intel Core i5 CPU M 430.
+ \item Sistema operativo: Ubuntu 14.04 LTS 64-bit.
+ \item Scheda di rete: Broadcom BCM43225 802.11b/g/n.
 \end{itemize}
 
 \end{paragraph}
 
 \begin{paragraph}{DELL Latitude E6400}
-Questo notebook è stato utilizzato come client. Abbiamo montato un kernel versione 4.0.1, modificato tramite la procedura illustrata precedentemente. 
+Anche questo notebook è stato utilizzato come client, e vi è quindi montato un kernel versione 4.0.1 modificato. 
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Linux versione 4.0.1 modificata
- \item Processore: Intel Core 2 Duo 
- \item Sistema operativo: Ubuntu 14.04 LTS 32-bit
- \item Scheda di rete: Intel Corporation WiFi Link 5100 [802.11a/g/n (1x2)]
+ \item Kernel: Linux versione 4.0.1 modificata.
+ \item Processore: Intel Core 2 Duo.
+ \item Sistema operativo: Ubuntu 14.04 LTS 32-bit.
+ \item Scheda di rete: Intel Corporation WiFi Link 5100 802.11a/g/n.
 \end{itemize}
 
 \end{paragraph}
@@ -83,9 +84,9 @@ Le specifiche tecniche sono:
 Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Linux versione 3.18.0-20-rpi2  
- \item Processore: 900MHz quad-core ARM Cortex-A7
- \item Sistema operativo: Raspbian
+ \item Kernel: Linux versione 3.18.0-20-rpi2.
+ \item Processore: 900MHz quad-core ARM Cortex-A7.
+ \item Sistema operativo: Raspbian.
  
 \end{itemize}
 
@@ -96,9 +97,9 @@ Le specifiche tecniche sono:
 Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Kernel Linux 3.0.35
- \item Processore: Freescale i.MX 6 ARM Cortex-A9 CPU Dual/Quad core 1GHz 
- \item Sistema operativo: UDOObuntu
+ \item Kernel: Kernel Linux 3.0.35.
+ \item Processore: Freescale i.MX 6 ARM Cortex-A9 CPU Dual/Quad core 1GHz.
+ \item Sistema operativo: UDOObuntu.
  
 \end{itemize}
 
@@ -113,7 +114,7 @@ Le specifiche tecniche sono:
  \item Kernel: Kernel Linux 3.18.7+
  \item Processore: 700 MHz single-core ARM1176JZF-S 
  \item Sistema operativo: Raspbian Wheezy
- 
+\\ 
 \end{itemize}
 
 \end{paragraph}
@@ -163,17 +164,80 @@ Si potrebbero utilizzare anche altre informazioni ( ad esempio la bitrate ) per 
 
 \begin{section}{Configurazioni}
 Per ottenere dei risultati che potessero rispecchiare un reale utilizzo da parte di un nodo mobile abbiamo creato diverse configurazioni di dispositivi.
-In particolare abbiamo combinato l'utilizzo di uno o più dispositivi contemporaneamente.
+In particolare abbiamo deciso di tenere conto di alcuni possibili scenari di utilizzo, che sono:
+\begin{itemize}
+ \item Dispositivo client in movimento oppure fermo.
+ \item Utilizzo indoor o outdoor.
+ \item Trasmissione in linea diretta oppure trasmissione con un ostacolo tra nodo mobile ed AP.
+ \item Assenza di traffico sulla rete in contrapposizione ad uno o più host wireless a creare traffico.
+ \item Nel caso di presenza di nodi sulla rete, abbiamo utilizzato anche la distanza e la velocità come parametri.
+ \item Trasmissioni ad un host della stessa sottorete oppure ad una rete esterna.
+\end{itemize}
+Dati questi possibili utilizzi, abbiamo creato alcune configurazioni per valutare la qualità del collegamento.
+Il nostro interesse si è focalizzato sulla costruzione di un prodotto cartesiano tra tutte le opzioni.
+Abbiamo quindi provato col nodo mobile fermo, da solo nella rete ed in linea diretta con l'AP.
+In questa configurazione abbiamo anche valutato le possibili differenze in velocità tra recv bloccante e non bloccante. La scelta tra queste due opzioni è stata implementata nell'applicazione di prova che abbiamo creato e che abbiamo descritto precedentemente.
+
+
+In contrapposizione a questa prima configurazione, abbiamo testato un nodo mobile solitario nella rete, fermo ma con un ostacolo tra lui e l'AP. Come ostacolo è stato scelto un muro, di larghezza di circa 15 centimetri.
+
+
+Per completare la raccolta dati da analizzare abbiamo fatto altre due configurazioni, andando a modificare quelle precedenti usando il nodo mobile in movimento.
+\\
+Queste prime configurazioni ci permettono già di raccogliere importanti dati, che però non possono riflettere un reale utilizzo di una applicazione.
+Questo perché difficilmente la trasmissione VoIP avverrà con il dispositivo da solo sulla rete, ma la rete potrà essere più o meno congestionata in base al luogo o all'orario.
+
+
+Per rispondere a questa esigenza abbiamo deciso di fare delle prove con uno o più host attivi sulla rete, in modo che andassero a causare traffico per rallentare il nodo mobile.
+\\
+Abbiamo quindi creato altre configurazioni, andando in ognuna a modificare il numero di host ed altri dati. Per quanto riguarda gli host li abbiamo lasciati sempre fermi, ma abbiamo modificato la distanza in diverse prove.
+In questo modo gli host trasmetteranno più o meno velocemente e vogliamo andare a verificare al client dia più fastidio avere host lenti o veloci. Per controllare le velocità è stata creata una applicazione in grado di stabilire la bitrate. Questa applicazione sarà descritta successivamente.
+\\
+Analizziamo ora i settaggi che sono stati implementati.
+In particolare avremo il nodo mobile fermo ed un host attivo, entrambi in linea diretta con l'access point. Da questa configurazione base abbiamo allontanato l'host, fino a variare la velocità in modo significativo ( anche di un fattore 1/20 ).
+\\
+Queste ultime configurazione sono state ampliate anche con l'uso della recv prima bloccante, e poi non bloccante.
+Invece per quanto riguarda tutte le configurazioni a seguire abbiamo deciso di testare l'applicazione solo con la modalità della recv non bloccante. 
+Questo è stato fatto perché i primi dati empirici erano stati raccolti in quel modo e non si voleva quindi andare ad alterare il risultato.
+Avendo comunque analizzato separatamente il comportamento bloccante e non, possiamo dare una congettura di quello che può succedere in caso di comportamento non bloccante.
+\\
 
 
 
 \end{section}
 
-    
+
+
+
+\begin{section}{Dettagli implementativi}
+
+Qui spiegheremo come misuriamo la velocità degli hosts (applicazione ), dove abbiamo salvato i dati (json) e come li manipoliamo (script python)
+
+\end{section}
+
+
+
 
 \begin{section}{Risultati}
 
 Andiamo ora ad analizzare i risultati ottenuti.
+
+\begin{table}[h]
+\centering
+\caption{Prima tabella}
+\label{FirstTable}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
+prima  & 1  & 1 & 1 & 456 \\ \hline
+seconda & 1  & 1 & 1  & 1  \\ \hline
+terza & 1& 1 & 1 & 54  \\ \hline
+quarta & 1 & 1  & 1 & 54  \\ \hline \hline
+Media & 1 & 1  & 1 & 54  \\ \hline
+
+\end{tabular}
+\end{table}
+
 \end{section}
 
 

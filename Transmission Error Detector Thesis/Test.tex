@@ -19,7 +19,7 @@
 \linespread{1.3}  
 
 \begin{document}
-\begin{chapter}{TEST E VALUTAZIONI SPERIMENTALI}
+\begin{chapter}{Test e valutazioni sperimentali}%TEST E VALUTAZIONI SPERIMENTALI}
 Dopo aver illustrato il funzionamento e l'implementazione del TED, passiamo ora ad analizzare i dati relativi alla trasmissione di pacchetti tramite la nostra applicazione.
 Lo scopo dei test effettuati è quello di analizzare la QoS del segnale e come può variare in diversi scenari.
 Questo ci è utile in quanto, in base ai risultati ottenuti, si può decidere se cambiare NIC per l'invio di determinati pacchetti.
@@ -114,7 +114,7 @@ Le specifiche tecniche sono:
  \item Kernel: Kernel Linux 3.18.7+
  \item Processore: 700 MHz single-core ARM1176JZF-S 
  \item Sistema operativo: Raspbian Wheezy
- 
+\\ 
 \end{itemize}
 
 \end{paragraph}
@@ -164,13 +164,64 @@ Si potrebbero utilizzare anche altre informazioni ( ad esempio la bitrate ) per 
 
 \begin{section}{Configurazioni}
 Per ottenere dei risultati che potessero rispecchiare un reale utilizzo da parte di un nodo mobile abbiamo creato diverse configurazioni di dispositivi.
-In particolare abbiamo combinato l'utilizzo di uno o più dispositivi contemporaneamente.
+In particolare abbiamo deciso di tenere conto di alcuni possibili scenari di utilizzo, che sono:
+\begin{itemize}
+ \item Dispositivo client in movimento oppure fermo.
+ \item Utilizzo indoor o outdoor.
+ \item Trasmissione in linea diretta oppure trasmissione con un ostacolo tra nodo mobile ed AP.
+ \item Assenza di traffico sulla rete in contrapposizione ad uno o più hosts wireless a creare traffico.
+ \item Nel caso di presenza di nodi sulla rete, abbiamo utilizzato anche la distanza e la velocità come parametri.
+ \item Trasmissioni ad un host della stessa sottorete oppure ad una rete esterna.
+\end{itemize}
+Dati questi possibili utilizzi, abbiamo creato alcune configurazioni per valutare la qualità del collegamento.
+Il nostro interesse si è focalizzato sulla costruzione di un prodotto cartesiano tra tutte le opzioni.
+Abbiamo quindi provato col nodo mobile fermo, da solo nella rete ed in linea diretta con l'AP.
+In questa configurazione abbiamo anche valutato le possibili differenze in velocità tra recv bloccante e non bloccante. La scelta tra queste due opzioni è stata implementata nell'applicazione di prova che abbiamo creato e che abbiamo descritto precedentemente.
 
+
+In contrapposizione a questa prima configurazione, abbiamo testato un nodo mobile solitario nella rete, fermo ma con un ostacolo tra lui e l'AP. Come ostacolo è stato scelto un muro, di larghezza di circa 15 centimetri.
+
+
+Per completare la raccolta dati da analizzare abbiamo fatto altre due configurazioni, andando a modificare quelle precedenti usando il nodo mobile in movimento.
+\\
+Queste prime configurazioni ci permettono già di raccogliere importanti dati, che però non possono riflettere un reale utilizzo di una applicazione.
+Questo perché difficilmente la trasmissione VoIP avverrà con il dispositivo da solo sulla rete, ma la rete potrà essere più o meno congestionata in base al luogo o all'orario.
+
+
+Per rispondere a questa esigenza abbiamo deciso di fare delle prove con uno o più host attivi sulla rete, in modo che andassero a causare traffico per rallentare il nodo mobile.
+\\
+Abbiamo quindi creato altre configurazioni, andando in ognuna a modificare il numero di hosts ed altri parametri. Per quanto riguarda gli host li abbiamo lasciati sempre fermi, ma abbiamo modificato la distanza in diverse prove.
+In questo modo gli host trasmetteranno più o meno velocemente e vogliamo andare a verificare al client dia più fastidio avere host lenti o veloci. Per controllare le velocità è stata creata una applicazione in grado di stabilire la bitrate. Questa applicazione sarà descritta successivamente.
+\\
+Analizziamo ora i settaggi che sono stati implementati.
+In particolare avremo il nodo mobile fermo ed un host attivo, entrambi in linea diretta con l'access point. Da questa configurazione base abbiamo allontanato l'host, fino a variare la velocità in modo significativo ( anche di un fattore 1/20 ).
+\\
+Queste ultime configurazione sono state ampliate anche con l'uso della recv prima bloccante, e poi non bloccante.
+Invece per quanto riguarda tutte le configurazioni a seguire abbiamo deciso di testare l'applicazione solo con la modalità della recv non bloccante. 
+Questo è stato fatto perché i primi dati empirici erano stati raccolti in quel modo e non si voleva quindi andare ad alterare il risultato.
+Avendo comunque analizzato separatamente il comportamento bloccante e non, possiamo dare una congettura di quello che può succedere in caso di comportamento non bloccante.
+\\
+Anche in questo caso, per ogni configurazione creata, ne abbiamo create altre in cui abbiamo scelto parametri diversi.
+Quindi per ognuna è stata tenuta una determinata struttura e siamo andati a modificare un parametro alla volta, registrato tutti i dati ottenuti.
+
+
+\\
+Grazie a questo grande numero di possibili utilizzi, abbiamo raccolto sufficienti dati empirici. 
 
 
 \end{section}
 
-    
+
+
+
+\begin{section}{Dettagli implementativi}
+
+Qui spiegheremo come misuriamo la velocità degli hosts (applicazione ), dove abbiamo salvato i dati (json) e come li manipoliamo (script python)
+
+\end{section}
+
+
+
 
 \begin{section}{Risultati}
 
@@ -183,11 +234,11 @@ Andiamo ora ad analizzare i risultati ottenuti.
 \begin{tabular}{|l|c|c|c|c|}
 \hline
   & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
-prima  & ye  & ery & rey & 456 \\ \hline
-seconda & ye  & ye  & ey  & ru  \\ \hline
-terza & ewy & ye  & yer & 54  \\ \hline
-quarta & ewy & ye  & yer & 54  \\ \hline \hline
-Media & ewy & ye  & yer & 54  \\ \hline
+prima  & 1  & 1 & 1 & 456 \\ \hline
+seconda & 1  & 1 & 1  & 1  \\ \hline
+terza & 1& 1 & 1 & 54  \\ \hline
+quarta & 1 & 1  & 1 & 54  \\ \hline \hline
+Media & 1 & 1  & 1 & 54  \\ \hline
 
 \end{tabular}
 \end{table}
