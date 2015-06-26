@@ -11,6 +11,10 @@
 \usepackage{latexsym}
 \usepackage{amsthm}
 \usepackage{listings}
+\usepackage{xcolor}
+\usepackage{mdframed}
+
+\usepackage{lipsum}
 
 \pagestyle{fancy}\addtolength{\headwidth}{20pt}
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
@@ -20,7 +24,7 @@
 \linespread{1.3}  
 \begin{document}
 
-\begin{chapter}{TRANSMISSION ERROR DETECTOR}
+\begin{chapter}{Transmission Error Detector}
 In questo capitolo si vogliono illustrare le fasi di progettazione e implementazione di un modulo TED per ABPS su kernel Linux 4.0.
 \\
 Nel precedente capito si è descritto brevemente il funzionamento di TED e il suo ruolo nel sistema ABPS ideato come supporto alla mobilità.
@@ -28,30 +32,52 @@ Nel precedente capito si è descritto brevemente il funzionamento di TED e il suo
 Il meccanismo di Transmission Error Detection può essere applicato a qualsiasi interfaccia di rete di un dispositivo mobile.
 \\
 In questa capitolo verrà illustrata la progettazione di un modulo TED per Wi-Fi.
-\begin{section}{Progettazione e implementazione}
+\begin{section}{Design and implementation}
 Transmission Error Detector è implementato in maniera \emph{cross-layer} lungo lo stack di rete del kernel Linux e ha lo scopo di monitorare ciascun datagram UDP in invio da una certa interfaccia di rete e notificare ad un eventuale ABPS proxy client lo stato di consegna del pacchetto all'access point in modo tale da poter valutare la QoS del collegamento attualmente utilizzato per la trasmissione.
 \\
 Per realizzare ciò TED introduce una notifica di tipo \emph{First-hop Transmission Notification} che sarà fatta pervenire al proxy client.
 \\
-Come già precedentemente accennato TED è implementato in maniera cross-layer su più livelli dello stack di rete del kernel di Linux.
+In particolare in fase di invio di un pacchetto questo verrà marcato con un particolare identificativo che sarà fatto pervenire all'applicativo mittente. Quando il messaggio starà per essere spedito dall' interfaccia di rete Wi-Fi il sottosistema mac80211 assegnerà al frame un sequence number tramite uno dei suoi handler: il sequence number assegnato al frame sarà associato con l'identificativo assegnato al messaggio in precedenza da TED e mantenuto in una struttura dati creata ad-hoc.
 \\
-Qui di seguito verrà descritto nel dettaglio la sua implementazione lungo tutto lo stack di rete Linux.
-\begin{subsection}{Livello trasporto}
-Le applicazioni per le quali ABPS vuole essere un supporto alla mobilità sono le applicazioni multimedia-oriented che come già trattato nei capitoli precedenti sono solitamente progettate per utilizzare UDP. Un'applicazione che utilizza UDP per le sue comunicazioni di rete sfrutta uno o più socket datagram ovvero di tipo connectionless.
+Una volta che il frame sarà stato effettivamente spedito e il sottosistema mac80211 avrà ricevuto lo status di consegna di un dato frame al first-hop si andrà alla ricerca nell'apposita struttura dati dell'identificativo associato al sequence number del frame di cui si è appena scoperto lo stato di consenga: l'elemento verrà rimosso dalla struttura dati e verrà sollevata la notifica First-hop Transmission Notification all'app interessata a monitorare il messaggio con quello specifico identificativo indicando lo status di consegna.
+\\
+Quest'approccio è stato adottato in quanto la sendmsg da noi utilizzata ( ma lo stesso comportamento è adottato da qualsiasi funzione che interagisce con la rete tramite interfaccia socket ) non è bloccante fino all'invio effettivo del messaggio ma solamente fino a quando tutti i socket buffer sono stati alloccati è posti in appositi buffer del workflow di rete.
+\\
+Qui di seguito verrà descritto nel dettaglio TED e la sua implementazione lungo tutto lo stack di rete Linux.
+\begin{subsection}{Application layer}
+Le applicazioni per le quali ABPS vuole essere un supporto alla mobilità sono le applicazioni multimedia-oriented che come già trattato nei capitoli precedenti sono solitamente progettate sopra UDP. Un'applicazione che utilizza UDP per le sue comunicazioni di rete sfrutta uno o più socket datagram ovvero di tipo connectionless.
 \\
 Per poter valutare la ritrasmissione di un dato messaggio il proxy client necessita di un meccanismo di identificazione per ciascun datagram. A tal proposito si è esteso la system call \emph{sendmsg} in modo tale che possa ritornare un \textbf{id} univoco per il messaggio in invio cosicché il proxy client possa mantenerlo e usarlo per riferirsi a quel preciso datagram. Tutte le notifiche ricevute poi in seguito dal proxy client e provenienti da TED faranno riferimento a un datagram utilizzando lo stesso identificativo. 
 \\
 La system call sendmsg consente di inviare, assieme al contenuto del messaggio, delle informazioni di controllo aggiuntive dette \emph{ancillary data} che non saranno però trasmesse lungo la rete. Dal punto di vista implementativo i dati di tipo ancillary sono realizzati in POSIX tramite una sequenza di strutture \textbf{struct cmsghdr} contenenti le informazioni di controllo. L'estensione di sendmsg in particolare prevede l'utilizzo di ancillary data in fase di invio:
 \begin{itemize}
-\item Per segnalare a TED che l'app invocante la system call sendmsg richiede di poter ricevere l'id per il messaggio in invio. Per far ciò viene introdotto un nuovo valore non utilizzato per il campo \textbf{cmsg\_type} della struct cmsghdr.
-\item Per passare a TED un'indirizzo di memoria in user space dove TED potrà assegnare l'id generata per il datagram in invio.
+\item Per segnalare a TED che l'applicativo invocante la system call sendmsg richiede di poter ricevere l'id per il messaggio in invio. Per far ciò viene introdotto un nuovo valore non utilizzato per il campo \textbf{cmsg\_type} della struct cmsghdr.
+\item Per passare a TED un indirizzo di memoria in user space dove TED potrà assegnare l'identificativo generato per il datagram in invio.
 \end{itemize} 
-
-Una volta che il messaggio sarà stato inviato ed il Socket Interface Layer avrà passato il controllo alla funzione di livello trasporto udp\_sendmsg, come spiegato nel capitolo 2, tramite una funzione appositamente sviluppata e contenuta nel file socket.c del kernel Linux, si andrà ad analizzare i dati di tipo ancillary contenuti nella struttura struct msghdr passata come parametro della udp\_sendmsg. La struttura struct msghdr mantiene il messaggio passato alla system call dall'app a livello utente e gli eventuali dati di controllo: una volta analizzati gli ancillary data se l'utente ha specificato di essere interessato a ricevere l'identificativo del messaggio inviato verrà settato un apposito flag is\_identifier\_required e verrà mantenuto l'indirizzo di memoria user space specificato l'app dove TED potrà settare l'identificativo calcolato per il pacchetto in invio.
+Una volta creato un socket può essere possibile, inoltre, specificare particolari opzioni aggiuntive da adottare a un certo livello di rete e protocollo tramite la system call \emph{setsockopt}. Con questo meccanismo è possibile abilitare un socket per la ricezione di messaggi di tipo ICMP ( specificando come parametro della system call setsockopt l'opzione IP\_RECVERR ): ad esempio quando avviene un errore di trasmissione su uno dei nodi intermedi ( ad esempio un router non riesce a determinare la destinazione di un certo datagram ) viene generato un messaggio di tipo ICMP e consegnato all'host mittente che sarà quindi accodato nel buffer del socket.
+\\
+I messaggi di errore possono essere poi letti dall'applicazione che mantiene il socket tramite la system call recvmsg specificando il socket ed il flag MSG\_ERRQUEUE.
+\\
+In TED questo meccanismo è stato sfruttato per la ricezione delle notifiche di tipo First-hop Transmission Notification.
+\\
+In particolare in Linux eventuali messaggi di errore che possono provenire dalla rete sono mantenuti in una struttura di tipo struct sock\_extended\_err; uno dei campi di questa struttura è il campo u\_int8\_t ee\_type che definisce il tipo di messaggio a cui si fa riferimento. È stato, quindi, aggiunto un nuovo valore (  SO\_EE\_ORIGIN\_LOCAL\_NOTIFY ) tra quelli disponibili per il campo ee\_type indicante la notifica proveniente da TED.  
+\\
+Maggiori dettagli su come la notifica viene effettivamente generata e di come la struttura struct sock\_extended\_err sia stata utilizzata ( ed estesa ) per adattarla al meglio al nostro obbiettivo verranno dati in seguito.
+\\
+Ricapitolando, quindi, gli unici accorgimenti che un applicativo deve adottare per beneficiare dei meccanismi forniti dalla versione di Transmission Error Detector sviluppata consistono in:
+\begin{itemize}
+\item Adottare la system call sendmsg e specificare nell'ancillary data del messaggio in invio che si è interessati a ricevere un identificativo per quel messaggio oltre che all'indirizzo di memoria dove si vuole venga memorizzato l'identificativo assegnato.
+\item Abilitare il socket UDP utilizzato per la trasmissione alla ricezione degli errori.
+\end{itemize}
+\end{subsection}
+\begin{subsection}{Transport layer}
+Una volta che il messaggio sarà stato inviato tramite sendmsg ed il Socket Interface Layer avrà passato il controllo alla funzione di livello trasporto udp\_sendmsg, come spiegato nel capitolo 2, tramite una funzione appositamente sviluppata e contenuta nel file socket.c del kernel Linux, si andrà ad analizzare i dati di tipo ancillary contenuti nella struttura struct msghdr passata come parametro della udp\_sendmsg. La struttura struct msghdr mantiene il messaggio passato alla system call dall'applicativo a livello utente e gli eventuali dati di controllo: una volta analizzati gli ancillary data se l'applicazione ha specificato di essere interessata a ricevere l'identificativo del messaggio inviato verrà settato un apposito flag is\_identifier\_required e verrà mantenuto l'indirizzo di memoria user space specificato l'app dove TED potrà settare l'identificativo calcolato per il pacchetto in invio.
 \\
 Quando il controllo viene passato momentaneamente a livello rete, come descritto nel capitolo 2, e verrà allocato il socket buffer relativo al messaggio in invio, sarà calcolato l'identificativo per quel pacchetto e assegnato alla struttura sk\_buff ( maggiore dettagli in seguito ).
 \\
 Non appena il flusso dell'esecuzione viene ripreso dalla primitiva udp\_sendmsg, se l'allocazione del socket buffer è andata a buon fine, nell'indirizzo di memoria user space precedentemente ricavato dagli ancillari data del messaggio passato a livello udp tramite primitiva put\_user ( macro che consente di copiare un certo valore presente in kernel space a partire da un certo indirizzo user space ) verrà copiato l'identificativo.
+\\
+
 \end{subsection}
 
 \begin{subsection}{Network Layer}
@@ -63,8 +89,39 @@ Nella versione sviluppata per kernel Linux 4.0 viene introdotto il supporto a IP
 \\
 L'header IPv6, supportando solamente al frammentazione end-to-end, non è caratterizzato dal campo Identification come l'header della precedente versione dell'Internet Protocol.
 \\
-Per ovviare a questo problema si è definito 
+\\
+Per ovviare a questo problema si è definito un contatore globale: ogni volta che viene allocato un nuovo socket buffer il contatore viene incrementato ( in critical section ) e associato a quel socket buffer.
+\\
+La struttura sk\_buff è stata quindi estesa aggiungendo il nuovo campo che manterrà l'identificativo univoco assegnatoli da TED.
+
+\begin{lstlisting}
+struct sk_buff
+{
+	...
+	...
+	uint32_t sk_buff_identifier;	
+};
+\end{lstlisting}
+
+È stata aggiunta, inoltre, una funzione per l'assegnazione dell'identificativo al socket buffer.
+\\
+\\
+Quando la funzione di livello trasporto udp\_sendmsg lascia il controllo alla primitiva \_\_ip\_append\_data di livello rete ( per maggiori dettagli si veda il capitolo 2 ) per ogni sk\_buff allocato verrà inizializzato il suo identificativo tramite la nuova primitiva introdotta.
+\\
+Non appena la funzione udp\_sendmsg avrà ripreso il controllo dell'esecuzione potrà così notificare all'applicativo che ne ha fatto richiesta l'identificativo appena assegnato al messaggio prima di continuare con il workflow di trasmissione dei messaggi.
+\\
+A livello rete può essere necessario frammentare un pacchetto prima di inviarlo: dal punto di vista implementativo questo si traduce nell'allocare un socket buffer per ogni frammento di un datagram IP. Questo viene realizzato dal modulo di rete all'interno della routine ip\_fragment. Il meccanismo è stato esteso copiando all'interno del socket buffer allocato il valore dell'identificativo mantenuto dal datagramma originario: in questo modo ciascun fragment di uno stesso datagram IP avrà lo stesso identificativo.
+\\
+Il meccanismo precedentemente descritto è stato equivalentemente realizzato sia per il protocollo IPv4 che IPv6/
 \end{subsection}
+\begin{subsection}{The mac80211 subsystem}
+Quando un pacchetto a livello data-link deve essere spedito tramite interfaccia di rete wireless, come già descritto nel capitolo 2, il controllo verrà lasciato al modulo mac80211 a cui è delegato il compito di generare trasmettere e ricevere frame 802.11.
+\\
+In fase di prepareazione dell'header IEEE 802.11 verrà invocato un apposito handler chiamato mac80211\_tx\_h\_sequence verrà 
+
+
+\end{subsection}
+
 
 \end{section}
 
