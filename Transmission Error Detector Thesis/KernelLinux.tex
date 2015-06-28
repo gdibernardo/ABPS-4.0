@@ -1,35 +1,39 @@
-\documentclass[12pt,a4paper,openright,twoside]{book}
-\usepackage[italian]{babel}
-\usepackage[latin1]{inputenc}
-\usepackage{fancyhdr}
-\usepackage{indentfirst}
-\usepackage{graphicx}
-\graphicspath{ {Images/}  }
-\usepackage{newlfont}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{amsthm}
-
-
-\pagestyle{fancy}\addtolength{\headwidth}{20pt}
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
-\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
-\cfoot{}
-
-\linespread{1.3}    
-
-\begin{document}
-\begin{chapter}{COS'È UN KERNEL}
+%\documentclass[12pt,a4paper,openright,twoside]{book}
+%\usepackage[italian]{babel}
+%\usepackage[latin1]{inputenc}
+%\usepackage{fancyhdr}
+%\usepackage{indentfirst}
+%\usepackage{graphicx}
+%\graphicspath{ {Images/}  }
+%\usepackage{newlfont}
+%\usepackage{amssymb}
+%\usepackage{amsmath}
+%\usepackage{latexsym}
+%\usepackage{amsthm}
+%
+%
+%\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+%\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+%\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+%\cfoot{}
+%
+%\linespread{1.3}    
+%
+%\begin{document}
+\chapter{Cos'è un kernel?}
 
 
 
 Il kernel rappresenta il nucleo di un sistema operativo e racchiude tutte le funzioni principali del sistema stesso come gestione della memoria, gestione delle risorse, lo scheduling e il file system.
+\\
 Le applicazioni in esecuzione nel sistema possono richiedere particolari servizi al kernel tramite chiamate di sistema ( system call ) senza accedere direttamente alle risorse fisiche.
+\\
 L'accesso diretto all'hardware può risultare anche molto complesso pertanto il kernel implementa una o più astrazioni dell'hardware, il cosiddetto Hardware Abstraction Layer. Queste astrazioni servono a nascondere 
+\\
 la complessità e a fornire un'interfaccia pulita ed omogenea dell'hardware sottostante.
-\\I kernel si possono classificare in quattro categorie:
+\\
+I kernel si possono classificare in quattro categorie:
 \begin{itemize}
 \item \textbf{Kernel monolitici} un unico aggregato di procedure di gestione mutuamente coordinate e astrazioni hardware.
 \item \textbf{Micro kernel} semplici astrazioni dell'hardware gestite e coordinate da un kernel minimale, basate su un paradigma client/server, e primitive di message passing.
@@ -126,10 +130,10 @@ In fase di trasmissione di un messaggio il controllo dal livello data-link viene
 \end{itemize}
 Una volta che il frame IEEE 802.11 è stato trasmesso la struttura socket buffer associata non viene immediatamente deallocata: mac80211 provvederà a ritrasmettere il messaggio per un certo numero di volte, dipendente dalla NIC e dallo stato in cui si trova la rete alla quale è connessa, qualora non dovesse ricevere l'ACK relativo a quel frame.
 \\
-Alla fine di questo processo viene invocata la routine ieee80211\_tx\_h\_status che fornisce alcune informazioni riguardanti l'esito della trasmissione per un certo pacchetto come ad esempio quante volte il pacchetto è stato ritrasmesso e se è stato effettivamente consegnato o meno all'access point.
+Alla fine di questo processo viene invocata la routine ieee80211\_tx\_status che fornisce alcune informazioni riguardanti l'esito della trasmissione per un certo pacchetto come ad esempio quante volte il pacchetto è stato ritrasmesso e se è stato effettivamente consegnato o meno all'access point.
 \\
 A questo punto sia che il frame IEEE 802.11 sia stato ricevuto dal first-hop o meno il socket buffer associato viene definitivamente deallocato.
 \end{paragraph}
 \end{section}
-\end{chapter}
-\end{document}
+
+%\end{document}

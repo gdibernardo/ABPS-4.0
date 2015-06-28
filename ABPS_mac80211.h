@@ -12,7 +12,7 @@
 
 #include "ieee80211_i.h"
 
-/* usato in net/mac80211/tx.c */
+/* not used in kernel Linux 4.0 */
 extern int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr);
 
 extern int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t identifier);

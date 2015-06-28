@@ -1239,7 +1239,6 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
 {
     struct inet_sock *inet = NULL;
     struct sock_exterr_skb *serr;
-    struct iphdr *iph;
     struct sk_buff *skb;
     
     if (sk == NULL)
@@ -1269,7 +1268,6 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
 
     skb_put(skb, sizeof(struct iphdr));
     skb_reset_network_header(skb);
-    iph = ip_hdr(skb);
     
     serr = SKB_EXT_ERR(skb);
     if (!serr) {
@@ -1307,7 +1305,6 @@ void ip_local_error_notify(struct sock *sk, int sent,
 {
     struct inet_sock *inet = NULL;
     struct sock_exterr_skb *serr;
-    struct iphdr *iph;
     struct sk_buff *skb;
     
     if (sk == NULL)
@@ -1337,7 +1334,6 @@ void ip_local_error_notify(struct sock *sk, int sent,
     
     skb_put(skb, sizeof(struct iphdr));
     skb_reset_network_header(skb);
-    iph = ip_hdr(skb);
     
     serr = SKB_EXT_ERR(skb);
     if (!serr) {

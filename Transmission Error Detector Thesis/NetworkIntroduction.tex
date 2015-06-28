@@ -1,27 +1,27 @@
-\documentclass[12pt,a4paper,openright,twoside]{book}
-\usepackage[italian]{babel}
-\usepackage[latin1]{inputenc}
-\usepackage{fancyhdr}
-\usepackage{indentfirst}
-\usepackage{graphicx}
-\graphicspath{ {Images/}  }
-\usepackage{newlfont}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{amsthm}
-
-
-\pagestyle{fancy}\addtolength{\headwidth}{20pt}
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
-\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
-\cfoot{}
-
-\linespread{1.3}    
-
-\begin{document}
-\begin{chapter}{LO STACK DI RETE}
+%\documentclass[12pt,a4paper,openright,twoside]{book}
+%\usepackage[italian]{babel}
+%\usepackage[latin1]{inputenc}
+%\usepackage{fancyhdr}
+%\usepackage{indentfirst}
+%\usepackage{graphicx}
+%\graphicspath{ {Images/}  }
+%\usepackage{newlfont}
+%\usepackage{amssymb}
+%\usepackage{amsmath}
+%\usepackage{latexsym}
+%\usepackage{amsthm}
+%
+%
+%\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+%\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+%\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+%\cfoot{}
+%
+%\linespread{1.3}    
+%
+%\begin{document}
+\begin{chapter}{Lo stack di rete}
 In questo capitolo si vuole presentare la suite di protocolli utilizzata nel progetto di tesi. Verrà descritto brevemente il modello ISO/OSI per poi soffermarsi con particolare attenzione sulla tecnologia Wi-Fi e sui protocolli toccati dal progetto di tesi.
 ISO/OSI è uno standard che definisce un modello composto su più livelli: ogni \emph{layer} si occupa di uno specifico aspetto delle comunicazioni di rete fornendo delle funzionalità a livello superiore e sfruttando le astrazioni fornite dal livello immediatamente inferiore. In questo modo è possibile ridurre la complessità non banale delle comunicazioni di rete. 
 
@@ -147,7 +147,7 @@ Come già detto IEEE 802.11 utilizza le bande di frequenza  2.4 e 5 GHz e a \emph
 %MAC Media Access Control
 \begin{subsection}{Media Access Control}
 Media Access Control (MAC) è un \emph{sublayer} del livello \emph{Data Link} del modello OSI. MAC fornisce meccanismi di indirizzamento e di controllo di accesso al canale che consentono a nodi mobili di comunicare attraverso una rete con medium condiviso. L'hardware che implementa MAC è detto \emph{media access controller}.
-Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al mezzo fisico, frammentazione dati  in frame e riconoscimento frame stessi e controllo degli errori.
+Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al mezzo fisico, frammentazione dati in frame e riconoscimento frame stessi e controllo degli errori.
 \end{subsection}
 
 %controllo dell'accesso
@@ -229,7 +229,7 @@ Gli altri campi contenuti nell'header MAC sono la durata di trasmissione, gli in
 Il campo Sequence Control è composto da due byte usato per identificare l'ordine dei frame spediti. I primi 4 bit corrispondono al \emph{fregmentation number} e gli ultimi 12 bit sono il \emph{sequence number}. Il fragmentation number indica il numero di ogni pacchetto precedentemente frammentato, il sequence number, invece, è un valore modulo 4096 assegnato a un frame e rimane costante per ogni ritrasmissione o per ciascun fragment di quel pacchetto.
 \end{paragraph}
 \begin{paragraph}{Payload}
-Il Payload ha dimensione variabile da 0 a 2304 byte; contiene informazioni provenienti dai livelli di rete superiori.
+Il Payload ha dimensione variabile da 0 a 2304 byte; contiene informazioni provenienti dai livelli di rete superiori. Le informazioni provenienti dai livelli superiori prima di essere incapsulati in un frame MAC sono incapsulate in un frame di tipo IEEE 802.2 che definisce LLC ( Logical Link Protocol ) che rappresenta il sublayer superiore del livello Data-Link del modello OSI. LLC offre un'interfaccia di comunicazione omogenea verso il livello Data-Link al layer superiore ( a differenza di MAC che è dipendente dal mezzo trasmissivo utilizzato ). Il pacchetto 802.2 è detto PDU ( Protocol Data Unit ) e il suo header contiene informazioni di controllo aggiuntive e può essere esteso con SNAP ( Subnetwork Access Protocol ) che consente di specificare il tipo di protocollo ( \emph{Protocol ID} field ) a cui appartengono i dati contenuti nel payload della PDU. Questa estensione può essere molto utile ad esempio in fase di ricezione di un frame: è possibile vedere a quale protocollo appartengono i dati contenuti nel payload e consegnare, quindi, i dati al giusto protocollo dello stack di rete ( si basti pensare anche solamente ad IPv4 vs IPv6 ).
 \end{paragraph}
 \begin{paragraph}{Frame check sequence (FCS)}
 Spesso detto anche \emph{Cyclic Redundancy Check} (CRC) permette di verificare l'integrità di un frame appena ricevuto: quando un frame sta per essere spedito la stazione sorgente calcola questo valore e lo appende al frame IEEE 802.11. Quando un nodo riceve il frame ricalcola l'FCS sulla base dei dati ricevuti e lo confronta con il valore contenuto nel \emph{trailer} del pacchetto; se i due valori coincidono il frame non ha subito delle modifiche durante la trasmissione.
@@ -445,4 +445,4 @@ SIP è più recente e viene largamente utilizzando riscontrando un maggiore succes
 
 \end{section}
 \end{chapter}
-\end{document}
+%\end{document}

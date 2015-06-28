@@ -1,0 +1,141 @@
+\documentclass[12pt,a4paper,openright,twoside]{book}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\graphicspath{ {Images/}  }
+\usepackage{newlfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{epigraph}
+\usepackage{csquotes}
+
+\usepackage{lipsum}
+
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+\linespread{1.3}  
+\begin{document}
+
+\begin{titlepage}               
+
+\thispagestyle{empty}                  
+\topmargin=6.5cm                        
+\raggedleft                            	
+\large                                 		
+\em                                    
+``If you want to live your life in a creative way, as an artist, you have to not look back too much. You have to be willing to take whatever you've done and whoever you were and throw them away. The more the outside world tries to reinforce an image of you, the harder it is to continue to be an artist, which is why a lot of times, artists have to say, ``Bye. I have to go. I'm going crazy and I'm getting out of here'' And they go and hibernate somewhere. Maybe later they re-emerge a little differently.''
+\\
+
+Steve Jobs
+%Questa \`e la \textsc{Dedica}:\\
+%ognuno pu\`o scrivere quello che vuole, \\
+%anche nulla \ldots                    
+\newpage                            
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\end{titlepage}
+\pagenumbering{roman}                   
+\chapter*{Abstract}             
+
+\rhead[\fancyplain{}{\bfseries
+Abstract}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+Abstract}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Introduzione
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Abstract}
+Questa \`e l'introduzione.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\tableofcontents                        %crea l'indice
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+INDICE}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoffigures                          %crea l'elenco delle figure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoftables                           %crea l'elenco delle tabelle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+
+
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+
+\pagenumbering{arabic}                  %mette i numeri arabi
+
+
+\include{KernelLinux}
+\include{NetworkIntroduction}
+\include{Architettura}
+\include{TED}
+\include{Test}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%per fare le conclusioni
+\chapter*{Conclusioni}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries
+CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+CONCLUSIONI}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Conclusioni
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Conclusioni} Queste sono le
+conclusioni.\\
+In queste conclusioni voglio fare un riferimento alla
+bibliografia: questo \`e il mio riferimento \cite{K3,K4}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+\appendix                               %imposta le appendici
+\chapter{Prima Appendice}               %crea l'appendice
+In questa Appendice non si \`e utilizzato il comando:\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\verb"" è equivalente all'
+                                        %   ambiente verbatim,
+                                        %   ma si utilizza all'interno
+                                        %   di un discorso.
+\verb"\clearpage{\pagestyle{empty}\cleardoublepage}", ed infatti
+l'ultima pagina 8 ha l'intestazione con il numero di pagina in
+alto.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries \thechapter \:Prima Appendice}]
+{\fancyplain{}{\bfseries\thepage}}
+\chapter{Seconda Appendice}             %crea l'appendice
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries \thechapter \:Seconda Appendice}]
+{\fancyplain{}{\bfseries\thepage}}
+\begin{thebibliography}{90}             %crea l'ambiente bibliografia
+\rhead[\fancyplain{}{\bfseries \leftmark}]{\fancyplain{}{\bfseries
+\thepage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Bibliografia
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Bibliografia}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%provare anche questo comando:
+%%%%%%%%%%%\addcontentsline{toc}{chapter}{\numberline{}{Bibliografia}}
+\bibitem{K1} Primo oggetto bibliografia.
+\bibitem{K2} Secondo oggetto bibliografia.
+\bibitem{K3} Terzo oggetto bibliografia.
+\bibitem{K4} Quarto oggetto bibliografia.
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter*{Ringraziamenti}
+\thispagestyle{empty}
+Qui possiamo ringraziare il mondo intero!!!!!!!!!!\\
+Ovviamente solo se uno vuole, non \`e obbligatorio.
+\end{document}

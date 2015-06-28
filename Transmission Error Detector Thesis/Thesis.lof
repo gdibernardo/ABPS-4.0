@@ -1,0 +1,21 @@
+\select@language {italian}
+\select@language {italian}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces L'architettura del kernel Linux.}}{2}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces La struttura \emph {sk\_buff}.}}{5}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Stack di rete ISO/OSI e TCP/IP}}{13}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Il problema dei nodi nascosti}}{17}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces \emph {Four-way handshake} via RTS/CTS}}{19}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces IEEE 802.11 frame}}{20}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Formato dell'header IPv4}}{28}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Header datagram IPv6}}{34}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Header UDP}}{37}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architettura ABPS}}{45}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Architettura ABPS per una comunicazione VoIP via protocollo SIP e RTP/RTCP}}{46}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Infrastruttura Mobile Node in ABPS}}{49}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
