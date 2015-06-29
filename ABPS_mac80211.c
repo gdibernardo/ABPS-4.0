@@ -131,14 +131,6 @@ static struct timespec LastCheck_ABPS_info_list={0,0};
 */
 
 
-static timeval get_current_time(void)
-{
-    struct timeval time_val;
-    do_gettimeofday(&timeval);
-    
-    return time_val;
-}
-
 //static void ABPS_info_take_response(struct ABPS_info *packet_info)
 //{
 //
