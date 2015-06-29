@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  29 JUN 2015 23:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 JUN 2015 00:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -556,9 +556,7 @@ Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'italian'.
 
 (./Thesis.aux (./NetworkIntroduction.aux) (./KernelLinux.aux)
-(./Architettura.aux)
-No file TED.aux.
-(./Test.aux) (./Bibliography.aux))
+(./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux))
 \openout1 = `Thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
@@ -1063,10 +1061,10 @@ ing/sk[]buff
 ] (./Thesis.aux (./NetworkIntroduction.aux) (./KernelLinux.aux)
 (./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux)) ) 
 Here is how much of TeX's memory you used:
- 12909 strings out of 493117
- 217673 string characters out of 6135433
+ 12912 strings out of 493117
+ 217695 string characters out of 6135433
  438660 words of memory out of 5000000
- 16145 multiletter control sequences out of 15000+600000
+ 16146 multiletter control sequences out of 15000+600000
  13607 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,12n,56p,10416b,1390s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1079,7 +1077,7 @@ e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
 014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
 14/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/201
 4/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Thesis.pdf (93 pages, 2158627 bytes).
+Output written on Thesis.pdf (93 pages, 2158610 bytes).
 PDF statistics:
  358 PDF objects out of 1000 (max. 8388607)
  232 compressed objects within 3 object streams

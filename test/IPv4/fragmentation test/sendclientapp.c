@@ -87,10 +87,12 @@ int main(int argc, char ** argv)
         uint32_t identifier;
         send_packet_with_message(buffer, strlen(buffer), &identifier);
         
+        printf("Just got identifier from TED %" PRIu32 " \n", identifier);
+        
         /* Log packet just sent. */
         sent_packet_with_packet_and_test_identifier(identifier, test_identifier);
     
-    
+        
         ErrMsg *error_message = alloc_init_ErrMsg();
     
         if(receive_local_error_notify_with_error_message(error_message))
