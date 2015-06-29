@@ -139,7 +139,7 @@ int main(int argc, char ** argv)
                     uint16_t frag_len = (error_message->ee->ee_data >> 16);
                     uint16_t offset = ((error_message->ee->ee_data << 16) >> 16);
                     
-                    printf(("ACK value %" PRIu8 " \n - retry count: %" PRIu8 " - MF:%" PRIu16 " - fragment length: %" PRIu16 " - offset:%" PRIu16 "\n");
+                    printf("ACK value %" PRIu8 " \n - retry count: %" PRIu8 " - MF:%" PRIu16 " - fragment length: %" PRIu16 " - offset:%" PRIu16 "\n",acked,retry_count,more_frag,frag_len,offset);
                     notifications++;
                     printf("notification: %d \n", notifications);
                 }
