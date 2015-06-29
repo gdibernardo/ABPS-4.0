@@ -122,7 +122,6 @@ struct ABPS_info
 static struct ABPS_info sentinel = { 0, { 0, 0, 0, 0, 0, 0 }, { 0, 0 }, { 0, 0 }, NULL };
 static struct timespec LastCheck_ABPS_info_list={0,0};
 
-#ifdef ABPS_DEBUG
 
 /*
 
