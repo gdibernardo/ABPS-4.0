@@ -589,6 +589,7 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 				iph->tot_len = htons(frag->len);
 				ip_copy_metadata(frag, skb);
                 /* ABPS Gab */
+                printk(KERN_NOTICE "Transmission Error Detector: first of fragmentation %d \n",ntohl(frag->sk_buff_identifier));
                 frag->sk_buff_identifier = skb->sk_buff_identifier;
                 printk(KERN_NOTICE "Transmission Error Detector: fragmentation %d %d \n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
 				if (offset == 0)
