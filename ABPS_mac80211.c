@@ -718,9 +718,9 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
             ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id,packet_info->datagram_info.retry_count);
         }
         
-#ifdef ABPS_DEBUG
-		ABPS_info_take_response(packet_info);
-#endif
+//#ifdef ABPS_DEBUG
+//		ABPS_info_take_response(packet_info);
+//#endif
     	ABPS_info_remove(packet_info);
 		return(1);
 	}
