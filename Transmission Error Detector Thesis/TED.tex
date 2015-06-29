@@ -56,7 +56,7 @@ La system call sendmsg consente di inviare, assieme al contenuto del messaggio, 
 \end{itemize} 
 Una volta creato un socket può essere possibile, inoltre, specificare particolari opzioni aggiuntive da adottare a un certo livello di rete e protocollo tramite la system call \emph{setsockopt}. Con questo meccanismo è possibile abilitare un socket per la ricezione di messaggi di tipo ICMP ( specificando come parametro della system call setsockopt l'opzione IP\_RECVERR ): ad esempio quando avviene un errore di trasmissione su uno dei nodi intermedi ( ad esempio un router non riesce a determinare la destinazione di un certo datagram ) viene generato un messaggio di tipo ICMP e consegnato all'host mittente che sarà quindi accodato nel buffer del socket.
 \\
-I messaggi di errore possono essere poi letti dall'applicazione che mantiene il socket tramite la system call recvmsg specificando il socket ed il flag MSG\_ERRQUEUE.
+I messaggi di errore possono essere poi letti dall'applicazione che mantiene il socket tramite la system call \textbf{recvmsg} specificando il socket ed il flag MSG\_ERRQUEUE.
 \\
 In TED questo meccanismo è stato sfruttato per la ricezione delle notifiche di tipo First-hop Transmission Notification.
 \\
@@ -139,7 +139,9 @@ A seconda se la trasmissione dati sfrutta IPv4 o IPv6 la notifica sarà struttura
 \\
 Come già brevemente accennato la notifica di tipo First-hop Transmission Notification viene realizzata estendendo la struttura di tipo struct sock\_extended\_err tradizionalmente utilizzata per mantenere le informazioni legate ad eventuali errori avvenuti in fase di trasmissione/ricezione di un messaggio verso/da la rete. 
 \\
-Verrà quindi generato un nuovo sk\_buff e nel suo campo cb verrà inizializzata una struttura di tipo struct sock\_extended\_err. Il nuovo sk\_buff sarà poi appeso nella coda d'errore del socket che aveva originariamente spedito il pacchetto alla quale la notifica fa riferimento.
+Verrà quindi generato un nuovo sk\_buff contenente una struttura di tipo struct sock\_extended\_err ( appesa nel campo \emph{cb}).
+\\
+Il nuovo sk\_buff sarà poi appeso nella coda d'errore del socket che aveva originariamente spedito il pacchetto alla quale la notifica fa riferimento.
 \\
 È stato introdotto un nuovo tipo SO\_EE\_ORIGIN\_LOCAL\_NOTIFY per il campo ee\_origin che identifica la notifica proveniente da TED.
 \\

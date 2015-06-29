@@ -473,6 +473,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     {
         IPdatagram = ((u8*) hdr4) + hdrlen + 8;
         flen = sizeof(struct iphdr) + sizeof(struct udphdr);
+        printk(KERN_NOTICE "current identifier %d ", ntohl(identifier));
         result_from_get_udp_info = get_udp_info(IPdatagram,
                                                 flen,
                                                 &(p_IPDGInfo->saddr),

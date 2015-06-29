@@ -590,7 +590,7 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 				ip_copy_metadata(frag, skb);
                 
                 /* ABPS Gab */
-                printk(KERN_NOTICE "Transmission Error Detector: first of fragmentation %d \n",ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: first of fragmentation %d %d\n",ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
                 if(frag->sk == skb->sk)
                 {
                     printk(KERN_NOTICE "same socket \n");

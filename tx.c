@@ -853,7 +853,7 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
     /* ABPS Gab */
     if(tx->skb)
     {
-        printk(KERN_NOTICE "Transmission Error Detector: seq_ctrl %d \n", hdr->seq_ctrl);
+        printk(KERN_NOTICE "Transmission Error Detector: seq_ctrl in tx %d \n", hdr->seq_ctrl);
         
         if(required_ip_local_error_notify(tx->skb->sk))
         {
