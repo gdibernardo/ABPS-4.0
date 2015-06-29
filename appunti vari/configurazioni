@@ -144,13 +144,47 @@
 
 
 
+30
+	non guardare
 
+31
+	wait
+	rasp a 70
+	yas senza chiavetta
 
+32
+	non guardare
 
+33
+	in recv non stampo tutto il msg
 
+34
+	non guardare
 
+35
+	rasp a 14 (con tutti collegati) altrimenti sulla quarantina o più (in realtà va un po' come cazzo gli pare)
+	udoo a circa 8, ma anche ad 1,,3,4....
+	va molto molto lento
+	
 
+36
+	come 35,
+	arrivato solo ai primi 61 pacchetti
+	poi 5000
+	poi 2552
+	in mezzo c'è finito anche qualcuno del 37, puttanazza eva ---> cancellarli!!!
 
+37
+	spengo rasp
+	udoo a circa 6
+	va a busso
+
+38
+	rasp acceso
+
+39
+	da solo
+	(controllare che non sia invertito con 38, ma non dovrebbe)
 
 
 

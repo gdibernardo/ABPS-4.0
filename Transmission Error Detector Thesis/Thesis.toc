@@ -90,8 +90,8 @@
 \contentsline {section}{\numberline {5.2}Parametri di valutazione}{67}
 \contentsline {section}{\numberline {5.3}Configurazioni}{69}
 \contentsline {section}{\numberline {5.4}Dettagli implementativi}{71}
-\contentsline {section}{\numberline {5.5}Risultati}{71}
-\contentsline {chapter}{Conclusioni}{73}
-\contentsline {chapter}{\numberline {A}Prima Appendice}{75}
-\contentsline {chapter}{\numberline {B}Seconda Appendice}{77}
-\contentsline {chapter}{Bibliografia}{79}
+\contentsline {section}{\numberline {5.5}Risultati}{73}
+\contentsline {chapter}{Conclusioni}{75}
+\contentsline {chapter}{\numberline {A}Prima Appendice}{77}
+\contentsline {chapter}{\numberline {B}Seconda Appendice}{79}
+\contentsline {chapter}{Bibliografia}{81}

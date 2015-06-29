@@ -116,7 +116,7 @@ Le specifiche tecniche sono:
 
 
 \begin{paragraph}{UDOO Quad}
-Abbiamo utilizzato questo raspberry per creare traffico sulla rete.
+Abbiamo utilizzato la UDOO per creare traffico sulla rete, insieme ad i raspberry.
 Le specifiche tecniche sono: 
 \begin{itemize}
  \item Kernel: Kernel Linux 3.0.35.
@@ -167,9 +167,15 @@ Abbiamo scelto questi parametri perché ci permettono di poter giudicare in manie
 In particolare sono molto significativi il tempo, l'ACK ed il retry count.
 Grazie a questi dati si può analizzare in modo dettagliato la situazione di ogni singolo pacchetto. L'applicazione può leggere l'ACK e successivamente decidere di rimandare il pacchetto in base ai millisecondi passati prima di ricevere la notifica.
 Il numero di retry count risulta rilevante per confrontare differenti situazioni di traffico, oppure per notare cosa succede in caso di trasmissione in movimento.
+
+
 Gli altri parametri che abbiamo deciso di utilizzare hanno un valore più trascurabile per un singolo pacchetto, ma possono diventare eloquenti per analizzare i dati a posteriori.
 In particolare si potrebbe notare in base all'orario se c'è un evidente rallentamento della trasmissione. Ad esempio si potrebbe notare come in una zona industriale la QoS migliori durante la sera/notte.
+
+
 Un altro dato che può essere utilizzato per esaminare i dati raccolti è la versione IP, si può controllare se c'è un differenza notevole tra IPv6 e IPv4 a parità di condizioni.
+
+
 Le configurazioni, invece, riguardano i dispositivi utilizzati durante un test e lo scenario applicativo. Andremo a mostrare quali configurazioni sono state provate in modo più dettagliato successivamente.
 Per quanto riguarda la wait abbiamo deciso di fare sia una recv bloccante che una non bloccante. Abbiamo fatto dei test con entrambe e abbiamo analizzato le differenze, che andremo a descrivere più avanti.
 
@@ -199,22 +205,20 @@ Dati questi possibili utilizzi, abbiamo creato alcune configurazioni per valutar
 Il nostro interesse si è focalizzato sulla costruzione di un prodotto cartesiano tra tutte le opzioni.
 Abbiamo quindi provato col nodo mobile fermo, da solo nella rete ed in linea diretta con l'AP.
 In questa configurazione abbiamo anche valutato le possibili differenze in velocità tra recv bloccante e non bloccante. La scelta tra queste due opzioni è stata implementata nell'applicazione di prova che abbiamo creato e che abbiamo descritto precedentemente.
-
-
+\\
 In contrapposizione a questa prima configurazione, abbiamo testato un nodo mobile solitario nella rete, fermo ma con un ostacolo tra lui e l'AP. Come ostacolo è stato scelto un muro, di larghezza di circa 15 centimetri.
-
-
+\\
 Per completare la raccolta dati da analizzare abbiamo fatto altre due configurazioni, andando a modificare quelle precedenti usando il nodo mobile in movimento.
 \\
 Queste prime configurazioni ci permettono già di raccogliere importanti dati, che però non possono riflettere un reale utilizzo di una applicazione.
 Questo perché difficilmente la trasmissione VoIP avverrà con il dispositivo da solo sulla rete, ma la rete potrà essere più o meno congestionata in base al luogo o all'orario.
-
-
+\\
 Per rispondere a questa esigenza abbiamo deciso di fare delle prove con uno o più host attivi sulla rete, in modo che andassero a causare traffico per rallentare il nodo mobile.
 \\
 Abbiamo quindi creato altre configurazioni, andando in ognuna a modificare il numero di hosts ed altri parametri. Per quanto riguarda gli host li abbiamo lasciati sempre fermi, ma abbiamo modificato la distanza in diverse prove.
 In questo modo gli host trasmetteranno più o meno velocemente e vogliamo andare a verificare al client dia più fastidio avere host lenti o veloci. Per controllare le velocità è stata creata una applicazione in grado di stabilire la bitrate. Questa applicazione sarà descritta successivamente.
-\\
+
+
 Analizziamo ora i settaggi che sono stati implementati.
 In particolare avremo il nodo mobile fermo ed un host attivo, entrambi in linea diretta con l'access point. Da questa configurazione base abbiamo allontanato l'host, fino a variare la velocità in modo significativo ( anche di un fattore 1/20 ).
 \\
@@ -235,8 +239,76 @@ Grazie a questo grande numero di possibili utilizzi, abbiamo raccolto sufficient
 
 
 \begin{section}{Dettagli implementativi}
+Avendo descritto quali parametri e quali configurazioni abbiamo descritto, ci concentriamo ora sulla parte implementativa dei test.
+I principali problemi da risolvere in questa parte erano:
+\begin{itemize}
+ \item Velocità degli hosts.
+ \item Salvataggio dei dati
+ \item Elaborazione dei dati.
+\end{itemize}
+Per quanto riguarda la misurazione della velocità degli hosts, abbiamo creato una semplice applicazione che vada a misurarla.
+Per realizzarla abbiamo creato una connessione tra due hosts, un client ed un server.
+Abbiamo scelto di realizzare la applicazione tramite socket TCP; è stata comunque implementata anche la versione UDP. 
+\\
+Il client trasmette un file tramite Wi-Fi ed il server si mette in ascolto e calcola la velocità del client.
+Il server è stato collegato all'AP tramite ethernet, e non wireless, per evitare di introdurre eventuali ritardi ed incognite.
+Queste misurazioni sono state fatte all'interno della stessa sottorete, per non influenzare i risultati con la velocità della linea ADSL.
+Nel server il calcolo è stato realizzato tramite la divisione tra il totale dei bit ricevuti e i secondi necessari per la ricezione.
+Il totale dei bit è stato semplicemente ricavato dal totale di tutti i Byte ricevuti, moltiplicati per 8.
+I secondi, invece, sono stati ottenuti catturando il tempo prima dell'inizio della ricezione e appena finita la ricezione ( tramite la \emph{time(NULL)} ).
+Successivamente è stata fatta la differenza tra i due time ed è stata calcolata la velocità in Mb/s.
+Successivamente, alla fine della ricezione di tutti i Byte, è stato catturato il tempo.
+\\
+La velocità che è stata rilevata non può essere considerata perfetta in quanto ci potrebbero alcuni fattori che possono andare ad alterarla. 
+Possiamo però darla per buona perché, per ogni host, è stata misurata più volte ed è stata successivamente scelta la media. 
+Inoltre è stata misurata, nella maggior parte dei casi, in una zona poco abitata e di sera o notte, quindi l'interferenza data da altri dispositivi era minima.
+\\
 
-Qui spiegheremo come misuriamo la velocità degli hosts (applicazione ), dove abbiamo salvato i dati (json) e come li manipoliamo (script python)
+Per quanta riguarda il salvataggio dei dati, abbiamo scelto di farlo in un file in formato \emph{JSON}.
+Abbiamo scelto il JSON per la facilità di leggere i dati salvati. I dati sono stati salvati come un array di pacchetti, e per ogni pacchetto è stato salvato:
+\begin{itemize}
+ \item id del pacchetto
+ \item millisecondi tra invio pacchetto e ricezione della notifica
+ \item numero di tentativi di invio
+ \item versione IP
+ \item boolean per ack
+ \item numero della configurazione
+ \item data
+ 
+\end{itemize}
+I dati salvati sono i parametri di valutazione che abbiamo precedentemente scelto.
+Per utilizzare il JSON all'interno di C abbiamo incluso una apposita libreria, la \emph{json/json.h}.
+\\
+
+Grazie all'utilizzo di un file JSON per il salvataggio dei dati, ne risulta più semplice l'analisi.
+Per poter elaborare i dati abbiamo scelto di creare vari script utilizzando il linguaggio \emph{Python}. 
+È stato scelto il Python perché supporta il JSON e perché permette di effettuare tutte le operazioni necessarie in poche righe.
+\begin{lstlisting}[language=Python]
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import json
+import sys
+import time
+
+try:
+	inputFile=sys.argv[1]
+	tipo=int(sys.argv[2])
+except:
+	sys.exit("missing argument")
+
+with open(inputFile) as data_file:    
+    data = json.load(data_file)
+
+for el in data["pacchetti"]:
+	if el['type']==tipo:
+		if el['ack'] == False :
+			print(el['testId'])
+
+
+
+\end{lstlisting}
+
 
 \end{section}
 
