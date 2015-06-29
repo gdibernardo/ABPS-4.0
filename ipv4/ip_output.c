@@ -575,7 +575,7 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 		iph->tot_len = htons(first_len);
 		iph->frag_off = htons(IP_MF);
 		ip_send_check(iph);
-
+        int index = 0;
     	for (;;) {
 			/* Prepare header of the next frame,
 			 * before previous one went down. */
@@ -588,10 +588,14 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 				iph = ip_hdr(frag);
 				iph->tot_len = htons(frag->len);
 				ip_copy_metadata(frag, skb);
+                
                 /* ABPS Gab */
-                printk(KERN_NOTICE "Transmission Error Detector: first of fragmentation %d \n",ntohl(frag->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: first of fragmentation %d \n",ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                
                 frag->sk_buff_identifier = skb->sk_buff_identifier;
+                
                 printk(KERN_NOTICE "Transmission Error Detector: fragmentation %d %d \n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                
 				if (offset == 0)
 					ip_options_fragment(frag);
 				offset += skb->len - hlen;
