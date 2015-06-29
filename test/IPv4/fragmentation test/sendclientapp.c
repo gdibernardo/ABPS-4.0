@@ -115,38 +115,39 @@ int main(int argc, char ** argv)
     {
         /*  */
         ErrMsg *error_message = alloc_init_ErrMsg();
-        
-        for(error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
+        if(receive_local_error_notify_with_error_message(error_message))
         {
-            if((error_message->c->cmsg_level == IPPROTO_IP) && (error_message->c->cmsg_type == IP_RECVERR))
+            for(error_message->c = CMSG_FIRSTHDR(error_message->msg); error_message->c; error_message->c = CMSG_NXTHDR(error_message->msg, error_message->c))
             {
-                struct sockaddrin *from;
-                
-                error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
-                
-                from = (struct sockaddrin *) SO_EE_OFFENDER(error_message->ee);
-                
-                if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
+                if((error_message->c->cmsg_level == IPPROTO_IP) && (error_message->c->cmsg_type == IP_RECVERR))
                 {
-                    uint32_t identifier = ntohl(error_message->ee->ee_info);
+                    struct sockaddrin *from;
                     
+                    error_message->ee = (struct sock_extended_err *) CMSG_DATA(error_message->c);
                     
-                    printf("Received notification for packet %" PRIu32 " \n", identifier);
+                    from = (struct sockaddrin *) SO_EE_OFFENDER(error_message->ee);
                     
-                    uint8_t acked = error_message->ee->ee_type;
-                    uint8_t retry_count = error_message->ee->ee_retry_count;
-                    uint8_t more_frag = error_message->ee->ee_code;
-                    uint16_t frag_len = (error_message->ee->ee_data >> 16);
-                    uint16_t offset = ((error_message->ee->ee_data << 16) >> 16);
-                    
-                    printf("ACK value %" PRIu8 " \n - retry count: %" PRIu8 " - MF:%" PRIu16 " - fragment length: %" PRIu16 " - offset:%" PRIu16 "\n",acked,retry_count,more_frag,frag_len,offset);
-                    notifications++;
-                    printf("notification: %d \n", notifications);
+                    if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
+                    {
+                        uint32_t identifier = ntohl(error_message->ee->ee_info);
+                        
+                        
+                        printf("Received notification for packet %" PRIu32 " \n", identifier);
+                        
+                        uint8_t acked = error_message->ee->ee_type;
+                        uint8_t retry_count = error_message->ee->ee_retry_count;
+                        uint8_t more_frag = error_message->ee->ee_code;
+                        uint16_t frag_len = (error_message->ee->ee_data >> 16);
+                        uint16_t offset = ((error_message->ee->ee_data << 16) >> 16);
+                        
+                        printf("ACK value %" PRIu8 " \n - retry count: %" PRIu8 " - MF:%" PRIu16 " - fragment length: %" PRIu16 " - offset:%" PRIu16 "\n",acked,retry_count,more_frag,frag_len,offset);
+                        notifications++;
+                        printf("notification: %d \n", notifications);
+                    }
                 }
             }
         }
 
-        
         free(error_message);
         
     }
