@@ -864,8 +864,12 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
             }
             else
             {
-                printk(KERN_NOTICE "Transmission Error Detector: something went wrong adding new element in TED packet list. \n");
+                printk(KERN_NOTICE "Transmission Error Detector: something went wrong adding new element in TED packet list. %d \n",ntohl(tx->skb->sk_buff_identifier));
             }
+        }
+        else
+        {
+            printk(KERN_NOTICE "not required for element %d \n",ntohl(tx->skb->sk_buff_identifier));
         }
     }
 
