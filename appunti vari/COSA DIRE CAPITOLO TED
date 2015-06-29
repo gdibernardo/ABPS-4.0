@@ -1,0 +1,16 @@
+- APPLICAZIONE:
+	- file utilizzati
+	- possibiltà ipv6 o ipv4
+	- bloccante o no
+	- decisioni su cosa salvare
+	- usato json
+	- dimensione pacchetti
+	- cosa fa il server
+	- cosa fa il client
+	- screen funzionamento
+
+
+- TED
+	- quali file abbiamo modificato nel kernel ( quindi elenco di tutti )
+	- per ogni file dare una breve spiegazione ( o lunga se lo abbiamo toccato particolarmente )
+	- 

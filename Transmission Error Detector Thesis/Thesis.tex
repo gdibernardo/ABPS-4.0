@@ -33,10 +33,6 @@
 \raggedleft                            	
 \large                                 		
 \em                                    
-``If you want to live your life in a creative way, as an artist, you have to not look back too much. You have to be willing to take whatever you've done and whoever you were and throw them away. The more the outside world tries to reinforce an image of you, the harder it is to continue to be an artist, which is why a lot of times, artists have to say, ``Bye. I have to go. I'm going crazy and I'm getting out of here'' And they go and hibernate somewhere. Maybe later they re-emerge a little differently.''
-\\
-
-Steve Jobs
 %Questa \`e la \textsc{Dedica}:\\
 %ognuno pu\`o scrivere quello che vuole, \\
 %anche nulla \ldots                    
@@ -77,8 +73,8 @@ INDICE}}
 \pagenumbering{arabic}                  %mette i numeri arabi
 
 
-\include{KernelLinux}
 \include{NetworkIntroduction}
+\include{KernelLinux}
 \include{Architettura}
 \include{TED}
 \include{Test}
@@ -119,19 +115,9 @@ alto.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries \thechapter \:Seconda Appendice}]
 {\fancyplain{}{\bfseries\thepage}}
-\begin{thebibliography}{90}             %crea l'ambiente bibliografia
-\rhead[\fancyplain{}{\bfseries \leftmark}]{\fancyplain{}{\bfseries
-\thepage}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Bibliografia
-                                        %   nell'indice
-\addcontentsline{toc}{chapter}{Bibliografia}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%provare anche questo comando:
-%%%%%%%%%%%\addcontentsline{toc}{chapter}{\numberline{}{Bibliografia}}
-\bibitem{K1} Primo oggetto bibliografia.
-\bibitem{K2} Secondo oggetto bibliografia.
-\bibitem{K3} Terzo oggetto bibliografia.
-\bibitem{K4} Quarto oggetto bibliografia.
-\end{thebibliography}
+
+\include{Bibliography}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter*{Ringraziamenti}
