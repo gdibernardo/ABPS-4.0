@@ -590,7 +590,7 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 				ip_copy_metadata(frag, skb);
                 /* ABPS Gab */
                 frag->sk_buff_identifier = skb->sk_buff_identifier;
-                printk(KERN_NOTICE "Transmission Error Detector: fragmentation %d %d \n", frag->sk_buff_identifier, skb->sk_buff_identifier);
+                printk(KERN_NOTICE "Transmission Error Detector: fragmentation %d %d \n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
 				if (offset == 0)
 					ip_options_fragment(frag);
 				offset += skb->len - hlen;
@@ -708,7 +708,7 @@ slow_path:
         /* need to check if it is necessary to clone skb  */
         skb2->sk_buff_identifier = skb->sk_buff_identifier;
         // network byte order ?
-        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",skb2->sk_buff_identifier, skb->sk_buff_identifier);
+        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",ntohl(skb2->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
 
 
 		/*
