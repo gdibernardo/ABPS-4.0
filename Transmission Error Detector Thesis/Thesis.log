@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  29 JUN 2015 10:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  29 JUN 2015 16:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -941,13 +941,7 @@ Capitolo 4.
 
 
 
-] [56] [57]
-Overfull \hbox (3.66896pt too wide) in paragraph at lines 74--80
-\OT1/cmr/m/n/12 Non ap-pe-na il flus-so del-l'e-se-cu-zio-ne vie-ne ri-pre-so d
-al-la pri-mi-ti-va udp[]sendmsg,
- []
-
-[58]
+] [56] [57] [58]
 Underfull \hbox (badness 10000) in paragraph at lines 82--94
 
  []
@@ -957,32 +951,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--115
 
  []
 
-
+[60]
 Underfull \hbox (badness 10000) in paragraph at lines 116--135
 
  []
 
+[61]
+Overfull \hbox (32.90004pt too wide) in paragraph at lines 136--146
+\OT1/cmr/m/n/12 No-ti-fi-ca-tion vie-ne rea-liz-za-ta esten-den-do la strut-tu-
+ra di ti-po struct sock[]extended[]err
+ []
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [60]
-Underfull \vbox (badness 3646) has occurred while \output is active []
-
- [61]
-Underfull \hbox (badness 10000) in paragraph at lines 136--140
+Underfull \hbox (badness 10000) in paragraph at lines 136--146
 
  []
 
-[62]) [63]
+[62] [63]) [64]
 \openout2 = `Test.aux'.
 
- (./Test.tex [64
+ (./Test.tex
+Capitolo 5.
+[65
 
 
 
 ]
-Capitolo 5.
-[65]
 Overfull \hbox (5.05412pt too wide) in paragraph at lines 70--73
  \OT1/cmr/bx/n/12 LB-LINK BL-WN151[] \OT1/cmr/m/n/12 Adat-ta-to-re Wi-re-less U
 SB. Ve-lo-cit^^Ra fi-no a 150Mb/s,
@@ -1036,26 +1030,23 @@ ing/sk[]buff
 ] [81
 
 ] (./Thesis.aux (./NetworkIntroduction.aux) (./KernelLinux.aux)
-(./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux))
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+(./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux)) ) 
 Here is how much of TeX's memory you used:
  12565 strings out of 493117
  213270 string characters out of 6135433
- 385562 words of memory out of 5000000
+ 389562 words of memory out of 5000000
  15811 multiletter control sequences out of 15000+600000
  11590 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,12n,45p,10416b,1781s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
-r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/
-local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Thesis.pdf (91 pages, 2120562 bytes).
+ 40i,12n,45p,10416b,1091s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/loca
+l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local
+/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texl
+ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texliv
+e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on Thesis.pdf (91 pages, 2122580 bytes).
 PDF statistics:
  344 PDF objects out of 1000 (max. 8388607)
  222 compressed objects within 3 object streams

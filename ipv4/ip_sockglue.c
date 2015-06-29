@@ -1247,18 +1247,23 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
                " struct sock sk is NULL\n");
         return;
     }
+    
     inet = inet_sk(sk);
+    
     if (inet == NULL)
     {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
                " struct inet_sock inet is NULL, bye\n");
         return;
     }
-    if (!inet->recverr) {
+    
+    if (!inet->recverr)
+    {
         return;
     }
     
     skb = alloc_skb(sizeof(struct iphdr), GFP_ATOMIC);
+    
     if (!skb)
     {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
@@ -1270,11 +1275,13 @@ void ipv6_local_error_notify(struct sock *sk, int sent, uint32_t datagram_identi
     skb_reset_network_header(skb);
     
     serr = SKB_EXT_ERR(skb);
-    if (!serr) {
+    if (!serr)
+    {
         printk(KERN_WARNING "*** ABPS VIC *** ip_local_error_notify:"
                " serr is NULL, bye\n");
         return;
     }
+    
     serr->ee.ee_errno = 0;  /* success */
     serr->ee.ee_origin = SO_EE_ORIGIN_LOCAL_NOTIFY;
     serr->ee.ee_type = sent; /* 1 sent, 0 not sent */

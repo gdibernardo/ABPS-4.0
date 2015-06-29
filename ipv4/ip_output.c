@@ -496,6 +496,8 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 	/*
 	 *	Point into the IP datagram header.
 	 */
+    
+    printk(KERN_NOTICE "Transmission Error Detector: Fragmentation has started. \n");
 
 	iph = ip_hdr(skb);
 
@@ -674,11 +676,6 @@ slow_path:
 		 *	Set up data on packet
 		 */
         
-        /* ABPS Gab */
-        /* need to check if it is necessary to clone skb  */
-        skb2->sk_buff_identifier = skb->sk_buff_identifier;
-        // network byte order ?
-        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",skb2->sk_buff_identifier, skb->sk_buff_identifier);
         
 		ip_copy_metadata(skb2, skb);
 		skb_reserve(skb2, ll_rs);
@@ -706,6 +703,13 @@ slow_path:
 		if (skb_copy_bits(skb, ptr, skb_transport_header(skb2), len))
 			BUG();
 		left -= len;
+        
+        /* ABPS Gab */
+        /* need to check if it is necessary to clone skb  */
+        skb2->sk_buff_identifier = skb->sk_buff_identifier;
+        // network byte order ?
+        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",skb2->sk_buff_identifier, skb->sk_buff_identifier);
+        
 
 		/*
 		 *	Fill in the new header fields.

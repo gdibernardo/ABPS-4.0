@@ -456,6 +456,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     }
     p_IPDGInfo = kmalloc(sizeof (IPdgramInfo), GFP_ATOMIC);
     packet_info = kmalloc(sizeof(struct ABPS_info), GFP_ATOMIC);
+    
     packet_info->id = hdr->seq_ctrl;
     
     fc = le16_to_cpu(hdr4->frame_ctl);
@@ -551,7 +552,8 @@ int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr)
 	fc = le16_to_cpu(hdr->frame_control) ;
 	stype = WLAN_FC_GET_STYPE(fc);
 
-	switch (WLAN_FC_GET_TYPE(fc)) {
+	switch (WLAN_FC_GET_TYPE(fc))
+    {
 		case IEEE80211_FTYPE_DATA:
 			break;
 			return 0;
