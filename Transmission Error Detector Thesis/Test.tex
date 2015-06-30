@@ -47,13 +47,16 @@ Lo scopo dei test effettuati è quello di analizzare la QoS del segnale e come pu
 Questo ci è utile in quanto, in base ai risultati ottenuti, si può decidere se cambiare NIC per l'invio di determinati pacchetti.
 
 
+Per poter analizzare 
+
+
+
+
+\begin{section}{ABABABABA}
 Andremo ora a mostrare quali test sono stati effettuati. In particolare mostreremo quali dispositivi sono stati utilizzati per fare le prove, i parametri di valutazione ed i risultati ottenuti.
-\\
-Lo scopo di questi test è di andare ad osservare la QoS del segnale e come può variare in scenari diversi.
 
-
-
-\begin{section}{Dispositivi}
+ 
+\begin{subsection}{Dispositivi}
 Per effettuare delle prove sperimentali, sono stati utilizzati diversi dispositivi. In particolare tre per simulare il client ( o nodo mobile ) ed altri per creare traffico nella rete, in modo da impegnare il canale per avere condizioni simili ad un tipico scenario di utilizzo.
 Per ogni dispositivo è interessante mostrare per cosa è stato utilizzato. Nel caso di un nodo della rete, mostreremo anche il sistema operativo, il kernel, il processore e scheda di rete.
 
@@ -142,12 +145,12 @@ Le specifiche tecniche sono:
 \end{paragraph}
 
 
-\end{section}
+\end{subsection}
 
 
 
 
-\begin{section}{Parametri di valutazione}
+\begin{subsection}{Parametri di valutazione}
 Per poter analizzare i test in modo ottimale e per avere dei dati su cui lavorare abbiamo deciso di controllare alcuni parametri.
 \\
 I parametri che ci interessano maggiormente sono:
@@ -188,9 +191,9 @@ Si potrebbero utilizzare anche altre informazioni ( ad esempio la bitrate ) per 
 
 
 
-\end{section}
+\end{subsection}
 
-\begin{section}{Configurazioni}
+\begin{subsection}{Configurazioni}
 Per ottenere dei risultati che potessero rispecchiare un reale utilizzo da parte di un nodo mobile abbiamo creato diverse configurazioni di dispositivi.
 In particolare abbiamo deciso di tenere conto di alcuni possibili scenari di utilizzo, che sono:
 \begin{itemize}
@@ -233,12 +236,12 @@ Quindi per ognuna è stata tenuta una determinata struttura e siamo andati a modi
 Grazie a questo grande numero di possibili utilizzi, abbiamo raccolto sufficienti dati empirici. 
 
 
-\end{section}
+\end{subsection}
 
 
 
 
-\begin{section}{Dettagli implementativi}
+\begin{subsection}{Dettagli implementativi}
 Avendo descritto quali parametri e quali configurazioni abbiamo descritto, ci concentriamo ora sulla parte implementativa dei test.
 I principali problemi da risolvere in questa parte erano:
 \begin{itemize}
@@ -283,36 +286,37 @@ Per utilizzare il JSON all'interno di C abbiamo incluso una apposita libreria, l
 Grazie all'utilizzo di un file JSON per il salvataggio dei dati, ne risulta più semplice l'analisi.
 Per poter elaborare i dati abbiamo scelto di creare vari script utilizzando il linguaggio \emph{Python}. 
 È stato scelto il Python perché supporta il JSON e perché permette di effettuare tutte le operazioni necessarie in poche righe.
-\begin{lstlisting}[language=Python]
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-
-import json
-import sys
-import time
-
-try:
-	inputFile=sys.argv[1]
-	tipo=int(sys.argv[2])
-except:
-	sys.exit("missing argument")
-
-with open(inputFile) as data_file:    
-    data = json.load(data_file)
-
-for el in data["pacchetti"]:
-	if el['type']==tipo:
-		if el['ack'] == False :
-			print(el['testId'])
+\\
+Sono stati realizzati diversi script per svolgere diversi compiti. Ogni script ha uno scopo specifico ( ad esempio calcolare la media dei tempi di notifica, oppure il numero di nack ricevuti ).
+Ad ogni script, a meno di casi particolari, viene passato il file JSON ed il numero di configurazione.
+Ognuno di questi script andrà ad aprire il file di log, nel quale sono salvati tutti i dati.
+Una volta aperto, viene convertito in una serie di elementi di un array JSON.
+Ora, grazie alla configurazione passato da comando, sarà possibile andare ad analizzare i dati.
 
 
+Sfruttando gli script che abbiamo realizzato siamo in grado di esprimere delle valutazioni su ogni aspetto che volevamo prendere in considerazione.
 
-\end{lstlisting}
+
+\end{subsection}
+
+
+\begin{subsection}{Test effettuati}
+Per effettuare i test ci siamo basati sui parametri e sulle configurazioni scelti precedentemente. 
+La disposizione tipica della rete è quella in figura RIFERIMENTO DELLA FIGURA!!!!!
+In particolare, è stato usato il computer HP per svolgere la maggior parte dei test. 
+Per creare del traffico in rete, invece, sono stati generalmente utilizzati il Raspberry Pi 2 e la UDOO, con l'eventuale aggiunta di altri dispositivi ( come altri portatili o tablet ).
+\\
+Le prove sono state svolte principalmente a casa, ma anche presso il laboratorio Ercolani.
+Non sono state fatte prove attraverso la rete \emph{ALMAWIFI} in quanto gli access point bloccavano la comunicazione.
+Per ovviare al problema è stata creata un rete locale con l'uso del ZyXEL descritto precedentemente.
+
+ 
+ 
+ 
+\end{subsection}
 
 
 \end{section}
-
-
 
 
 \begin{section}{Risultati}
