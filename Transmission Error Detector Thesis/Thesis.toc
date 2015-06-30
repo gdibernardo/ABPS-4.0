@@ -66,7 +66,7 @@
 \contentsline {paragraph}{Implementazioni a livello trasporto}{47}
 \contentsline {paragraph}{Implementazioni a livello Sessione}{48}
 \contentsline {section}{\numberline {3.2}Always Best Packet Switching}{48}
-\contentsline {subsection}{\numberline {3.2.1}Architettura}{50}
+\contentsline {subsection}{\numberline {3.2.1}Architettura}{51}
 \contentsline {paragraph}{Fixed proxy server}{51}
 \contentsline {paragraph}{Mobile node}{51}
 \contentsline {section}{\numberline {3.3}Considerazioni finali}{53}
