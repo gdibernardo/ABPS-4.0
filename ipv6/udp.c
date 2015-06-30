@@ -1126,11 +1126,14 @@ int udpv6_sendmsg(struct kiocb *iocb, struct sock *sk,
 	int (*getfrag)(void *, char *, int, int, int, struct sk_buff *);
     
     /* ABPS Gab */
+    
     struct sk_buff *skb;
     
     USER_P_UINT32 pointer_to_identifier = NULL;
     
     uint32_t is_identifier_required = 0;
+    
+    /* end ABPS Gab */
 
 	/* destination address check */
 	if (sin6) {
@@ -1392,6 +1395,7 @@ release_dst:
 
 out:
     /* ABPS Gab */
+    
     if(is_identifier_required)
     {
         if(skb)
@@ -1401,6 +1405,8 @@ out:
         }
     }
 
+    /* end ABPS Gab */
+    
 	dst_release(dst);
 	fl6_sock_release(flowlabel);
 	if (!err)

@@ -919,6 +919,7 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
 	}
 
     /* ABPS Gab */
+    
     if (skb)
     {
         struct sock *sk = skb->sk;
@@ -951,6 +952,7 @@ void ieee80211_tx_status(struct ieee80211_hw *hw, struct sk_buff *skb)
         }
     }
 
+    /* end ABPS Gab */
     
 	if (ieee80211_is_nullfunc(fc) && ieee80211_has_pm(fc) &&
 	    (local->hw.flags & IEEE80211_HW_REPORTS_TX_ACK_STATUS) &&

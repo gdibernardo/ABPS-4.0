@@ -665,6 +665,12 @@ int ip6_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 						htons(frag->len -
 						      sizeof(struct ipv6hdr));
 				ip6_copy_metadata(frag, skb);
+                
+                /* ABPS Gab */
+                frag->sk_buff_identifier = skb->sk_buff_identifier;
+                
+                printk(KERN_NOTICE "Transmission Error Detector: IPv6 fragmentation performed with frag_list. (new) frag identifier: %d from skb with identifier: %d .\n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                /* end ABPS Gab */
 			}
 
 			err = output(skb);
@@ -750,10 +756,15 @@ slow_path:
 		 *	Set up data on packet
 		 */
         
-        frag->sk_buff_identifier = skb->sk_buff_identifier;
         /* ABPS Gab */
+        
+        frag->sk_buff_identifier = skb->sk_buff_identifier;
+        
         printk(KERN_NOTICE "Transmission Error Detector: IPv6 fragmentation happened. Fragments identifier: %d %d ", frag->sk_buff_identifier, skb->sk_buff_identifier);
 
+        
+        /* end ABPS Gab */
+        
 		ip6_copy_metadata(frag, skb);
 		skb_reserve(frag, hroom);
 		skb_put(frag, len + hlen + sizeof(struct frag_hdr));
@@ -1396,9 +1407,13 @@ alloc_new_skb:
 			/*
 			 *	Fill in the control structures
 			 */
+            
             /* ABPS Gab */
+           
             if(!set_identifier_with_sk_buff(skb))
                 printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value: %d \n", ntohl(skb->sk_buff_identifier));
+            
+            /* end ABPS Gab */
             
 			skb->protocol = htons(ETH_P_IPV6);
 			skb->ip_summed = csummode;

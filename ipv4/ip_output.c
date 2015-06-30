@@ -510,7 +510,6 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 		kfree_skb(skb);
 		return -EMSGSIZE;
 	}
-    printk(KERN_NOTICE "Transmission Error Detector: Fragmentation has started with mtu %d \n", mtu);
  
 	/*
 	 *	Setup starting values.
@@ -531,11 +530,8 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 	 * LATER: this step can be merged to real generation of fragments,
 	 * we can switch to copy when see the first bad fragment.
 	 */
-    printk(KERN_NOTICE "Transmission error detector is preparing for frag \n");
     
     if (skb_has_frag_list(skb)) {
-        printk(KERN_NOTICE "Transmission error detector current skb has frag list \n");
-        
         struct sk_buff *frag, *frag2;
 		int first_len = skb_pagelen(skb);
 
@@ -590,23 +586,10 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 				ip_copy_metadata(frag, skb);
                 
                 /* ABPS Gab */
-                printk(KERN_NOTICE "Transmission Error Detector: first of fragmentation %d %d\n",ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
-                if(frag->sk == skb->sk)
-                {
-                    printk(KERN_NOTICE "same socket \n");
-                }
-                else
-                {
-                    printk(KERN_NOTICE "not same socket");
-                }
-                if(frag->sk == NULL)
-                {
-                    printk(KERN_NOTICE "frag sk is actually null \n");
-                }
-                
                 frag->sk_buff_identifier = skb->sk_buff_identifier;
                 
-                printk(KERN_NOTICE "Transmission Error Detector: fragmentation %d %d \n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: fragmentation performed with frag_list. (new) frag identifier: %d from skb with identifier: %d .\n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                /* end ABPS Gab */
                 
 				if (offset == 0)
 					ip_options_fragment(frag);
@@ -723,11 +706,13 @@ slow_path:
         
         /* ABPS Gab */
         /* need to check if it is necessary to clone skb  */
+      
         skb2->sk_buff_identifier = skb->sk_buff_identifier;
-        // network byte order ?
+      
         printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",ntohl(skb2->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
 
-
+        /* end ABPS Gab */
+        
 		/*
 		 *	Copy a block of the IP datagram.
 		 */
@@ -1009,8 +994,11 @@ alloc_new_skb:
 			 */
             
             /* ABPS Gab */
+            
             if(!set_identifier_with_sk_buff(skb))
                 printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value :%d \n", ntohl(skb->sk_buff_identifier));
+            
+            /* end ABPS Gab */
             
 			skb->ip_summed = csummode;
 			skb->csum = 0;

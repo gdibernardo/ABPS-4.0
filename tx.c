@@ -851,13 +851,12 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
 	*seq = (*seq + 0x10) & IEEE80211_SCTL_SEQ;
     
     /* ABPS Gab */
+    
     if(tx->skb)
     {
-        printk(KERN_NOTICE "Transmission Error Detector: seq_ctrl in tx %d \n", hdr->seq_ctrl);
-        
         if(required_ip_local_error_notify(tx->skb->sk))
         {
-            int return_value = ABPS_extract_pkt_info_with_identifier(hdr,tx->skb->sk_buff_identifier);
+            int return_value = ABPS_extract_pkt_info_with_identifier(hdr, tx->skb->sk_buff_identifier);
             if(return_value)
             {
                 printk(KERN_NOTICE "Transmission Error Detector: added new datagram with identifier %d in TED packets list. \n", ntohl(tx->skb->sk_buff_identifier));
@@ -867,11 +866,9 @@ ieee80211_tx_h_sequence(struct ieee80211_tx_data *tx)
                 printk(KERN_NOTICE "Transmission Error Detector: something went wrong adding new element in TED packet list. %d \n",ntohl(tx->skb->sk_buff_identifier));
             }
         }
-        else
-        {
-            printk(KERN_NOTICE "not required for element %d \n",ntohl(tx->skb->sk_buff_identifier));
-        }
     }
+    
+    /* end ABPS Gab */
 
 	return TX_CONTINUE;
 }
