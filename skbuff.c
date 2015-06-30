@@ -4479,7 +4479,7 @@ int set_identifier_with_sk_buff(struct sk_buff *skb)
 {
     if(skb)
     {
-        skb->sk_buff_identifier = htonl(get_global_identifier());
+        skb->sk_buff_identifier = get_global_identifier();
         return 0;
     }
     printk(KERN_NOTICE "Transmission Error Detector: invalid skb in set_identifier_with_sk_buff()\n");

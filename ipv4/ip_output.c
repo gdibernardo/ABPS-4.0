@@ -588,7 +588,7 @@ int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
                 /* ABPS Gab */
                 frag->sk_buff_identifier = skb->sk_buff_identifier;
                 
-                printk(KERN_NOTICE "Transmission Error Detector: fragmentation performed with frag_list. (new) frag identifier: %d from skb with identifier: %d .\n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: fragmentation performed with frag_list. (new) frag identifier: %d from skb with identifier: %d .\n", frag->sk_buff_identifier, skb->sk_buff_identifier);
                 /* end ABPS Gab */
                 
 				if (offset == 0)
@@ -709,7 +709,7 @@ slow_path:
       
         skb2->sk_buff_identifier = skb->sk_buff_identifier;
       
-        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n",ntohl(skb2->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+        printk(KERN_NOTICE "Transmission Error Detector: IP fragmentation happened. Fragments identifier: %d %d \n", skb2->sk_buff_identifier, skb->sk_buff_identifier);
 
         /* end ABPS Gab */
         
@@ -996,7 +996,7 @@ alloc_new_skb:
             /* ABPS Gab */
             
             if(!set_identifier_with_sk_buff(skb))
-                printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value :%d \n", ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value :%d \n", skb->sk_buff_identifier);
             
             /* end ABPS Gab */
             

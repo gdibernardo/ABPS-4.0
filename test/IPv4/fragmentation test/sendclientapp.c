@@ -129,7 +129,7 @@ int main(int argc, char ** argv)
                     
                     if((error_message->ee->ee_origin == SO_EE_ORIGIN_LOCAL_NOTIFY) && (error_message->ee->ee_errno == 0))
                     {
-                        uint32_t identifier = ntohl(error_message->ee->ee_info);
+                        uint32_t identifier = error_message->ee->ee_info;
                         
                         
                         printf("Received notification for packet %" PRIu32 " \n", identifier);

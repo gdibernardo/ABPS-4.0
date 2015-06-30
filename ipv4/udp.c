@@ -1132,7 +1132,7 @@ out:
         if(!skb_is_null)
         {
             // Datagram identifier setted in user space
-            put_user(ntohl(skb->sk_buff_identifier), pointer_to_identifier);
+            put_user(skb->sk_buff_identifier, pointer_to_identifier);
         }
     }
     

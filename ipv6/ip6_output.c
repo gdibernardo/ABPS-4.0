@@ -669,7 +669,7 @@ int ip6_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
                 /* ABPS Gab */
                 frag->sk_buff_identifier = skb->sk_buff_identifier;
                 
-                printk(KERN_NOTICE "Transmission Error Detector: IPv6 fragmentation performed with frag_list. (new) frag identifier: %d from skb with identifier: %d .\n", ntohl(frag->sk_buff_identifier), ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: IPv6 fragmentation performed with frag_list. (new) frag identifier: %d from skb with identifier: %d .\n", frag->sk_buff_identifier, skb->sk_buff_identifier);
                 /* end ABPS Gab */
 			}
 
@@ -1411,7 +1411,7 @@ alloc_new_skb:
             /* ABPS Gab */
            
             if(!set_identifier_with_sk_buff(skb))
-                printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value: %d \n", ntohl(skb->sk_buff_identifier));
+                printk(KERN_NOTICE "Transmission Error Detector: skb identifier setted with value: %d \n", skb->sk_buff_identifier);
             
             /* end ABPS Gab */
             

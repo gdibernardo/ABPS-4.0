@@ -1401,7 +1401,7 @@ out:
         if(skb)
         {
             // need to set identifier in user space
-            put_user(ntohl(skb->sk_buff_identifier), pointer_to_identifier);
+            put_user(skb->sk_buff_identifier, pointer_to_identifier);
         }
     }
 

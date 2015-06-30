@@ -163,7 +163,7 @@ void ipv4_check_and_log_local_error_notify_with_test_identifier(ErrMsg *error_me
 				/* json for log */	
 				json_object *logobj = json_object_new_object();
 
-                uint32_t identifier = ntohl(error_message->ee->ee_info);
+                uint32_t identifier = error_message->ee->ee_info;
                 
 			                
                 printf("Received notification for packet %" PRIu32 " \n", identifier);

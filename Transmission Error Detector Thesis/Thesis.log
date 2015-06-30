@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 JUN 2015 00:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 JUN 2015 12:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -913,11 +913,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: Images/ABPSArchitectureImage.png Graphic file (type png)
 
 <use Images/ABPSArchitectureImage.png>
-Package pdftex.def Info: Images/ABPSArchitectureImage.png used on input line 63
+Package pdftex.def Info: Images/ABPSArchitectureImage.png used on input line 72
 .
 (pdftex.def)             Requested size: 390.0pt x 177.02448pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--74
+Underfull \hbox (badness 10000) in paragraph at lines 77--83
 
  []
 
@@ -926,17 +926,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--74
 File: Images/ABPSSIPImage.png Graphic file (type png)
 
 <use Images/ABPSSIPImage.png>
-Package pdftex.def Info: Images/ABPSSIPImage.png used on input line 77.
+Package pdftex.def Info: Images/ABPSSIPImage.png used on input line 86.
 (pdftex.def)             Requested size: 390.0pt x 164.89197pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [50 <./Images/ABPSSIPImage.png>] [51] [52]
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[50] [51 <./Images/ABPSSIPImage.png>] [52]
 <Images/ABPSMobileNodeArchitectureImage.png, id=225, 1218.5525pt x 698.10812pt>
 File: Images/ABPSMobileNodeArchitectureImage.png Graphic file (type png)
 <use Images/ABPSMobileNodeArchitectureImage.png>
 Package pdftex.def Info: Images/ABPSMobileNodeArchitectureImage.png used on inp
-ut line 105.
+ut line 114.
 (pdftex.def)             Requested size: 390.0pt x 223.43112pt.
  [53 <./Images/ABPSMobileNodeArchitectureImage.png>]) [54]
 \openout2 = `TED.aux'.
@@ -948,37 +949,31 @@ Capitolo 4.
 
 
 ] [56] [57] [58]
-Underfull \hbox (badness 10000) in paragraph at lines 82--94
+Underfull \hbox (badness 10000) in paragraph at lines 84--96
 
  []
 
 [59]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 97.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 99.
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--115
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--135
+Underfull \hbox (badness 10000) in paragraph at lines 106--117
 
  []
 
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 118--137
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+ []
 
- [60]
-Underfull \vbox (badness 3646) has occurred while \output is active []
-
- [61]
-Overfull \hbox (32.90004pt too wide) in paragraph at lines 136--146
+[61]
+Overfull \hbox (32.90004pt too wide) in paragraph at lines 138--150
 \OT1/cmr/m/n/12 No-ti-fi-ca-tion vie-ne rea-liz-za-ta esten-den-do la strut-tu-
 ra di ti-po struct sock[]extended[]err
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--146
+Underfull \hbox (badness 10000) in paragraph at lines 138--150
 
  []
 
@@ -1021,7 +1016,14 @@ File: lstlang1.sty 2014/03/04 1.5c listings language file
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [73] [74] [75
+) [73] [74]
+
+LaTeX Warning: Citation `K3' on page 75 undefined on input line 128.
+
+
+LaTeX Warning: Citation `K4' on page 75 undefined on input line 128.
+
+[75
 
 
 
@@ -1059,25 +1061,28 @@ ing/sk[]buff
 ] [83
 
 ] (./Thesis.aux (./NetworkIntroduction.aux) (./KernelLinux.aux)
-(./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux)) ) 
+(./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux))
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 12912 strings out of 493117
- 217695 string characters out of 6135433
+ 12914 strings out of 493117
+ 217744 string characters out of 6135433
  438660 words of memory out of 5000000
- 16146 multiletter control sequences out of 15000+600000
+ 16148 multiletter control sequences out of 15000+600000
  13607 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,12n,56p,10416b,1390s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/loca
-l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local
-/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texliv
-e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-14/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Thesis.pdf (93 pages, 2158610 bytes).
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
+local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local
+/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on Thesis.pdf (93 pages, 2159111 bytes).
 PDF statistics:
  358 PDF objects out of 1000 (max. 8388607)
  232 compressed objects within 3 object streams
