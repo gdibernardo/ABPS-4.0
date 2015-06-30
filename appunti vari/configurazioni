@@ -187,7 +187,46 @@
 	(controllare che non sia invertito con 38, ma non dovrebbe)
 
 
+40
+	solo 
+	wait
 
+
+41
+	solo
+	no wait
+
+
+42
+	come 41 ma accendo rasp
+	rasp a 60/70
+
+43
+	come 42 ma Wait
+	andava lentino
+
+44 
+	la stessa del 43, volevo vedere se andava più veloce
+
+45
+	aggiunto mac a 80
+
+46
+	uguale a 45 ma no wait
+
+
+
+47
+	ipv4
+	rasp a 40
+	sembra lento
+
+48
+	ipv6, ma senza server
+	rasp a 40
+	vari --> error sending pack
+49
+	
 
 
 

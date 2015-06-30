@@ -2,12 +2,8 @@
 # -*- coding: UTF-8 -*-
 
 import json
-from pprint import pprint
 import sys
 
-maxTime=15
-totTime=0
-totNum=0
 tipo=-1
 nMa=0
 try:
@@ -21,13 +17,10 @@ with open(inputFile) as data_file:
 
 for el in data["pacchetti"]:
 	if el['type']==tipo:
-		#if el['ack'] == False :
-		#nMa=nMa+1
-		totTime=totTime+el["time"]
-		totNum=totNum+1
+		if el['ack'] == False :
+			nMa=nMa+1
+		
+print(nMa)
 
-media=totTime/totNum
-
-pprint(media)
 
 

@@ -301,14 +301,15 @@ Sfruttando gli script che abbiamo realizzato siamo in grado di esprimere delle v
 
 
 \begin{subsection}{Test effettuati}
-mettere la piantina di come erano i dispositivi
-dire la lunghezza dei pacchetti
+Per effettuare i test ci siamo basati sui parametri e sulle configurazioni scelti precedentemente. 
+La disposizione tipica della rete è quella in figura RIFERIMENTO DELLA FIGURA!!!!!
+In particolare, è stato usato il computer HP per svolgere la maggior parte dei test. 
+Per creare del traffico in rete, invece, sono stati generalmente utilizzati il Raspberry Pi 2 e la UDOO, con l'eventuale aggiunta di altri dispositivi ( come altri portatili o tablet ).
+\\
+Le prove sono state svolte principalmente a casa, ma anche presso il laboratorio Ercolani.
+Non sono state fatte prove attraverso la rete \emph{ALMAWIFI} in quanto gli access point bloccavano la comunicazione.
+Per ovviare al problema è stata creata un rete locale con l'uso del ZyXEL descritto precedentemente.
 
-quali dispositivi
-
-in quali luoghi?
-
- 
  
  
  
@@ -319,24 +320,84 @@ in quali luoghi?
 
 
 \begin{section}{Risultati}
-
+ATTENZIONE!!! I CAMPI DELLE TABELLE AL MOMENTO SONO ERRATI, PUÒ PERÒ ANDARE SE ANALIZZO IN QUESTO MODO I RISULTATI?
 Andiamo ora ad analizzare i risultati ottenuti.
+Per ogni parametro che vogliamo valutare andremo a valutare quanto può incidere nella trasmissione, lasciando inalterati tutti gli altri parametri.
+
+
+Per quanto riguarda IPv4 ed IPv6, andiamo ad analizzare i risultati relativi ai tempi di ricezioni della notifica proveniente dall'access point, la media dei \emph{NACK} e la media dei retry.
+In particolare si possono notare le medie dei tempi di IPv4 nella tabella ~\ref{tab:FirstTable} mentre quella di IPv6 nella tabella ~\ref{tab:FirstTableMuori}.
+
 
 \begin{table}[h]
 \centering
-\caption{Prima tabella}
-\label{FirstTable}
+\caption{Uso di IPv4}
+\label{tab:FirstTable}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
-prima  & 1  & 1 & 1 & 456 \\ \hline
-seconda & 1  & 1 & 1  & 1  \\ \hline
-terza & 1& 1 & 1 & 54  \\ \hline
-quarta & 1 & 1  & 1 & 54  \\ \hline \hline
-Media & 1 & 1  & 1 & 54  \\ \hline
+IPv4  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
+prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
+seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
+terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
+quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
+Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Uso di IPv6: tempi}
+\label{tab:FirstTableMuori}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+IPv4  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
+prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
+seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
+terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
+quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
+Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[h]
+\centering
+\caption{Tempi di ricezione di notifica in caso di recv bloccante}
+\label{WaitTable}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+WAIT  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
+prima  & 0.4736  & 0.6684 & 0.716 & 0.943 \\ \hline
+seconda & 0.4536  & 0.7096 & 1.027  & 0.7282  \\ \hline
+terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
+quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
+Media & 0.4821 & 0.66595  & 0.90885 & 0.952125  \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+\centering
+\caption{Tabella no wait}
+\label{FirstTable2}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+NO WAIT ERRATA!!!  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
+prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
+seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
+terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
+quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
+Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
 
 \end{tabular}
 \end{table}
+
+
+
 \end{section}
 
 

@@ -5,6 +5,8 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Prima tabella}}{74}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Uso di IPv4}}{74}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Tempi di ricezione di notifica in caso di recv bloccante}}{74}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Tabella no wait}}{75}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
