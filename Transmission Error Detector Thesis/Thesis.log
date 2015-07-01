@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  1 JUL 2015 19:13
+=======
+<<<<<<< HEAD
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.15)  30 JUN 2015 15:38
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 JUN 2015 15:11
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1006,20 +1014,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 282--285
 [72]
 Underfull \vbox (badness 6944) has occurred while \output is active []
 
+<<<<<<< HEAD
+ [73]
+Overfull \hbox (28.70325pt too wide) in paragraph at lines 335--344
+ [][] 
+ []
+
+=======
  [73])
 [74]
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
 
-LaTeX Warning: Citation `K3' on page 75 undefined on input line 128.
+Overfull \hbox (28.70325pt too wide) in paragraph at lines 353--362
+ [][] 
+ []
 
 
-LaTeX Warning: Citation `K4' on page 75 undefined on input line 128.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
+) [74] [75] [76
+
+
+
+]
+
+<<<<<<< HEAD
+LaTeX Warning: Citation `K3' on page 77 undefined on input line 128.
+=======
 [75
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
 
 
+LaTeX Warning: Citation `K4' on page 77 undefined on input line 128.
 
+[77
 
-] [76
+] [78
 
 ]
 Appendice A.
@@ -1029,14 +1059,14 @@ Overfull \hbox (1.39201pt too wide) in paragraph at lines 134--146
  , ed in-fat-ti l'ul-ti-ma pa-
  []
 
-[77] [78
+[79] [80
 
 ]
 Appendice B.
-[79]
+[81]
 \openout2 = `Bibliography.aux'.
 
- (./Bibliography.tex [80
+ (./Bibliography.tex [82
 
 
 ]
@@ -1045,16 +1075,31 @@ Overfull \hbox (30.17563pt too wide) in paragraph at lines 30--31
 ing/sk[]buff 
  []
 
+<<<<<<< HEAD
 [81]
 Underfull \hbox (badness 7116) in paragraph at lines 39--40
 \OT1/cmr/m/n/12 Tran-si-tion''; http://standards.ieee.org/getieee802/download/8
 02.11r-
+=======
+<<<<<<< HEAD
+) [83] [84
+
+
+
+] [85
+=======
+
+Underfull \hbox (badness 7704) in paragraph at lines 13--14
+\OT1/cmr/m/n/12 Tran-si-tion?; http://standards.ieee.org/getieee802/download/80
+2.11r-
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
  []
 
 ) [82] [83
 
 
 
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
 
 ] (./Thesis.aux (./NetworkIntroduction.aux) (./KernelLinux.aux)
 (./Architettura.aux) (./TED.aux) (./Test.aux) (./Bibliography.aux))
@@ -1063,8 +1108,31 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  12751 strings out of 493117
  216099 string characters out of 6135433
+=======
+<<<<<<< HEAD
+ 12841 strings out of 493304
+ 218320 string characters out of 6139871
+ 434655 words of memory out of 5000000
+ 16014 multiletter control sequences out of 15000+600000
+ 11590 words of font info for 45 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 45i,12n,56p,10441b,1251s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmtt12.pfb>
+Output written on Thesis.pdf (95 pages, 2159822 bytes).
+=======
+ 12739 strings out of 493117
+ 215887 string characters out of 6135433
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
  434660 words of memory out of 5000000
  15991 multiletter control sequences out of 15000+600000
  11590 words of font info for 45 fonts, out of 8000000 for 9000
@@ -1078,10 +1146,15 @@ local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
 al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
 l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local
 /texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+<<<<<<< HEAD
 Output written on Thesis.pdf (93 pages, 2163403 bytes).
+=======
+Output written on Thesis.pdf (93 pages, 2158905 bytes).
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
 PDF statistics:
- 358 PDF objects out of 1000 (max. 8388607)
- 232 compressed objects within 3 object streams
+ 364 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

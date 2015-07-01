@@ -1,0 +1,232 @@
+
+1
+	fisso da solo
+
+2
+	yas, da solo
+
+3
+	yas con pc simo su youtube
+
+4
+
+	
+5
+	rasp:4
+	yas: ~11
+	udoo: server
+
+	yas a udoo, rasp a udoo
+
+
+6:
+	aggiunge toshiba su youtube rispetto a 6
+	da questa forse il rasp non andava più
+
+7
+	aggiunge tablet su youtube
+
+8
+	come 7 ma in mov
+
+9
+	come 6 ma in mov
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10
+	rasp:0.3
+	yas:24
+	udoo:~10
+	vec: server eth
+	durante i test la udoo dimezza la velocità
+	alle 19.28/19.29 ERRORE!!! ha ricevuto fino al pkt 3975
+
+	Quello che ha finito alle 19.32 era senza file da udoo, ma quello che ha finito ai 33 è andato a manetta cmq
+	attenzione perchè potrebbero sballarmi i dati
+
+
+11
+	come la 10 ma in movimento. Però andava da schifo, ci deve essere stato qualche problema nella connessione
+
+
+12
+	rasp a 0.5
+	udoo 4
+	yas 23	(con chiavetta)
+
+
+13
+	rasp più veloce(?)
+
+
+14
+	yas 23
+	udoo 17
+	rasp 1.7
+
+
+15
+	14 con yas in mov
+	è andato molto veloce
+
+
+
+17
+	test fatto in lab, abbiamo cambiato parecchie cose quindi non guardarlo.
+
+18
+	da solo in lab, con wait
+	pacchetti da 1050
+	NON GUARDARE 
+
+19
+	NON GUARDARE 
+	da solo in lab, con no_wait
+	pkt 1050
+  
+20
+	TEST A CASO
+
+21
+	PKT 1050
+	NO-WAIT
+
+22
+	PKT 1050
+	WAIT
+
+23
+
+	come 22 ma con rasp a circa 70 M
+
+24
+	come 24 ma con rasp a circa 70Ms
+	non cambia un cazzo, mi ero sbagliato
+
+25
+
+	come 24 con rasp a 9 o 10
+
+26
+	no wait rasp a 9 o 10
+
+
+
+27
+	come 26 ma con rasp a 
+
+
+28
+	no wait, rasp a 5
+
+
+
+29
+
+
+	wait rasp a 5
+
+
+
+
+30
+	non guardare
+
+31
+	wait
+	rasp a 70
+	yas senza chiavetta
+
+32
+	non guardare
+
+33
+	in recv non stampo tutto il msg
+
+34
+	non guardare
+
+35
+	rasp a 14 (con tutti collegati) altrimenti sulla quarantina o più (in realtà va un po' come cazzo gli pare)
+	udoo a circa 8, ma anche ad 1,,3,4....
+	va molto molto lento
+	
+
+36
+	come 35,
+	arrivato solo ai primi 61 pacchetti
+	poi 5000
+	poi 2552
+	in mezzo c'è finito anche qualcuno del 37, puttanazza eva ---> cancellarli!!!
+
+37
+	spengo rasp
+	udoo a circa 6
+	va a busso
+
+38
+	rasp acceso
+
+39
+	da solo
+	(controllare che non sia invertito con 38, ma non dovrebbe)
+
+
+40
+	solo 
+	wait
+
+
+41
+	solo
+	no wait
+
+
+42
+	come 41 ma accendo rasp
+	rasp a 60/70
+
+43
+	come 42 ma Wait
+	andava lentino
+
+44 
+	la stessa del 43, volevo vedere se andava più veloce
+
+45
+	aggiunto mac a 80
+
+46
+	uguale a 45 ma no wait
+
+
+
+47
+	ipv4
+	rasp a 40
+	sembra lento
+
+48
+	ipv6, ma senza server
+	rasp a 40
+	vari error sending
+49
+	
+
+
+
