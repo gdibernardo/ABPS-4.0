@@ -319,46 +319,172 @@ Per ovviare al problema è stata creata un rete locale con l'uso del ZyXEL descri
 \end{section}
 
 
-\begin{section}{Risultati}
-ATTENZIONE!!! I CAMPI DELLE TABELLE AL MOMENTO SONO ERRATI, PUÒ PERÒ ANDARE SE ANALIZZO IN QUESTO MODO I RISULTATI?
+\begin{section}{Analisi dei risultati}
 Andiamo ora ad analizzare i risultati ottenuti.
-Per ogni parametro che vogliamo valutare andremo a valutare quanto può incidere nella trasmissione, lasciando inalterati tutti gli altri parametri.
+Le analisi che abbiamo effettuato riguardano la qualità della trasmissione, i tempi medi di ricezione di una notifica proveniente dall'access point, il numero medio di NACK ricevuti e la media dei retry per l'invio dei pacchetti.
+Andremo anche ad aggiungere una ulteriore analisi per la configurazione in movimento, che saranno i \emph{burst NACK} ( ovvero quanti NACK consecutivi sono notificati ).
 
 
-Per quanto riguarda IPv4 ed IPv6, andiamo ad analizzare i risultati relativi ai tempi di ricezioni della notifica proveniente dall'access point, la media dei \emph{NACK} e la media dei retry.
-In particolare si possono notare le medie dei tempi di IPv4 nella tabella ~\ref{tab:FirstTable} mentre quella di IPv6 nella tabella ~\ref{tab:FirstTableMuori}.
+Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere nella trasmissione, lasciando inalterati tutti gli altri parametri.
 
 
-\begin{table}[h]
-\centering
-\caption{Uso di IPv4}
-\label{tab:FirstTable}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-IPv4  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
-prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
-seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
-terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
-quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
-Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
-\end{tabular}
-\end{table}
+%MENGO: aggiungere che abbiamo messo solo alcuni dati,
 
 
-\begin{table}[h]
-\centering
-\caption{Uso di IPv6: tempi}
-\label{tab:FirstTableMuori}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-IPv4  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
-prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
-seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
-terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
-quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
-Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
-\end{tabular}
-\end{table}
+
+\begin{subsection}{Confronto tra IPv4 e IPv6}
+  
+  
+  Per quanto riguarda IPv4 ed IPv6, andiamo ad analizzare i risultati relativi ai tempi di ricezioni della notifica proveniente dall'access point, la media dei \emph{NACK} e la media dei retry.
+  In particolare si possono notare le medie dei tempi di IPv4 nella tabella ~\ref{tab:AvgTimeIPv4} mentre quella di IPv6 nella tabella ~\ref{tab:AvgTimeIPv6}.
+  Poi faccio i confronti anche con gli altri e ci metto le tabelle. Dopo aver messo le tabelle commento quei cazzo di risultati.
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei tempi relativi all'utilizzo di IPv4}
+  \label{tab:AvgTimeIPv4}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  IPv4  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
+  prima  & 6.234  & 5.624 & 5.5952 & 2.8068  & 4.9292\\ \hline
+  seconda & 7.8972  & 5.2736 & 4.7432  & 4.5024 &  2.9844\\ \hline
+  terza & 7.3208 & 2.0812 & 4.0432 & 6.0316 & 4.7292\\ \hline
+  quarta & 7.627 & 5.906  & 3.4704 & 5.7504 & 6.7728  \\ \hline \hline
+  Media & 7.26975 & 4.7212  & 4.463 & 4.7728 & 4.8539  \\ \hline
+  \end{tabular}
+  \end{table}
+
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei tempi relativi all'utilizzo di IPv6}
+  \label{tab:AvgTimeIPv6}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
+  prima  & 5.44  & 6.508 & 4.9788 & 5.338 & 6.2316 \\ \hline
+  seconda & 6.8998  & 6.5516 & 5.5684  & 4.5024 & 4.7456 \\ \hline
+  terza & 6.177 & 7.6788 & 5.9008 & 6.0316 &  6.1744 \\ \hline
+  quarta & 5.9642 & 5.6636  & 4.9396 & 5.5612 & 4.0648 \\ \hline \hline
+  Media & 6.12025 & 6.6005  & 5.3469 & 5.3583 & 5.3041 \\ \hline
+  \end{tabular}
+  \end{table}
+
+  Guardando le medie dei tempi si può notare come non ci sia una sostanziale differenza tra le due versioni. 
+  Questo è ragionevole in quanto sono stati testati pacchetti di dimensione ridotta, in modo da non avere frammentazione.
+  Si possono ora controllare anche le statistiche relative al numero di retry dei pacchetti che ricevono ACK, sia per IPv4 che per IPv6.
+  Ci si aspetta anche in questo caso che i valori siano simili.
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei retry relativi all'utilizzo di IPv4}
+  \label{tab:AvgRetryIPv4}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  IPv4  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
+  prima  & 0.03962  & 0.156 & 0.26683 & 0.13731  & 0.127105\\ \hline
+  seconda & 0.08884 & 0.16 & 0.1312  & 0.077787 &  0.14097\\ \hline
+  terza & 0.08545 & 0.246894 & 0.193264 & 0.1642628 & 0.134454\\ \hline
+  quarta & 0.093838 & 0.1536  & 0.242983 & 0.108844 & 0.15459  \\ \hline \hline
+  Media & 0.076937 & 0.1791235  &  0.20856925 & 0.12205095 & 0.13927975  \\ \hline
+  \end{tabular}
+  \end{table}
+
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei retry relativi all'utilizzo di IPv6}
+  \label{tab:AvgRetryIPv6}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
+  prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 & 0.1432\\ \hline
+  seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144 & 0.17508 \\ \hline
+  terza & 0.04641 & 0.0556 & 0.096 & 0.11307 &  0.1484\\ \hline
+  quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508 & 0.120144 \\ \hline \hline
+  Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398 & 0.146706  \\ \hline
+  \end{tabular}
+  \end{table}
+
+
+  Analizzando le medie dei retry dalle tabelle~\ref{tab:AvgRetryIPv4} e~\ref{tab:AvgRetryIPv6} possiamo osservare che effettivamente non ci sono sostanziali differenze.
+  L'unica differenza di configurazione è ottenuta nella Conf. 6, ma è dovuta principalmente ad una prova che ha alzato il valore.
+  Visto che una singola prova può essere rallentata da diversi fattori, possiamo valutare le diverse versioni come identiche in caso di mancata frammentazione.
+  %MENGO: conviene (e ha senso)  dire che l'app potrebbe decidere di mandare in IPv4 o ipv6 se si accorge di comportamenti strani (tipo rallentati in ipv4) in casi di frammentazione??? 
+
+\end{subsection}
+
+\begin{subsection}
+  Una seconda osservazione si può fare su una attenta analisi riguardo al numero di pacchetti e di hosts sulla rete.
+  In particolare vogliamo analizzare i tempi, i NACK ed i retry relativi alla presenza di un host che trasmette N pacchetti rispetto a K hosts che trasmettono N/K pacchetti ciascuno.
+  La prove sono state effettuate con il nodo da solo nella rete, un host sulla rete che trasmette 71 MB, due hosts che trasmettono 36 MB ciascuno e tre hosts che trasmettono 22 MB ciascuno.
+
+
+
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei tempi rispetto al numero di pacchetti}
+  \label{tab:AvgTimePkts}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
+  prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 & 0.1432\\ \hline
+  seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144 & 0.17508 \\ \hline
+  terza & 0.04641 & 0.0556 & 0.096 & 0.11307 &  0.1484\\ \hline
+  quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508 & 0.120144 \\ \hline \hline
+  Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398 & 0.146706  \\ \hline
+  \end{tabular}
+  \end{table}
+
+  Analizzando i tempi della tabella~\ref{tab:AvgTimePkts} si può notare che 
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei retry rispetto al numero di pacchetti}
+  \label{tab:AvgRetryPkts}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8  \\ \hline
+  prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 \\ \hline
+  seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144  \\ \hline
+  terza & 0.04641 & 0.0556 & 0.096 & 0.11307 \\ \hline
+  quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508  \\ \hline \hline
+  Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398   \\ \hline
+  \end{tabular}
+  \end{table}
+
+
+
+
+
+
+
+  
+\end{subsection}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
