@@ -22,53 +22,68 @@
 %
 %\begin{document}
 \begin{chapter}{Lo stack di rete}
-In questo capitolo si vuole presentare la suite di protocolli utilizzata nel progetto di tesi. Verrà descritto brevemente il modello ISO/OSI per poi soffermarsi con particolare attenzione sulla tecnologia Wi-Fi e sui protocolli toccati dal progetto di tesi.
-ISO/OSI è uno standard che definisce un modello composto su più livelli: ogni \emph{layer} si occupa di uno specifico aspetto delle comunicazioni di rete fornendo delle funzionalità a livello superiore e sfruttando le astrazioni fornite dal livello immediatamente inferiore. In questo modo è possibile ridurre la complessità non banale delle comunicazioni di rete. 
+In questo capitolo si vuole presentare la suite di protocolli utilizzata nel progetto di tesi.
+\\
+Verrà descritto brevemente il modello ISO/OSI per poi soffermarsi con particolare attenzione sulla tecnologia Wi-Fi e sui protocolli toccati dal progetto di tesi.
+\\
+ISO/OSI è uno standard che definisce un modello composto su più livelli: ogni \emph{layer} si occupa di uno specifico aspetto delle comunicazioni di rete fornendo delle funzionalità a livello superiore e sfruttando le astrazioni fornite dal livello immediatamente inferiore.
+\\
+In questo modo è possibile ridurre la complessità non banale delle comunicazioni di rete. 
 
 %ISO/OSI and TCP/IP
 \begin{section}{Il modello ISO/OSI}
-Il modello OSI (Open System Interconnection) è uno standard per le reti di calcolatori stabilito da ISO (International Standard Organization) che definisce l'architettura logica di rete come una struttura a strati composta da una pila di protocolli di comunicazione di rete suddivisa in 7 livelli, i quali insieme espletano in maniera logico-gerarchica tutte le funzionalità della rete. Ciascun layer racchiude in sé a livello logico uno o più aspetti fra loro correlati della comunicazione fra due nodi di una rete. I layers vanno dal livello fisico (quello del mezzo fisico, ossia del cavo o delle onde radio) fino al livello delle applicazioni, attraverso cui si realizza la comunicazione di alto livello. Come già accennato ciascun livello fornisce servizi e funzionalità al livello superiore utilizzando le astrazioni fornite dal livello inferiore. Ma vediamo brevemente le funzioni di ciascun livello all'interno dello stack ISO/OSI.
+Il modello OSI (Open System Interconnection)\cite{ISOOSIBibliography} è uno standard per le reti di calcolatori stabilito da ISO (International Standard Organization) che definisce l'architettura logica di rete come una struttura a strati composta da una pila di protocolli di comunicazione di rete suddivisa in 7 livelli, i quali insieme espletano in maniera logico-gerarchica tutte le funzionalità della rete.
+\\
+Ciascun layer racchiude in sé, a livello logico, uno o più aspetti fra loro correlati della comunicazione fra due nodi di una rete. 
+\\
+I layers vanno dal livello fisico (quello del mezzo trasmissivo, ossia del cavo twisted pair o delle onde radio) fino al livello delle applicazioni, attraverso cui si realizza la comunicazione di alto livello. Come già accennato ciascun livello fornisce servizi e funzionalità al livello superiore utilizzando le astrazioni fornite dal livello inferiore. Ma vediamo brevemente le funzioni di ciascun livello all'interno dello stack ISO/OSI.
 \\
 %Physical Layer
 \begin{paragraph}{Physical Layer}
 Si occupa di trasmettere dati non strutturati attraverso un mezzo fisico e di controllare la rete, gli hardware che la compongono e i dispositivi che permettono la connessione.
-In questo livello vengono decisi diversi aspetti legati al mezzo fisico come ad esempio le tensioni scelte per rappresentare i valori logici dei bit trasmessi, la durata in microsecondi del segnale che identifica un bit, la modulazione e la codifica utilizzata e l'eventuale trasmissione simultanea in due direzioni (duplex).
+In questo livello vengono decisi diversi aspetti legati al mezzo fisico come ad esempio le tensioni scelte per rappresentare i valori logici dei bit trasmessi, la durata in microsecondi del segnale che identifica un bit, la modulazione e la codifica utilizzata e l'eventuale trasmissione simultanea in due direzioni ( full-duplex ).
 \end{paragraph}
 %Datalink Layer
 \begin{paragraph}{Datalink Layer}
-Questo livello si occupa in primis di formare i dati da inviare attraverso il livello fisico, incapsulando il pacchetto proveniente dallo strato superiore in un nuovo pacchetto provvisto di un nuovo header (intestazione) e tail (coda). Questa frammentazione dei dati in specifici pacchetti è detta framing e i singoli pacchetti sono chiamati \emph{frame}.
-Il livello Datalink effettua inoltre un controllo degli errori e delle perdite di segnale in modo tale da far apparire, al livello superiore, il mezzo fisico come una linea di trasmissione esente da errori di trasmissione.
+Questo livello si occupa in primis di formare i dati da inviare attraverso il livello fisico, incapsulando il pacchetto proveniente dallo strato superiore in un nuovo pacchetto provvisto di un nuovo header ( intestazione ) e tail ( coda ). Questa frammentazione dei dati in specifici pacchetti è detta \emph{framing} e i singoli pacchetti sono chiamati \emph{frame}.
+\\
+Il livello Datalink effettua, inoltre, un controllo degli errori e delle perdite di segnale in modo tale da far apparire, al livello superiore, il mezzo fisico come una linea di trasmissione esente da errori di trasmissione.
 \end{paragraph}
 %Network Layer
 \begin{paragraph}{Network Layer}
 Si occupa di rendere i livelli superiori indipendenti dai meccanismi e dalle tecnologie di trasmissione usate per la connessione e prendersi carico della consegna a destinazione dei pacchetti.
-È responsabile del \emph{routing} ovvero della scelta ottimale del percorso di rete da utilizzare per garantire la consegna delle informazioni dal mittente al destinatario, scelta svolta dal router attraverso dei particolari algoritmi di routing e tabelle di routing. È responsabile inoltre della conversione dei dati nel passaggio fra una rete ed un'altra con diverse caratteristiche, come il protocollo di rete utilizzato: si deve occupare quindi di tradurre gli indirizzi di rete, valutare la necessità di frammentare i pacchetti dati se la nuova rete ha una diversa Maximum Transmission Unit (MTU) e di valutare la necessità di gestire diversi protocolli attraverso l'impiego di gateway. L'unità dati fondamentale è il pacchetto o \emph{datagram}.
+È responsabile del \emph{routing} ovvero della scelta ottimale del percorso di rete da utilizzare per garantire la consegna delle informazioni dal mittente al destinatario, scelta svolta dal router attraverso dei particolari algoritmi di routing e tabelle di routing.
+\\
+È responsabile inoltre della conversione dei dati nel passaggio fra una rete ed un'altra con diverse caratteristiche, come ad esempio reti che adottano diversi protocolli di rete: si deve occupare quindi di tradurre gli indirizzi di rete, valutare la necessità di frammentare i pacchetti dati se la nuova rete ha una diversa Maximum Transmission Unit (MTU) e di valutare la necessità di gestire diversi protocolli attraverso l'impiego di gateway. L'unità dati fondamentale è il pacchetto o \emph{datagram}.
 \end{paragraph}
 %Transport Layer
 \begin{paragraph}{Transport Layer}
-Permettere un trasferimento di dati trasparente e affidabile (implementando anche un controllo degli errori e delle perdite) tra due host. È il primo livello realmente end-to-end, cioè da host sorgente a destinatario. Si occupa di stabilire, mantenere e terminare una connessione, garantendo il corretto e ottimale funzionamento della sottorete di comunicazione nonché del controllo della congestione: evitare che troppi pacchetti dati arrivino allo stesso router contemporaneamente con effetto di perdita di pacchetti stessi.
+Permettere un trasferimento di dati trasparente e affidabile (implementando anche un controllo degli errori e delle perdite) tra due host. 
+\\
+È il primo livello realmente end-to-end, cioè da host sorgente a destinatario. Si occupa di stabilire, mantenere e terminare una connessione, garantendo il corretto e ottimale funzionamento della sottorete di comunicazione nonché del controllo della congestione: si occupa, cioè, di evitare che troppi pacchetti dati arrivino allo stesso router contemporaneamente causando così una perdita dei pacchetti stessi.
+\\
 A differenza dei livelli precedenti, che si occupano di connessioni tra nodi contigui di una rete, il Transport Layer si occupa solo del punto di partenza e di quello finale.
-Si occupa anche di effettuare la frammentazione dei dati provenienti dal livello superiore in pacchetti, detti "segmenti" e trasmetterli in modo efficiente ed affidabile usando il livello rete ed isolando da questo i livelli superiori. Inoltre, si preoccupa di ottimizzare l'uso delle risorse di rete e di prevenire la congestione.
+Si occupa anche di effettuare la frammentazione dei dati provenienti dal livello superiore in pacchetti, detti generalmente \emph{segmenti}, e trasmetterli in modo efficiente ed affidabile usando il livello rete ed isolando da questo i livelli superiori. Inoltre, si preoccupa di ottimizzare l'uso delle risorse di rete e di prevenire la congestione.
 \end{paragraph}
 %Session Layer
 \begin{paragraph}{Session Layer}
-Consente di aggiungere, ai servizi forniti dal livello di trasporto, servizi più avanzati, quali la gestione del dialogo (mono o bidirezionale), la gestione del token (per effettuare mutua esclusione) o la sincronizzazione (inserendo dei checkpoint in modo da ridurre la quantità di dati da ritrasmettere in caso di gravi malfunzionamenti).
+Consente di aggiungere, ai servizi forniti dal livello di trasporto, servizi più avanzati, quali la gestione del dialogo ( mono o bidirezionale ), la gestione del token (per effettuare mutua esclusione) o la sincronizzazione ( inserendo dei checkpoint in modo da ridurre la quantità di dati da ritrasmettere in caso di gravi malfunzionamenti ).
 Si occupa anche di inserire dei punti di controllo nel flusso dati: in caso di errori nell'invio dei pacchetti, la comunicazione riprende dall'ultimo punto di controllo andato a buon fine.
 \end{paragraph}
 %Presentation Layer
 \begin{paragraph}{Presentation Layer}
-Si occupa di trasformare i dati forniti dalle applicazioni in un formato standardizzato e offrire servizi di comunicazione comuni, come la crittografia, la compressione del testo e la riformattazione.
+Si occupa di trasformare i dati forniti dalle applicazioni in un formato standard e di offrire servizi di comunicazione comuni, come la crittografia, la compressione del testo e la riformattazione.
 \end{paragraph}
 %Application Layer
 \begin{paragraph}{Application Layer}
-Il livello Applicazione è quello più vicino al livello utente fornisce quindi un interfaccia tra le applicazioni e lo stack di rete sottostante che si occupa dell'invio di messaggi. I protocolli di livello applicazione si occupano quindi dello scambio di informazioni tra apps in esecuzione sull'host sorgente e quello destinatario della comunicazione.
+Il livello Applicazione è quello più vicino al livello utente fornisce e quindi un interfaccia tra le applicazioni e lo stack di rete sottostante che si occupa dell'invio di messaggi. I protocolli di livello applicazione si occupano quindi dello scambio di informazioni tra apps in esecuzione sull'host sorgente e quello destinatario della comunicazione.
 \end{paragraph}
 \end{section}
 %ISO/OSI vs TCP/IP
 \begin{section}{ISO/OSI vs TCP/IP}
 TCP/IP sviluppato inizialmente dal dipartimento della difesa americano e utilizzato nei primi computer UNIX-based attualmente è lo \emph{standard de facto} per tutte le comunicazioni internet. 
 \\
-TCP/IP, come l'OSI model, è strutturato su più livelli alcuni molto simili per caratteristiche e funzionalità a quelli di ISO/OSI: TCP/IP accorpa in un unico layer funzionalità contenute su più livelli del modello OSI. 
+TCP/IP, come l'OSI model, è strutturato su più livelli alcuni dei quali molto simili per caratteristiche e funzionalità a quelli di ISO/OSI: TCP/IP accorpa in un unico layer funzionalità contenute su più livelli del modello OSI. 
 \\
 \\
 TCP/IP è l'approccio utilizzato in ogni tipo di comunicazione internet. L'obbiettivo di ISO/OSI invece è quello fornire uno standard da usare come guideline per la definizione di protocolli e applicazioni internet.
@@ -87,7 +102,9 @@ I layer nello stack TCP/IP sono quattro e sono così organizzati rispetto al mode
 \end{section}
 
 \begin{section}{Wi-Fi}
-Wi-Fi indica una tecnologia che consente a calcolatori collocati su di una stessa WLAN ( Wireless Local Area Network ) di comunicare senza fili attraverso specifiche frequenze di onde radio. Sempre più dispositivi dispongono di interfacce di rete Wi-Fi dai laptop, gli smartphone fino agli elettrodomestici di ultima generazione che possono essere così interconnessi entro un certo raggio di copertura. La tecnologia Wi-Fi può essere usata per fornire connettività internet ai dispositivi presenti nel raggio di copertura della WLAN se la Local Area Network è connessa a internet. % menzionare ISP ???????!!! BOOOOHHH
+Wi-Fi indica una tecnologia che consente a calcolatori collocati su di una stessa WLAN ( Wireless Local Area Network ) di comunicare senza fili attraverso specifiche frequenze di onde radio secondo le specifiche dello standard \textbf{IEEE 802.11}. Sempre più dispositivi dispongono di interfacce di rete Wi-Fi: dai laptop, agli smartphone fino agli elettrodomestici di ultima generazione che possono essere così interconnessi entro un certo raggio di copertura.
+\\
+a tecnologia Wi-Fi può essere usata per fornire connettività internet ai dispositivi presenti nel raggio di copertura della WLAN se la Local Area Network è connessa a internet. % menzionare ISP ???????!!! BOOOOHHH
 \\
 \begin{subsection}{WLAN architecture and types}
 L'architettura di una WLAN è caratterizzata da diverse componenti.
@@ -95,8 +112,8 @@ L'architettura di una WLAN è caratterizzata da diverse componenti.
 In una WLAN ciascun dispositivo munito di Wireless Network Interface Controllers (WNICs) e che quindi può comunicare senza fili è detto stazione.
 Vi sono due categorie di stazioni:
 \begin{itemize}
-\item Access Points (AP) ovvero dispositivi elettronici che ricevono/trasmettono segnali radio da/verso nodi mobili equipaggiati con schede di rete Wi-Fi.
-\item Clients tutti i nodi mobili che possono essere equipaggiati con una wireless network interface come ad esempio laptops, smartphones, workstations.
+\item \textbf{Access Points (AP)} ovvero dispositivi elettronici che ricevono/trasmettono segnali radio da/verso nodi mobili equipaggiati con schede di rete Wi-Fi.
+\item \textbf{Clients}, tutti i nodi mobili che possono essere equipaggiati con una wireless network interface come ad esempio laptops, smartphones o workstations.
 \end{itemize}
 \end{paragraph}
 
@@ -141,7 +158,7 @@ Per quanto concerne le performance lo stream data rate può arrivare fino a 780 M
 
 %Physical Layer in 802.11
 \begin{subsection}{Physical Layer in 802.11}
-Come già detto IEEE 802.11 utilizza le bande di frequenza  2.4 e 5 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
+Come già detto IEEE 802.11\cite{IEEE802dot11Bibliography} utilizza le bande di frequenza  2.4 e 5 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
 \end{subsection}
 
 %MAC Media Access Control
@@ -249,7 +266,7 @@ Questo approccio presenta due grandi difetti. Innanzitutto fornisce solamente un
 \end{paragraph}
 %WEP
 \begin{paragraph}{WEP ( Wired Equivalent Privacy )}
-WEP ( Wired Equivalent Privacy ) è stato il primo protocollo di sicurezza definito nello standard IEEE 802.11. L'obbiettivo di WEP è quello di garantire confidenzialità e integrità del traffico trasmesso in maniera wireless. Il nome è dovuto al fatto che WEP è stato pensato per fornire confidenzialità sui dati trasmessi paragonabile a quella delle reti cablate.
+WEP ( Wired Equivalent Privacy )\cite{SecurityBibliography} è stato il primo protocollo di sicurezza definito nello standard IEEE 802.11. L'obbiettivo di WEP è quello di garantire confidenzialità e integrità del traffico trasmesso in maniera wireless. Il nome è dovuto al fatto che WEP è stato pensato per fornire confidenzialità sui dati trasmessi paragonabile a quella delle reti cablate.
 \\
 WEP sfrutta il cifrario a chiave simmetrica RC4 con chiave a 64 o 128 bit. La chiave WEP utilizzata è la concatenazione di due valori: il primo dinamico detto Initialization Vector (IV) e la seconda parte statica corrispondente alla chiave segreta condivisa. Il vettore di inizializzazione è una sequenza di 24 bit generata casualmente al momento dell'invio del frame da parte dell'interfaccia di rete ( per ogni trasmissione verrà generato un IV in quanto RC4 è un \emph{cifrario a flusso} ). A seconda della lunghezza della WEP key la chiave segreta condivisa sarà quindi lunga 40 bit nel caso di una WEP key di 64 bit oppure 104 bit nel caso di una chiave a 128 bit. 
 \\
@@ -261,7 +278,7 @@ A partire dal 2003 questo approccio non è più considerato sicuro a causa dalle n
 \end{paragraph}
 %WPA
 \begin{paragraph}{WPA ( Wi-Fi Protected Access)}
-Una volta scoperte le falle che affliggevano WEP è iniziato lo sviluppo del protocollo IEEE 802.11i, un nuovo standard considerato pienamente sicuro. Nel frattempo viene rilasciato dalla Wi-Fi Alliance WPA ( Wi-Fi Protected Access ) che soddisfa molte delle linee guide di IEEE 802.11i
+Una volta scoperte le falle che affliggevano WEP è iniziato lo sviluppo del protocollo IEEE 802.11i, un nuovo standard considerato pienamente sicuro. Nel frattempo viene rilasciato dalla Wi-Fi Alliance WPA ( Wi-Fi Protected Access )\cite{SecurityBibliography} che soddisfa molte delle linee guide di IEEE 802.11i
 Il WPA è caratterizzato da tre componenti principali:
 \begin{itemize}
 \item TKIP (Temporal Key Integrity Protocol), è la componente che più va a sostituire la logica di WEP risolvendo la maggior parte delle sue vulnerabilità. Una delle innovazioni più importanti è quella che ogni messaggio trasmesso viene cifrato con una chiave diversa in modo tale da non esporre la chiave principale.
@@ -283,7 +300,7 @@ In una rete che adotta 802.1x un nodo deve prima autenticarsi prima di poter acc
 \end{paragraph}
 %WPA2
 \begin{paragraph}{IEEE 802.11i (a.k.a. WPA2)}
-La più sostanziale differenza tra WPA e IEEE 802.11i (WPA2) è che 802.11i adotta AES (Advanced-Encription Standard) per cifrare i frame. AES è un algoritmo di cifratura a blocchi che rappresenta lo stato dell'arte per quel che riguarda algoritmi di cifratura. L'unico inconveniente è che le schede di rete che supportano esclusivamente WEP non possono essere aggiornate via software per supportare AES e quindi IEEE 802.11i. Se una rete volesse adottare IEEE 802.11i tutte le stazioni dovrebbero montare hardware di rete compatibile con WPA2. 
+La più sostanziale differenza tra WPA e IEEE 802.11i (WPA2)\cite{SecurityBibliography} è che 802.11i adotta AES (Advanced-Encription Standard) per cifrare i frame. AES è un algoritmo di cifratura a blocchi che rappresenta lo stato dell'arte per quel che riguarda algoritmi di cifratura. L'unico inconveniente è che le schede di rete che supportano esclusivamente WEP non possono essere aggiornate via software per supportare AES e quindi IEEE 802.11i. Se una rete volesse adottare IEEE 802.11i tutte le stazioni dovrebbero montare hardware di rete compatibile con WPA2. 
 \end{paragraph}
 \end{subsection}
 \end{section}
@@ -292,7 +309,7 @@ La più sostanziale differenza tra WPA e IEEE 802.11i (WPA2) è che 802.11i adotta
 \begin{section}{Livello Network}
 Qui in seguito verranno presentati i principali protocolli utilizzati a livello rete ovvero il terzo livello dello stack ISO/OSI.
 \begin{subsection}{IPv4}
-IPv4 (Internet Protocol version 4), come descritto nel RFC 791 dell'IETF del 1981, è un protocollo connectionless per l'uso su reti a commutazione di pacchetto, come ad esempio Ethernet. È un protocollo di tipo \emph{best-effort} ovvero non viene garantita l'effettiva consegna o se i pacchetti saranno recapitati nel giusto ordine oppure duplicati. I pacchetti scambiati a livello network sono detti \emph{datagram}. 
+IPv4 (Internet Protocol version 4)\cite{IPv4Bibliography}, come descritto nel RFC 791 dell'IETF del 1981, è un protocollo connectionless per l'uso su reti a commutazione di pacchetto, come ad esempio Ethernet. È un protocollo di tipo \emph{best-effort} ovvero non viene garantita l'effettiva consegna o se i pacchetti saranno recapitati nel giusto ordine oppure duplicati. I pacchetti scambiati a livello network sono detti \emph{datagram}. 
 \begin{paragraph}{Indirizzi IPv4}
 IPv4 utilizza indirizzi a 32 bit ( suddivisi in quattro gruppi da un byte tramite la \emph{decimal dotted notation} ) per identificare univocamente un singolo host . Molti degli indirizzi IP sono però riservati per scopi particolari ( reti domestiche o indirizzi di \emph{multicast} ) facendo si che l'effettivo \emph{pool} di indirizzi IP disponibili sia piuttosto ridotto in confronto alla diffusione degli ultimi anni dei dispositivi che possono connettersi alla rete. 
 \\
@@ -349,7 +366,7 @@ Uno dei compiti caratteristici del livello rete è il \emph{routing} ovvero decid
 \end{subsection}
 
 \begin{subsection}{IPv6}
-Internet Protocol version 6 è la versione più recente dell'Internet Protocol formalizzato nel 1998 da IETF a seguito della recente crescita esponenziale dei dispositivi che accedono ad internet. IPv6 adotta indirizzi a 128 bit fornendo così $2^{128}$ indirizzi ovvero circa 3,4 x $10^{38}$ indirizzi. I protocolli IPv4 e IPv6 non sono stati progettati per essere interoperabili complicando così la transizione verso l'ultima versione dell'Internet Protocol seppure siano stati ideati dei meccanismi di transizione da un protocollo verso l'altro. Tuttavia la migrazione completa verso IPv6 dovrebbe venire nel 2025 con la deprecazione definitiva di IPv4.
+Internet Protocol version 6\cite{IPv6Bibliography} è la versione più recente dell'Internet Protocol formalizzato nel 1998 da IETF a seguito della recente crescita esponenziale dei dispositivi che accedono ad internet. IPv6 adotta indirizzi a 128 bit fornendo così $2^{128}$ indirizzi ovvero circa 3,4 x $10^{38}$ indirizzi. I protocolli IPv4 e IPv6 non sono stati progettati per essere interoperabili complicando così la transizione verso l'ultima versione dell'Internet Protocol seppure siano stati ideati dei meccanismi di transizione da un protocollo verso l'altro. Tuttavia la migrazione completa verso IPv6 dovrebbe venire nel 2025 con la deprecazione definitiva di IPv4.
 \\
 IPv6 oltre a estendere lo spazio di indirizzamento porta con se alcune nuove feature come la dimensione fissa dell'header a 40 byte, datagram non frammentabili dai router e la rimozione del checksum dall'header (ridondate in quanto presente in altri layer dello stack di rete).
 Inoltre è stati aggiunto il supporto nativo alla sicurezza (IPsec) e inseriti meccanismi di autoconfigurazione come ad esempio ARP. 
@@ -403,7 +420,7 @@ Uno dei diversi protocolli di livello trasporto è il TCP (Transmission Control P
 Considerato lo scenario e il contesto di questa tesi il protocollo di livello trasporto che più è degno di approfondimento è il protocollo UDP.
 %UDP Protocol
 \begin{paragraph}{Protocollo UDP}
-Il protocollo UDP (User Datagram Protocol, RFC 768 INSERIRE NOTEEEE ) è un protocollo di livello trasporto connection-less e best-effort cioè non assicura che un pacchetto sia effettivamente consegnato a destinazione. Applicazioni in esecuzione su host differenti possono scambiarsi messaggi, detti datagram, consegnandoli su appositi socket dedicati. Essendo un protocollo inaffidabile una volta inviato un datagram verso la rete l'applicazione sorgente non potrà mai sapere se effettivamente è stato consegnato a destinazione o meno. Ciascun datagram inviato è indipendente dai restanti datagram inviati ed inoltre non viene effettuata alcun tipo di frammentazione a livello trasporto. Non viene effettuato alcun tipo di controllo nemmeno per quanto riguarda l'ordine con cui i pacchetti vengono ricevuti dall'end-system. Tutti questi motivi UDP è un protocollo molto leggero e veloce ideale per applicazioni che necessitano di interattività così come ad esempio servizi di streaming audio/video in real-time. 
+Il protocollo UDP (User Datagram Protocol)\cite{UDPBibliography} è un protocollo di livello trasporto connection-less e best-effort cioè non assicura che un pacchetto sia effettivamente consegnato a destinazione. Applicazioni in esecuzione su host differenti possono scambiarsi messaggi, detti datagram, consegnandoli su appositi socket dedicati. Essendo un protocollo inaffidabile una volta inviato un datagram verso la rete l'applicazione sorgente non potrà mai sapere se effettivamente è stato consegnato a destinazione o meno. Ciascun datagram inviato è indipendente dai restanti datagram inviati ed inoltre non viene effettuata alcun tipo di frammentazione a livello trasporto. Non viene effettuato alcun tipo di controllo nemmeno per quanto riguarda l'ordine con cui i pacchetti vengono ricevuti dall'end-system. Tutti questi motivi UDP è un protocollo molto leggero e veloce ideale per applicazioni che necessitano di interattività così come ad esempio servizi di streaming audio/video in real-time. 
 \\
 L'header UDP, visti i pochi controlli di cui si fa carico il protocollo, risulta essere molto snello introducendo così un overhead molto basso.
 
@@ -426,15 +443,15 @@ Per quanto riguarda il livello applicazione si vuole ora approfondire i protocol
 
 %VoIP
 \begin{subsection}{VoIP}
-VoIP (Voice over IP)  è una famiglia di tecnologie internet e protocolli di comunicazione per la distribuzione di comunicazioni vocali e sessioni multimediali attraverso il protocollo IP. 
+VoIP (Voice over IP)\cite{VoIPBibliography}  è una famiglia di tecnologie internet e protocolli di comunicazione per la distribuzione di comunicazioni vocali e sessioni multimediali attraverso il protocollo IP. 
 \\
 Il VoIP richiede due tipologie di protocolli di comunicazione in parallelo, una per il trasporto dei dati (pacchetti voce su IP), ed una per la segnalazione della conversazione che comprende la ricostruzione del frame audio, la sincronizzazione, l'identificazione del chiamante lo scambio di altri parametri di comunicazione così come indirizzp IP, porte e codec audio/video. 
 \\
 Per quanto riguarda la trasmissione dati la maggioranza delle implementazioni VoIP adottano il protocollo RTP (Real-time Transfer Protocol, basato su UDP). RTP viene usato assieme a RTPC (RTP Control Protocol) che monitora la \emph{qualità del servizio} (QoS) inviando periodicamente delle statistiche ai partecipanti dello streaming multimediale senza però trasportare alcun tipo di dato relativo alla comunicazione vera e propria. È stato inoltre definito SRTP (Secure Real-time Transfer Protocol) che introduce crittografia, autenticazione e integrità in RTP.
 \\
-Per quanto concerne i protocolli di segnalazione, invece, nel corso degli anni ne sono stati sviluppati diversi. H.323 definito dalla ITU (International Telecommunications Union) è stato uno dei primi protocolli pensati per il VoIP. H.323 nasce in ambito telefonico e delinea un'architettura completa per lo svolgimento di conferenze multimediali. Comprende la definizione dei formati di codifica a livello applicativo, la definizione dei formati per la segnalazione e il controllo, per il trasporto dei flussi multimediali ( audio, video e dati ). H.323 definisce anche alcuni meccanismi legati agli aspetti relativi alla sicurezza.
+Per quanto concerne i protocolli di segnalazione, invece, nel corso degli anni ne sono stati sviluppati diversi. H.323\cite{Hdot323} definito dalla ITU-T (International Telecommunications Union) è stato uno dei primi protocolli pensati per il VoIP. H.323 nasce in ambito telefonico e delinea un'architettura completa per lo svolgimento di conferenze multimediali. Comprende la definizione dei formati di codifica a livello applicativo, la definizione dei formati per la segnalazione e il controllo, per il trasporto dei flussi multimediali ( audio, video e dati ). H.323 definisce anche alcuni meccanismi legati agli aspetti relativi alla sicurezza.
 \\
-Vi è poi SIP (Session Initiation Protocol) definito da IETF, operante a livello sessione del modello OSI, che gestisce in modo generale una sessione di comunicazione tra due o più entità, ovvero fornisce meccanismi per instaurare, modificare e terminare (rilasciare) una sessione. Fornisce funzionalità di instaurazione e terminazione di una sessione, operazioni di segnalazione , tono di chiamata, chiamata in attesa, identificazione del chiamante e molto altro ancora. Adotta un un pattern message/response e i messaggi principali di SIP sono:
+Vi è poi SIP (Session Initiation Protocol)\cite{SIPBibliography} definito da IETF, operante a livello sessione del modello OSI, che gestisce in modo generale una sessione di comunicazione tra due o più entità, ovvero fornisce meccanismi per instaurare, modificare e terminare (rilasciare) una sessione. Fornisce funzionalità di instaurazione e terminazione di una sessione, operazioni di segnalazione , tono di chiamata, chiamata in attesa, identificazione del chiamante e molto altro ancora. Adotta un un pattern message/response e i messaggi principali di SIP sono:
 \begin{itemize}
 \item REGISTER, inviato da un client verso un server SIP che mantiene una mappa degli utenti SIP e la loro posizione (indirizzi IP).
 \item INVITE, utilizzato per inizializzare una sessione di comunicazione specificando l'identificativo dell'utente con la quale si vuole comunicare; inviato da un client verso un server SIP che risponde con l'indirizzo dell'altro end-node con la quale si vuole avviare la sessione assieme ad altri parametri di configurazione.
