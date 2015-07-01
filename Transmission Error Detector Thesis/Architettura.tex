@@ -61,14 +61,14 @@ Sono state progettato alcune soluzioni che operano a livello sessione come ad es
 Gli approcci operanti a livello Session non sembrano essere particolarmente efficienti per i ritardi introdotti dal pattern message/response dei sistemi basati SIP.
 %The session-layer solutions seem to be not efficient as they invoke an external localization service when an IP reconfiguration occurs. In particular, the SIP-based services introduce an additional delay due to their message/response behavior; in case of reconfiguration the MN interrupts the communication, sends a SIP signaling message to the CN and waits for the response before resuming the transmission. With this in view, the IHMAS work presented in [6] provides a solution to minimize handoff delays by exploiting a SIP-based, IMS compliant proactive mechanism that performs registration and renegotiation phases for novel connections while keeping the media flows active over old connections, if these are available.
 \end{paragraph}
-In letteratura vi sono altre soluzioni alcune parziali come IEEE 802.11e\cite{802dot11e} e IEEE 802.11r\cite{802dot11r} che però coinvolgono solamente la gestione dell'interfaccia di rete Wi-Fi (handover orizzontali) e soluzioni proprietarie come LISP di CISCO.
+In letteratura vi sono altre soluzioni alcune parziali come IEEE 802.11e\cite{802dot11e} e IEEE 802.11r\cite{802dot11r} che però coinvolgono solamente la gestione dell'interfaccia di rete Wi-Fi (handover orizzontali) e soluzioni come LISP di CISCO\cite{CISCOLISP}.
 \end{section}
 \begin{section}{Always Best Packet Switching}
 Un'architettura progettata all'interno del Dipartimento di Informatica dell'Università di Bologna che supera molti dei limiti delle implementazioni precedentemente descritte è ABPS (Always Best Packet Switching)\cite{ABPSSipBased}.
 L'architettura ABPS è composta da due componenti principale:
 \begin{itemize}
-\item \textbf{fixed proxy server}, una macchina esterna alla rete in cui si trova il mobile node; munito di IP pubblico statico e fuori da qualsiasi firewall o NAT. Il fixed proxy server gestisce e mantiene tutte le comunicazione da un mobile node verso l'esterno e viceversa: nel caso di un handoff e quindi di una riconfigurazione delle interfacce di rete del nodo mobile il fixed proxy server nasconde questi cambiamenti al correspondent node facendo si che la comunicazione continui in maniera del tutto trasparente.
-\item \textbf{proxy client}, in esecuzione su ogni mobile node, mantiene per ogni NIC una connessione verso il fixed proxy server. Applicazioni in esecuzione su un nodo mobile possono quindi sfruttare un multi-path virtuale creato tra il proxy client e il fixed proxy server per comunicare con il resto del mondo.
+\item \textbf{Fixed proxy server}, una macchina esterna alla rete in cui si trova il mobile node; munito di IP pubblico statico e fuori da qualsiasi firewall o NAT. Il fixed proxy server gestisce e mantiene tutte le comunicazione da un mobile node verso l'esterno e viceversa: nel caso di un handoff e quindi di una riconfigurazione delle interfacce di rete del nodo mobile il fixed proxy server nasconde questi cambiamenti al correspondent node facendo si che la comunicazione continui in maniera del tutto trasparente.
+\item \textbf{Proxy client}, in esecuzione su ogni mobile node, mantiene per ogni NIC una connessione verso il fixed proxy server. Applicazioni in esecuzione su un nodo mobile possono quindi sfruttare un multi-path virtuale creato tra il proxy client e il fixed proxy server per comunicare con il resto del mondo.
 \end{itemize}
 
 \begin{figure}[h]
@@ -78,14 +78,16 @@ L'architettura ABPS è composta da due componenti principale:
      \label{fig:ABPSArchitectureImage}
 \end{figure}
  
-Si immagini uno scenario in cui un nodo mobile A munito di più interfacce wireless (ad esempio NIC Wi-Fi e UMTS) stia intrattenendo una comunicazione VoIP con un altro nodo mobile B. Il nodo A implementa il meccanismo ABPS appena descritto quindi sul dispositivo è in esecuzione un ABPS proxy client che mantiene un canale di comunicazione con un ABPS fixed proxy. Supponiamo che il nodo A sta utilizzando l'interfaccia di rete Wi-Fi e quindi risulta essere connesso a una rete WLAN. Se avviene un handoff verso un'altra interfaccia di rete, ad esempio UMTS, per un calo delle prestazioni o per una perdita improvvisa del segnale dell'access point a cui è connesso il nodo mobile il cambio di configurazione di rete avviene in maniera del tutto trasparente al nodo B e alle applicazioni in esecuzione sul nodo A. 
+Si immagini uno scenario in cui un nodo mobile A munito di più interfacce wireless (ad esempio NIC Wi-Fi e UMTS) stia intrattenendo una comunicazione VoIP con un altro nodo mobile B. 
 \\
-Il meccanismo descritto può inoltre decidere su quale interfaccia di rete inoltrare il singolo datagram UDP a seconda delle condizioni della rete a cui ciascuna NIC è connessa. In particolare vi è un monitoraggio del QoS per ciascuna interfaccia di rete wireless e se vi è il sospetto di una perdita di informazioni o di un ritardo di trasmissione un dato pacchetto può essere ritrasmesso attraverso un'altra NIC. 
+Il nodo A adotta il meccanismo ABPS appena descritto quindi sul dispositivo è in esecuzione un ABPS proxy client che mantiene un canale di comunicazione con un ABPS fixed proxy. Supponiamo che il nodo A sta utilizzando l'interfaccia di rete Wi-Fi e quindi risulta essere connesso a una rete WLAN. Se avviene un handoff verso un'altra interfaccia di rete, ad esempio UMTS, a seguito di un calo delle prestazioni o per una perdita improvvisa del segnale dell'access point a cui è connesso il nodo mobile il cambio di configurazione di rete avviene in maniera del tutto trasparente al nodo B e alle applicazioni in esecuzione sul nodo A. 
+\\
+Il meccanismo descritto può, inoltre, decidere su quale interfaccia di rete inoltrare il singolo datagram UDP a seconda delle condizioni della rete a cui ciascuna NIC è connessa. In particolare vi è un monitoraggio del QoS per ciascuna interfaccia di rete wireless e se vi è il sospetto di una perdita di informazioni o di un ritardo di trasmissione un dato pacchetto può essere ritrasmesso attraverso un'altra NIC. 
 \\
 Ciascuna interfaccia di rete rimane configurata, attiva e pronta a essere utilizzata nel caso in cui l'interfaccia attualmente in uso abbia dei ritardi o delle perdite.
 \\
 \\
-Qui di seguito viene illustrato un esempio di una possibile implementazione dell'architettura ABPS per il mantenimento di un servizio VoIP basato sui protocolli SIP e RTP/RTCP.
+Qui di seguito viene illustrato un esempio di una possibile implementazione dell'architettura ABPS per il mantenimento di un servizio VoIP basato sui protocolli SIP e RTP/RTCP\cite{ABPSVoipCaseStudy} .
 \\
 Come si può vedere dalla figura \ref{fig:ABPSSIPImage} il nodo mobile, oltre alla user app VoI, mantiene attivo un client proxy: i pacchetti trasmessi dall'app vengono intercettati dal proxy client mantenendo attiva un'interfaccia di rete virtuale settata come default gateway. Per ogni interfaccia di rete reale il proxy client inizializza e mantiene attivo un socket per ogni protocollo di comunicazione e segnalazione.
 
@@ -110,11 +112,11 @@ Vediamo ora brevemente le caratteristiche principali delle componenti dell'archi
 \\
 Il proxy client al suo interno implementa il modulo \emph{ABPS Policies} che implementa una serie di politiche e meccanismi in base alle notifiche provenienti dall'altre componenti in esecuzione sul nodo mobile e dirette verso il proxy client. Le tipologie di notifiche che possono essere ricevute sono quelle precedentemente accennate. Quando il proxy client riceve una notifica di tipo Reconfiguration Notification per ogni nuova interfaccia di rete segnalata come attiva viene creato un nuovo socket e associato a tale interfaccia; viceversa quando un'interfaccia viene segnalata come disabilitata ( a seguito ad esempio di un errore di trasmissione ) il relativo socket associato viene chiuso.
 \\
-Un'altro tipo di notifica che un proxy client può ricevere è proveniente dal TED: in questo l'ULB (UDP Load Balancer), un altro modulo implementato all'interno del proxy client, valuterà in base alla notifica se ritrasmettere un dato datagram e attraverso quale interfaccia di rete.
+Un'altro tipo di notifica che un proxy client può ricevere è quella proveniente dal TED: in base a quanto notificato da TED la componente ULB (UDP Load Balancer), un altro modulo implementato all'interno del proxy client, valuterà in base alla notifica se ritrasmettere un dato datagram e attraverso quale interfaccia di rete.
 \\ 
 L'ultimo tipo di notifica che un proxy client può ricevere è quella proveniente dal protocollo ICMP: semplicemente questa notifica segnala al proxy client che il fixed proxy server ( o la porta sul proxy server con la quale si vuole comunicare ) è \emph{unreachable} attraverso l'interfaccia di rete attualmente in uso.
 \\
-Queste tre tipologie di notifiche permettono al proxy client di stabilire se un determinato pacchetto debba essere ritrasmesso ( eventualmente attraverso un?altra interfaccia wireless) o definitivamente scartato. Permettono inoltre di realizzare un opportuno algoritmo per la selezione dinamica dell?interfaccia di rete che offre maggiori garanzie di trasmissione.
+Queste tre tipologie di notifiche permettono al proxy client di stabilire se un determinato pacchetto debba essere ritrasmesso ( eventualmente attraverso un'altra interfaccia wireless) o definitivamente scartato. Permettono inoltre di realizzare un opportuno algoritmo per la selezione dinamica dell'interfaccia di rete che offre maggiori garanzie di trasmissione.
 \end{itemize}
 
 \begin{figure}[h]
@@ -128,9 +130,13 @@ Queste tre tipologie di notifiche permettono al proxy client di stabilire se un 
 \end{subsection}
 \end{section}
 \begin{section}{Considerazioni finali}
-In questo capitolo abbiamo visto una breve panoramica di Always Best Packet Switching e delle sue funzionalità di base. Abbiamo visto come senza modificare l'infrastruttura di rete è possibile inoltrare il flusso di dati proveniente da un certa applicazione utente su una piuttosto che su un'altra interfaccia di rete di un nodo mobile a seconda dello stato in cui si trova la rete.
+In questo capitolo è stata presentata una panoramica dell'architettura Always Best Packet Switching.
 \\
-Nel caso di una riconfigurazione di rete ABPS abbatte eventuali overhead introdotti da approcci come quello basato su SIP e può far fronte a handoff verticali senza alcun ritardo in quanto, come visto, ciascuna interfaccia di rete viene mantenuta attiva e pronta all'utilizzo. L'utilizzo di ciascuna NIC è ottimizzato valutando pacchetto per pacchetto su quale interfaccia di rete questo dovrebbe essere inoltrato valutando le condizioni della rete e le QoS desiderate. Inoltre ABPS consente a un nodo mobile di comunicare verso l'esterno anche in presenza di NAT o firewall.
+Abbiamo visto come senza modificare l'infrastruttura di rete è possibile inoltrare il flusso di dati proveniente da un certa applicazione utente su una piuttosto che su un'altra interfaccia di comunicazione di un nodo mobile a seconda dello stato in cui si trova la rete.
+\\
+Nel caso di una riconfigurazione di rete ABPS abbatte eventuali overhead introdotti da altri approcci ( come ad esempio quello basato su SIP ) e può far fronte ad handoff verticali senza alcun ritardo in quanto, come visto, ciascuna interfaccia di rete viene mantenuta attiva e pronta all'utilizzo.
+\\
+L'utilizzo di ciascuna NIC è ottimizzato valutando pacchetto per pacchetto su quale interfaccia di rete questo dovrebbe essere inoltrato valutando le condizioni della rete e le QoS desiderate. Inoltre ABPS consente a un nodo mobile di comunicare verso l'esterno anche in presenza di NAT o firewall.
 \\
 ABPS può essere utilizzato in qualsiasi contesto VoIP. 
 

@@ -1,4 +1,16 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.15)  1 JUL 2015 18:59
+=======
+<<<<<<< HEAD
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  1 JUL 2015 19:13
+=======
+<<<<<<< HEAD
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.15)  30 JUN 2015 15:38
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 JUN 2015 15:11
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
+>>>>>>> 4c263fa33b144c8accdf7122410e4100cf9710aa
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -717,7 +729,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 (./NetworkIntroduction.tex
 Capitolo 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--33
+Underfull \hbox (badness 10000) in paragraph at lines 35--42
 
  []
 
@@ -728,20 +740,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--33
 File: Images/ISOOSI.png Graphic file (type png)
 
 <use Images/ISOOSI.png>
-Package pdftex.def Info: Images/ISOOSI.png used on input line 82.
+Package pdftex.def Info: Images/ISOOSI.png used on input line 97.
 (pdftex.def)             Requested size: 390.0pt x 259.11652pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--86
+Underfull \hbox (badness 10000) in paragraph at lines 84--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--86
+Underfull \hbox (badness 10000) in paragraph at lines 84--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--86
+Underfull \hbox (badness 10000) in paragraph at lines 84--101
 
  []
 
@@ -749,19 +761,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 69--86
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--92
+Underfull \hbox (badness 10000) in paragraph at lines 105--109
 
  []
 
+<<<<<<< HEAD
 [4]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+=======
+[4] [5 <./Images/ISOOSI.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 115.
+
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+>>>>>>> 4c263fa33b144c8accdf7122410e4100cf9710aa
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
- [5 <./Images/ISOOSI.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 121--126
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--143
 
  []
 
@@ -771,88 +791,72 @@ File: Images/HiddenNodeProblemImage.png Graphic file (type png)
 
 <use Images/HiddenNodeProblemImage.png>
 Package pdftex.def Info: Images/HiddenNodeProblemImage.png used on input line 1
-70.
+87.
 (pdftex.def)             Requested size: 117.00119pt x 104.54663pt.
- [9 <./Images/HiddenNodeProblemImage.png>] <Images/HiddenNodeFourWayHandshake.j
-pg, id=71, 277.035pt x 279.29344pt>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9] [10 <./Images/HiddenNodeProblemImage.png>]
+<Images/HiddenNodeFourWayHandshake.jpg, id=74, 277.035pt x 279.29344pt>
 File: Images/HiddenNodeFourWayHandshake.jpg Graphic file (type jpg)
 
 <use Images/HiddenNodeFourWayHandshake.jpg>
 Package pdftex.def Info: Images/HiddenNodeFourWayHandshake.jpg used on input li
-ne 190.
+ne 207.
 (pdftex.def)             Requested size: 272.99881pt x 275.22711pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \vbox (badness 2042) has occurred while \output is active []
-
- [10]
-<Images/802dot11FrameImage.png, id=75, 540.0175pt x 255.95625pt>
+ [11 <./Images/HiddenNodeFourWayHandshake.jpg>] <Images/802dot11FrameImage.png,
+ id=78, 540.0175pt x 255.95625pt>
 File: Images/802dot11FrameImage.png Graphic file (type png)
 
 <use Images/802dot11FrameImage.png>
-Package pdftex.def Info: Images/802dot11FrameImage.png used on input line 208.
+Package pdftex.def Info: Images/802dot11FrameImage.png used on input line 225.
 (pdftex.def)             Requested size: 390.0pt x 184.85466pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[11 <./Images/HiddenNodeFourWayHandshake.jpg>] [12 <./Images/802dot11FrameImage
-.png>] [13] [14]
-Underfull \vbox (badness 1931) has occurred while \output is active []
-
- [15]
-[16] [17] [18] <Images/IPv4HeaderImage.png, id=101, 521.95pt x 180.675pt>
+ [12 <./Images/802dot11FrameImage.png>]
+[13] [14] [15] [16] [17] [18] [19]
+<Images/IPv4HeaderImage.png, id=104, 521.95pt x 180.675pt>
 File: Images/IPv4HeaderImage.png Graphic file (type png)
 
 <use Images/IPv4HeaderImage.png>
-Package pdftex.def Info: Images/IPv4HeaderImage.png used on input line 306.
+Package pdftex.def Info: Images/IPv4HeaderImage.png used on input line 323.
 (pdftex.def)             Requested size: 390.0pt x 135.00139pt.
- [19] [20 <./Images/IPv4HeaderImage.png>]
-[21] [22]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+ [20 <./Images/IPv4HeaderImage.png>] [21]
+Underfull \vbox (badness 1147) has occurred while \output is active []
 
- [23]
-[24]
-Overfull \hbox (7.38353pt too wide) in paragraph at lines 352--358
+ [22]
+[23] [24]
+Overfull \hbox (7.38353pt too wide) in paragraph at lines 369--375
 \OT1/cmr/m/n/12 quen-za \OT1/cmr/m/it/12 :: \OT1/cmr/m/n/12 ri-du-cen-do cos^^R
 ^^P l'in-di-riz-zo ap-pe-na il-lu-stra-to a fe80::a4f5:f1ff:fe49:8d93. 
  []
 
-<Images/IPv6HeaderImage.jpg, id=122, 547.04375pt x 210.7875pt>
+
+Underfull \vbox (badness 2229) has occurred while \output is active []
+
+ [25]
+<Images/IPv6HeaderImage.jpg, id=126, 547.04375pt x 210.7875pt>
 File: Images/IPv6HeaderImage.jpg Graphic file (type jpg)
 
 <use Images/IPv6HeaderImage.jpg>
-Package pdftex.def Info: Images/IPv6HeaderImage.jpg used on input line 364.
+Package pdftex.def Info: Images/IPv6HeaderImage.jpg used on input line 381.
 (pdftex.def)             Requested size: 390.0pt x 150.27771pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[25]
-Underfull \hbox (badness 10000) in paragraph at lines 383--398
+ [26 <./Images/IPv6HeaderImage.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 400--415
 
  []
 
-[26 <./Images/IPv6HeaderImage.jpg>] [27]
-<Images/UDPHeader.jpg, id=134, 578.16pt x 199.74625pt>
+[27] <Images/UDPHeader.jpg, id=134, 578.16pt x 199.74625pt>
 File: Images/UDPHeader.jpg Graphic file (type jpg)
 
 <use Images/UDPHeader.jpg>
-Package pdftex.def Info: Images/UDPHeader.jpg used on input line 412.
+Package pdftex.def Info: Images/UDPHeader.jpg used on input line 429.
 (pdftex.def)             Requested size: 390.0pt x 134.73755pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \vbox (badness 1231) has occurred while \output is active []
+Underfull \vbox (badness 2359) has occurred while \output is active []
 
  [28]
 [29 <./Images/UDPHeader.jpg>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3646) has occurred while \output is active []
 
  [30])
 [31]
@@ -883,58 +887,61 @@ File: Images/SocketBufferImage.png Graphic file (type png)
 Package pdftex.def Info: Images/SocketBufferImage.png used on input line 91.
 (pdftex.def)             Requested size: 390.0pt x 330.08698pt.
  [37 <./Images/SocketBufferImage.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+
+ []
+
+[38]
+Overfull \hbox (19.18295pt too wide) in paragraph at lines 128--141
+\OT1/cmr/m/n/12 map-pa-ta nel-la fun-zio-ne del sot-to-si-ste-ma mac80211 ieee8
+0211[]monitor[]start[]xmit. 
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [38]
-Overfull \hbox (32.694pt too wide) in paragraph at lines 117--122
-\OT1/cmr/m/n/12 ce-du-to al sot-to-si-ste-ma mac80211 in-vo-can-do la sua entry
--point ieee \OT1/cmr/bx/n/12 ieee80211[]xmit
- []
-
-[39] [40] [41]
-Package mdframed Info: mdframed works in twoside mode on input line 168.
+ [39]
+[40] [41] [42]
+Package mdframed Info: mdframed works in twoside mode on input line 188.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 168.
-Package mdframed Info: mdframed works in twoside mode on input line 180.
+(mdframed)              on input line 188.
+Package mdframed Info: mdframed works in twoside mode on input line 200.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 180.
+(mdframed)              on input line 200.
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--190
+Underfull \hbox (badness 10000) in paragraph at lines 202--210
 
  []
 
-<Images/KernelLinuxMenuconfig.png, id=184, 716.6775pt x 546.04pt>
+<Images/KernelLinuxMenuconfig.png, id=187, 716.6775pt x 546.04pt>
 File: Images/KernelLinuxMenuconfig.png Graphic file (type png)
 
 <use Images/KernelLinuxMenuconfig.png>
-Package pdftex.def Info: Images/KernelLinuxMenuconfig.png used on input line 19
+Package pdftex.def Info: Images/KernelLinuxMenuconfig.png used on input line 21
 8.
 (pdftex.def)             Requested size: 390.0pt x 297.14847pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package mdframed Info: mdframed works in twoside mode on input line 205.
+Package mdframed Info: mdframed works in twoside mode on input line 225.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 205.
-Package mdframed Info: Not enough space on this page on input line 207.
-[42]
-Package mdframed Info: Not enough space on this page on input line 207.
-Package mdframed Info: mdframed works in twoside mode on input line 214.
+(mdframed)              on input line 225.
+Package mdframed Info: mdframed works in twoside mode on input line 234.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 214.
-Package mdframed Info: mdframed works in twoside mode on input line 224.
+(mdframed)              on input line 234.
+Package mdframed Info: Not enough space on this page on input line 238.
+[43]
+Package mdframed Info: Not enough space on this page on input line 238.
+Package mdframed Info: mdframed works in twoside mode on input line 244.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 224.
-Package mdframed Info: Not enough space on this page on input line 229.
- [43 <./Images/KernelLinuxMenuconfig.png>]
-Package mdframed Info: Not enough space on this page on input line 229.
-) [44]
+(mdframed)              on input line 244.
+) [44 <./Images/KernelLinuxMenuconfig.png>]
 \openout2 = `Architettura.aux'.
 
  (./Architettura.tex
@@ -956,7 +963,7 @@ Package pdftex.def Info: Images/ABPSArchitectureImage.png used on input line 76
 .
 (pdftex.def)             Requested size: 390.0pt x 177.02448pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--91
+Underfull \hbox (badness 10000) in paragraph at lines 81--93
 
  []
 
@@ -965,7 +972,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--91
 File: Images/ABPSSIPImage.png Graphic file (type png)
 
 <use Images/ABPSSIPImage.png>
-Package pdftex.def Info: Images/ABPSSIPImage.png used on input line 94.
+Package pdftex.def Info: Images/ABPSSIPImage.png used on input line 96.
 (pdftex.def)             Requested size: 390.0pt x 164.89197pt.
 
 
@@ -980,7 +987,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: Images/ABPSMobileNodeArchitectureImage.png Graphic file (type png)
 <use Images/ABPSMobileNodeArchitectureImage.png>
 Package pdftex.def Info: Images/ABPSMobileNodeArchitectureImage.png used on inp
-ut line 122.
+ut line 124.
 (pdftex.def)             Requested size: 390.0pt x 223.43112pt.
  [53 <./Images/ABPSMobileNodeArchitectureImage.png>]) [54]
 \openout2 = `TED.aux'.
@@ -1140,18 +1147,39 @@ Appendice B.
 
 
 ]
-Overfull \hbox (30.17563pt too wide) in paragraph at lines 6--7
+Overfull \hbox (30.17563pt too wide) in paragraph at lines 30--31
 []\OT1/cmr/m/n/12 http://www.linuxfoundation.org/collaborate/workgroups/network
 ing/sk[]buff 
  []
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+[81]
+Underfull \hbox (badness 7116) in paragraph at lines 39--40
+\OT1/cmr/m/n/12 Tran-si-tion''; http://standards.ieee.org/getieee802/download/8
+02.11r-
+=======
+<<<<<<< HEAD
+) [83] [84
+
+
+
+] [85
+=======
+>>>>>>> 4c263fa33b144c8accdf7122410e4100cf9710aa
 
 Underfull \hbox (badness 7704) in paragraph at lines 13--14
 \OT1/cmr/m/n/12 Tran-si-tion?; http://standards.ieee.org/getieee802/download/80
 2.11r-
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
  []
 
+<<<<<<< HEAD
 [87]) [88] [89
+=======
+) [82] [83
+>>>>>>> 4c263fa33b144c8accdf7122410e4100cf9710aa
 
 
 
@@ -1164,16 +1192,26 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  13100 strings out of 493304
  221108 string characters out of 6139871
  531655 words of memory out of 5000000
  16264 multiletter control sequences out of 15000+600000
  13607 words of font info for 56 fonts, out of 8000000 for 9000
+=======
+<<<<<<< HEAD
+ 12751 strings out of 493117
+ 216099 string characters out of 6135433
+=======
+<<<<<<< HEAD
+ 12841 strings out of 493304
+ 218320 string characters out of 6139871
+ 434655 words of memory out of 5000000
+ 16014 multiletter control sequences out of 15000+600000
+ 11590 words of font info for 45 fonts, out of 8000000 for 9000
+>>>>>>> 4c263fa33b144c8accdf7122410e4100cf9710aa
  957 hyphenation exceptions out of 8191
  45i,12n,56p,10441b,2061s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
@@ -1184,7 +1222,34 @@ dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt12.pfb>
+<<<<<<< HEAD
 Output written on Thesis.pdf (99 pages, 2201423 bytes).
+=======
+Output written on Thesis.pdf (95 pages, 2159822 bytes).
+=======
+ 12739 strings out of 493117
+ 215887 string characters out of 6135433
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
+ 434660 words of memory out of 5000000
+ 15991 multiletter control sequences out of 15000+600000
+ 11590 words of font info for 45 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 40i,12n,56p,10416b,1252s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
+local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local
+/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+<<<<<<< HEAD
+Output written on Thesis.pdf (93 pages, 2163403 bytes).
+=======
+Output written on Thesis.pdf (93 pages, 2158905 bytes).
+>>>>>>> 969c05a80c773cc75ddbc0ca764bec48046eeeb4
+>>>>>>> 07bef942e4e183e8bb6690acea80dd53b003e7ba
+>>>>>>> 4c263fa33b144c8accdf7122410e4100cf9710aa
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  245 compressed objects within 3 object streams

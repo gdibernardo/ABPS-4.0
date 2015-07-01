@@ -29,9 +29,13 @@ In questo capitolo si vogliono illustrare le fasi di progettazione e implementaz
 \\
 Nel precedente capitolo si è descritto brevemente il funzionamento di TED e il suo ruolo nel sistema ABPS ideato come supporto alla mobilità.
 \\
-Il meccanismo di Transmission Error Detection può essere applicato a qualsiasi interfaccia di rete di un dispositivo mobile.
+??????? come lo scrivo>??????? devo rifllettere!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Il meccanismo di Transmission Error Detection potrebbe essere, in linea di principio, applicato a qualsiasi tipo di interfaccia di rete di un dispositivo mobile.
+
+Il meccanismo di Transmission Error Detection potrebbe essere applicato, e quindi realizzato,a qualsiasi interfaccia di rete di un dispositivo mobile.
 \\
-In questa capitolo verrà illustrata la progettazione di un modulo TED per Wi-Fi.
+In questa capitolo verrà illustrata la progettazione e l'implementazione di un modulo TED per Wi-Fi.
 \begin{section}{Design and implementation}
 Transmission Error Detector è implementato in maniera \emph{cross-layer} lungo lo stack di rete del kernel Linux e ha lo scopo di monitorare ciascun datagram UDP in invio da una certa interfaccia di rete e notificare ad un eventuale ABPS proxy client lo stato di consegna del pacchetto al primo access point in modo tale da poter valutare la QoS del collegamento attualmente utilizzato per la trasmissione.
 \\

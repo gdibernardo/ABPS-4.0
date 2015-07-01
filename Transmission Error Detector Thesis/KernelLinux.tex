@@ -96,10 +96,19 @@ In fase di invio il procedimento è molto simile ma con la difficoltà di dover ap
 \begin{paragraph}{struct net\_device} questa struttura rappresenta una scheda di rete, anche virtuale: può essere infatti che ci si riferisca ad una scheda di rete virtuale ottenuta dopo aver effettuato un \emph{bonding}, ovvero è possibile assegnare un unico indirizzo IP a due o più NIC ( vedendole così come un unico device ) in modo da migliorare le performance. 
 \\
 La struttura net\_device contiene campi che identificano l'interfaccia di rete come il valore massimo della sua MTU e l'indirizzo MAC.
+\\
+Questa struttura viene inizializzata da un device driver non appena questo comincia la sua esecuzione.
+\\
+Le operazioni offerte verso il kernel dalla struttura net\_device sono contenute nel campo della struttura \textbf{const struct net\_device\_ops *netdev\_ops}; la struttura net\_device\_ops descrive un'interfaccia generica e omogenea per la gestione di tutti i device di rete.
+\\
+I campi contenuti nell'interfaccia net\_device\_ops non sono altro che semplici puntatori a funzione.
+\\
+Il device driver, in fase di inizializzazione, si occuperà di settare i campi della struttura net\_device\_ops mappando l'interfaccia offerta verso l'esterno con le funzioni implementate dal device driver per l'hardware specifico.
 \end{paragraph}
 
 Nello sviluppo del progetto di tesi è stato esteso il comportamento del workflow del kernel Linux per quanto riguarda la trasmissione di un datagram UDP. Per tanto, qui di seguito, descriveremo brevemente buona parte dei moduli che rendono possibile la trasmissione di un pacchetto UDP a partire da un applicazione fino al device driver.
 \\
+\begin{subsection}{Dall'app al device driver}
 Quando viene invocata una routine che interagisce con la rete tramite socket  ( come ad esempio send, sendto o sendmsg ) il controllo viene passato al \emph{socket interface layer}: se il socket è di tipo TCP il controllo verrà dato alla funzione tcp\_sendmsg altrimenti, se di tipo UDP, alla primitiva udp\_sendmsg.
 \\
 Appena il flusso dell'esecuzione è passato alla routine udp\_sendmsg vengono effettuati alcuni controlli sui parametri passati come ad esempio sulla lunghezza specificata per il payload del datagram UDP o sugli indirizzi mittente e destinatario e le porte. Dopodiché, a seconda se specificato il flag UDP\_CORK o meno ( che consente quando abilitato tramite la system call \emph{setsockopt} di accumulare tutti i dati in output sul socket e inviarli in unico datagram quando disabilitato ), il controllo dell'esecuzione passerà alla primitiva di livello rete ip\_append\_data() oppure a ip\_skb\_make() che in entrambi casi, comunque, si appoggeranno sulla funzione \_\_ip\_append\_data() che tra le altre cose si occuperà di bufferizzare tutte le richieste di tramissione e di generare uno o più sk\_buff rappresentanti ciascun pacchetto ( o frammento ) IP. 
@@ -112,13 +121,23 @@ Tra i compiti a carico del livello network dello stack di rete vi è quello del \
 \\
 Se la fase di routing termina con successo verrà invocata la funzione di livello \emph{data-link} dev\_queue\_xmit() che, se l'interfaccia richiesta per la trasmissione è attiva, accoderà il socket buffer nella coda in uscita del net\_ device associato all' sk\_buff in invio e invocherà la funzione dev\_hard\_start\_xmit per cominciare a processare l'invio di un sk\_buff. 
 \\
+La funzione dev\_hard\_start\_xmit utilizzerà l'interfaccia esposta dalla struttura net\_device\_ops per cominciare la trasmissione in particolare invocherà la funzione ndo\_start\_xmit.
+\\
 Nel caso di un interfaccia di rete \emph{softMAC}, ovvero che il MLME ( MAC Sublayer Management Entity, ovvero dove viene implementata la logica del Medium Access Control ) è implementato via software ( vi sono dispositivi detti \emph{fullMAC} che implementano il MLME direttamente in hardware ) questa funzione si appoggerà sul sottosistema mac80211.
 
 \begin{paragraph}{Sottosistema mac80211}Il sottosistema mac80211 è stato rilasciato nel 2005 e si occupa di implementare la logica MLME per device softMAC interpretando e generando frame IEEE 802.11. Prima della sua adozione all'interno del kernel Linux la gestione e l'implementazione di IEEE 802.11 era lasciata ai device driver.
 \\
 Oggi la maggior parte dei device supportano questo sistema e in molti dei vecchi dispositivi i device driver sono stati riscritti tenendo conto di esso.
 \\
-In fase di trasmissione di un messaggio il controllo dal livello data-link viene ceduto al sottosistema mac80211 invocando la sua entry-point ieee \textbf{ieee80211\_xmit} che tra le altre cose si occupa dell'inizializzazione del frame 802.11 e del suo header. Per far ciò il sottosistema mac80211 si serve di una serie di handler appositamente settati, tra cui: 
+Un device driver in fase di inizializzazione delle strutture net\_device da lui gestite può \emph{registrarle} presso il modulo mac80211.
+\\
+In questo modo alcuni dei campi contenuti nella struttura net\_device\_ops contenuti possono essere settati con dei callback offerti dal modulo mac80211.
+\\
+Alcuni campi della struttura net\_device\_ops debbono essere settati obbligatoriamente con i callback del modulo mac80211 nel caso si voglia beneficiare del sottosistema; altri sono opzionali  ( o più legati all'hardware specifico ) e possono essere implementati dal device driver stesso.
+\\
+In fase di trasmissione di un messaggio il controllo dal livello data-link viene ceduto, quindi, al sottosistema mac80211; questo è possibile in quanto, in fase di registrazione del device, la funzione ndo\_start\_xmit di net\_device\_ops viene mappata nella funzione del sottosistema mac80211 ieee80211\_monitor\_start\_xmit.
+\\
+Verrà poi invocata la entry point \textbf{ieee80211\_xmit} del modulo mac80211 che tra le altre cose si occupa dell'inizializzazione del frame 802.11 e del suo header. Per far ciò il sottosistema mac80211 si serve di una serie di handler appositamente settati, tra cui: 
 \begin{itemize}
 \item \textbf{ieee80211\_tx\_h\_dynamic\_ps} per la gestione del power saving.
 \item \textbf{ieee80211\_tx\_h\_select\_key} si occupa di selezionare una chiave di cifratura. 
@@ -134,11 +153,12 @@ Una volta che il frame IEEE 802.11 è stato trasmesso la struttura socket buffer 
 \\
 Alla fine di questo processo viene invocata la routine ieee80211\_tx\_status che fornisce alcune informazioni riguardanti l'esito della trasmissione per un certo pacchetto come ad esempio quante volte il pacchetto è stato ritrasmesso e se è stato effettivamente consegnato o meno all'access point.
 \\
-A questo punto sia che il frame IEEE 802.11 sia stato ricevuto dal first-hop o meno il socket buffer associato viene definitivamente deallocato.
+A questo punto, sia che il frame IEEE 802.11 sia stato ricevuto dal first-hop o meno, il socket buffer associato viene definitivamente deallocato.
 \end{paragraph}
+\end{subsection}
 \end{section}	
 
-\begin{section}{Customizzazione Kernel}
+\begin{section}{Customizzazione kernel Linux}
 Può esserci l'esigenza di personalizzare il proprio kernel per adattarlo alle proprie esigenze. Alcuni vantaggi che si possono ottenere dalla customizzazione del kernel sono:
 \begin{itemize}
  \item Velocizzare l'avvio del sistema.
@@ -206,7 +226,7 @@ Nel caso in cui si volessero aggiungere o rimuovere moduli, bisognerà andare a s
  \texttt{\# sudo make } 
 \end{mdframed}
 Con questo comando si va a compilare il kernel. Questa operazione può richiedere diverso tempo, in particolare in dispositivi con prestazione ridotte.
-È possibile anche specificare l'opzione -jN con N che indica il numero di core più ( ad esempio \emph{-j5} per un quad-core ) per velocizzare l'operazione.
+È possibile anche specificare l'opzione -jN con N che indica il numero di core più uno ( ad esempio \emph{-j5} per un quad-core ) per velocizzare l'operazione.
 
 \end{paragraph}
 

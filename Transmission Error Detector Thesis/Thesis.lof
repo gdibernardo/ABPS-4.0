@@ -2,7 +2,7 @@
 \select@language {italian}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Stack di rete ISO/OSI e TCP/IP}}{5}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Il problema dei nodi nascosti}}{9}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Il problema dei nodi nascosti}}{10}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces \emph {Four-way handshake} via RTS/CTS}}{11}
 \contentsline {figure}{\numberline {1.4}{\ignorespaces IEEE 802.11 frame}}{12}
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Formato dell'header IPv4}}{20}
@@ -11,7 +11,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces L'architettura del kernel Linux.}}{34}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces La struttura \emph {sk\_buff}.}}{37}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Esecuzione del comando menuconfig.}}{43}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Esecuzione del comando menuconfig.}}{44}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Architettura ABPS}}{49}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Architettura ABPS per una comunicazione VoIP via protocollo SIP e RTP/RTCP}}{51}
