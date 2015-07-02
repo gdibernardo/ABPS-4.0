@@ -70,7 +70,7 @@ int main(int argc, char ** argv)
             if(number_of_packets == NUMBER_OF_PACKETS)
                 stop_sending = 1;
                 
-            struct msghdr message;
+            struct msghdr message[1];
             struct cmsghdr *cmsg;
             
             struct sock_extended_err *first_hop_transmission_notification;
@@ -79,12 +79,13 @@ int main(int argc, char ** argv)
             printf("read \n");
             do
             {
-                return_value = recvmsg(file_descriptor, &message, MSG_ERRQUEUE|MSG_DONTWAIT);
+                return_value = recvmsg(file_descriptor, message, MSG_ERRQUEUE|MSG_DONTWAIT);
                 
                 current_errno = errno;
                 
             } while ((return_value < 0) && (current_errno == EINTR));
-            
+        
+            printf(strerror(errno));
             if(return_value < 0)
                 continue;
             
