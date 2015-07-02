@@ -40,9 +40,9 @@ for el in data["pacchetti"]:
 			npk=0	
 		
 		if el['ack']==False:
-			numNack=numNack
-			npk=npk+1
+			numNack=numNack+1
 
+		npk=npk+1
 
 
 avg=float(numNack)/float(npk)

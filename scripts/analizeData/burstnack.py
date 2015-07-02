@@ -5,13 +5,14 @@ import json
 import sys
 
 tipo=-1
-
+nMa=0
 ar=[]
 
 ini=0
+nnack=0
 npk=0
 
-time=0
+numNack=0
 
 
 try:
@@ -25,26 +26,17 @@ with open(inputFile) as data_file:
 
 for el in data["pacchetti"]:
 	if el['type']==tipo:
-		if el['testId']==1:
-			if ini !=0 :
-				avg=float(time)/float(npk)
-
-				ar.append(avg)
-				ar.append(npk)
-			else:
-				ini=1
-			time=0
-			npk=0	
-		
-		time=time+el['time']
-		npk=npk+1
+		if el['ack']==False:
+			numNack=numNack+1
+		else:
+			if numNack !=0 :
+				ar.append(numNack)
+			numNack=0
 
 
 
-avg=float(time)/float(npk)
 
-ar.append(avg)
-ar.append(npk)
+ar.append(numNack)
 print(ar)
 
 
