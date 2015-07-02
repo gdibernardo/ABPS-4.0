@@ -27,8 +27,7 @@ with open(inputFile) as data_file:
 
 for el in data["pacchetti"]:
 	if el['type']==tipo:
-		if el['testId']==1 or el['testId']==spa:
-			print(time)
+		if el['testId']==1:# or el['testId']==spa:
 			if ini !=0 :
 				avg=float(time)/float(npk)
 

@@ -5,10 +5,21 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+<<<<<<< HEAD
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {6.1}{\ignorespaces Uso di IPv4}}{82}
 \contentsline {table}{\numberline {6.2}{\ignorespaces Uso di IPv6: tempi}}{82}
 \contentsline {table}{\numberline {6.3}{\ignorespaces Tempi di ricezione di notifica in caso di recv bloccante}}{83}
 \contentsline {table}{\numberline {6.4}{\ignorespaces Tabella no wait}}{83}
+=======
+\contentsline {table}{\numberline {5.1}{\ignorespaces Media dei tempi relativi all'utilizzo di IPv4}}{76}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Media dei tempi relativi all'utilizzo di IPv6}}{77}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Media dei retry relativi all'utilizzo di IPv4}}{77}
+\contentsline {table}{\numberline {5.4}{\ignorespaces Media dei retry relativi all'utilizzo di IPv6}}{78}
+\contentsline {table}{\numberline {5.5}{\ignorespaces Media dei tempi rispetto al numero di pacchetti}}{78}
+\contentsline {table}{\numberline {5.6}{\ignorespaces Media dei retry rispetto al numero di pacchetti}}{79}
+\contentsline {table}{\numberline {5.7}{\ignorespaces Tempi di ricezione di notifica in caso di recv bloccante}}{79}
+\contentsline {table}{\numberline {5.8}{\ignorespaces Tabella no wait}}{79}
+>>>>>>> 0ff6e4c4ef375ea4192634e1dc2da1b5aec79e82
 \addvspace {10\p@ }
 \addvspace {10\p@ }
