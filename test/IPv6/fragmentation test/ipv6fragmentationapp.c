@@ -17,9 +17,9 @@
 #include "testlib.h"
 
 
-#define NUMBER_OF_PACKETS 5000
+#define NUMBER_OF_PACKETS 10
 
-#define MESSAGE_LENGTH 1050
+#define MESSAGE_LENGTH 4500
 
 
 int main(int argc, char ** argv)
@@ -77,14 +77,15 @@ int main(int argc, char ** argv)
         message->msg_iov = iov;
         message->msg_iovlen = 1;
         
-        message->msg_control = cmsg;
+        char control_buffer[512]
         
-        message->msg_controllen = sizeof(cmsg);
+        message->msg_control = control_buffer;
+        
+        message->msg_controllen = sizeof(control_buffer);
         
         struct sock_extended_err *first_hop_transmission_notification;
             
         int return_value, current_errno;
-        printf("read \n");
         do
         {
             return_value = recvmsg(file_descriptor, message, MSG_ERRQUEUE|MSG_DONTWAIT);
@@ -93,7 +94,7 @@ int main(int argc, char ** argv)
                 
         } while ((return_value < 0) && (current_errno == EINTR));
         
-        printf(strerror(errno));
+        printf(strerror(current_errno));
         if(return_value < 0)
             continue;
         
