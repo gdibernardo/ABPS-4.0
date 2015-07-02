@@ -70,22 +70,54 @@ int main(int argc, char ** argv)
         if(number_of_packets == NUMBER_OF_PACKETS)
             stop_sending = 1;
         
+        struct sockaddr_in6	ipv6_name;
+        
+        unsigned int name_len;
+        
+        memset(&(ipv6_name),0,sizeof(ipv6_name));
+        ipv6_name.sin6_family = AF_INET6;
+        name_len = sizeof(ipv6_name);
+        
+        int return_value = getsockname(descriptor, (struct sockaddr *) &(ipv6_name), &(name_len));
+        if(return_value != 0)
+        {
+            perror("getsockname failed in ipv6_receive_error_message_no_wait. \n");
+            return 0;
+        }
+        
+
+        
         struct iovec iov[1];
         struct msghdr message[1];
         struct cmsghdr *cmsg;
         
+        struct sock_extended_err *first_hop_transmission_notification;
+     
+        memset(&(message),0,sizeof(message));
+        
+        
+        message->msg_name = &(ipv6_name);
+        message->msg_namelen = sizeof(ipv6_name);
+
         message->msg_iov = iov;
         message->msg_iovlen = 1;
         
+        char error_buffer[64 + 768];
+        iov->iov_base = error_buffer;
+        iov->iov_len = sizeof(error_buffer);
+        
+        
+        
+        
         char control_buffer[512];
+        
         
         message->msg_control = control_buffer;
         
         message->msg_controllen = sizeof(control_buffer);
         
-        struct sock_extended_err *first_hop_transmission_notification;
-            
-        int return_value, current_errno;
+        
+        int current_errno;
         do
         {
             return_value = recvmsg(file_descriptor, message, MSG_ERRQUEUE|MSG_DONTWAIT);
