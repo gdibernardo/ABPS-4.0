@@ -74,11 +74,11 @@ int main(int argc, char ** argv)
         
         unsigned int name_len;
         
-        memset(&(ipv6_name),0,sizeof(ipv6_name));
+        memset(&ipv6_name,0,sizeof(ipv6_name));
         ipv6_name.sin6_family = AF_INET6;
         name_len = sizeof(ipv6_name);
         
-        int return_value = getsockname(descriptor, (struct sockaddr *) &(ipv6_name), &(name_len));
+        int return_value = getsockname(file_descriptor, (struct sockaddr *) &(ipv6_name), &(name_len));
         if(return_value != 0)
         {
             perror("getsockname failed in ipv6_receive_error_message_no_wait. \n");
@@ -93,7 +93,7 @@ int main(int argc, char ** argv)
         
         struct sock_extended_err *first_hop_transmission_notification;
      
-        memset(&(message),0,sizeof(message));
+        memset(message,0,sizeof(message));
         
         
         message->msg_name = &(ipv6_name);
