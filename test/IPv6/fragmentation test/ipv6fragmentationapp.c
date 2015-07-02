@@ -89,7 +89,7 @@ int main(int argc, char ** argv)
             if(return_value < 0)
                 continue;
             
-            for(cmsg = CMSG_FIRSTHDR(&message); cmsg; cmsg = CMSG_NXTHDR(&message, cmsg))
+            for(cmsg = CMSG_FIRSTHDR(message); cmsg; cmsg = CMSG_NXTHDR(message, cmsg))
             {
                 /* IPv6 socket */
                 
