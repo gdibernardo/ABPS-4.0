@@ -28,6 +28,14 @@ struct sock_extended_err {
 
 #define SO_EE_OFFENDER(ee)	((struct sockaddr*)((ee)+1))
 
+/* ABPS Gab */
+/* TED convenient wrapper APIs for First-hop Transmission Notification */
+#define get_ted_identfier(ee)   ((struct sock_extended_err *) ee)->ee_info
+#define get_ted_status(ee)  ((struct sock_extended_err *) ee)->ee_type
+#define get_ted_fragmentation_length_info   (((struct sock_extended_err *) ee)->ee_data >> 16)
+#define get_ted_fragmentation_offset_info   ((((struct sock_extended_err *) ee)->ee_data << 16) >> 16)
+#define get_ted_framentation_more_fragment_info ((struct sock_extended_err *) ee)->ee_code
+
 /**
  *	struct scm_timestamping - timestamps exposed through cmsg
  *

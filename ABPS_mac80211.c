@@ -17,6 +17,9 @@
 #include <net/cfg80211.h>
 /* ABPS VIC */
 #include <net/ip.h>
+
+#include <net/ipv6.h>
+
 #include <linux/syscalls.h>
 /* per do_gettimeofday */
 #include <linux/time.h>
@@ -311,7 +314,7 @@ static void ABPS_info_remove(struct ABPS_info *packet_info)
 }
 
 
-static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *sport,__be16 *dport)
+static int ipv6_get_udp_info(unsigned char *payload, int data_length, u16 *fragment_data_length, u16 *fragment_offset, u8 *more_fragment)
 {
     struct ipv6hdr *payload_iphdr;
 
@@ -331,7 +334,31 @@ static int ipv6_get_udp_info(unsigned char *payload, int data_length,__be16 *spo
         return 0;
     }
     
-    /* need to get port and other stuff from iphdr */
+    *fragment_offset = 0;
+    
+    *more_fragment = 0;
+    
+    /* analyze extension header for fragmentation */
+    
+    if(payload_iphdr->nexthdr == NEXTHDR_FRAGMENT)
+    {
+        struct frag_hdr *fragment_header = (struct frag_hdr *) (payload + (sizeof(ipv6hdr)));
+        
+        printk(KERN_NOTICE "Transmission Error Detector is trying to read from an IPv6 extension header. \n");
+        
+        *fragment_offset = (ntohs(fragment_header->frag_off & htons(IP6_OFFSET))) << 3
+        
+        *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 1);
+        
+        *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct frag_hdr) - sizeof(struct udphdr);
+        
+        printk(KERN_NOTICE "Transmission Error Detector ipv6 fragmentation info offset %d - length %d - mf %d \n", fragment_offset, fragment_data_length, more_fragment);
+        
+        return 1;
+    }
+    
+    printk(KERN_NOTICE "extension %d \n", payload_iphdr->nexthdr);
+    *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct udphdr);
     
     return 1;
 }
@@ -508,13 +535,17 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
        if(ethertype == ETH_P_IPV6)
        {
            IPdatagram = ((u8*)hdr4) + hdrlen + 8;
-           flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);
-           result_from_get_udp_info = ipv6_get_udp_info(IPdatagram,flen,&(p_IPDGInfo->sport),
-                                   &(p_IPDGInfo->dport));
+           flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);   unsigned char *payload, int data_length, u16 *fragment_data_length, u16 *fragment_offset, u8 *more_fragment)
+
+           result_from_get_udp_info = ipv6_get_udp_info(IPdatagram,
+                                                        flen,
+                                                        &(p_IPDGInfo->fragment_data_len),
+                                                        &(p_IPDGInfo->fragment_offset),
+                                                        &(p_IPDGInfo->more_fragment));
            if (result_from_get_udp_info > 0)
            {
                /* set the fields of the ABPS_info that will be put in the ABPS_info list*/
-               packet_info->datagram_info.ip_id =  identifier;
+               packet_info->datagram_info.ip_id = identifier;
                packet_info->is_ipv6 = 1;
                packet_info->tx_time = CURRENT_TIME;
             
@@ -715,7 +746,13 @@ int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee8021
         }
         else
         {
-            ipv6_local_error_notify(sk,success,packet_info->datagram_info.ip_id,packet_info->datagram_info.retry_count);
+            ipv6_local_error_notify(sk,
+                                    success,
+                                    packet_info->datagram_info.ip_id,
+                                    packet_info->datagram_info.fragment_data_len,
+                                    packet_info->datagram_info.fragment_offset,
+                                    packet_info->datagram_info.more_fragment,
+                                    packet_info->datagram_info.retry_count);
         }
         
 //#ifdef ABPS_DEBUG

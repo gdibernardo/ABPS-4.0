@@ -9,13 +9,14 @@
 \contentsline {figure}{\numberline {1.6}{\ignorespaces Header datagram IPv6}}{26}
 \contentsline {figure}{\numberline {1.7}{\ignorespaces Header UDP}}{29}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces L'architettura del kernel Linux.}}{34}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces La struttura \emph {sk\_buff}.}}{37}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces L'architettura del kernel Linux.}}{35}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces La struttura \emph {sk\_buff}.}}{38}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Esecuzione del comando menuconfig.}}{44}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Architettura ABPS}}{49}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Architettura ABPS per una comunicazione VoIP via protocollo SIP e RTP/RTCP}}{51}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Infrastruttura Mobile Node in ABPS}}{53}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architettura ABPS}}{51}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Architettura ABPS per una comunicazione VoIP via protocollo SIP e RTP/RTCP}}{53}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Infrastruttura Mobile Node in ABPS}}{55}
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

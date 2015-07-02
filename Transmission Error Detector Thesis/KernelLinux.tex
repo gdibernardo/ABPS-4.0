@@ -23,10 +23,14 @@
 %
 %\begin{document}
 
-\begin{chapter}{Cos'è un kernel?}
 
-
-
+\begin{chapter}{A glance to kernel Linux and to its network modules}
+In questo capitolo verrà offerta una breve panoramica sul kernel Linux.
+\\
+Verrà inoltre descritto un aspetto del kernel Linux che risulta cruciale per lo sviluppo del progetto che questa tesi si propone di raccontare: i suoi moduli di rete.
+\\
+Ma prima di addentrarci all'interno del kernel Linux, e dei suoi moduli di rete, verrà introdotto brevemente il concetto di kernel.
+\begin{section}{Cos'è un kernel?}
 Il kernel rappresenta il nucleo di un sistema operativo e racchiude tutte le funzioni principali del sistema stesso come gestione della memoria, gestione delle risorse, lo scheduling e il file system.
 \\
 Le applicazioni in esecuzione nel sistema possono richiedere particolari servizi al kernel tramite chiamate di sistema ( system call ) senza accedere direttamente alle risorse fisiche.
@@ -42,6 +46,7 @@ I kernel si possono classificare in quattro categorie:
 \item \textbf{Kernel ibridi} simili a micro kernel con la sola differenza di eseguire alcune componenti del sistema in kernel space per questione di efficienza.
 \item \textbf{Exo-kernel} non forniscono alcuna astrazione dell'hardware sottostante ma soltanto una collezione di librerie per mettere in contatto applicazioni con le risorse fisiche.
 \end{itemize}
+\end{section}
 \begin{section}{Il kernel Linux}
 Nell'aprile del 1991 Linus Torvalds, uno studente finlandese di informatica, comincia a sviluppare un semplice sistema operativo chiamato Linux.
 \\
@@ -77,9 +82,9 @@ La struttura sk\_buff \cite{SocketBufferLinuxFoundation} mantiene le informazion
 \\
 La struttura socket buffer contiene diversi campi che memorizzano le informazioni del pacchetto come il puntatore alla queue a cui è accodato o il socket a cui è associato.
 \\
-Essendo lo stack di rete implementato su più livelli, dove ciascun layer aggiunge ( o rimuove ) delle proprie informazioni di intestazione ad un messaggio, mantenere per ogni livello di rete una struttura diversa per identificare un certo pacchetto appartenente a quel dato layer potrebbe risultare parecchio oneroso in termini di memoria in quanto si finirebbe per copiare grandi quantità di dati da un buffer ad un altro. Anche questo motivo, nel kernel Linux, si è deciso di mantenere un'unica struttura accessibile da qualsiasi layer dello stack di rete. 
+Essendo lo stack di rete implementato su più livelli, dove ciascun layer aggiunge ( o rimuove ) delle proprie informazioni di intestazione ad un messaggio, mantenere per ogni livello di rete una struttura diversa per identificare un certo pacchetto appartenente a quel dato layer potrebbe risultare parecchio oneroso in termini di memoria in quanto si finirebbe per copiare grandi quantità di dati da un buffer ad un altro. Anche per questo motivo, nel kernel Linux, si è deciso di mantenere un'unica struttura accessibile da qualsiasi layer dello stack di rete. 
 \\
-La struttura sk\_buff mantiene un union field per ciascun livello di rete dello stack TCP/IP ( trasporto, network, data-link ) dove ciascun campo ( h, nh, mac ) rappresenta un header di un protocollo di comunicazione adotabbile per quel livello. Ciascun campo di queste union punteranno poi effettivamente a un header per quel livello.
+La struttura sk\_buff mantiene un union field per ciascun livello di rete dello stack TCP/IP ( trasporto, network, data-link ) dove ciascun campo ( h, nh, mac ) rappresenta un header di un protocollo di comunicazione adottabile per quel livello. Ciascun campo di queste union punterà effettivamente a un header per quel livello.
 \\
 Il campo \emph{data} punta all'inizio di tutti i dati relativi al pacchetto ( header compresi ) variando a seconda del layer in cui il socket buffer è utilizzato: in particolare quando una funzione ad un certo livello dello stack di rete tratta una struttura sk\_buff il campo data punterà all'header del messaggio per quel livello. Ad esempio in fase di ricezione di un pacchetto a livello network il campo nh di sk\_buff sarà inizializzato all'header puntato dal campo data. Se si vorrà accedere, per qualche motivo al payload del datagram IP si potrà farlo calcolando l'offset a partire dal puntatore data; inoltrando il pacchetto ad un layer superiore l'header relativo al livello di rete corrente potrà essere rimosso tramite la routine \textbf{skb\_pull()}. 
 \\
@@ -99,31 +104,31 @@ La struttura net\_device contiene campi che identificano l'interfaccia di rete c
 \\
 Questa struttura viene inizializzata da un device driver non appena questo comincia la sua esecuzione.
 \\
-Le operazioni offerte verso il kernel dalla struttura net\_device sono contenute nel campo della struttura \textbf{const struct net\_device\_ops *netdev\_ops}; la struttura net\_device\_ops descrive un'interfaccia generica e omogenea per la gestione di tutti i device di rete.
+Le operazioni offerte verso il kernel dalla interfaccia di rete sono contenute della struttura \textbf{const struct net\_device\_ops *netdev\_ops}; la struttura net\_device\_ops descrive un'interfaccia generica e omogenea per la gestione di tutti i device di rete.
 \\
 I campi contenuti nell'interfaccia net\_device\_ops non sono altro che semplici puntatori a funzione.
 \\
 Il device driver, in fase di inizializzazione, si occuperà di settare i campi della struttura net\_device\_ops mappando l'interfaccia offerta verso l'esterno con le funzioni implementate dal device driver per l'hardware specifico.
 \end{paragraph}
-
-Nello sviluppo del progetto di tesi è stato esteso il comportamento del workflow del kernel Linux per quanto riguarda la trasmissione di un datagram UDP. Per tanto, qui di seguito, descriveremo brevemente buona parte dei moduli che rendono possibile la trasmissione di un pacchetto UDP a partire da un applicazione fino al device driver.
 \\
+\\
+Nello sviluppo del progetto di tesi è stato esteso il comportamento del workflow del kernel Linux per quanto riguarda la trasmissione di un datagram UDP. Per tanto, qui di seguito, verranno descritti buona parte dei moduli che rendono possibile la trasmissione di un pacchetto UDP a partire da un applicazione fino al device driver.
 \begin{subsection}{Dall'app al device driver}
 Quando viene invocata una routine che interagisce con la rete tramite socket  ( come ad esempio send, sendto o sendmsg ) il controllo viene passato al \emph{socket interface layer}: se il socket è di tipo TCP il controllo verrà dato alla funzione tcp\_sendmsg altrimenti, se di tipo UDP, alla primitiva udp\_sendmsg.
 \\
-Appena il flusso dell'esecuzione è passato alla routine udp\_sendmsg vengono effettuati alcuni controlli sui parametri passati come ad esempio sulla lunghezza specificata per il payload del datagram UDP o sugli indirizzi mittente e destinatario e le porte. Dopodiché, a seconda se specificato il flag UDP\_CORK o meno ( che consente quando abilitato tramite la system call \emph{setsockopt} di accumulare tutti i dati in output sul socket e inviarli in unico datagram quando disabilitato ), il controllo dell'esecuzione passerà alla primitiva di livello rete ip\_append\_data() oppure a ip\_skb\_make() che in entrambi casi, comunque, si appoggeranno sulla funzione \_\_ip\_append\_data() che tra le altre cose si occuperà di bufferizzare tutte le richieste di tramissione e di generare uno o più sk\_buff rappresentanti ciascun pacchetto ( o frammento ) IP. 
+Appena il flusso dell'esecuzione è passato alla routine udp\_sendmsg vengono effettuati alcuni controlli sui parametri passati come ad esempio sulla lunghezza specificata per il payload del datagram UDP o sugli indirizzi mittente e destinatario e le porte. Dopodiché, a seconda se specificato il flag UDP\_CORK o meno ( che consente quando abilitato tramite la system call \emph{setsockopt} di accumulare tutti i dati in output sul socket e inviarli in un unico datagram quando disabilitato ), il controllo dell'esecuzione passerà alla primitiva di livello rete ip\_append\_data() oppure a ip\_skb\_make(). In entrambi casi, comunque, queste due funzioni si appoggeranno sulla funzione \_\_ip\_append\_data() che tra le altre cose si occuperà di bufferizzare tutte le richieste di tramissione e di generare uno o più sk\_buff rappresentanti ciascun pacchetto ( o frammento ) IP. 
 \\
-A questo punto il flusso esecutivo torna a livello trasporto dove a un certo punto verrà invocata la primitiva udp\_push\_pending\_frames che genera l'header UDP e passa definitivamente il controllo a livello rete invocando la funzione ip\_push\_pending\_frame(). 
+A questo punto il flusso esecutivo torna a livello trasporto dove verrà invocata la primitiva udp\_push\_pending\_frames che si occupa di generare l'header UDP e passare definitivamente il controllo a livello rete invocando la funzione ip\_push\_pending\_frame(). 
 \\
-In ip\_push\_pending\_frame() verrà generato l'header IP per ogni socket buffer in coda sul buffer in uscita per quel socket e dopo diversi controlli se il datagram IP necessita di frammentazione la funzione ip\_fragment si occuperà di frammentare il pacchetto IP in diverse strutture di tipo sk\_buff. 
+In ip\_push\_pending\_frame() verrà generato l'header IP per ogni socket buffer in coda sulla queue in uscita per quel socket e dopo diversi controlli, se il datagram IP necessita di frammentazione, la funzione ip\_fragment si occuperà di frammentare il pacchetto IP in diverse strutture dati di tipo sk\_buff. 
 \\
-Tra i compiti a carico del livello network dello stack di rete vi è quello del \emph{routing}: in particolare a supporto del routing a livello rete vi è la funzione ip\_route\_output\_flow. 
+Tra i compiti a carico del livello network dello stack di rete vi è quello del \emph{routing}: in particolare a supporto del routing a livello rete vi è la funzione ip\_route\_output\_flow(). 
 \\
-Se la fase di routing termina con successo verrà invocata la funzione di livello \emph{data-link} dev\_queue\_xmit() che, se l'interfaccia richiesta per la trasmissione è attiva, accoderà il socket buffer nella coda in uscita del net\_ device associato all' sk\_buff in invio e invocherà la funzione dev\_hard\_start\_xmit per cominciare a processare l'invio di un sk\_buff. 
+Se la fase di routing termina con successo verrà invocata la funzione di livello \emph{data-link} dev\_queue\_xmit() che, se l'interfaccia richiesta per la trasmissione è attiva, accoderà il socket buffer nella coda in uscita del net\_ device associato all' sk\_buff in invio e invocherà la funzione dev\_hard\_start\_xmit per cominciare a processare l'invio di un socket buffer.
 \\
-La funzione dev\_hard\_start\_xmit utilizzerà l'interfaccia esposta dalla struttura net\_device\_ops per cominciare la trasmissione in particolare invocherà la funzione ndo\_start\_xmit.
+La funzione dev\_hard\_start\_xmit utilizzerà l'interfaccia esposta dalla struttura net\_device\_ops per cominciare la trasmissione e, in particolare, invocherà la funzione ndo\_start\_xmit().
 \\
-Nel caso di un interfaccia di rete \emph{softMAC}, ovvero che il MLME ( MAC Sublayer Management Entity, ovvero dove viene implementata la logica del Medium Access Control ) è implementato via software ( vi sono dispositivi detti \emph{fullMAC} che implementano il MLME direttamente in hardware ) questa funzione si appoggerà sul sottosistema mac80211.
+Nel caso di un interfaccia di rete \emph{softMAC}, ovvero che il MLME ( MAC Sublayer Management Entity, cioè dove viene implementata la logica del Medium Access Control ) è implementato via software ( vi sono dispositivi detti \emph{fullMAC} che implementano il MLME direttamente in hardware ) questa funzione si appoggerà sul sottosistema mac80211.
 
 \begin{paragraph}{Sottosistema mac80211}Il sottosistema mac80211 è stato rilasciato nel 2005 e si occupa di implementare la logica MLME per device softMAC interpretando e generando frame IEEE 802.11. Prima della sua adozione all'interno del kernel Linux la gestione e l'implementazione di IEEE 802.11 era lasciata ai device driver.
 \\
@@ -131,27 +136,30 @@ Oggi la maggior parte dei device supportano questo sistema e in molti dei vecchi
 \\
 Un device driver in fase di inizializzazione delle strutture net\_device da lui gestite può \emph{registrarle} presso il modulo mac80211.
 \\
-In questo modo alcuni dei campi contenuti nella struttura net\_device\_ops contenuti possono essere settati con dei callback offerti dal modulo mac80211.
+In questo modo alcuni dei campi contenuti nella struttura net\_device\_ops possono essere settati con dei callback offerti dal modulo mac80211.
 \\
 Alcuni campi della struttura net\_device\_ops debbono essere settati obbligatoriamente con i callback del modulo mac80211 nel caso si voglia beneficiare del sottosistema; altri sono opzionali  ( o più legati all'hardware specifico ) e possono essere implementati dal device driver stesso.
 \\
-In fase di trasmissione di un messaggio il controllo dal livello data-link viene ceduto, quindi, al sottosistema mac80211; questo è possibile in quanto, in fase di registrazione del device, la funzione ndo\_start\_xmit di net\_device\_ops viene mappata nella funzione del sottosistema mac80211 ieee80211\_monitor\_start\_xmit.
 \\
-Verrà poi invocata la entry point \textbf{ieee80211\_xmit} del modulo mac80211 che tra le altre cose si occupa dell'inizializzazione del frame 802.11 e del suo header. Per far ciò il sottosistema mac80211 si serve di una serie di handler appositamente settati, tra cui: 
+In fase di trasmissione di un messaggio il controllo dal livello data-link viene ceduto, quindi, al sottosistema mac80211; questo è possibile in quanto, in fase di registrazione del device, la funzione ndo\_start\_xmit() di net\_device\_ops viene mappata nella funzione del sottosistema mac80211 ieee80211\_monitor\_start\_xmit().
+\\
+Verrà poi invocata la entry point \textbf{ieee80211\_xmit} del modulo mac80211 che tra le altre cose si occupa dell'inizializzazione del frame 802.11 e del suo header.
+\\
+Per far ciò il sottosistema mac80211 si serve di una serie di handler appositamente settati, tra cui: 
 \begin{itemize}
-\item \textbf{ieee80211\_tx\_h\_dynamic\_ps} per la gestione del power saving.
-\item \textbf{ieee80211\_tx\_h\_select\_key} si occupa di selezionare una chiave di cifratura. 
-\item \textbf{ieee80211\_tx\_h\_michael\_mic\_add} si occupa di aggiungere il Message Integrity Code al frame IEEE 802.11.
-\item \textbf{ieee80211\_tx\_h\_rate\_ctrl} che seleziona il bit rate con la quale il frame IEEE 802.11 deve essere trasmesso.
-\item \textbf{ieee80211\_tx\_h\_sequence} calcola il \emph{sequence number} del frame e lo assegna all'header 802.11.
-\item \textbf{ieee80211\_tx\_h\_fragment} si occupa, eventualmente, di frammentare il frame IEEE 802.11 in base al valore della MTU della scheda di rete wireless e a quella dell'access point.
-\item \textbf{ieee80211\_tx\_h\_encrypt} cifra il frame IEEE 802.11 con l'algoritmo designato.
-\item \textbf{ieee80211\_tx\_h\_calculate\_duration} si occupa di calcolare il campo \emph{duration} del frame IEEE 802.11 che indica per quanto tempo il canale sarà impegnato dalla trasmissione del frame.
-\item \textbf{ieee80211\_tx\_h\_stats} setta una serie di variabili utili al mantenimento di alcune statistiche di trasmissione.
+\item \textbf{ieee80211\_tx\_h\_dynamic\_ps()} per la gestione del power saving.
+\item \textbf{ieee80211\_tx\_h\_select\_key()} si occupa di selezionare una chiave di cifratura. 
+\item \textbf{ieee80211\_tx\_h\_michael\_mic\_add()} si occupa di aggiungere il Message Integrity Code al frame IEEE 802.11.
+\item \textbf{ieee80211\_tx\_h\_rate\_ctrl()} che seleziona il bit rate con la quale il frame IEEE 802.11 deve essere trasmesso.
+\item \textbf{ieee80211\_tx\_h\_sequence()} calcola il \emph{sequence control} del frame e lo assegna all'header 802.11.
+\item \textbf{ieee80211\_tx\_h\_fragment()} si occupa, eventualmente, di frammentare il frame IEEE 802.11 in base al valore della MTU della scheda di rete wireless e a quella dell'access point.
+\item \textbf{ieee80211\_tx\_h\_encrypt()} cifra il frame IEEE 802.11 con l'algoritmo designato.
+\item \textbf{ieee80211\_tx\_h\_calculate\_duration()} si occupa di calcolare il campo \emph{duration} del frame IEEE 802.11 che indica per quanto tempo il canale sarà impegnato dalla trasmissione del frame.
+\item \textbf{ieee80211\_tx\_h\_stats()} setta una serie di variabili utili al mantenimento di alcune statistiche di trasmissione.
 \end{itemize}
 Una volta che il frame IEEE 802.11 è stato trasmesso la struttura socket buffer associata non viene immediatamente deallocata: mac80211 provvederà a ritrasmettere il messaggio per un certo numero di volte, dipendente dalla NIC e dallo stato in cui si trova la rete alla quale è connessa, qualora non dovesse ricevere l'ACK relativo a quel frame.
 \\
-Alla fine di questo processo viene invocata la routine ieee80211\_tx\_status che fornisce alcune informazioni riguardanti l'esito della trasmissione per un certo pacchetto come ad esempio quante volte il pacchetto è stato ritrasmesso e se è stato effettivamente consegnato o meno all'access point.
+Alla fine di questo processo viene invocata la routine ieee80211\_tx\_status che fornisce alcune informazioni riguardanti l'esito della trasmissione per un certo pacchetto ( come ad esempio quante volte il pacchetto è stato ritrasmesso e se è stato effettivamente consegnato o meno all'access point ).
 \\
 A questo punto, sia che il frame IEEE 802.11 sia stato ricevuto dal first-hop o meno, il socket buffer associato viene definitivamente deallocato.
 \end{paragraph}

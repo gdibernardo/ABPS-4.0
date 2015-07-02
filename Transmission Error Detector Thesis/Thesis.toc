@@ -46,55 +46,59 @@
 \contentsline {paragraph}{Protocollo UDP}{28}
 \contentsline {section}{\numberline {1.7}Application Layer}{29}
 \contentsline {subsection}{\numberline {1.7.1}VoIP}{30}
-\contentsline {chapter}{\numberline {2}Cos'\`e un kernel?}{33}
-\contentsline {section}{\numberline {2.1}Il kernel Linux}{34}
-\contentsline {section}{\numberline {2.2}Linux kernel v4.0}{35}
-\contentsline {section}{\numberline {2.3}Linux networking}{35}
+\contentsline {chapter}{\numberline {2}A glance to kernel Linux and to its network modules}{33}
+\contentsline {section}{\numberline {2.1}Cos'\`e un kernel?}{33}
+\contentsline {section}{\numberline {2.2}Il kernel Linux}{34}
+\contentsline {section}{\numberline {2.3}Linux kernel v4.0}{35}
+\contentsline {section}{\numberline {2.4}Linux networking}{36}
 \contentsline {paragraph}{Socket buffer}{36}
 \contentsline {paragraph}{struct net\_device}{37}
-\contentsline {subsection}{\numberline {2.3.1}Dall'app al device driver}{38}
+\contentsline {subsection}{\numberline {2.4.1}Dall'app al device driver}{39}
 \contentsline {paragraph}{Sottosistema mac80211}{40}
-\contentsline {section}{\numberline {2.4}Customizzazione kernel Linux}{41}
+\contentsline {section}{\numberline {2.5}Customizzazione kernel Linux}{42}
 \contentsline {paragraph}{Scaricare una versione stabile del kernel ed estrarlo}{43}
 \contentsline {paragraph}{Scegliere la configurazione}{43}
-\contentsline {paragraph}{Compilare il Kernel}{43}
-\contentsline {paragraph}{Compilare i moduli ed installarli}{43}
-\contentsline {paragraph}{Installare il Kernel}{44}
-\contentsline {chapter}{\numberline {3}Scenario}{45}
-\contentsline {section}{\numberline {3.1}Seamless Host Mobility \& State Of the Art}{46}
-\contentsline {paragraph}{Implementazioni a livello network}{46}
-\contentsline {paragraph}{Implementazioni tra livello rete e trasporto}{47}
-\contentsline {paragraph}{Implementazioni a livello trasporto}{47}
-\contentsline {paragraph}{Implementazioni a livello Sessione}{48}
-\contentsline {section}{\numberline {3.2}Always Best Packet Switching}{48}
-\contentsline {subsection}{\numberline {3.2.1}Architettura}{51}
-\contentsline {paragraph}{Fixed proxy server}{51}
-\contentsline {paragraph}{Mobile node}{51}
-\contentsline {section}{\numberline {3.3}Considerazioni finali}{53}
-\contentsline {chapter}{\numberline {4}Transmission Error Detector}{55}
-\contentsline {section}{\numberline {4.1}Design and implementation}{55}
-\contentsline {subsection}{\numberline {4.1.1}Application layer}{56}
-\contentsline {subsection}{\numberline {4.1.2}Transport layer}{58}
-\contentsline {subsection}{\numberline {4.1.3}Network Layer}{59}
-\contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{61}
-\contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{62}
-\contentsline {chapter}{\numberline {5}Test \& valutazioni sperimentali}{65}
-\contentsline {section}{\numberline {5.1}ABABABABA}{65}
-\contentsline {subsection}{\numberline {5.1.1}Dispositivi}{65}
-\contentsline {paragraph}{ZyXEL NBG4615 v2}{66}
-\contentsline {paragraph}{LB-LINK BL-WN151}{66}
-\contentsline {paragraph}{NETGEAR WG111}{66}
-\contentsline {paragraph}{HP Pavilion dv6 Entertainment PC}{66}
-\contentsline {paragraph}{DELL Latitude E6400}{66}
-\contentsline {paragraph}{Raspberry Pi Model 2}{67}
-\contentsline {paragraph}{UDOO Quad}{67}
-\contentsline {paragraph}{Raspberry Pi Model B}{67}
-\contentsline {subsection}{\numberline {5.1.2}Parametri di valutazione}{67}
-\contentsline {subsection}{\numberline {5.1.3}Configurazioni}{69}
-\contentsline {subsection}{\numberline {5.1.4}Dettagli implementativi}{71}
-\contentsline {subsection}{\numberline {5.1.5}Test effettuati}{73}
-\contentsline {section}{\numberline {5.2}Risultati}{74}
-\contentsline {chapter}{Conclusioni}{77}
-\contentsline {chapter}{\numberline {A}Prima Appendice}{79}
-\contentsline {chapter}{\numberline {B}Seconda Appendice}{81}
-\contentsline {chapter}{Bibliografia}{83}
+\contentsline {paragraph}{Compilare il Kernel}{44}
+\contentsline {paragraph}{Compilare i moduli ed installarli}{45}
+\contentsline {paragraph}{Installare il Kernel}{45}
+\contentsline {chapter}{\numberline {3}Scenario}{47}
+\contentsline {section}{\numberline {3.1}Seamless Host Mobility \& State Of the Art}{48}
+\contentsline {paragraph}{Implementazioni a livello network}{48}
+\contentsline {paragraph}{Implementazioni tra livello rete e trasporto}{49}
+\contentsline {paragraph}{Implementazioni a livello trasporto}{49}
+\contentsline {paragraph}{Implementazioni a livello Sessione}{50}
+\contentsline {section}{\numberline {3.2}Always Best Packet Switching}{50}
+\contentsline {subsection}{\numberline {3.2.1}Architettura}{53}
+\contentsline {paragraph}{Fixed proxy server}{53}
+\contentsline {paragraph}{Mobile node}{53}
+\contentsline {section}{\numberline {3.3}Considerazioni finali}{55}
+\contentsline {chapter}{\numberline {4}Transmission Error Detector}{57}
+\contentsline {section}{\numberline {4.1}Design and implementation}{57}
+\contentsline {subsection}{\numberline {4.1.1}Application Layer}{59}
+\contentsline {subsection}{\numberline {4.1.2}Transport layer}{60}
+\contentsline {subsection}{\numberline {4.1.3}Network Layer}{61}
+\contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{63}
+\contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{64}
+\contentsline {chapter}{\numberline {5}Transmission Error Detector APIs for developers}{67}
+\contentsline {section}{\numberline {5.1}Send a message}{67}
+\contentsline {section}{\numberline {5.2}Receive notifications from TED}{71}
+\contentsline {chapter}{\numberline {6}Test \& valutazioni sperimentali}{73}
+\contentsline {section}{\numberline {6.1}ABABABABA}{73}
+\contentsline {subsection}{\numberline {6.1.1}Dispositivi}{73}
+\contentsline {paragraph}{ZyXEL NBG4615 v2}{74}
+\contentsline {paragraph}{LB-LINK BL-WN151}{74}
+\contentsline {paragraph}{NETGEAR WG111}{74}
+\contentsline {paragraph}{HP Pavilion dv6 Entertainment PC}{74}
+\contentsline {paragraph}{DELL Latitude E6400}{74}
+\contentsline {paragraph}{Raspberry Pi Model 2}{75}
+\contentsline {paragraph}{UDOO Quad}{75}
+\contentsline {paragraph}{Raspberry Pi Model B}{75}
+\contentsline {subsection}{\numberline {6.1.2}Parametri di valutazione}{75}
+\contentsline {subsection}{\numberline {6.1.3}Configurazioni}{77}
+\contentsline {subsection}{\numberline {6.1.4}Dettagli implementativi}{79}
+\contentsline {subsection}{\numberline {6.1.5}Test effettuati}{81}
+\contentsline {section}{\numberline {6.2}Risultati}{82}
+\contentsline {chapter}{Conclusioni}{85}
+\contentsline {chapter}{\numberline {A}Prima Appendice}{87}
+\contentsline {chapter}{\numberline {B}Seconda Appendice}{89}
+\contentsline {chapter}{Bibliografia}{91}

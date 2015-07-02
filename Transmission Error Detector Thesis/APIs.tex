@@ -1,0 +1,132 @@
+
+\begin{chapter}{Transmission Error Detector APIs for developers}
+Transmission Error Detector è pensato per operare assieme all'architettura ABPS all'interno di un ABPS proxy client.
+\\
+Tuttavia una qualsiasi applicazione, in esecuzione su di un kernel a cui è stato installato il modulo TED, può essere pensata e implementata per sfruttare il meccanismo di Transmission Error Detection raccontato in questo capitolo.
+\\
+Gli unici accorgimenti che un applicativo deve adottare per beneficiare dei meccanismi forniti dalla versione di Transmission Error Detector sviluppata consistono in:
+\begin{itemize}
+
+\item Abilitare il socket UDP utilizzato per la trasmissione alla ricezione degli errori.
+
+\item Adottare la system call sendmsg e specificare nell'ancillary data del messaggio in invio che si è interessati a ricevere un identificativo per quel messaggio oltre che all'indirizzo di memoria dove si vuole venga memorizzato l'identificativo assegnato.
+
+\end{itemize}
+\begin{section}{Send a message}
+\begin{lstlisting}
+
+/* create IPv4 socket */
+int file_descriptor, error, option_value;
+file_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
+
+/* Enable socket for error message */
+error = setsockopt(*file_descriptor, IPPROTO_IP, IP_RECVERR, (char *)&option_value, sizeof(option_value));
+
+\end{lstlisting}
+
+La system call sendmsg accetta come parametro una struttura di tipo struct msghdr che descrive il contenuto del messaggio in invio.
+\\
+\begin{lstlisting}
+
+struct msghdr
+{
+    void         *msg_name;			/* optional address */
+    socklen_t     msg_namelen;  		/* size of address */
+    struct iovec *msg_iov;        		/* scatter/gather array */
+    size_t        msg_iovlen;     		/* # elements in msg_iov */
+    void         *msg_control;    		/* ancillary data, see below */
+    size_t        msg_controllen; 		/* ancillary data buffer len */
+    int           msg_flags;      		/* flags on received message */
+};
+\end{lstlisting}
+
+Come già accennato la struttura struct msghdr può contenere delle informazioni di controllo che non saranno trasmesse lungo la rete; questo tipo di informazioni sono chiamate ancillary data.
+\\
+Gli ancillary data sono una sequenza di strutture di tipo struct cmgshdr.
+\\
+Gli ancillary data vanno sempre acceduti tramite apposite macro e mai direttamente.
+\\
+Per accedere alla prima struttura struct cmsghdr di un certo messaggio di tipo struct msghdr, ad esempio, basterà invocare la macro \textbf{CMSG\_FIRSTHDR()} specificando come parametro il puntatore alla struttura msghdr.
+
+\begin{lstlisting}
+
+struct cmsghdr 
+{
+	socklen_t cmsg_len;    /* data byte count, including header */
+	int       cmsg_level;  /* originating protocol */
+	int       cmsg_type;   /* protocol-specific type */
+	/* followed by unsigned char cmsg_data[]; */
+};
+
+\end{lstlisting}
+
+Per specificare che l'app invocante sendmsg è interessata a ricevere l'identificativo da TED è sufficiente settare il campo della struttura struct cmsghdr \textbf{cmgs\_type} al nuovo valore \textbf{ABPS\_CMSG\_TYPE}. 
+\\
+ABPS\_CMGS\_TYPE è stato definito in socket.h.
+\\
+All'interno del campo data della struttura struct cmsghdr è necessario copiare il puntatore all'area di memoria in cui si desidera TED setti l'identificativo assegnato al messaggio in invio.
+
+\begin{lstlisting}
+
+uint32_t identifier;
+
+uint32_t *pointer_for_identifier = &identifier;
+
+char ancillary_buffer[CMSG_SPACE(sizeof (pointer_for_identifier))];
+    
+struct iovec iov[3]; /* Scatter-Gather I/O */
+    
+struct msghdr message_header;
+    
+struct cmsghdr *cmsg;
+    
+char buffer[100];
+    
+memset(buffer,0,100);
+
+strncpy(buffer,"Hello from an app built on top of TED!",100);
+    
+    
+iov[0].iov_base = (void *) buffer; 
+iov[0].iov_len = strlen(buffer);
+    
+    
+message_header.msg_name = (void *) &destination_address; /* struct sockaddr_in for destination host */
+message_header.msg_namelen = sizeof (destination_address);
+
+message_header.msg_iov = iov;	/* message content*/
+message_header.msg_iovlen = 1;
+    
+message_header.msg_control = ancillary_buffer;
+message_header.msg_controllen = sizeof(ancillary_buffer);
+    
+cmsg = CMSG_FIRSTHDR(&message_header);	/* get first struct cmsg from message_header*/
+    
+cmsg->cmsg_level = SOL_UDP;
+cmsg->cmsg_type = ABPS_CMSG_TYPE;  /* new type for struct cmsghdr defined in socket.h */
+    
+cmsg->cmsg_len = CMSG_LEN(sizeof(pointer_for_identifier));
+    
+pointer = (char *) CMSG_DATA(cmsg);	/* accessing cmsg_data field */
+    
+memcpy(pointer, &pointer_for_identifier, sizeof(pointer_for_identifier));	/* copying pointer to variable in cmsg_data field*/
+    
+message_header.msg_controllen = cmsg->cmsg_len;
+    
+    
+/* Prepare for sending. */
+result_value = sendmsg(file_descriptor, &message_header, MSG_NOSIGNAL);
+
+\end{lstlisting}
+\end{section}
+
+
+\begin{section}{Receive notifications from TED}
+Per ricevere una notifica da TED è sufficiente predisporre l'app in lettura sul socket sfruttato in precedenza per l'invio di un messaggio.
+\\
+È possibile leggere dalla coda degli errori di un socket attraverso la system call \textbf{recvmsg} specificando il flag MSG\_ERRQUEUE.
+\\
+
+\end{section}
+
+\end{chapter}

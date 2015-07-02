@@ -5,8 +5,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Uso di IPv4}}{74}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Tempi di ricezione di notifica in caso di recv bloccante}}{74}
-\contentsline {table}{\numberline {5.3}{\ignorespaces Tabella no wait}}{75}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Uso di IPv4}}{82}
+\contentsline {table}{\numberline {6.2}{\ignorespaces Uso di IPv6: tempi}}{82}
+\contentsline {table}{\numberline {6.3}{\ignorespaces Tempi di ricezione di notifica in caso di recv bloccante}}{83}
+\contentsline {table}{\numberline {6.4}{\ignorespaces Tabella no wait}}{83}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
