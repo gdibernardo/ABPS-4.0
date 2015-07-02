@@ -75,12 +75,12 @@ int main(int argc, char ** argv)
             
             struct sock_extended_err *first_hop_transmission_notification;
             
-            int return_value;
+            int return_value, current_errno;
             do
             {
                 return_value = recvmsg(socket, &message, MSG_ERRQUEUE);
                 
-                int current_errno = errno;
+                current_errno = errno;
                 
             } while ((return_value < 0) && (current_errno == EINTR));
             
