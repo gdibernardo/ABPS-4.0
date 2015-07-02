@@ -10,12 +10,15 @@
 #include <net/sock.h>					/* per definizione struct sock  */
 
 
+
+#include <linux/skbuff.h>
+
 #include "ieee80211_i.h"
 
 /* not used in kernel Linux 4.0 */
 extern int ABPS_extract_pkt_info(struct ieee80211_hdr *hdr);
 
-extern int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t identifier);
+extern int ABPS_extract_pkt_info_with_skb(struct ieee80211_hdr *hdr, struct sk_buff *skb);
 
 /* usato in net/mac80211/main.c  */
 extern int ABPS_info_response(struct sock *sk, struct ieee80211_hw *hw, struct ieee80211_hdr *hdr, struct ieee80211_tx_info *info, struct ieee80211_sub_if_data *sdata);

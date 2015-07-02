@@ -314,11 +314,18 @@ static void ABPS_info_remove(struct ABPS_info *packet_info)
 }
 
 
-static int ipv6_get_udp_info(unsigned char *payload, int data_length, u16 *fragment_data_length, u16 *fragment_offset, u8 *more_fragment)
+static int ipv6_get_udp_info(struct sk_buff *skb,unsigned char *payload, int data_length, u16 *fragment_data_length, u16 *fragment_offset, u8 *more_fragment)
 {
     struct ipv6hdr *payload_iphdr;
 
     struct udphdr *payload_udphdr;
+    
+    int result_value;
+    
+    unsigned int offset;
+    unsigned short offset_to_frag_header;
+    
+    int flags;
     
     if(data_length < sizeof(struct ipv6hdr))
     {
@@ -340,24 +347,27 @@ static int ipv6_get_udp_info(unsigned char *payload, int data_length, u16 *fragm
     
     /* analyze extension header for fragmentation */
     
-    if(payload_iphdr->nexthdr == NEXTHDR_FRAGMENT)
+    result_value = ipv6_find_hdr(skb, &offset, NEXTHDR_FRAGMENT, &offset_to_frag_header, &flags)
+    if(result_value)
     {
-        struct frag_hdr *fragment_header = (struct frag_hdr *) (payload + (sizeof(ipv6hdr)));
-        
-        printk(KERN_NOTICE "Transmission Error Detector is trying to read from an IPv6 extension header. \n");
-        
-        *fragment_offset = (ntohs(fragment_header->frag_off & htons(IP6_OFFSET))) << 3
-        
-        *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 1);
-        
-        *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct frag_hdr) - sizeof(struct udphdr);
-        
-        printk(KERN_NOTICE "Transmission Error Detector ipv6 fragmentation info offset %d - length %d - mf %d \n", fragment_offset, fragment_data_length, more_fragment);
-        
-        return 1;
+        if(flags == IP6_FH_F_FRAG)
+        {
+            printk(KERN_NOTICE "two offset values %d %d",offset,offset_to_frag_header);
+            
+            struct frag_hdr *fragment_header = (struct frag_hdr *) (payload + (sizeof(struct ipv6hdr)) + offset_to_frag_header);
+            
+            *fragment_offset = (ntohs(fragment_header->frag_off & htons(IP6_OFFSET))) << 3
+            
+            *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 1);
+            
+            *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct frag_hdr) - sizeof(struct udphdr);
+            
+            printk(KERN_NOTICE "Transmission Error Detector ipv6 fragmentation info offset %d - length %d - mf %d \n", fragment_offset, fragment_data_length, more_fragment);
+            
+            return 1;
+        }
     }
-    
-    printk(KERN_NOTICE "extension %d \n", payload_iphdr->nexthdr);
+
     *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct udphdr);
     
     return 1;
@@ -451,7 +461,7 @@ static int get_udp_info(unsigned char *payload,
  * ABPS_info list if return 1 all it's ok.
  */
 
-int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t identifier)
+int ABPS_extract_pkt_info_with_skb(struct ieee80211_hdr *hdr, struct sk_buff *skb)
 {
     struct ABPS_info *packet_info;
     struct ieee80211_hdr_4addr *hdr4 = (struct ieee80211_hdr_4addr *)hdr;
@@ -463,6 +473,8 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
     u16 ethertype;
     int flen, result_from_get_udp_info;
     IPdgramInfo *p_IPDGInfo;
+    
+    uint32_t identifier = skb->sk_buff_identifier;
     
     fc = le16_to_cpu(hdr->frame_control) ;
     stype = WLAN_FC_GET_STYPE(fc);
@@ -515,7 +527,7 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
             
             /* set the fields of the ABPS_info that will be put in the ABPS_info list */
             
-            packet_info->datagram_info.ip_id =  identifier;
+            packet_info->datagram_info.ip_id = identifier;
            
             /* maybe ntohs, not sure */
             
@@ -535,9 +547,9 @@ int ABPS_extract_pkt_info_with_identifier(struct ieee80211_hdr *hdr, uint32_t id
        if(ethertype == ETH_P_IPV6)
        {
            IPdatagram = ((u8*)hdr4) + hdrlen + 8;
-           flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);   unsigned char *payload, int data_length, u16 *fragment_data_length, u16 *fragment_offset, u8 *more_fragment)
+           flen = sizeof(struct ipv6hdr) + sizeof(struct udphdr);
 
-           result_from_get_udp_info = ipv6_get_udp_info(IPdatagram,
+           result_from_get_udp_info = ipv6_get_udp_info(skb,IPdatagram,
                                                         flen,
                                                         &(p_IPDGInfo->fragment_data_len),
                                                         &(p_IPDGInfo->fragment_offset),
