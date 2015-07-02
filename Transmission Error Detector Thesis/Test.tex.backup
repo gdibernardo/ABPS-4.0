@@ -587,13 +587,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \end{tabular}
   \end{table}  
   
-  Come si può notare, c'è stato un peggioramento sia nella Conf.83 che nella conf.85.
-  Sono invece rimasti circa identici i tempi della Conf.87.
-  Questo può essere dovuto ad una rete già congestionata, che porta il movimento ad incidere di meno nella qualità.
   
-  
-  Per approfondire meglio l'analisi valutiamo il numero medio di retry avuti per i pacchetti con ACK.
-  Visti i comportamenti nei tempi ci aspettiamo lo stesso cambiamento anche nei retry, i cui dati sono riferiti nelle tabelle~\ref{tab:AvgRetryStay} e~\ref{tab:AvgRetryMove}.
   
 
   
@@ -627,13 +621,6 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   Media & 0.226 & 0.22825  & 0.20625  \\ \hline
   \end{tabular}
   \end{table}  
-  
-  A differenza dei tempi, invece, il movimento aumenta il numero medio di retry in tutte le configurazioni testate.
-  Un particolare interessante è dato dalla media simile per tutte le prove.
-  Empiricamente si potrebbe arrivare alla conclusione che se il client è in movimento e c'è un ostacolo tra lui e l'AP, il numero di retry si alza indipendentemente dal numero di hosts sulla rete.
-  
-  
-  
   
   
 \end{subsection}

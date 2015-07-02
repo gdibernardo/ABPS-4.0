@@ -1,6 +1,6 @@
 \select@language {italian}
 \select@language {italian}
-\contentsline {chapter}{Abstract}{i}
+\contentsline {chapter}{Introduzione}{i}
 \contentsline {chapter}{\numberline {1}Lo stack di rete}{1}
 \contentsline {section}{\numberline {1.1}Il modello ISO/OSI}{1}
 \contentsline {paragraph}{Physical Layer}{2}

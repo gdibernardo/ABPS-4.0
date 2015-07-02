@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.15)  2 JUL 2015 16:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.15)  2 JUL 2015 22:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1138,23 +1138,10 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [85]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [86] [87] [88
+[86] [87]) [88] [89
 
 
 
-] [89
 
 ] [90
 
@@ -1203,7 +1190,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  13232 strings out of 493304
  223068 string characters out of 6139871
- 532655 words of memory out of 5000000
+ 531655 words of memory out of 5000000
  16386 multiletter control sequences out of 15000+600000
  13607 words of font info for 56 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1217,7 +1204,7 @@ onts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmtt12.pfb>
-Output written on Thesis.pdf (107 pages, 2228490 bytes).
+Output written on Thesis.pdf (107 pages, 2230873 bytes).
 PDF statistics:
  408 PDF objects out of 1000 (max. 8388607)
  265 compressed objects within 3 object streams
