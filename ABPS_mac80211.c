@@ -348,8 +348,8 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     /* analyze extension header for fragmentation */
     printk(KERN_NOTICE "search for extension \n");
     unsigned int a_pointer = 0;
-    result_value = ipv6_find_hdr(skb, payload_iphdr, NEXTHDR_FRAGMENT, &offset_to_frag_header, &flags);
-    if(result_value != -1)
+    result_value = ipv6_find_hdr(skb, (unsigned int *) payload, NEXTHDR_FRAGMENT, &offset_to_frag_header, &flags);
+    if(result_value)
     {
         if(flags & IP6_FH_F_FRAG)
         {
@@ -374,7 +374,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     }
     
     result_value = ipv6_find_hdr(skb, (unsigned int *) payload_iphdr, NEXTHDR_UDP, &offset_to_frag_header, &flags);
-    if(result_value != -1)
+    if(result_value)
     {
         printk(KERN_NOTICE "two offset values %d %d for udp \n", offset, offset_to_frag_header);
         *fragment_data_length = ntohs(payload_iphdr->payload_len) - offset - sizeof(struct udphdr);
