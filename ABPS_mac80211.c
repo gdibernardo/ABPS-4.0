@@ -360,7 +360,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
         printk(KERN_NOTICE "Transmission Error Detector goes wrong getting next header \n");
     }
     
-    header_fragment = skb_header_pointer(skb, ptr, sizeof(support_header), &support_header);
+    header_fragment = skb_header_pointer(skb, pointer, sizeof(support_header), &support_header);
     
     printk(KERN_NOTICE " MF %d \n", (header_fragment->frag_off & htons(IP6_MF)));
     printk(KERN_NOTICE "MF %d \n", ntohs(header_fragment->frag_off & htons(IP6_MF)));
@@ -368,18 +368,6 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     printk(KERN_NOTICE "OFF_SET %d \n", ntohs(header_fragment->frag_off) & ~0x7);
     printk(KERN_NOTICE "OFF_SET %d \n", (ntohs(header_fragment->frag_off) & IP6_OFFSET) << 3);
     
-    
-    result_value = ipv6_find_hdr(skb, (unsigned int *) payload_iphdr, NEXTHDR_UDP, &offset_to_frag_header, &flags);
-    printk(KERN_NOTICE "result from second ipv6_find_hdr %d \n", result_value);
-    
-    if(result_value)
-    {
-        printk(KERN_NOTICE "two offset values %d %d for udp \n", offset, offset_to_frag_header);
-        *fragment_data_length = ntohs(payload_iphdr->payload_len) - offset - sizeof(struct udphdr);
-        
-        printk(KERN_NOTICE "fragment length %d \n", fragment_data_length);
-    }
-
     return 1;
 }
 
