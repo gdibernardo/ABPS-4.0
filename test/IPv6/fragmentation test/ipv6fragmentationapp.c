@@ -66,8 +66,9 @@ int main(int argc, char ** argv)
             printf("Just got identifier from TED %" PRIu32 " \n", identifier);
             
             number_of_packets++;
+        }
             if(number_of_packets == NUMBER_OF_PACKETS)
-                stop_sending = 1
+                stop_sending = 1;
                 
                 struct msghdr message;
             struct cmsghdr *cmsg;
@@ -79,12 +80,14 @@ int main(int argc, char ** argv)
             {
                 return_value = recvmsg(socket, &message, MSG_ERRQUEUE);
                 
-            } while ((return_value < 0) && (em->myerrno == EINTR));
+                int current_errno = errno;
+                
+            } while ((return_value < 0) && (current_errno == EINTR));
             
             if(return_value < 0)
                 continue;
             
-            for(cmsg = CMSG_FIRSTHDR(message); cmsg; cmsg = CMSG_NXTHDR(message, cmsg))
+            for(cmsg = CMSG_FIRSTHDR(&message); cmsg; cmsg = CMSG_NXTHDR(&message, cmsg))
             {
                 /* IPv6 socket */
                 
@@ -122,7 +125,7 @@ int main(int argc, char ** argv)
                         }
                         default:
                         {
-                            if(error_message->ee->ee_errno != 0)
+                            if(first_hop_transmission_notification->ee_errno != 0)
                             {
                                 printf(strerror(first_hop_transmission_notification->ee_errno));
                             }
