@@ -357,9 +357,10 @@ static int ipv6_get_udp_info(struct sk_buff *skb,unsigned char *payload, int dat
             struct frag_hdr *fragment_header = (struct frag_hdr *) (payload + (sizeof(struct ipv6hdr)) + offset_to_frag_header);
             
             *fragment_offset = (ntohs(fragment_header->frag_off & htons(IP6_OFFSET))) << 3
-            
-            *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 0);
-            
+            if(ntohs(fragment_header->frag_off & htons(IP6_MF)) > 0)
+            {
+                *more_fragment = 1;
+            }
             *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct frag_hdr) - sizeof(struct udphdr);
             
             printk(KERN_NOTICE "Transmission Error Detector ipv6 fragmentation info offset %d - length %d - mf %d \n", fragment_offset, fragment_data_length, more_fragment);
