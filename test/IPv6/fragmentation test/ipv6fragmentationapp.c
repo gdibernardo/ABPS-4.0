@@ -77,7 +77,7 @@ int main(int argc, char ** argv)
         message->msg_iov = iov;
         message->msg_iovlen = 1;
         
-        char control_buffer[512]
+        char control_buffer[512];
         
         message->msg_control = control_buffer;
         
