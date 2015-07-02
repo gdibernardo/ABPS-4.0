@@ -29,19 +29,26 @@ struct sock_extended_err {
 #define SO_EE_OFFENDER(ee)	((struct sockaddr*)((ee)+1))
 
 /* ABPS Gab */
-/* TED convenient wrapper APIs for First-hop Transmission Notification */
 
-#define get_ted_identfier(ee)   ((struct sock_extended_err *) ee)->ee_info
+/* TED convenient wrapper APIs for First-hop Transmission Notification. */
 
-#define get_ted_status(ee)  ((struct sock_extended_err *) ee)->ee_type
+/* Transmission Error Notification identifier of the datagram whose notification refers to. */
+#define ted_message_identifier_from_notification(notification)   ((struct sock_extended_err *) notification)->notification_info
 
-#define get_ted_retry_count(ee) ((struct sock_extended_err *) ee)->ee_retry_count
+/* Message status to the first hop. Return 1 if the message was successfully delivered to the AP, 0 otherwise. */
+#define ted_message_status_from_notification(notification)  ((struct sock_extended_err *) notification)->notification_type
 
-#define get_ted_fragmentation_length_info   (((struct sock_extended_err *) ee)->ee_data >> 16)
+/* Returns the number of times that the packet, associated to the notification provided, was retrasmitted to the AP.  */
+#define ted_message_retry_count_from_notification(notification) ((struct sock_extended_err *) notification)->notification_retry_count
 
-#define get_ted_fragmentation_offset_info   ((((struct sock_extended_err *) ee)->ee_data << 16) >> 16)
+/* Returns the fragment length */
+#define ted_message_fragmentation_length_info_from_notification(notification)   (((struct sock_extended_err *) notification)->notification_data >> 16)
 
-#define get_ted_framentation_more_fragment_info ((struct sock_extended_err *) ee)->ee_code
+/* Returns the offset of the current message associated with the notification from the original message. */
+#define ted_message_fragmentation_offset_info_from_notification(notification)   ((((struct sock_extended_err *) notification)->notification_data << 16) >> 16)
+
+/* Indicates if there is more fragment with the same TED identifier */
+#define ted_message_more_fragment_info_from_notification ((struct sock_extended_err *) notification)->notification_code
 
 
 /**

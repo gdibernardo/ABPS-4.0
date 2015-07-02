@@ -326,7 +326,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     
     int result_value;
     
-    unsigned int pointer;
+    unsigned int pointer = 0;
     
     
     
@@ -368,6 +368,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     printk(KERN_NOTICE "OFF_SET %d \n", ntohs(header_fragment->frag_off) & ~0x7);
     printk(KERN_NOTICE "OFF_SET %d \n", (ntohs(header_fragment->frag_off) & IP6_OFFSET) << 3);
     
+    printk(KERN_NOTICE "OFF SET %d \n", (ntohs(header_fragment->frag_off & htons(IP6_OFFSET))) << 3);
     
     return 1;
 }

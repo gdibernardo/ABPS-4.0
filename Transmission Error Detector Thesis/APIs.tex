@@ -1,5 +1,5 @@
 
-\begin{chapter}{Transmission Error Detector APIs for developers}
+\begin{chapter}{Transmission Error Detector developer APIs}
 Transmission Error Detector è pensato per operare assieme all'architettura ABPS all'interno di un ABPS proxy client.
 \\
 Tuttavia una qualsiasi applicazione, in esecuzione su di un kernel a cui è stato installato il modulo TED, può essere pensata e implementata per sfruttare il meccanismo di Transmission Error Detection raccontato nel capitolo precedente.
@@ -131,8 +131,9 @@ La notifica può essere ricevuta da un'app nello stesso modo l'app potrebbe ricev
 \\
 Come già accennato precedentemente le informazioni della First-hop Transmission Notification sono contenute all'interno di una struttura sock\_extended\_err.
 \\
-Sono state sviluppate delle APIs per poter accedere a particolari informazioni inerenti la notifica proveniente da TED.
+Si è deciso di introdurre un'interfaccia pulita ed omogenea per accedere ai valori memorizzati all'interno della notifica e quindi della struttura; questa nuove APIs introdotte sono state definite all'interno dello stesso file della definizione della struttura sock\_extended\_err ( errqueue.h ).
 \\
+Tutte le api 
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  2 JUL 2015 18:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  2 JUL 2015 23:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1007,7 +1007,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  (./APIs.tex
 Capitolo 5.
-[67
+
+Underfull \vbox (badness 4995) has occurred while \output is active []
+
+ [67
 
 
 
@@ -1023,19 +1026,20 @@ Overfull \hbox (6.54337pt too wide) in paragraph at lines 43--50
  []
 
 [68] [69]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 105.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 106.
 
  (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 105.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 106.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [70]
-Underfull \hbox (badness 10000) in paragraph at lines 125--129
-
+Overfull \hbox (27.48204pt too wide) in paragraph at lines 126--137
+\OT1/cmr/m/n/12 smis-sion No-ti-fi-ca-tion so-no con-te-nu-te al-l'in-ter-no di
+ una strut-tu-ra sock[]extended[]err. 
  []
 
 ) [71]
@@ -1165,7 +1169,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  13127 strings out of 493117
  220630 string characters out of 6135433
- 532660 words of memory out of 5000000
+ 531660 words of memory out of 5000000
  16348 multiletter control sequences out of 15000+600000
  13607 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1179,7 +1183,7 @@ ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
 l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
 /texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/
 texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Thesis.pdf (107 pages, 2235043 bytes).
+Output written on Thesis.pdf (107 pages, 2235785 bytes).
 PDF statistics:
  408 PDF objects out of 1000 (max. 8388607)
  265 compressed objects within 3 object streams

@@ -79,8 +79,8 @@
 \contentsline {subsection}{\numberline {4.1.3}Network Layer}{61}
 \contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{63}
 \contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{64}
-\contentsline {chapter}{\numberline {5}Transmission Error Detector APIs for developers}{67}
-\contentsline {section}{\numberline {5.1}Send a message}{67}
+\contentsline {chapter}{\numberline {5}Transmission Error Detector developer APIs}{67}
+\contentsline {section}{\numberline {5.1}Send a message}{68}
 \contentsline {section}{\numberline {5.2}Receive notifications from TED}{71}
 \contentsline {chapter}{\numberline {6}Test \& valutazioni sperimentali}{73}
 \contentsline {section}{\numberline {6.1}Raccolta dati}{73}
