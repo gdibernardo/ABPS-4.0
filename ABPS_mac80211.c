@@ -358,7 +358,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb,unsigned char *payload, int dat
             
             *fragment_offset = (ntohs(fragment_header->frag_off & htons(IP6_OFFSET))) << 3
             
-            *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 1);
+            *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 0);
             
             *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct frag_hdr) - sizeof(struct udphdr);
             
