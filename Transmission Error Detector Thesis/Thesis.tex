@@ -46,6 +46,7 @@
 }
  
 \lstset{style=mystyle}
+     
 
 
 \colorlet{punct}{red!60!black}
@@ -81,9 +82,9 @@
       {[}{{{\color{delim}{[}}}}{1}
       {]}{{{\color{delim}{]}}}}{1},
 }
-
-
-
+ 
+ 
+ 
 \pagestyle{fancy}\addtolength{\headwidth}{20pt}
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
@@ -161,7 +162,7 @@ CONCLUSIONI}}
 \addcontentsline{toc}{chapter}{Conclusioni} Queste sono le
 conclusioni.\\
 In queste conclusioni voglio fare un riferimento alla
-bibliografia: questo \`e il mio riferimento \cite{K3,K4}.
+bibliografia: questo \`e il mio riferimento %\cite{K3,K4}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}

@@ -136,9 +136,9 @@ Le specifiche tecniche sono:
 Abbiamo utilizzato questo raspberry per creare traffico sulla rete, ma a volte è stato anche utilizzato come server.
 Le specifiche tecniche sono: 
 \begin{itemize}
- \item Kernel: Kernel Linux 3.18.7+
- \item Processore: 700 MHz single-core ARM1176JZF-S 
- \item Sistema operativo: Raspbian Wheezy
+ \item Kernel: Kernel Linux 3.18.7+.
+ \item Processore: 700 MHz single-core ARM1176JZF-S.
+ \item Sistema operativo: Raspbian Wheezy.
 \\ 
 \end{itemize}
 
@@ -160,8 +160,8 @@ I parametri che ci interessano maggiormente sono:
  \item \textbf{ACK}: se è stato ricevuto un ACK o un NACK da parte dell'AP. 
  \item \textbf{Data}: è dato dalla data e dall'orario di invio del pacchetto.
  \item \textbf{Tempo}: è il tempo in millisecondi tra l'invio del pacchetto e la ricezione della notifica da parte dell'access point.
- \item \textbf{Retry count}: è il numero di tentativi di invio di un determinato pacchetto
- \item \textbf{Versione IP}: IPv4 o IPv6
+ \item \textbf{Retry count}: è il numero di tentativi di invio di un determinato pacchetto.
+ \item \textbf{Versione IP}: IPv4 o IPv6.
  \item \textbf{Configurazione}: è la configurazione dei dispositivi utilizzati durante l'esperimento.
  \item \textbf{Wait}: indica se la recv è bloccante.
  
@@ -246,7 +246,7 @@ Avendo descritto quali parametri e quali configurazioni abbiamo descritto, ci co
 I principali problemi da risolvere in questa parte erano:
 \begin{itemize}
  \item Velocità degli hosts.
- \item Salvataggio dei dati
+ \item Salvataggio dei dati.
  \item Elaborazione dei dati.
 \end{itemize}
 Per quanto riguarda la misurazione della velocità degli hosts, abbiamo creato una semplice applicazione che vada a misurarla.
@@ -270,13 +270,13 @@ Inoltre è stata misurata, nella maggior parte dei casi, in una zona poco abitata
 Per quanta riguarda il salvataggio dei dati, abbiamo scelto di farlo in un file in formato \emph{JSON}.
 Abbiamo scelto il JSON per la facilità di leggere i dati salvati. I dati sono stati salvati come un array di pacchetti, e per ogni pacchetto è stato salvato:
 \begin{itemize}
- \item id del pacchetto
- \item millisecondi tra invio pacchetto e ricezione della notifica
- \item numero di tentativi di invio
- \item versione IP
- \item boolean per ack
- \item numero della configurazione
- \item data
+ \item id del pacchetto.
+ \item millisecondi tra invio pacchetto e ricezione della notifica.
+ \item numero di tentativi di invio.
+ \item versione IP.
+ \item boolean per ack.
+ \item numero della configurazione.
+ \item data.
  
 \end{itemize}
 I dati salvati sono i parametri di valutazione che abbiamo precedentemente scelto.
@@ -300,7 +300,6 @@ Un esempio di file JSON è il seguente:
 
 
 \end{lstlisting}
-\\
 
 
 Grazie all'utilizzo di un file JSON per il salvataggio dei dati, ne risulta più semplice l'analisi.
@@ -396,10 +395,12 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
 
 \begin{subsection}{Confronto tra IPv4 e IPv6}
   
-  
-  Per quanto riguarda IPv4 ed IPv6, andiamo ad analizzare i risultati relativi ai tempi di ricezioni della notifica proveniente dall'access point, la media dei \emph{NACK} e la media dei retry.
-  In particolare si possono notare le medie dei tempi di IPv4 nella tabella ~\ref{tab:AvgTimeIPv4} mentre quella di IPv6 nella tabella ~\ref{tab:AvgTimeIPv6}.
-  Poi faccio i confronti anche con gli altri e ci metto le tabelle. Dopo aver messo le tabelle commento quei cazzo di risultati.
+  Per quanto riguarda IPv4 ed IPv6, andiamo ad analizzare i risultati relativi ai tempi di ricezione della notifica proveniente dall'access point, la media dei \emph{NACK} e la media dei retry.
+  I test effettuati sono stati realizzati con pacchetti di dimensione ridotta, in modo da non avere frammentazione.
+  Ci si aspetta che non ci sia differenza tra le due prove.
+  \\
+  Come primo parametro andiamo a controllare i tempi, in millisecondi, di ricezione della notifica.
+  In particolare si possono notare le medie dei tempi di IPv4 nella tabella~\ref{tab:AvgTimeIPv4}, mentre quelle di IPv6 nella tabella~\ref{tab:AvgTimeIPv6}.
 
   \begin{table}[h]
   \centering
@@ -410,9 +411,9 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   IPv4  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
   prima  & 6.234  & 5.624 & 5.5952 & 2.8068  & 4.9292\\ \hline
   seconda & 7.8972  & 5.2736 & 4.7432  & 4.5024 &  2.9844\\ \hline
-  terza & 7.3208 & 2.0812 & 4.0432 & 6.0316 & 4.7292\\ \hline
+  terza & 7.3208 & 4.0812 & 4.0432 & 6.0316 & 4.7292\\ \hline
   quarta & 7.627 & 5.906  & 3.4704 & 5.7504 & 6.7728  \\ \hline \hline
-  Media & 7.26975 & 4.7212  & 4.463 & 4.7728 & 4.8539  \\ \hline
+  Media & 7.26975 & 5.2212  & 4.463 & 4.7728 & 4.8539  \\ \hline
   \end{tabular}
   \end{table}
 
@@ -426,14 +427,16 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
   prima  & 5.44  & 6.508 & 4.9788 & 5.338 & 6.2316 \\ \hline
   seconda & 6.8998  & 6.5516 & 5.5684  & 4.5024 & 4.7456 \\ \hline
-  terza & 6.177 & 7.6788 & 5.9008 & 6.0316 &  6.1744 \\ \hline
+  terza & 6.177 & 6.6788 & 5.9008 & 5.0316 &  6.1744 \\ \hline
   quarta & 5.9642 & 5.6636  & 4.9396 & 5.5612 & 4.0648 \\ \hline \hline
-  Media & 6.12025 & 6.6005  & 5.3469 & 5.3583 & 5.3041 \\ \hline
+  Media & 6.12025 & 6.3505  & 5.3469 & 5.1083 & 5.3041 \\ \hline
   \end{tabular}
   \end{table}
 
-  Guardando le medie dei tempi si può notare come non ci sia una sostanziale differenza tra le due versioni. 
-  Questo è ragionevole in quanto sono stati testati pacchetti di dimensione ridotta, in modo da non avere frammentazione.
+  Guardando le medie dei tempi si può notare come, effettivamente, non ci sia una sostanziale differenza tra le due versioni. 
+  Questo è ragionevole, in quanto nessuna delle due versioni 
+  
+  in quanto sono stati testati pacchetti di dimensione ridotta, in modo da non avere frammentazione.
   Si possono ora controllare anche le statistiche relative al numero di retry dei pacchetti che ricevono ACK, sia per IPv4 che per IPv6.
   Ci si aspetta anche in questo caso che i valori siano simili.
 
@@ -468,13 +471,13 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \end{tabular}
   \end{table}
 
+  
 
   Analizzando le medie dei retry dalle tabelle~\ref{tab:AvgRetryIPv4} e~\ref{tab:AvgRetryIPv6} possiamo osservare che effettivamente non ci sono sostanziali differenze.
   L'unica differenza di configurazione è ottenuta nella Conf. 6, ma è dovuta principalmente ad una prova che ha alzato il valore.
-  Visto che una singola prova può essere rallentata da diversi fattori, possiamo valutare le diverse versioni come identiche in caso di mancata frammentazione.
-  %MENGO: conviene (e ha senso)  dire che l'app potrebbe decidere di mandare in IPv4 o ipv6 se si accorge di comportamenti strani (tipo rallentati in ipv4) in casi di frammentazione??? 
-  %MENGO: dire che valutiamo anche cosa può fare la applicazione
-\end{subsection}
+  Visto che una singola prova può essere rallentata da diversi fattori, possiamo valutare le medie relative alle diverse versioni come identiche in caso di mancata frammentazione.
+
+  \end{subsection}
 
 \begin{subsection}{Valutazione problemi dovuti a pacchetti nella rete} %MENGO: titolo del cazzo
   Una seconda osservazione si può fare su una attenta analisi riguardo al numero di pacchetti e di hosts sulla rete.
@@ -482,45 +485,45 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   La prove sono state effettuate con il nodo da solo nella rete, un host sulla rete che trasmette 71 MB, due hosts che trasmettono 36 MB ciascuno e tre hosts che trasmettono 22 MB ciascuno.
 
 
-
-
-  \begin{table}[h]
-  \centering
-  \caption{Media dei tempi rispetto al numero di pacchetti}
-  \label{tab:AvgTimePkts}
-  \begin{tabular}{|l|c|c|c|c|c|}
-  \hline
-  IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
-  prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 & 0.1432\\ \hline
-  seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144 & 0.17508 \\ \hline
-  terza & 0.04641 & 0.0556 & 0.096 & 0.11307 &  0.1484\\ \hline
-  quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508 & 0.120144 \\ \hline \hline
-  Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398 & 0.146706  \\ \hline
-  \end{tabular}
-  \end{table}
-
-  Analizzando i tempi della tabella~\ref{tab:AvgTimePkts} si può notare che 
-
-  \begin{table}[h]
-  \centering
-  \caption{Media dei retry rispetto al numero di pacchetti}
-  \label{tab:AvgRetryPkts}
-  \begin{tabular}{|l|c|c|c|c|c|}
-  \hline
-  IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8  \\ \hline
-  prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 \\ \hline
-  seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144  \\ \hline
-  terza & 0.04641 & 0.0556 & 0.096 & 0.11307 \\ \hline
-  quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508  \\ \hline \hline
-  Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398   \\ \hline
-  \end{tabular}
-  \end{table}
-
-
-
-
-
-
+% 
+% 
+%   \begin{table}[h]
+%   \centering
+%   \caption{Media dei tempi rispetto al numero di pacchetti}
+%   \label{tab:AvgTimePkts}
+%   \begin{tabular}{|l|c|c|c|c|c|}
+%   \hline
+%   IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
+%   prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 & 0.1432\\ \hline
+%   seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144 & 0.17508 \\ \hline
+%   terza & 0.04641 & 0.0556 & 0.096 & 0.11307 &  0.1484\\ \hline
+%   quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508 & 0.120144 \\ \hline \hline
+%   Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398 & 0.146706  \\ \hline
+%   \end{tabular}
+%   \end{table}
+% 
+%   Analizzando i tempi della tabella~\ref{tab:AvgTimePkts} si può notare che 
+% 
+%   \begin{table}[h]
+%   \centering
+%   \caption{Media dei retry rispetto al numero di pacchetti}
+%   \label{tab:AvgRetryPkts}
+%   \begin{tabular}{|l|c|c|c|c|c|}
+%   \hline
+%   IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8  \\ \hline
+%   prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 \\ \hline
+%   seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144  \\ \hline
+%   terza & 0.04641 & 0.0556 & 0.096 & 0.11307 \\ \hline
+%   quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508  \\ \hline \hline
+%   Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398   \\ \hline
+%   \end{tabular}
+%   \end{table}
+% 
+% 
+% 
+% 
+% 
+% 
 
   
 \end{subsection}
@@ -537,9 +540,79 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
 
 \begin{subsection}{Problemi dovuti alla trasmissione in movimento}
  
- asdfadsfs
- 
- 
+  Riguardo la trasmissione in movimento, rispetto a quella da fermo, è interessante notare alcuni aspetti.
+  In particolare 
+  
+  
+
+
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei tempi con nodo mobile fermo}
+  \label{tab:AvgTimeStay}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+   & Conf. 83A & Conf. 85A & Conf. 87A \\ \hline
+  prima  & 0.768  & 12.986 & 26.799  \\ \hline
+  seconda & 0.748  & 9.362 & 56.85   \\ \hline
+  terza & 0.696 & 7.941 & 80.897  \\ \hline
+  quarta & 0.662 & 9.295  & 73.785   \\ \hline \hline
+  Media & 0.7185 & 9.896  & 62.08275   \\ \hline
+  \end{tabular}
+  \end{table}
+
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei tempi con nodo mobile in movimento}
+  \label{tab:AvgTimeMove}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+    & Conf. 83B & Conf. 85B & Conf. 87B    \\ \hline
+  prima  & 0.987  & 17.524 & 45.909  \\ \hline
+  seconda & 1.13  & 15.021 & 36.636   \\ \hline
+  terza & 0.9628 & 50.244 &  57.399 \\ \hline
+  quarta & 1.064 & 45.503  & 96.327 \\ \hline \hline
+  Media & 1.03595 & 21.986  & 59.06775   \\ \hline
+  \end{tabular}
+  \end{table}  
+
+  
+
+  
+  \begin{table}[h]
+  \centering
+  \caption{Media dei retry con nodo mobile fermo}
+  \label{tab:AvgRetryStay}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+    & Conf. 83A & Conf. 85A & Conf. 87A \\ \hline
+  prima  & 0.0652  & 0.029 & 0.128  \\ \hline
+  seconda & 0.0104  & 0.0706 & 0.0961   \\ \hline
+  terza & 0.0118 & 0.0302 & 0.108  \\ \hline
+  quarta & 0.0124 & 0.0981  & 0.102   \\ \hline \hline
+  Media & 0.7185 & 9.896  & 62.08275   \\ \hline
+  \end{tabular}
+  \end{table}
+
+
+  \begin{table}[h]
+  \centering
+  \caption{Media dei retry con nodo mobile in movimento}
+  \label{tab:AvgRetryMove}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+    & Conf. 83B & Conf. 85B & Conf. 87B    \\ \hline
+  prima  & 0.227 & 0.273 & 0.072  \\ \hline
+  seconda & 0.218  & 0.202 & 0.179   \\ \hline
+  terza & 0.221 & 0.226 &  0.225 \\ \hline
+  quarta & 0.238 & 0.212  & 0.349 \\ \hline \hline
+  Media & 0.226 & 0.22825  & 0.20625  \\ \hline
+  \end{tabular}
+  \end{table}  
+  
+  
 \end{subsection}
 
 
@@ -565,38 +638,38 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
 
 
 
-  \begin{table}[h]
-  \centering
-  \caption{Tempi di ricezione di notifica in caso di recv bloccante}
-  \label{WaitTable}
-  \begin{tabular}{|l|c|c|c|c|}
-  \hline
-  WAIT  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
-  prima  & 0.4736  & 0.6684 & 0.716 & 0.943 \\ \hline
-  seconda & 0.4536  & 0.7096 & 1.027  & 0.7282  \\ \hline
-  terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
-  quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
-  Media & 0.4821 & 0.66595  & 0.90885 & 0.952125  \\ \hline
-  \end{tabular}
-  \end{table}
+%   \begin{table}[h]
+%   \centering
+%   \caption{Tempi di ricezione di notifica in caso di recv bloccante}
+%   \label{WaitTable}
+%   \begin{tabular}{|l|c|c|c|c|}
+%   \hline
+%   WAIT  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
+%   prima  & 0.4736  & 0.6684 & 0.716 & 0.943 \\ \hline
+%   seconda & 0.4536  & 0.7096 & 1.027  & 0.7282  \\ \hline
+%   terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
+%   quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
+%   Media & 0.4821 & 0.66595  & 0.90885 & 0.952125  \\ \hline
+%   \end{tabular}
+%   \end{table}
 
-
-
-  \begin{table}[h]
-  \centering
-  \caption{Tabella no wait}
-  \label{FirstTable2}
-  \begin{tabular}{|l|c|c|c|c|}
-  \hline
-  NO WAIT ERRATA!!!  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
-  prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
-  seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
-  terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
-  quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
-  Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
-
-  \end{tabular}
-  \end{table}
+% 
+% 
+%   \begin{table}[h]
+%   \centering
+%   \caption{Tabella no wait}
+%   \label{FirstTable2}
+%   \begin{tabular}{|l|c|c|c|c|}
+%   \hline
+%   NO WAIT ERRATA!!!  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
+%   prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
+%   seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
+%   terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
+%   quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
+%   Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
+% 
+%   \end{tabular}
+%   \end{table}
 
 
 \end{section}
