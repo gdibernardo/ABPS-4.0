@@ -69,7 +69,22 @@ int main(int argc, char ** argv)
             if(number_of_packets == NUMBER_OF_PACKETS)
             {
                 stop_sending = 1
+                
+                struct msghdr message;
+                struct cmsghdr *cmsg;
+                
+                struct sock_extended_err *first_hop_transmission_notification;
+                
+                int return_value;
+                
+                return_value = recvmsg(socket, &message, MSG_ERRQUEUE);
+                if(return_value > 0)
+                {
+                
+                }
             }
+            
+            
         }
         
         
