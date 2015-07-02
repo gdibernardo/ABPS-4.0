@@ -30,22 +30,26 @@ for el in data["pacchetti"]:
 		if el['testId']==1:# or el['testId']==spa:
 			#print(numRetry)
 			if ini !=0 :
-				avg=float(numRetry)/float(npk)
-
+				if npk!=0:
+					avg=float(numRetry)/float(npk)
+				else:
+					avg=0
 				ar.append(avg)
 				ar.append(npk)
 			else:
 				ini=1
 			numRetry=0
 			npk=0	
-		
-		numRetry=numRetry+el['retrycount']
-		npk=npk+1
+		if el['ack']== True:
+			numRetry=numRetry+el['retrycount']
+			npk=npk+1
 
 
 
-avg=float(numRetry)/float(npk)
-
+if npk!=0:
+	avg=float(numRetry)/float(npk)
+else:
+	avg=0
 ar.append(avg)
 ar.append(npk)
 print(ar)
