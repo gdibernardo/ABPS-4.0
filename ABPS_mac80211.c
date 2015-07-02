@@ -325,7 +325,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb,unsigned char *payload, int dat
     unsigned int offset;
     unsigned short offset_to_frag_header;
     
-    int flags;
+    int flags = 0;
     
     if(data_length < sizeof(struct ipv6hdr))
     {
@@ -350,7 +350,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb,unsigned char *payload, int dat
     result_value = ipv6_find_hdr(skb, &offset, NEXTHDR_FRAGMENT, &offset_to_frag_header, &flags);
     if(result_value != -1)
     {
-        if(flags == IP6_FH_F_FRAG)
+        if(flags & IP6_FH_F_FRAG)
         {
             printk(KERN_NOTICE "two offset values %d %d \n", offset, offset_to_frag_header);
             
