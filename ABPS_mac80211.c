@@ -354,7 +354,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     printk(KERN_NOTICE "search for extension \n");
     
     
-    result_value = ipv6_get_udp_info(skb, &pointer, NEXTHDR_FRAGMENT, NULL, NULL);
+    result_value = ipv6_find_hdr(skb, &pointer, NEXTHDR_FRAGMENT, NULL, NULL);
     if(result_value < 0)
     {
         printk(KERN_NOTICE "Transmission Error Detector goes wrong getting next header \n");
@@ -367,6 +367,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     
     printk(KERN_NOTICE "OFF_SET %d \n", ntohs(header_fragment->frag_off) & ~0x7);
     printk(KERN_NOTICE "OFF_SET %d \n", (ntohs(header_fragment->frag_off) & IP6_OFFSET) << 3);
+    
     
     return 1;
 }
