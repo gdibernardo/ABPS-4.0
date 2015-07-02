@@ -70,7 +70,7 @@ int main(int argc, char ** argv)
         if(number_of_packets == NUMBER_OF_PACKETS)
             stop_sending = 1;
         
-        struct iovec iov[1]
+        struct iovec iov[1];
         struct msghdr message[1];
         struct cmsghdr *cmsg;
         
