@@ -352,26 +352,24 @@ static int ipv6_get_udp_info(struct sk_buff *skb,unsigned char *payload, int dat
     {
         if(flags == IP6_FH_F_FRAG)
         {
-            printk(KERN_NOTICE "two offset values %d %d",offset,offset_to_frag_header);
+            printk(KERN_NOTICE "two offset values %d %d \n", offset, offset_to_frag_header);
             
             struct frag_hdr *fragment_header = (struct frag_hdr *) (payload + (sizeof(struct ipv6hdr)) + offset_to_frag_header);
             
             *fragment_offset = (ntohs(fragment_header->frag_off & htons(IP6_OFFSET))) << 3;
-            if(ntohs(fragment_header->frag_off & htons(IP6_MF)) > 0)
-            {
-                *more_fragment = 1;
-            }
             
-            *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct frag_hdr) - sizeof(struct udphdr);
+            *more_fragment = (ntohs(fragment_header->frag_off & htons(IP6_MF)) > 0);
             
             printk(KERN_NOTICE "Transmission Error Detector ipv6 fragmentation info offset %d - length %d - mf %d \n", fragment_offset, fragment_data_length, more_fragment);
-            
-            return 1;
         }
     }
-
-    *fragment_data_length = ntohs(payload_iphdr->payload_len) - sizeof(struct udphdr);
     
+    result_value = ipv6_find_hdr(skb, &offset, NEXTHDR_UDP, NULL, NULL);
+    if(result_value)
+    {
+        *fragment_data_length = ntohs(payload_iphdr->payload_len) - offset - sizeof(struct udphdr);
+    }
+
     return 1;
 }
 
