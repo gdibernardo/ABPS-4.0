@@ -480,14 +480,11 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \end{subsection}
 
 \begin{subsection}{Valutazione problemi dovuti a pacchetti nella rete} %MENGO: titolo del cazzo
-  Un'osservazione riguardo alla qualità del segnale può essere effettuata controllando il numero di pacchetti e di hosts sulla rete.
-  In particolare vogliamo analizzare i risultati relativi all'interferenza di un host che trasmette N pacchetti rispetto a K hosts che trasmettono N/K pacchetti ciascuno.
-  La prove sono state effettuate con il client da solo nella rete, con un host sulla rete che trasmette 71 MB, con due hosts che trasmettono 36 MB ciascuno e con tre hosts che trasmettono 22 MB ciascuno.
-  \\
-  Visto che il numero di host aumenta ci si aspetta un ritardo nella trasmissione da parte del client.
-  \\
-  Per analizzare i test effettuati abbiamo calcolato le medie dei tempi di ricezioni della notifica nei diversi casi.
+  Una seconda osservazione si può fare su una attenta analisi riguardo al numero di pacchetti e di hosts sulla rete.
+  In particolare vogliamo analizzare i tempi, i NACK ed i retry relativi alla presenza di un host che trasmette N pacchetti rispetto a K hosts che trasmettono N/K pacchetti ciascuno.
+  La prove sono state effettuate con il nodo da solo nella rete, un host sulla rete che trasmette 71 MB, due hosts che trasmettono 36 MB ciascuno e tre hosts che trasmettono 22 MB ciascuno.
   
+
 \begin{table}[h]
   \centering
   \caption{Media dei tempi relativi al traffico di pacchetti}
@@ -504,22 +501,14 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \end{tabular}
   \end{table}
 
-  I tempi presi in considerazione nella tabella~\ref{tab:AvgTimePkt} sono relativi solamente alle notifiche ricevute mentre tutti gli altri host trasmettevano dati.
-  Abbiamo scelto di non considerare le altre notifiche in quanto non avrebbero avuto un significato importante nella nostra analisi.
-  Dal grafico~\ref{PktDelay} si possono osservare le percentuali di notifiche che hanno subito un ritardo a causa degli altri hosts.
-  È interessante notare come la percentuale cali all'aumentare degli host.
-  Questo è dovuto ad un pesante degrado delle prestazioni con conseguente aumento dei tempi di notifica.
-  A causa di questo per ogni pacchetto si aspetterà più tempo per la notifica, quindi la percentuale aumenta.
-  Inoltre gli altri host hanno mano mano meno dati da inviare quindi ci metteranno meno tempo.
+
    
  \begin{tikzpicture}[font=\small]
-    \label{PktDelay}
-  
     \begin{axis}[
       ybar,
       bar width=20pt,
       xlabel={},
-      ylabel={\% notifiche con ritardo},
+      ylabel={\% pacchetti con ritardo},
       ymin=0,
       ytick=\empty,
       xtick=data,
@@ -539,7 +528,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
       \end{axis}
   \end{tikzpicture}
  
-  
+
  
 \end{subsection}
 
