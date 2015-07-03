@@ -480,62 +480,102 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \end{subsection}
 
 \begin{subsection}{Valutazione problemi dovuti a pacchetti nella rete} %MENGO: titolo del cazzo
-  Una seconda osservazione si può fare su una attenta analisi riguardo al numero di pacchetti e di hosts sulla rete.
-  In particolare vogliamo analizzare i tempi, i NACK ed i retry relativi alla presenza di un host che trasmette N pacchetti rispetto a K hosts che trasmettono N/K pacchetti ciascuno.
-  La prove sono state effettuate con il nodo da solo nella rete, un host sulla rete che trasmette 71 MB, due hosts che trasmettono 36 MB ciascuno e tre hosts che trasmettono 22 MB ciascuno.
-
-
-% 
-% 
-%   \begin{table}[h]
-%   \centering
-%   \caption{Media dei tempi rispetto al numero di pacchetti}
-%   \label{tab:AvgTimePkts}
-%   \begin{tabular}{|l|c|c|c|c|c|}
-%   \hline
-%   IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8 & Conf. 9 \\ \hline
-%   prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 & 0.1432\\ \hline
-%   seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144 & 0.17508 \\ \hline
-%   terza & 0.04641 & 0.0556 & 0.096 & 0.11307 &  0.1484\\ \hline
-%   quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508 & 0.120144 \\ \hline \hline
-%   Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398 & 0.146706  \\ \hline
-%   \end{tabular}
-%   \end{table}
-% 
-%   Analizzando i tempi della tabella~\ref{tab:AvgTimePkts} si può notare che 
-% 
-%   \begin{table}[h]
-%   \centering
-%   \caption{Media dei retry rispetto al numero di pacchetti}
-%   \label{tab:AvgRetryPkts}
-%   \begin{tabular}{|l|c|c|c|c|c|}
-%   \hline
-%   IPv6  & Conf. 5 & Conf. 6 & Conf. 7  & Conf. 8  \\ \hline
-%   prima  & 0.09  & 0.14646 & 0.12902 & 0.11765 \\ \hline
-%   seconda & 0.06521  & 0.0748 & 0.11774  & 0.1144  \\ \hline
-%   terza & 0.04641 & 0.0556 & 0.096 & 0.11307 \\ \hline
-%   quarta & 0.06687 & 0.05682  & 0.08109 & 0.1508  \\ \hline \hline
-%   Media & 0.0671225 & 0.08342  & 0.1059625 & 0.12398   \\ \hline
-%   \end{tabular}
-%   \end{table}
-% 
-% 
-% 
-% 
-% 
-% 
-
+  Un'osservazione riguardo alla qualità del segnale può essere effettuata controllando il numero di pacchetti e di hosts sulla rete.
+  In particolare vogliamo analizzare i risultati relativi all'interferenza di un host che trasmette N pacchetti rispetto a K hosts che trasmettono N/K pacchetti ciascuno.
+  La prove sono state effettuate con il client da solo nella rete, con un host sulla rete che trasmette 71 MB, con due hosts che trasmettono 36 MB ciascuno e con tre hosts che trasmettono 22 MB ciascuno.
+  \\
+  Visto che il numero di host aumenta ci si aspetta un ritardo nella trasmissione da parte del client.
+  \\
+  Per analizzare i test effettuati abbiamo calcolato le medie dei tempi di ricezioni della notifica nei diversi casi.
   
+\begin{table}[h]
+  \centering
+  \caption{Media dei tempi relativi al traffico di pacchetti}
+  \label{tab:AvgTimePkt}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  
+  IPv4  & Conf. 58 & Conf. 63 & Conf. 68 \\ \hline
+  prima  & 25.349  & 241.187 & 894 \\ \hline
+  seconda & 20.553  & 107.034 & 827  \\ \hline
+  terza & 25.094 & 303.938 & 1223 \\ \hline
+  quarta & 25.132 & 287.32  & 879   \\ \hline \hline
+  Media & 24,032 & 234.86975  & 955.75 \\ \hline
+  \end{tabular}
+  \end{table}
+
+  I tempi presi in considerazione nella tabella~\ref{tab:AvgTimePkt} sono relativi solamente alle notifiche ricevute mentre tutti gli altri host trasmettevano dati.
+  Abbiamo scelto di non considerare le altre notifiche in quanto non avrebbero avuto un significato importante nella nostra analisi.
+  Dal grafico~\ref{PktDelay} si possono osservare le percentuali di notifiche che hanno subito un ritardo a causa degli altri hosts.
+  È interessante notare come la percentuale cali all'aumentare degli host.
+  Questo è dovuto ad un pesante degrado delle prestazioni con conseguente aumento dei tempi di notifica.
+  A causa di questo per ogni pacchetto si aspetterà più tempo per la notifica, quindi la percentuale aumenta.
+  Inoltre gli altri host hanno mano mano meno dati da inviare quindi ci metteranno meno tempo.
+   
+ \begin{tikzpicture}[font=\small]
+    \label{PktDelay}
+  
+    \begin{axis}[
+      ybar,
+      bar width=20pt,
+      xlabel={},
+      ylabel={\% notifiche con ritardo},
+      ymin=0,
+      ytick=\empty,
+      xtick=data,
+      axis x line=bottom,
+      axis y line=left,
+      enlarge x limits=0.2,
+      symbolic x coords={Conf.58, Conf.63,Conf.68},
+      xticklabel style={anchor=base,yshift=-\baselineskip},
+      nodes near coords={\pgfmathprintnumber\pgfplotspointmeta\%}
+    ]
+      \addplot[fill=green] coordinates {
+        (Conf.58,10)
+        (Conf.63,3)
+        (Conf.68,0.3)
+      };
+
+      \end{axis}
+  \end{tikzpicture}
+ 
+  
+ 
 \end{subsection}
 
 
 \begin{subsection}{Valutazione interferenza traffico} %MENGO: altro titolo del cazzo
- Un altro test
+  Visto che durante una trasmissione, molto probabilmente, ci saranno anche altri hosts sulla rete, vogliamo capire come possano interferire con il client.
+  In particolare ci vogliamo soffermare sulla velocità di trasmissione degli altri nodi.
+  L'aspetto che vogliamo esaminare è se il nodo mobile è maggiormente disturbato da nodi che trasmettono a velocità più alta o più bassa, a parità di numero di hosts.
+  Ci si potrebbe aspettare che il client non venga influenzato in maniera significativa.
+  \\
+  Per poter esprimere un valutazione empirica ci concentriamo sui tempi medi di ricezione di una notifica.
+  
+  \begin{table}[h]
+  \centering
+  \caption{Media dei tempi nel traffico}
+  \label{tab:AvgTimeMbs}
+  \begin{tabular}{|l|c|c|c|c|c|}
+  \hline
+  
+    & Conf. 98 & Conf. 93 & Conf. 94  \\ \hline
+  prima  & 1,305  & 3,66 & 9.857 \\ \hline
+  seconda & 1,724  & 4,259 & 13.869 \\ \hline
+  terza & 1,683 & 3,5456 & 11.149 \\ \hline
+  quarta & 1,0746 & 2,861  & 11.51  \\ \hline \hline
+  Media & 1,44665 & 3,5814  & 11.59625   \\ \hline
+  \end{tabular}
+  \end{table}
  
  
- 
- 
- 
+  Dai tempi in tabella~\ref{tab:AvgTimeMbs} si può notare come, in realtà, ci sia un ampio aumento del tempo medio di ricezione di una notifica al diminuire della velocità dell'altro host.
+  Una possibile spiegazione è data dal maggior tempo che impiega l'host a velocità ridotta per inviare il proprio frame.
+  Occupando il canale per più tempo viene, ovviamente, rallentato il client.
+  
+  
+  In questo caso l'applicazione non può intervenire per migliorare la connessione in quanto il problema è dovuto ad altri dispositivi.
+  L'applicazione può, però, capire il degrado della rete e cambiare NIC se la situazione diventa insostenibile per la comunicazione.
  
  
 \end{subsection}
@@ -633,6 +673,26 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   Empiricamente si potrebbe arrivare alla conclusione che se il client è in movimento e c'è un ostacolo tra lui e l'AP, il numero di retry si alza indipendentemente dal numero di hosts sulla rete.
   
   
+  Come ultimo, ma fondamentale, aspetto osserviamo il dato relativo ai NACK. 
+  In particolare è interessante notare il burst NACK, ovvero quanti ne arrivano in modo contiguo.
+  Questo aspetto è importante perché, in caso di ostacolo, si può avere un elevato numero di notifiche di questo tipo.
+  Il problema di avere NACK a burst è la perdita di informazione durante la trasmissione.
+  È infatti più problematico avere N NACK tutti attaccati rispetto allo stesso numero di NACK ma sparsi per tutta la durata della trasmissione.
+  Infatti nel secondo caso ci potrebbe essere solo un lieve disturbo nella comunicazione, invece nel primo caso si potrebbe perdere qualche istante di comunicazione.
+  Perdendo anche solo qualche istante si potrebbe alterare il senso del discorso ( si pensi ad esempio alla perdita di una negazione all'interno di una frase ).
+  
+  
+  
+  Come si può notare dal grafico !!!!!!!!!!!!!!!!!!!!!!!!!METTERE GRAFICO O TABELLA, e collegare meglio i due pezzi!!!!!!!!!!!!!!!!!!!!!!!!!!!!, si ha burst di NACK.
+  Questo dato è molto importante in quanto se il client, durante un movimento, si mette in una condizione sfavorevole andando dietro ad un ostacolo la qualità della trasmissione peggiora sensibilmente.
+  \\
+  In questa situazione l'applicazione dovrebbe cambiare NIC per continuare ad avere una buona QoS.
+  Se il client ha dei sensori di movimento incorporati, potrebbe sfruttarli per migliorare le proprie prestazioni.
+  In particolare se i sensori rilevano uno spostamento e durante questo movimento si iniziano a ricevere alcuni ack, il dispositivo potrebbe capire che c'è un ostacolo tra lui e l'access point.
+  A questo punto può inviare i prossimi N pacchetti con un'altra NIC, per poi provare di nuovo con il Wi-Fi precedente.
+  Se invece ad un certo punto rileva un movimento contrario a quello che ha portato il peggioramento della connessione, potrebbe capire quando il segnale può tornare ad essere buono.
+  \\
+  Implementando questo tipo di meccanismo l'applicazione potrebbe migliorare sensibilmente la qualità della propria trasmissione, evitando NACK a burst.
   
   
   

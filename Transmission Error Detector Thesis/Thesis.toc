@@ -80,7 +80,7 @@
 \contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{63}
 \contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{64}
 \contentsline {chapter}{\numberline {5}Transmission Error Detector APIs for developers}{67}
-\contentsline {section}{\numberline {5.1}Send a message}{67}
+\contentsline {section}{\numberline {5.1}Send a message}{68}
 \contentsline {section}{\numberline {5.2}Receive notifications from TED}{71}
 \contentsline {chapter}{\numberline {6}Test \& valutazioni sperimentali}{73}
 \contentsline {section}{\numberline {6.1}Raccolta dati}{73}
@@ -100,9 +100,9 @@
 \contentsline {section}{\numberline {6.2}Analisi dei risultati}{84}
 \contentsline {subsection}{\numberline {6.2.1}Confronto tra IPv4 e IPv6}{84}
 \contentsline {subsection}{\numberline {6.2.2}Valutazione problemi dovuti a pacchetti nella rete}{86}
-\contentsline {subsection}{\numberline {6.2.3}Valutazione interferenza traffico}{86}
-\contentsline {subsection}{\numberline {6.2.4}Problemi dovuti alla trasmissione in movimento}{86}
-\contentsline {chapter}{Conclusioni}{89}
-\contentsline {chapter}{\numberline {A}Prima Appendice}{91}
-\contentsline {chapter}{\numberline {B}Seconda Appendice}{93}
-\contentsline {chapter}{Bibliografia}{95}
+\contentsline {subsection}{\numberline {6.2.3}Valutazione interferenza traffico}{87}
+\contentsline {subsection}{\numberline {6.2.4}Problemi dovuti alla trasmissione in movimento}{88}
+\contentsline {chapter}{Conclusioni}{93}
+\contentsline {chapter}{\numberline {A}Prima Appendice}{95}
+\contentsline {chapter}{\numberline {B}Seconda Appendice}{97}
+\contentsline {chapter}{Bibliografia}{99}

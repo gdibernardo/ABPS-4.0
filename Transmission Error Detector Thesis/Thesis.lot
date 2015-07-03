@@ -10,9 +10,11 @@
 \contentsline {table}{\numberline {6.2}{\ignorespaces Media dei tempi relativi all'utilizzo di IPv6}}{85}
 \contentsline {table}{\numberline {6.3}{\ignorespaces Media dei retry relativi all'utilizzo di IPv4}}{85}
 \contentsline {table}{\numberline {6.4}{\ignorespaces Media dei retry relativi all'utilizzo di IPv6}}{86}
-\contentsline {table}{\numberline {6.5}{\ignorespaces Media dei tempi con nodo mobile fermo}}{87}
-\contentsline {table}{\numberline {6.6}{\ignorespaces Media dei tempi con nodo mobile in movimento}}{87}
-\contentsline {table}{\numberline {6.7}{\ignorespaces Media dei retry con nodo mobile fermo}}{88}
-\contentsline {table}{\numberline {6.8}{\ignorespaces Media dei retry con nodo mobile in movimento}}{88}
+\contentsline {table}{\numberline {6.5}{\ignorespaces Media dei tempi relativi al traffico di pacchetti}}{86}
+\contentsline {table}{\numberline {6.6}{\ignorespaces Media dei tempi nel traffico}}{88}
+\contentsline {table}{\numberline {6.7}{\ignorespaces Media dei tempi con nodo mobile fermo}}{89}
+\contentsline {table}{\numberline {6.8}{\ignorespaces Media dei tempi con nodo mobile in movimento}}{89}
+\contentsline {table}{\numberline {6.9}{\ignorespaces Media dei retry con nodo mobile fermo}}{90}
+\contentsline {table}{\numberline {6.10}{\ignorespaces Media dei retry con nodo mobile in movimento}}{90}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
