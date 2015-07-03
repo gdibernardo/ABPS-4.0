@@ -150,6 +150,15 @@ L'handler ieee80211\_tx\_status è stato esteso in modo tale da estrarre l'header
 \\
 Se la ricerca si conclude con successo l'elemento verrà rimosso dalla struttura dati e TED si preparerà ad inviare una notifica all'applicazione che sta monitorando il datagram marcato dall'identificativo risultante.
 \end{subsection}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{TEDImplementationImage}
+    \caption{Una panoramica di insieme del modulo TED implementato.}
+     \label{fig:TEDImplementationImage}
+\end{figure}
+
+%First-hop Transmission Notification
 \begin{subsection}{First-hop Transmission Notification}
 Una volta trovato l'elemento, all'interno della struttura dati mantenuta da TED, associato al sequence control dell'header del pacchetto di cui mac80211 è stato appena notificato sullo stato di consegna si procederà con la generazione e la trasmissione della First-hop Transmission Notification verso il proxy client ABPS ( o più genericamente verso un'applicazione che sfrutta TED ). 
 \\
@@ -199,6 +208,20 @@ Lo stato di consegna del frame, ovvero se il frame è stato effettivamente conseg
 Nel caso in cui la notifica faccia riferimento a un messaggio trasmesso utilizzando IPv4 vengono memorizzate delle informazioni aggiuntive relative alla frammentazione: se vi sono altri frammenti oppure no ( More Fragment ) è memorizzato nel campo ee\_code mentre la lunghezza del fragment e l'offset sono memorizzati nel campo ee\_data della struct sock\_extended\_err.
 
 \end{subsection}
+\end{section}
+
+\begin{section}{Remark}
+In questo capitolo si è descritto la progettazione e l'implementazione di un modulo Transmission Error Detector per Wi-Fi su kernel Linux 4.0.
+\\
+L'obbiettivo preposto era quello di realizzare un modulo TED che potesse monitorare tutti i datagram spediti da un applicazione tramite socket UDP.
+\\
+Appena TED viene informato dal sottosistema mac80211 sullo stato del frame trasmesso notifica l'applicazione interessata sullo stato di trasmissione del messaggio.
+\\
+L'implementazione, seppur possa sembrare in un primo momento un tantino ostica, risulta essere piuttosto snella ed efficiente. 
+\\
+Sono state riutilizzate quante più possibili strutturi già implementate all'interno dei moduli di rete kernel aggiungendo, così, solo quanto strettamente necessario.
+\\
+Il custom kernel ottenuto non presenta alcun problema di utilizzo e nessuna degradazione delle sue prestazioni o funzionalità.
 \end{section}
 
 \end{chapter}

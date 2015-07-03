@@ -346,6 +346,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
         return 0;
     }
     
+    printk(KERN_NOTICE "nxthdr %d \n",payload_iphdr->nexthdr);
     *fragment_offset = 0;
     
     *more_fragment = 0;
@@ -357,7 +358,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     result_value = ipv6_find_hdr(skb, &pointer, NEXTHDR_FRAGMENT, NULL, NULL);
     if(result_value < 0)
     {
-        printk(KERN_NOTICE "Transmission Error Detector goes wrong getting next header \n");
+        printk(KERN_NOTICE "Transmission Error Detector goes wrong getting next header %d \n",result_value);
     }
     
     header_fragment = skb_header_pointer(skb, pointer, sizeof(support_header), &support_header);

@@ -50,59 +50,67 @@
 \contentsline {section}{\numberline {2.1}Cos'\`e un kernel?}{33}
 \contentsline {section}{\numberline {2.2}Il kernel Linux}{34}
 \contentsline {section}{\numberline {2.3}Linux kernel v4.0}{35}
-\contentsline {section}{\numberline {2.4}Linux networking}{36}
-\contentsline {paragraph}{Socket buffer}{36}
+\contentsline {section}{\numberline {2.4}Linux networking}{35}
+\contentsline {paragraph}{Socket buffer}{35}
 \contentsline {paragraph}{struct net\_device}{37}
-\contentsline {subsection}{\numberline {2.4.1}Dall'app al device driver}{39}
-\contentsline {paragraph}{Sottosistema mac80211}{40}
-\contentsline {section}{\numberline {2.5}Customizzazione kernel Linux}{42}
-\contentsline {paragraph}{Scaricare una versione stabile del kernel ed estrarlo}{43}
-\contentsline {paragraph}{Scegliere la configurazione}{43}
-\contentsline {paragraph}{Compilare il Kernel}{44}
-\contentsline {paragraph}{Compilare i moduli ed installarli}{45}
-\contentsline {paragraph}{Installare il Kernel}{45}
-\contentsline {chapter}{\numberline {3}Scenario}{47}
-\contentsline {section}{\numberline {3.1}Seamless Host Mobility \& State Of the Art}{48}
-\contentsline {paragraph}{Implementazioni a livello network}{48}
-\contentsline {paragraph}{Implementazioni tra livello rete e trasporto}{49}
-\contentsline {paragraph}{Implementazioni a livello trasporto}{49}
-\contentsline {paragraph}{Implementazioni a livello Sessione}{50}
-\contentsline {section}{\numberline {3.2}Always Best Packet Switching}{50}
-\contentsline {subsection}{\numberline {3.2.1}Architettura}{53}
-\contentsline {paragraph}{Fixed proxy server}{53}
-\contentsline {paragraph}{Mobile node}{53}
-\contentsline {section}{\numberline {3.3}Considerazioni finali}{55}
-\contentsline {chapter}{\numberline {4}Transmission Error Detector}{57}
-\contentsline {section}{\numberline {4.1}Design and implementation}{57}
-\contentsline {subsection}{\numberline {4.1.1}Application Layer}{59}
-\contentsline {subsection}{\numberline {4.1.2}Transport layer}{60}
-\contentsline {subsection}{\numberline {4.1.3}Network Layer}{61}
-\contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{63}
-\contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{64}
-\contentsline {chapter}{\numberline {5}Transmission Error Detector developer APIs}{67}
-\contentsline {section}{\numberline {5.1}Send a message}{68}
-\contentsline {section}{\numberline {5.2}Receive notifications from TED}{71}
-\contentsline {chapter}{\numberline {6}Test \& valutazioni sperimentali}{73}
-\contentsline {section}{\numberline {6.1}Raccolta dati}{73}
-\contentsline {subsection}{\numberline {6.1.1}Dispositivi}{73}
-\contentsline {paragraph}{ZyXEL NBG4615 v2}{74}
-\contentsline {paragraph}{LB-LINK BL-WN151}{74}
-\contentsline {paragraph}{NETGEAR WG111}{74}
-\contentsline {paragraph}{HP Pavilion dv6 Entertainment PC}{74}
-\contentsline {paragraph}{DELL Latitude E6400}{74}
-\contentsline {paragraph}{Raspberry Pi Model 2}{75}
-\contentsline {paragraph}{UDOO Quad}{75}
-\contentsline {paragraph}{Raspberry Pi Model B}{75}
-\contentsline {subsection}{\numberline {6.1.2}Parametri di valutazione}{75}
-\contentsline {subsection}{\numberline {6.1.3}Configurazioni}{77}
-\contentsline {subsection}{\numberline {6.1.4}Dettagli implementativi}{79}
-\contentsline {subsection}{\numberline {6.1.5}Test effettuati}{83}
-\contentsline {section}{\numberline {6.2}Analisi dei risultati}{84}
-\contentsline {subsection}{\numberline {6.2.1}Confronto tra IPv4 e IPv6}{84}
-\contentsline {subsection}{\numberline {6.2.2}Valutazione problemi dovuti a pacchetti nella rete}{86}
-\contentsline {subsection}{\numberline {6.2.3}Valutazione interferenza traffico}{86}
-\contentsline {subsection}{\numberline {6.2.4}Problemi dovuti alla trasmissione in movimento}{86}
-\contentsline {chapter}{Conclusioni}{89}
-\contentsline {chapter}{\numberline {A}Prima Appendice}{91}
-\contentsline {chapter}{\numberline {B}Seconda Appendice}{93}
-\contentsline {chapter}{Bibliografia}{95}
+\contentsline {subsection}{\numberline {2.4.1}Dall'app al device driver}{38}
+\contentsline {paragraph}{Sottosistema mac80211}{39}
+\contentsline {chapter}{\numberline {3}Scenario}{43}
+\contentsline {section}{\numberline {3.1}Seamless Host Mobility \& State Of the Art}{44}
+\contentsline {paragraph}{Implementazioni a livello network}{44}
+\contentsline {paragraph}{Implementazioni tra livello rete e trasporto}{45}
+\contentsline {paragraph}{Implementazioni a livello trasporto}{45}
+\contentsline {paragraph}{Implementazioni a livello Sessione}{46}
+\contentsline {section}{\numberline {3.2}Always Best Packet Switching}{46}
+\contentsline {subsection}{\numberline {3.2.1}Architettura}{49}
+\contentsline {paragraph}{Fixed proxy server}{49}
+\contentsline {paragraph}{Mobile node}{49}
+\contentsline {section}{\numberline {3.3}Considerazioni finali}{51}
+\contentsline {chapter}{\numberline {4}Transmission Error Detector}{53}
+\contentsline {section}{\numberline {4.1}Design and implementation}{53}
+\contentsline {subsection}{\numberline {4.1.1}Application Layer}{55}
+\contentsline {subsection}{\numberline {4.1.2}Transport layer}{56}
+\contentsline {subsection}{\numberline {4.1.3}Network Layer}{57}
+\contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{59}
+\contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{60}
+\contentsline {section}{\numberline {4.2}Remark}{62}
+\contentsline {chapter}{\numberline {5}Transmission Error Detector developer APIs}{65}
+\contentsline {section}{\numberline {5.1}Send a message}{66}
+\contentsline {section}{\numberline {5.2}Receive a notification from TED}{69}
+\contentsline {section}{\numberline {5.3}Interact with First-hop Transmission Notification}{70}
+\contentsline {paragraph}{ted\_message\_identifier\_from\_notification}{70}
+\contentsline {paragraph}{ted\_message\_status\_from\_notification}{71}
+\contentsline {paragraph}{ted\_message\_retry\_count\_from\_notification}{71}
+\contentsline {paragraph}{ted\_message\_fragmentation\_length\_info\_from\_notification}{71}
+\contentsline {paragraph}{ted\_message\_fragmentation\_offset\_info\_from\_notification}{72}
+\contentsline {paragraph}{ted\_message\_more\_fragment\_info\_from\_notification}{72}
+\contentsline {chapter}{\numberline {6}Test \& valutazioni sperimentali}{75}
+\contentsline {section}{\numberline {6.1}Raccolta dati}{75}
+\contentsline {subsection}{\numberline {6.1.1}Dispositivi}{75}
+\contentsline {paragraph}{ZyXEL NBG4615 v2}{76}
+\contentsline {paragraph}{LB-LINK BL-WN151}{76}
+\contentsline {paragraph}{NETGEAR WG111}{76}
+\contentsline {paragraph}{HP Pavilion dv6 Entertainment PC}{76}
+\contentsline {paragraph}{DELL Latitude E6400}{76}
+\contentsline {paragraph}{Raspberry Pi Model 2}{77}
+\contentsline {paragraph}{UDOO Quad}{77}
+\contentsline {paragraph}{Raspberry Pi Model B}{77}
+\contentsline {subsection}{\numberline {6.1.2}Parametri di valutazione}{77}
+\contentsline {subsection}{\numberline {6.1.3}Configurazioni}{79}
+\contentsline {subsection}{\numberline {6.1.4}Dettagli implementativi}{81}
+\contentsline {subsection}{\numberline {6.1.5}Test effettuati}{85}
+\contentsline {section}{\numberline {6.2}Analisi dei risultati}{86}
+\contentsline {subsection}{\numberline {6.2.1}Confronto tra IPv4 e IPv6}{86}
+\contentsline {subsection}{\numberline {6.2.2}Valutazione problemi dovuti a pacchetti nella rete}{88}
+\contentsline {subsection}{\numberline {6.2.3}Valutazione interferenza traffico}{88}
+\contentsline {subsection}{\numberline {6.2.4}Problemi dovuti alla trasmissione in movimento}{88}
+\contentsline {chapter}{Conclusioni}{91}
+\contentsline {chapter}{\numberline {A}Prima Appendice}{93}
+\contentsline {chapter}{\numberline {B}Seconda Appendice}{95}
+\contentsline {section}{\numberline {B.1}Customizzazione kernel Linux}{95}
+\contentsline {paragraph}{Scaricare una versione stabile del kernel ed estrarlo}{96}
+\contentsline {paragraph}{Scegliere la configurazione}{96}
+\contentsline {paragraph}{Compilare il Kernel}{97}
+\contentsline {paragraph}{Compilare i moduli ed installarli}{98}
+\contentsline {paragraph}{Installare il Kernel}{98}
+\contentsline {chapter}{Bibliografia}{99}
