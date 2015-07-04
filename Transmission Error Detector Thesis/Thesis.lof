@@ -15,10 +15,10 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Architettura ABPS per una comunicazione VoIP via protocollo SIP e RTP/RTCP}}{49}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Infrastruttura Mobile Node in ABPS}}{51}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Una panoramica di insieme del modulo TED implementato.}}{64}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Una panoramica di insieme del modulo TED implementato.}}{61}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Disposizione dei dispositivi maggiormente utilizzata. R1 ed R2 sono i Raspberry, mentre U \`e la UDOO.}}{85}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Esecuzione del comando menuconfig.}}{97}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Esecuzione del comando menuconfig.}}{101}

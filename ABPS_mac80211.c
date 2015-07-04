@@ -320,13 +320,13 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
 
     struct udphdr *payload_udphdr;
     
-    struct frag_hdr support_header;
-    
     struct frag_hdr *header_fragment;
     
     int result_value;
     
     unsigned int pointer = 0;
+    
+    unsigned short frag_offset;
     
     
     
@@ -354,22 +354,23 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     /* analyze extension header for fragmentation */
     printk(KERN_NOTICE "search for extension \n");
     
+    if(payload_iphdr->nexthdr == NEXTHDR_FRAGMENT)
+    {
+        header_fragment = (struct frag_hdr *) (payload + sizeof(struct ipv6hdr));
+        
+        printk(KERN_NOTICE "fragmentation %d \n", header_fragment->frag_off << 3);
+        
+        print(KERN_NOTICE "fragmentantion %d \n", (ntohs(header_fragment->frag_off & htons(IP6_OFFSET)))<<3);
+        
+    }
     
-    result_value = ipv6_find_hdr(skb, &pointer, NEXTHDR_FRAGMENT, NULL, NULL);
+    
+    result_value = ipv6_find_hdr(skb, &pointer, NEXTHDR_FRAGMENT, &frag_offset, NULL);
     if(result_value < 0)
     {
         printk(KERN_NOTICE "Transmission Error Detector goes wrong getting next header %d \n",result_value);
     }
     
-    header_fragment = skb_header_pointer(skb, pointer, sizeof(support_header), &support_header);
-    
-    printk(KERN_NOTICE " MF %d \n", (header_fragment->frag_off & htons(IP6_MF)));
-    printk(KERN_NOTICE "MF %d \n", ntohs(header_fragment->frag_off & htons(IP6_MF)));
-    
-    printk(KERN_NOTICE "OFF_SET %d \n", ntohs(header_fragment->frag_off) & ~0x7);
-    printk(KERN_NOTICE "OFF_SET %d \n", (ntohs(header_fragment->frag_off) & IP6_OFFSET) << 3);
-    
-    printk(KERN_NOTICE "OFF SET %d \n", (ntohs(header_fragment->frag_off & htons(IP6_OFFSET))) << 3);
     
     return 1;
 }

@@ -27,13 +27,48 @@
 }
 
 
+\definecolor{gabrielecodegreen}{rgb}{0.25,0.43,0.45}
+\definecolor{gabrielecodegray}{rgb}{0.5,0.5,0.5}
+\definecolor{gabrielecodemagenta}{rgb}{0.65,0.09,0.56}
+\definecolor{gabrielebackcolor}{rgb}{1,1,1}
+\definecolor{gabrieleredcolor}{rgb}{0.7,0,0.075}
+
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\lstdefinestyle{mystyle}{
+\lstdefinestyle{gabrielecodestyle}
+{
+    language=C,
+    backgroundcolor=\color{gabrielebackcolor},   
+    commentstyle=\color{gabrielecodegreen},
+    keywordstyle=\color{gabrielecodemagenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{gabrieleredcolor},
+    basicstyle= \fontsize{11}{11}\selectfont\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    xleftmargin=.25in,
+    xrightmargin=.25in
+}
+
+
+
+
+
+
+\lstdefinestyle{mystyle}
+{
     language=C,
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
@@ -53,7 +88,7 @@
     tabsize=2
 }
  
-\lstset{style=mystyle}
+ \lstset{style=gabrielecodestyle}
      
 
 
@@ -148,12 +183,12 @@ INDICE}}
 \pagenumbering{arabic}                  %mette i numeri arabi
 
 
-\include{NetworkIntroduction}ee
+\include{NetworkIntroduction}
 \include{KernelLinux}
 \include{Architettura}
 \include{TED}
+%!TEX encoding = UTF-8 Unicode\pagestyle{empty}
 \include{APIs}
-%\pagestyle{empty}
 \include{Test}
 
 
