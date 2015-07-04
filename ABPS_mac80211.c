@@ -321,6 +321,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     struct udphdr *payload_udphdr;
     
     struct frag_hdr *header_fragment;
+    struct frag_hdr _header_fragment;
     
     int result_value;
     
@@ -346,7 +347,15 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
         return 0;
     }
     
+    printk(KERN_NOTICE "payload length %d ", payload_iphdr->payload_len);
+    
+    printk(KERN_NOTICE "payload length %d ", ntohs(payload_iphdr->payload_len));
+    
+    
     printk(KERN_NOTICE "nxthdr %d \n",payload_iphdr->nexthdr);
+    u8 nexthdr = ipv6_hdr(skb)->nexthdr;
+    printk(KERN_NOTICE "nxthdr skb %d \n", nexthdr);
+    
     *fragment_offset = 0;
     
     *more_fragment = 0;
@@ -365,10 +374,20 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
     }
     
     
-    result_value = ipv6_find_hdr(skb, &pointer, NEXTHDR_FRAGMENT, &frag_offset, NULL);
+    result_value = ipv6_find_hdr(skb, &pointer, IPPROTO_FRAGMENT, NULL, NULL);
     if(result_value < 0)
     {
         printk(KERN_NOTICE "Transmission Error Detector goes wrong getting next header %d \n",result_value);
+    }
+    
+    header_fragment = skb_header_pointer(skb, pointer, sizeof(_header_fragment), &_header_fragment);
+    if(header_fragment)
+    {
+        printk(KERN_NOTICE "header is not null \n");
+    }
+    else
+    {
+        printk(KERN_NOTICE "header is null \n");
     }
     
     
