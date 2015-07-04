@@ -360,7 +360,7 @@ static int ipv6_get_udp_info(struct sk_buff *skb, unsigned char *payload, int da
         
         printk(KERN_NOTICE "fragmentation %d \n", header_fragment->frag_off << 3);
         
-        print(KERN_NOTICE "fragmentantion %d \n", (ntohs(header_fragment->frag_off & htons(IP6_OFFSET)))<<3);
+        printk(KERN_NOTICE "fragmentantion %d \n", (ntohs(header_fragment->frag_off & htons(IP6_OFFSET)))<<3);
         
     }
     
