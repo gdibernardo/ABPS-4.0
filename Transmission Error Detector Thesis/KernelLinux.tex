@@ -52,12 +52,7 @@ Nell'aprile del 1991 Linus Torvalds, uno studente finlandese di informatica, com
 \\
 L'architettura del kernel sviluppato da Torvalds è di tipo monolitico a discapito di una struttura più moderna e flessibile come quella basata su micro kernel. 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{KernelLinuxArchitectureImage}
-    \caption{L'architettura del kernel Linux.}
-     \label{fig:KernelLinuxArchitectureImage}
-\end{figure}
+I
 
 Sebbene oggi il kernel possa essere compilato in modo da ottenere un'immagine binaria ridotta al minimo, e i driver possono essere caricati da moduli esterni, l'architettura originaria è chiaramente visibile: tutti i driver, infatti, devono avere una parte eseguita in kernel mode, anche quelli per cui ciò non sarebbe affatto necessario ( come ad esempio i driver dei file system ). 
 \\
@@ -165,104 +160,6 @@ A questo punto, sia che il frame IEEE 802.11 sia stato ricevuto dal first-hop o 
 \end{paragraph}
 \end{subsection}
 \end{section}	
-
-\begin{section}{Customizzazione kernel Linux}
-Può esserci l'esigenza di personalizzare il proprio kernel per adattarlo alle proprie esigenze. Alcuni vantaggi che si possono ottenere dalla customizzazione del kernel sono:
-\begin{itemize}
- \item Velocizzare l'avvio del sistema.
- \item Sfruttare un'ottimizzazione basata sul proprio processore per avere un sistema operativo un po' più reattivo.
- \item Ottenere una configurazione leggermente diversa e più adatta alla propria macchina.
- \item Cercare di migliorare le prestazioni del proprio dispositivo.
- \item Ridurre i consumi.
- \item Installare solo i moduli necessari.
- \item Rendere il sistema più leggero.
-\end{itemize}
-Per personalizzare il kernel, però, serve una buona conoscenza della propria macchina, ed in particolare del proprio hardware.
-Se non ci conosce il proprio hardware, infatti, si rischia di peggiorare le prestazione e si rischia di togliere dei moduli che possono influire sul funzionamento del sistema.
-
-Non è necessario compilare un kernel nei casi in cui l'hardware non funzioni alla perfezione o le periferiche non vengano completamente riconosciute.
-A volte per far riconoscere correttamente al sistema una data periferica basta caricare i moduli necessari con le dovute opzioni.
-È utile ricompilare il kernel solo se tali moduli non sono presenti o se si è certi che i driver della periferica sono presenti solo in una versione diversa da quella attualmente in uso.
-Inoltre, l'aumento di prestazioni tende a essere irrilevante, soprattutto su computer già veloci. 
-È anche bene tenere presente che compilare un nuovo kernel significa, nella sostanza, cambiare sistema operativo, in quanto esso ne costituisce il motore; inoltre è richiesta un buona conoscenza del proprio hardware. 
-%http://wiki.ubuntu-it.org/AmministrazioneSistema/CompilazioneKernel
-% BIBLIOGRAFIA
-\\
-Dopo aver analizzato i vantaggi e gli svantaggi della personalizzazione del kernel, spieghiamo ora come si può fare la customizzazione.
-Per modificare il kernel bisogna determinare quali driver sono necessari, compilare i kernel ed i moduli ed infine installare l'immagine del kernel.
-\\
-I passi da eseguire per portare a termine una customizzazione sono:
-\begin{paragraph}{Scaricare una versione stabile del kernel ed estrarlo}
-\begin{mdframed}[backgroundcolor=gray!30, topline=false,rightline=false,  leftline=false, bottomline=false ]
- \texttt{\# cd /directory/}
- \\
- \texttt{\# wget https://www.kernel.org/pub/linux/kernel/
- \\	v4.x/linux-4.0.1.tar.xz}
- \\
- \texttt{\# tar -xvJf linux-4.0.1.tar.xz}
- 
-\end{mdframed}
-Il link indicato è quello relativo alla pagina ufficiale, dove si possono trovare le ultime versioni dei kernel. La versione scelta da noi è stata la 4.0.1 in quanto era l'ultima stabile.
-\end{paragraph}
-\begin{paragraph}{Scegliere la configurazione}
-\begin{mdframed}[backgroundcolor=gray!30, topline=false,rightline=false,  leftline=false, bottomline=false ]
- 
- \texttt{\# cd linux-4.0.1}
- \\
- \texttt{\# sudo apt-get install libncurses5}
- \\
- \texttt{\# sudo apt-get install libncurses5-dev}
- \\
- \\
- \texttt{\# sudo make menuconfig}
- 
-\end{mdframed}
-Per poter eseguire il comando di menuconfig è necessario installare prima i componenti \emph{libncurses5}.
-Una volta eseguito il comando di configurazione, si aprirà una finestra come quella indicata in figura ~\ref{fig:KernelLinuxMenuconfig}
-Nel caso in cui si volessero aggiungere o rimuovere moduli, bisognerà andare a selezionarli all'interno di questo menu.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{KernelLinuxMenuconfig}
-    \caption{Esecuzione del comando menuconfig.}
-     \label{fig:KernelLinuxMenuconfig}
-\end{figure}
-\end{paragraph}
-
-\begin{paragraph}{Compilare il Kernel}
-\begin{mdframed}[backgroundcolor=gray!30, topline=false,rightline=false,  leftline=false, bottomline=false ]
- \texttt{\# sudo make } 
-\end{mdframed}
-Con questo comando si va a compilare il kernel. Questa operazione può richiedere diverso tempo, in particolare in dispositivi con prestazione ridotte.
-È possibile anche specificare l'opzione -jN con N che indica il numero di core più uno ( ad esempio \emph{-j5} per un quad-core ) per velocizzare l'operazione.
-
-\end{paragraph}
-
-\begin{paragraph}{Compilare i moduli ed installarli}
-\begin{mdframed}[backgroundcolor=gray!30, topline=false,rightline=false,  leftline=false, bottomline=false ]
- \texttt{\# sudo make modules} 
- \\
- \texttt{\# sudo make modules\_install} 
-\end{mdframed}
-
-\end{paragraph}
-
-
-\begin{paragraph}{Installare il Kernel}
-\begin{mdframed}[backgroundcolor=gray!30, topline=false,rightline=false,  leftline=false, bottomline=false ]
- \texttt{\# sudo make install} 
- \\
- \texttt{\# sudo reboot} 
- 
-\end{mdframed}
-Come ultima operazione si va ad installare l'immagine del nuovo kernel.
-Una volta riavviato il sistema è possibile utilizzare il proprio kernel customizzato.
-\end{paragraph}
-
-
-
-
-\end{section}
 
 \end{chapter}
 %\end{document}
