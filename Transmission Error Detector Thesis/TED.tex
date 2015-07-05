@@ -65,7 +65,7 @@ Il lettore, a questo punto, si potrebbe interrogare sul perché non venga utilizz
 La risposta risiede nel fatto che qualsiasi funzione, che interagisce con la rete tramite interfaccia socket, non è bloccante fino all'invio effettivo del messaggio da parte della scheda di rete. Una funzione che invia dei messaggi lungo la rete, solitamente, può comportarsi in maniera bloccante fino a quando i dati da inviare sono stati copiati all'interno dei relativi socket buffer e questi posti in apposite code di trasmissione dello stack di rete del kernel.
 \\
 Qui di seguito verrà descritto nel dettaglio il modulo Transmission Error Detector e di come questo sia stato implementato lungo tutto lo stack di rete Linux 4.0.
-\begin{subsection}{Application Layer}
+\begin{subsection}{Application layer}
 Le applicazioni per le quali ABPS vuole essere un supporto alla mobilità sono le applicazioni multimedia-oriented che, come già trattato nei capitoli precedenti, sono solitamente progettate \emph{over UDP}. 
 \\
 Un'applicazione che utilizza UDP per le sue comunicazioni di rete sfrutta uno o più socket datagram, \emph{connectionless}.
@@ -123,18 +123,14 @@ Non appena il flusso di esecuzione viene ripreso dalla primitiva udp\_sendmsg, s
 A questo punto, ad un'applicazione utente, sarà disponibile l'identificativo appena assegnato al messaggio in invio e potrà essere utilizzato per monitorare il messaggio stesso.
 \end{subsection}
 
-\begin{subsection}{Network Layer}
-A livello rete del kernel Linux sono state realizzate diverse modifiche.
-\\
-In particolare ogni qualvolta che viene allocata una struttura dati di tipo sk\_buff, per un messaggio in invio, verrà calcolato l'identificativo univoco che sarà poi passato a livello utente.
+\begin{subsection}{Network layer}
+A livello rete del kernel Linux sono state realizzate diverse modifiche. In particolare, ogni qualvolta che viene allocata una struttura dati di tipo sk\_buff, per un messaggio in invio, verrà calcolato l'identificativo univoco che sarà poi passato a livello utente.
 \\
 Nella precedente versione di TED, sviluppata per Kernel Linux 2.6.30-rc5, veniva utilizzato come identificativo da utilizzare a livello applicativo per monitorare i singoli messaggi spediti il campo \emph{Identification} ( per maggiori dettagli si veda il primo capitolo ) del datagram IPv4. Una volta che veniva calcolato e settato il campo id della struttura iphdr ( che rappresenta un header IPv4 nei moduli di rete del kernel ) il valore veniva passato a livello utente.
 \\
 Nella versione del modulo TED sviluppata per kernel Linux 4.0 viene introdotto il supporto a IPv6.
 \\
-L'header IPv6, supportando solamente la frammentazione di tipo end-to-end, non è caratterizzato dal campo Identification come l'header della precedente versione dell'Internet Protocol.
-\\
-Per ovviare a questo problema si è definito un contatore globale: ogni volta che viene allocato un nuovo socket buffer il contatore viene incrementato ( all'interno di una critical section ) e associato a quel socket buffer.
+L'header IPv6, supportando solamente la frammentazione di tipo end-to-end, non è caratterizzato dal campo Identification come l'header della precedente versione dell'Internet Protocol. Per ovviare a questo problema si è definito un contatore globale: ogni volta che viene allocato un nuovo socket buffer il contatore viene incrementato ( all'interno di una critical section ) e associato a quel socket buffer.
 \\
 La struttura sk\_buff è stata quindi estesa aggiungendo il nuovo campo che manterrà l'identificativo univoco assegnatoli da TED.
 

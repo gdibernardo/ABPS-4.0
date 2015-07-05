@@ -136,6 +136,8 @@
 \linespread{1.3}  
 \begin{document}
 
+\include{frontespizio}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \begin{titlepage}               
 
 \thispagestyle{empty}                  
@@ -145,7 +147,10 @@
 \em                                    
 %Questa \`e la \textsc{Dedica}:\\
 %ognuno pu\`o scrivere quello che vuole, \\
-%anche nulla \ldots                    
+%anche nulla \ldots     
+``If you want to live your life in a creative way, as an artist, you have to not look back too much. You have to be willing to take whatever you've done and whoever you were and throw them away. The more the outside world tries to reinforce an image of you, the harder it is to continue to be an artist, which is why a lot of times, artists have to say, ``Bye. I have to go. I'm going crazy and I'm getting out of here.'' And they go and hibernate somewhere. Maybe later they re-emerge a little differently.''
+\\
+Steve Jobs               
 \newpage                            
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \end{titlepage}
@@ -159,7 +164,7 @@ Introduzione}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Introduzione
                                         %   nell'indice
 \addcontentsline{toc}{chapter}{Introduzione}
-Questa \`e l'introduzione.
+\input{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \tableofcontents                        %crea l'indice
@@ -184,12 +189,19 @@ INDICE}}
 
 
 \include{NetworkIntroduction}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{KernelLinux}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{Architettura}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{TED}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 %!TEX encoding = UTF-8 Unicode\pagestyle{empty}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{APIs}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{Test}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
@@ -317,6 +329,7 @@ Con questo comando si va a compilare il kernel. Questa operazione può richiedere
 \end{mdframed}
 Come ultima operazione si va ad installare l'immagine del nuovo kernel.
 Una volta riavviato il sistema è possibile utilizzare il proprio kernel customizzato.
+
 \end{paragraph}
 
 

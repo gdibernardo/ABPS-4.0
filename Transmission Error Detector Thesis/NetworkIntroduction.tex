@@ -39,51 +39,51 @@ Ciascun layer racchiude in sé, a livello logico, uno o più aspetti fra loro corr
 I layers vanno dal livello fisico (quello del mezzo trasmissivo, ossia del cavo twisted pair o delle onde radio) fino al livello delle applicazioni, attraverso cui si realizza la comunicazione di alto livello. Come già accennato ciascun livello fornisce servizi e funzionalità al livello superiore utilizzando le astrazioni fornite dal livello inferiore. Ma vediamo brevemente le funzioni di ciascun livello all'interno dello stack ISO/OSI.
 \\
 %Physical Layer
-\begin{paragraph}{Physical Layer}
+\begin{paragraph}{Physical layer}
 Si occupa di trasmettere dati non strutturati attraverso un mezzo fisico e di controllare la rete, gli hardware che la compongono e i dispositivi che permettono la connessione.
 In questo livello vengono decisi diversi aspetti legati al mezzo fisico come ad esempio le tensioni scelte per rappresentare i valori logici dei bit trasmessi, la durata in microsecondi del segnale che identifica un bit, la modulazione e la codifica utilizzata e l'eventuale trasmissione simultanea in due direzioni ( full-duplex ).
 \end{paragraph}
-%Datalink Layer
-\begin{paragraph}{Datalink Layer}
+%Datalink layer
+\begin{paragraph}{Data link layer}
 Questo livello si occupa in primis di formare i dati da inviare attraverso il livello fisico, incapsulando il pacchetto proveniente dallo strato superiore in un nuovo pacchetto provvisto di un nuovo header ( intestazione ) e tail ( coda ). Questa frammentazione dei dati in specifici pacchetti è detta \emph{framing} e i singoli pacchetti sono chiamati \emph{frame}.
 \\
-Il livello Datalink effettua, inoltre, un controllo degli errori e delle perdite di segnale in modo tale da far apparire, al livello superiore, il mezzo fisico come una linea di trasmissione esente da errori di trasmissione.
+Il livello data link effettua, inoltre, un controllo degli errori e delle perdite di segnale in modo tale da far apparire, al livello superiore, il mezzo fisico come una linea di trasmissione esente da errori di trasmissione.
 \end{paragraph}
-%Network Layer
-\begin{paragraph}{Network Layer}
-Si occupa di rendere i livelli superiori indipendenti dai meccanismi e dalle tecnologie di trasmissione usate per la connessione e prendersi carico della consegna a destinazione dei pacchetti.
+%Network layer
+\begin{paragraph}{Network layer}
+Si occupa di rendere i livelli superiori indipendenti dai meccanismi e dalle tecnologie di trasmissione usate per la connessione. Si prende carico della consegna a destinazione dei pacchetti.
 È responsabile del \emph{routing} ovvero della scelta ottimale del percorso di rete da utilizzare per garantire la consegna delle informazioni dal mittente al destinatario, scelta svolta dal router attraverso dei particolari algoritmi di routing e tabelle di routing.
 \\
-È responsabile inoltre della conversione dei dati nel passaggio fra una rete ed un'altra con diverse caratteristiche, come ad esempio reti che adottano diversi protocolli di rete: si deve occupare quindi di tradurre gli indirizzi di rete, valutare la necessità di frammentare i pacchetti dati se la nuova rete ha una diversa Maximum Transmission Unit (MTU) e di valutare la necessità di gestire diversi protocolli attraverso l'impiego di gateway. L'unità dati fondamentale è il pacchetto o \emph{datagram}.
+È responsabile, inoltre, della conversione dei dati nel passaggio fra una rete ed un'altra con diverse caratteristiche, come ad esempio reti che adottano diversi protocolli di rete: si deve occupare quindi di tradurre gli indirizzi di rete, valutare la necessità di frammentare i pacchetti dati se la nuova rete ha una diversa Maximum Transmission Unit (MTU) e di valutare la necessità di gestire diversi protocolli attraverso l'impiego di gateway. L'unità dati fondamentale è il pacchetto o \emph{datagram}.
 \end{paragraph}
-%Transport Layer
-\begin{paragraph}{Transport Layer}
+%Transport layer
+\begin{paragraph}{Transport layer}
 Permettere un trasferimento di dati trasparente e affidabile (implementando anche un controllo degli errori e delle perdite) tra due host. 
 \\
-È il primo livello realmente end-to-end, cioè da host sorgente a destinatario. Si occupa di stabilire, mantenere e terminare una connessione, garantendo il corretto e ottimale funzionamento della sottorete di comunicazione nonché del controllo della congestione: si occupa, cioè, di evitare che troppi pacchetti dati arrivino allo stesso router contemporaneamente causando così una perdita dei pacchetti stessi.
+È il primo livello realmente \emph{end-to-end}, cioè da host sorgente a destinatario. Si occupa di stabilire, mantenere e terminare una connessione, garantendo il corretto e ottimale funzionamento della sottorete di comunicazione nonché del controllo della congestione: si occupa, cioè, di evitare che troppi pacchetti dati arrivino allo stesso router contemporaneamente causando così una perdita dei pacchetti stessi.
 \\
-A differenza dei livelli precedenti, che si occupano di connessioni tra nodi contigui di una rete, il Transport Layer si occupa solo del punto di partenza e di quello finale.
-Si occupa anche di effettuare la frammentazione dei dati provenienti dal livello superiore in pacchetti, detti generalmente \emph{segmenti}, e trasmetterli in modo efficiente ed affidabile usando il livello rete ed isolando da questo i livelli superiori. Inoltre, si preoccupa di ottimizzare l'uso delle risorse di rete e di prevenire la congestione.
+A differenza dei livelli precedenti, che si occupano di connessioni tra nodi contigui di una rete, il transport layer si occupa solo del punto di partenza e di quello finale.
+Si occupa anche di effettuare la frammentazione dei dati provenienti dal livello superiore in pacchetti, detti generalmente \emph{segmenti} nel caso di connessione TCP o datagram nel caso di trasmissione UDPlayer, e trasmetterli in modo efficiente ed affidabile usando il livello rete ed isolando da questo i livelli superiori. Inoltre, si preoccupa di ottimizzare l'uso delle risorse di rete e di prevenire la congestione.
 \end{paragraph}
-%Session Layer
-\begin{paragraph}{Session Layer}
+%Session layer
+\begin{paragraph}{Session layer}
 Consente di aggiungere, ai servizi forniti dal livello di trasporto, servizi più avanzati, quali la gestione del dialogo ( mono o bidirezionale ), la gestione del token (per effettuare mutua esclusione) o la sincronizzazione ( inserendo dei checkpoint in modo da ridurre la quantità di dati da ritrasmettere in caso di gravi malfunzionamenti ).
 Si occupa anche di inserire dei punti di controllo nel flusso dati: in caso di errori nell'invio dei pacchetti, la comunicazione riprende dall'ultimo punto di controllo andato a buon fine.
 \end{paragraph}
-%Presentation Layer
-\begin{paragraph}{Presentation Layer}
-Si occupa di trasformare i dati forniti dalle applicazioni in un formato standard e di offrire servizi di comunicazione comuni, come la crittografia, la compressione del testo e la riformattazione.
+%Presentation layer
+\begin{paragraph}{Presentation layer}
+Si occupa di trasformare i dati forniti dalle applicazioni in un formato standard e di offrire servizi di comunicazione comuni, come la crittografia, la compressione del testo e la ri-layerformattazione.
 \end{paragraph}
-%Application Layer
-\begin{paragraph}{Application Layer}
-Il livello Applicazione è quello più vicino al livello utente fornisce e quindi un interfaccia tra le applicazioni e lo stack di rete sottostante che si occupa dell'invio di messaggi. I protocolli di livello applicazione si occupano quindi dello scambio di informazioni tra apps in esecuzione sull'host sorgente e quello destinatario della comunicazione.
+%Application layer
+\begin{paragraph}{Application layer}
+Il livello Applicazione è quello più vicino al livello utente. Fornisce un'interfaccia tra le applicazioni e lo stack di rete sottostante che si occupa dell'invio di messaggi. I protocolli di livello applicazione si occupano, quindi, dello scambio di informazioni tra apps in esecuzione sull'host sorgente e quello destinatario della comunicazione.
 \end{paragraph}
 \end{section}
 %ISO/OSI vs TCP/IP
 \begin{section}{ISO/OSI vs TCP/IP}
-TCP/IP sviluppato inizialmente dal dipartimento della difesa americano e utilizzato nei primi computer UNIX-based attualmente è lo \emph{standard de facto} per tutte le comunicazioni internet. 
+TCP/IP, sviluppato inizialmente dal dipartimento della difesa americano e utilizzato nei primi computer UNIX-based, attualmente è lo \emph{standard de facto} per tutte le comunicazioni internet. 
 \\
-TCP/IP, come l'OSI model, è strutturato su più livelli alcuni dei quali molto simili per caratteristiche e funzionalità a quelli di ISO/OSI: TCP/IP accorpa in un unico layer funzionalità contenute su più livelli del modello OSI. 
+TCP/IP, come l'OSI model, è strutturato su più livelli, alcuni dei quali molto simili per caratteristiche e funzionalità a quelli di ISO/OSI: TCP/IP accorpa in un unico layer funzionalità contenute su più livelli del modello OSI. 
 \\
 \\
 TCP/IP è l'approccio utilizzato in ogni tipo di comunicazione internet. L'obbiettivo di ISO/OSI invece è quello fornire uno standard da usare come guideline per la definizione di protocolli e applicazioni internet.
@@ -102,17 +102,17 @@ I layer nello stack TCP/IP sono quattro e sono così organizzati rispetto al mode
 \end{section}
 
 \begin{section}{Wi-Fi}
-Wi-Fi indica una tecnologia che consente a calcolatori collocati su di una stessa WLAN ( Wireless Local Area Network ) di comunicare senza fili attraverso specifiche frequenze di onde radio secondo le specifiche dello standard \textbf{IEEE 802.11}. Sempre più dispositivi dispongono di interfacce di rete Wi-Fi: dai laptop, agli smartphone fino agli elettrodomestici di ultima generazione che possono essere così interconnessi entro un certo raggio di copertura.
+Wi-Fi indica una tecnologia che consente a calcolatori collocati su di una stessa WLAN ( Wireless Local Area Network ) di comunicare senza fili attraverso specifiche frequenze di onde radio secondo le specifiche dello standard \textbf{IEEE 802.11}. Sempre più dispositivi dispongono di interfacce di rete Wi-Fi: dai laptop, agli smartphone fino agli elettrodomestici di ultima generazione, che possono essere così interconnessi entro un certo raggio di copertura.
 \\
-a tecnologia Wi-Fi può essere usata per fornire connettività internet ai dispositivi presenti nel raggio di copertura della WLAN se la Local Area Network è connessa a internet. % menzionare ISP ???????!!! BOOOOHHH
+La tecnologia Wi-Fi può essere usata per fornire connettività internet ai dispositivi presenti nel raggio di copertura della WLAN se la Local Area Network è connessa ad internet. % menzionare ISP ???????!!! BOOOOHHH
 \\
 \begin{subsection}{WLAN architecture and types}
 L'architettura di una WLAN è caratterizzata da diverse componenti.
 \begin{paragraph}{Stazioni}
-In una WLAN ciascun dispositivo munito di Wireless Network Interface Controllers (WNICs) e che quindi può comunicare senza fili è detto stazione.
+In una WLAN ciascun dispositivo munito di Wireless Network Interface Controllers (WNICs), e che quindi può comunicare senza fili, è detto stazione.
 Vi sono due categorie di stazioni:
 \begin{itemize}
-\item \textbf{Access Points (AP)} ovvero dispositivi elettronici che ricevono/trasmettono segnali radio da/verso nodi mobili equipaggiati con schede di rete Wi-Fi.
+\item \textbf{Access points (AP)} ovvero dispositivi elettronici che ricevono/trasmettono segnali radio da/verso nodi mobili equipaggiati con schede di rete Wi-Fi.
 \item \textbf{Clients}, tutti i nodi mobili che possono essere equipaggiati con una wireless network interface come ad esempio laptops, smartphones o workstations.
 \end{itemize}
 \end{paragraph}
@@ -135,7 +135,7 @@ Un Extended Service Set (ESS) è un insieme di BSS interconnessi tra loro. Gli ac
 
 %Distribution System
 \begin{paragraph}{Distribution System}
-Il Distribution System (DS) interconnette tra loro gli access point di diversi EES. Un access point può essere principale, di inoltro o remoto. Un access point principale è collegato tipicamente alla rete cablata. Un access point di inoltro trasmette i dati fra le stazioni remote e principali. Un access point remoto accetta i collegamenti dai client senza fili e li passa a quelli di inoltro o quelli principali. 
+Il Distribution System (DS) inter-connette tra loro gli access point di diversi EES. Un access point può essere principale, di inoltro o remoto. Un access point principale è collegato tipicamente alla rete cablata. Un access point di inoltro trasmette i dati fra le stazioni remote e principali. Un access point remoto accetta i collegamenti dai client senza fili e li passa a quelli di inoltro o quelli principali. 
 \end{paragraph}
 \\ 
 \\	%WLAN types
@@ -150,37 +150,37 @@ Esistono due tipologie di rete WLAN che differiscono dalle modalità di comunicaz
 
 %IEEE 802.11
 \begin{section}{IEEE 802.11}
-IEEE 802.11 è uno standard di trasmissione per reti WLAN operanti su frequenze 2.4 e 5 GHz che definisce un interfaccia di comunicazione base per comunicazione Wi-Fi. Le specifiche definite nello standard 802.11 si focalizzano sul livello fisico e MAC del modello ISO/OSI. 
-Il sistema di numerazione 802.11 è dovuto a IEEE che utilizza 802.x per indicare una famiglia di standard per le comunicazione di rete tra cui lo standard \emph{Ethernet} (IEEE 802.3). Per tanto  IEEE 802.11 si adegua perfettamente agli altri standard 802.x per reti locali wired e le applicazioni che lo utilizzano non dovrebbero notare nessuna differenza logica, una degradazione delle performance invece è tuttavia possibile.
+IEEE 802.11 è uno standard di trasmissione per reti WLAN, operanti su frequenze 2.4 e 5 GHz, che definisce un'interfaccia di comunicazione base per trasmissioni Wi-Fi. Le specifiche definite nello standard 802.11 si focalizzano sul livello fisico e MAC del modello ISO/OSI. 
+Il sistema di numerazione 802.11 è dovuto ad IEEE che utilizza 802.x per indicare una famiglia di standard per le comunicazione di rete tra cui lo standard \emph{Ethernet} (IEEE 802.3). Per tanto IEEE 802.11 si adegua perfettamente agli altri standard 802.x per reti locali wired e le applicazioni che lo utilizzano non dovrebbero notare nessuna differenza logica, una degradazione delle performance, invece, è tuttavia possibile.
 IEEE 802.11b  è stato il primo protocollo largamente utilizzato seguito da 802.11a, 802.11g, 802.11n, e 802.11ac. Vi sono altri standard nella famiglia 802.11 (c-f, h, j) che sono per lo più piccole modifiche, estensioni o correzioni alle precedenti specifiche.
 \\
-Per quanto concerne le performance lo stream data rate può arrivare fino a 780 Mbit/s in 802.11ac grazie anche alla tecnologia MIMO (Multiple-Input and Multiple-Output) che consente di aumentare la capacità del canale trasmissivo usando più trasmittenti e ricevitori sfruttando così il fenomeno del \emph{multipath-propagation} ovvero un segnale radio può raggiungere un ricevitore attraverso diversi percorsi, \emph{path}.
+Per quanto concerne le performance, lo stream data rate può arrivare fino a 780 Mbit/s in 802.11ac grazie anche alla tecnologia MIMO (Multiple-Input and Multiple-Output) che consente di aumentare la capacità del canale trasmissivo usando più trasmittenti e ricevitori, sfruttando così il fenomeno del \emph{multipath-propagation}, ovvero un segnale radio può raggiungere un ricevitore attraverso diversi percorsi, \emph{path}.
 
 %Physical Layer in 802.11
-\begin{subsection}{Physical Layer in 802.11}
-Come già detto IEEE 802.11\cite{IEEE802dot11Bibliography} utilizza le bande di frequenza  2.4 e 5 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duples}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
+\begin{subsection}{Physical layer in 802.11}
+Come già detto, IEEE 802.11\cite{IEEE802dot11Bibliography} utilizza le bande di frequenza  2.4 e 5 GHz e a \emph{livello fisico} vengono usate delle tecniche di modulazione \emph{half-duplex}: in particolare viene utilizza la Orthogonal Frequency-Division Multiplexing (OFDM) che utilizza un numero elevato di sotto-portanti ortogonali tra di loro, oppure quella chiamata Direct Sequence Spread Spectrum (DSSS), che è una tecnologia di trasmissione a banda larga nella quale ogni bit viene trasmesso come una sequenza ridondante di valori, detti chip, rendendola così più resistente ad eventuali interferenze.
 \end{subsection}
 
 %MAC Media Access Control
 \begin{subsection}{Media Access Control}
-Media Access Control (MAC) è un \emph{sublayer} del livello \emph{Data Link} del modello OSI. MAC fornisce meccanismi di indirizzamento e di controllo di accesso al canale che consentono a nodi mobili di comunicare attraverso una rete con medium condiviso. L'hardware che implementa MAC è detto \emph{media access controller}.
-Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al mezzo fisico, frammentazione dati in frame e riconoscimento frame stessi e controllo degli errori.
+Media Access Control (MAC)\cite{ISOOSIBibliography} è un \emph{sublayer} del livello \emph{data link} del modello OSI. MAC fornisce meccanismi di indirizzamento e di controllo di accesso al canale che consentono a nodi mobili di comunicare attraverso una rete con medium condiviso. L'hardware che implementa MAC è detto \emph{media access controller}.
+Le funzioni principali del MAC sono quindi quelle di regolamentare l'accesso al mezzo fisico, frammentazione dati in frame e riconoscimento degli stessi frame e controllo degli errori.
 \end{subsection}
 
 %controllo dell'accesso
 \begin{subsection}{CSMA/CA}
-Carrier Sense Multiple Access with Collision Avoidance è un protocollo di accesso multiplo in cui i nodi cercano di evitare a priori il verificarsi di collisioni in trasmissione. Questo approccio è l'ideale per tipologie di reti nella quale non risulta possibile ( oppure poco affidabile e dispendioso ) rilevare un'avvenuta collisione.
+Carrier Sense Multiple Access with Collision Avoidance\cite{IEEE802dot11Bibliography}  è un protocollo di accesso multiplo in cui i nodi cercano di evitare a priori il verificarsi di collisioni in trasmissione. Questo approccio è l'ideale per tipologie di reti nella quale non risulta possibile ( oppure poco affidabile e dispendioso ) rilevare un'avvenuta collisione.
 \\
-Quando un nodo vuole effettuare una trasmissione ascolta il canale \emph{(listen-before-talk)} (LBT): se il canale risulta \emph{idle} il nodo aspetta un certo \emph{DISF time (Distribuited Inter Frame Space)} trascorso il quale, se il canale risulta ancora libero, comincerà a trasmettere. A termine della trasmissione il nodo sorgente aspetterà per un certo intervallo \emph{SISF (Short Inter Frame Space)}, più piccolo di DISF, la ricezione di un \emph{ACK}. Se il nodo sorgente non riceve alcun ACK ritrasmetterà il messaggio per un certo numero di volte.
+Quando un nodo vuole effettuare una trasmissione ascolta il canale \emph{(listen-before-talk)} ( LBT ): se il canale risulta \emph{idle}, il nodo aspetta un certo \emph{DISF time ( Distribuited Inter Frame Space )} trascorso il quale, se il canale risulta ancora libero, comincerà a trasmettere. A termine della trasmissione il nodo sorgente aspetterà per un certo intervallo \emph{SISF ( Short Inter Frame Space )}, più piccolo di DISF, la ricezione di un \emph{ACK}. Se il nodo sorgente non riceve alcun ACK ritrasmetterà il messaggio per un certo numero di volte.
 \\
-Per tutta la durata della trasmissione e per la durata dello SISF time le altre stazioni, trovando il canale occupato, non avvieranno altre comunicazioni evitando così collisioni. La durata dello SISF inferiore a quello dell'intervallo di DISF assicura che nessuna stazione comincerà una trasmissione prima della ricezione dell'eventuale messaggio di acknowledgment da parte del nodo che ha appena concluso la trasmissione.
+Per tutta la durata della trasmissione, e per la durata dello SISF time, le altre stazioni, trovando il canale occupato, non avvieranno altre comunicazioni evitando così collisioni. La durata dello SISF, inferiore a quello dell'intervallo di DISF, assicura che nessuna stazione comincerà una trasmissione prima della ricezione dell'eventuale messaggio di acknowledgment da parte del nodo che ha appena concluso la trasmissione.
 \\
-Nel caso in cui una stazione volesse trasmettere e rileva il canale occupato attenderà per un certo intervallo di tempo casuale, detto intervallo di \emph{back-off}, prima di riprovare a trasmettere. L'intervallo di back-off è realizzato per mezzo di un timer che decrementa il valore di un contatore, inizializzato con il valore dell'intervallo, solamente nei periodi di inattività del canale, ovvero quando non vi sono trasmissioni, il valore del contatore resterà invece invariato durante i periodi di trasmissione da parte di altre stazioni (\emph{frozen back-off}). Quando il valore del contatore raggiungerà lo zero la stazione effettuerà un nuovo tentativo di trasmissione. Questo meccanismo di accesso al mezzo è detto \emph{Basic Access Mechanism}
+Nel caso in cui una stazione volesse trasmettere, e rileva il canale occupato, attenderà per un certo intervallo di tempo casuale, detto intervallo di \emph{back-off}, prima di riprovare a trasmettere. L'intervallo di back-off è realizzato per mezzo di un timer che decrementa il valore di un contatore, inizializzato con il valore dell'intervallo, solamente nei periodi di inattività del canale, ovvero quando non vi sono trasmissioni; il valore del contatore resterà invece invariato durante i periodi di trasmissione da parte di altre stazioni (\emph{frozen back-off}). Quando il valore del contatore raggiungerà lo zero la stazione effettuerà un nuovo tentativo di trasmissione. Questo meccanismo di accesso al mezzo è detto \emph{Basic Access Mechanism}
 % devo scrivere come calcolare backoff time???????????!!!!! BOH
 \end{subsection}
 %Hide node problem
 \begin{subsection}{Il problema dei nodi nascosti}
-Il problema dei nodi nascosti in una rete wireless si ha quando un nodo all'interno della rete è visibile da un Access Point ma non da tutte le altre stazioni collegate al medesimo AP. Questo può comportare una serie di problemi per quanto riguarda il controllo dell' accesso al mezzo.
+Il problema dei nodi nascosti in una rete wireless sì ha quando un nodo all'interno della rete è visibile da un Access Point ma non da tutte le altre stazioni collegate al medesimo AP. Questo può comportare una serie di problemi per quanto riguarda il controllo dell' accesso al mezzo.
 
 \begin{figure}[h]
     \centering
@@ -193,14 +193,14 @@ Come si può vedere dalla figura \ref{fig:HiddenNodeProblemImage} la stazione A e
 \\
 Per ovviare a questo problema IEEE 802.11 definisce un meccanismo opzionale che introduce due tipi di pacchetti di controllo, in particolare:
 \begin{itemize}
-\item \emph{RTS} (Request To Send), quando un nodo vuole trasmettere, prima di inviare il frame vero e proprio, invia al destinatario un pacchetto di tipo RTS contenente destinatario del messaggio, mittente e durata della trasmissione che seguirà. 
-\item \emph{CTS} (Clear To Send), quando un nodo riceve un pacchetto di tipo RTS risponde con un pacchetto di tipo CTS che contiene essenzialmente le stesse informazioni contenute nel frame di tipo RTS; quando il nodo mittente avrà ricevuto il frame CTS potrà cominciare l'inoltro del frame effettivo precedentemente annunciato tramite il rispettivo RTS.
+\item \emph{RTS} ( Request To Send ), quando un nodo vuole trasmettere, prima di inviare il frame vero e proprio, invia al destinatario un pacchetto di tipo RTS contenente destinatario del messaggio, mittente e durata della trasmissione che seguirà. 
+\item \emph{CTS} ( Clear To Send ), quando un nodo riceve un pacchetto di tipo RTS risponde con un pacchetto di tipo CTS contenente, essenzialmente, le stesse informazioni contenute nel frame di tipo RTS; quando il nodo mittente avrà ricevuto il frame CTS potrà cominciare l'inoltro del frame precedentemente annunciato tramite il rispettivo RTS.
 \end{itemize}
-I pacchetti RTS e CTS vengono inoltrati a tutte le stazioni comprese quindi anche quelle nascoste al mittente che si metteranno in attesa per tutta la durata della trasmissione come specificato dai frame di controllo.
+I pacchetti RTS e CTS vengono inoltrati a tutte le stazioni comprese, quindi, anche quelle nascoste al mittente, che si metteranno in attesa per tutta la durata della trasmissione come specificato dai frame di controllo.
 \\
-Questo meccanismo non è del tutto esente da collisioni. Infatti le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS in quanto i frame di controllo hanno una dimensione molto ridotta (fino a 2347 bytes).
+Questo meccanismo non è del tutto esente da collisioni. Infatti, le collisioni possono ancora avvenire durante lo scambio dei pacchetti di controllo: ad esempio, due stazioni mandano contemporaneamente una Request To Send. Nonostante ciò, la probabilità di collisione risulta essere più bassa e meno significativa rispetto all'approccio che non fa uso dei pacchetti RTS/CTS, in quanto i frame di controllo hanno una dimensione molto ridotta (fino a 2347 bytes).
 \\
-Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame di controllo il messaggio verrà inoltrato immediatamente senza prima generare il corrispettivo RTS.
+Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame di controllo, il messaggio verrà inoltrato immediatamente senza prima generare il corrispettivo RTS.
 
 \begin{figure}[h]
     \centering
@@ -215,10 +215,10 @@ Se una stazione vuole trasmettere un pacchetto di dimensione inferiore al frame 
 IEEE 802.11 definisce tre tipologie di frame:
 \begin{itemize}
 \item	DATA, contengono meramente dati.
-\item CTRL, servono per facilitare l'interscambio di data frame tra le stazione; appartengono a questa categoria i frame RTS, CTS e ACK.
-\item MGMT, frame utili al mantenimento della comunicazione; i \emph{beacon frame} (frame inviato periodicamente da un AP per annunciare al sua presenza e il suo SSID) appartengono a questa categoria.
+\item CTRL, servono per facilitare l'interscambio di data frame tra le stazioni; appartengono a questa categoria i frame RTS, CTS e ACK.
+\item MGMT, frame utili al mantenimento della comunicazione; i \emph{beacon frame} ( frame inviato periodicamente da un AP per annunciare al sua presenza e il suo SSID ) appartengono a questa categoria.
 \end{itemize}
-Ciascun frame è composto da un \emph{MAC header}, un \emph{payload} e un \emph{frame check sequence (FCS)}.
+Ciascun frame è composto da un \emph{MAC header}, un \emph{payload} e un \emph{frame check sequence ( FCS )}.
 
 \begin{figure}[h]
     \centering
@@ -228,28 +228,28 @@ Ciascun frame è composto da un \emph{MAC header}, un \emph{payload} e un \emph{f
 \end{figure}
 
 \begin{paragraph}{MAC header}
-I primi due byte del MAC header contengono un campo molto interessante, il \emph{frame control}. Il frame control contiene diversi sottocampi:
+I primi due byte del MAC header contengono un campo molto interessante, il \emph{frame control}. Il frame control contiene diversi sotto-campi:
 \begin{itemize}
 \item Protocol Version, ovvero due bit rappresentanti la versione del protocollo, posto sempre a zero; altri valori sono riservati per un uso futuro.
 \item Type, due bit identificanti appunto il tipo di frame.
 \item Subtype, quattro bit che identificano il sottotipo del frame; ad esempio come beacon è un sottotipo di MGMT.
 \item ToDS \& FromDS, ciascun campo occupa un bit e indica se un data frame è diretto o proviene da un distribution system. I frame di tipo CTRL e MGMT hanno entrambi i flag settati a zero.
-\item More Fragments, bit settato quando un pacchetto è viene frammentato in più frame per la trasmissione; tutti i pacchetti con eccezione dell'ultimo inviato avranno questo flag settato.
+\item More Fragments, bit settato quando un pacchetto viene frammentato in più frame per la trasmissione; tutti i pacchetti con eccezione dell'ultimo inviato avranno questo flag settato.
 \item Retry, indica se un frame è stato oggetto di ritrasmissione; utile per eliminare eventuali frame duplicati.
-\item Power Management: indica il \emph{power management state} (ovvero se la stazione è in power-save state o meno) del mittente settato dopo la trasmissione. Gli AP non setteranno mai questo bit in quanto sempre attivi per la gestione delle connessioni.
+\item Power Management: indica il \emph{power management state} (ovvero se la stazione è in power-save state o meno) del mittente, settato dopo la trasmissione. Gli AP non setteranno mai questo bit in quanto sempre attivi per la gestione delle connessioni.
 \item More Data, questo bit indica che c'è almeno un pacchetto disponibile; settato dagli AP per facilitare le stazioni in power-save mode.
 \item Protected, indica se il payload del frame è stato cifrato o meno.
 \item Order, questo bit è settato solamente quando i frame sono inviati in ordine uno dietro l'altro; spesso ciò non avviene per motivi di performance.
 \end{itemize}
 Gli altri campi contenuti nell'header MAC sono la durata di trasmissione, gli indirizzi MAC ( \emph{source}, \emph{destination}, \emph{transmitter} e \emph{receiver} ) e il \emph{Sequence Control}.
 \\
-Il campo Sequence Control è composto da due byte usato per identificare l'ordine dei frame spediti. I primi 4 bit corrispondono al \emph{fregmentation number} e gli ultimi 12 bit sono il \emph{sequence number}. Il fragmentation number indica il numero di ogni pacchetto precedentemente frammentato, il sequence number, invece, è un valore modulo 4096 assegnato a un frame e rimane costante per ogni ritrasmissione o per ciascun fragment di quel pacchetto.
+Il campo Sequence Control è composto da due byte usato per identificare l'ordine dei frame spediti. I primi 4 bit corrispondono al \emph{fregmentation number} e gli ultimi 12 bit sono il \emph{sequence number}. Il fragmentation number indica il numero di ogni pacchetto precedentemente frammentato, il sequence number, invece, è un valore modulo 4096 assegnato ad un frame e rimane costante per ogni ritrasmissione o per ciascun fragment di quel pacchetto.
 \end{paragraph}
 \begin{paragraph}{Payload}
-Il Payload ha dimensione variabile da 0 a 2304 byte; contiene informazioni provenienti dai livelli di rete superiori. Le informazioni provenienti dai livelli superiori prima di essere incapsulati in un frame MAC sono incapsulate in un frame di tipo IEEE 802.2 che definisce LLC ( Logical Link Protocol ) che rappresenta il sublayer superiore del livello Data-Link del modello OSI. LLC offre un'interfaccia di comunicazione omogenea verso il livello Data-Link al layer superiore ( a differenza di MAC che è dipendente dal mezzo trasmissivo utilizzato ). Il pacchetto 802.2 è detto PDU ( Protocol Data Unit ) e il suo header contiene informazioni di controllo aggiuntive e può essere esteso con SNAP ( Subnetwork Access Protocol ) che consente di specificare il tipo di protocollo ( \emph{Protocol ID} field ) a cui appartengono i dati contenuti nel payload della PDU. Questa estensione può essere molto utile ad esempio in fase di ricezione di un frame: è possibile vedere a quale protocollo appartengono i dati contenuti nel payload e consegnare, quindi, i dati al giusto protocollo dello stack di rete ( si basti pensare anche solamente ad IPv4 vs IPv6 ).
+Il Payload ha dimensione variabile da 0 a 2304 byte; contiene informazioni provenienti dai livelli di rete superiori. Le informazioni provenienti dai livelli superiori, prima di essere incapsulate in un frame MAC, sono incapsulate in un frame di tipo IEEE 802.2 che definisce LLC ( Logical Link Protocol ) che rappresenta il sublayer superiore del livello Data-Link del modello OSI. LLC offre un'interfaccia di comunicazione omogenea verso il livello data link al layer superiore ( a differenza di MAC che è dipendente dal mezzo trasmissivo utilizzato ). Il pacchetto 802.2 è detto PDU ( Protocol Data Unit ) e il suo header contiene informazioni di controllo aggiuntive e può essere esteso con SNAP ( Subnetwork Access Protocol ) che consente di specificare il tipo di protocollo ( \emph{Protocol ID} field ) a cui appartengono i dati contenuti nel payload della PDU. Questa estensione può essere molto utile ad esempio in fase di ricezione di un frame: è possibile vedere a quale protocollo appartengono i dati contenuti nel payload e consegnare, quindi, i dati al giusto protocollo dello stack di rete ( si basti pensare anche solamente ad IPv4 vs IPv6 ).
 \end{paragraph}
 \begin{paragraph}{Frame check sequence (FCS)}
-Spesso detto anche \emph{Cyclic Redundancy Check} (CRC) permette di verificare l'integrità di un frame appena ricevuto: quando un frame sta per essere spedito la stazione sorgente calcola questo valore e lo appende al frame IEEE 802.11. Quando un nodo riceve il frame ricalcola l'FCS sulla base dei dati ricevuti e lo confronta con il valore contenuto nel \emph{trailer} del pacchetto; se i due valori coincidono il frame non ha subito delle modifiche durante la trasmissione.
+Spesso detto anche \emph{Cyclic Redundancy Check} ( CRC ), permette di verificare l'integrità di un frame appena ricevuto: quando un frame sta per essere spedito la stazione sorgente calcola questo valore e lo appende al frame IEEE 802.11. Quando un nodo riceve il frame ricalcola l'FCS sulla base dei dati ricevuti e lo confronta con il valore contenuto nel \emph{trailer} del pacchetto; se i due valori coincidono il frame non ha subito delle modifiche durante la trasmissione.
 \\
 Il campo FCS occupa gli ultimi quattro byte del frame IEEE 802.11 
 \end{paragraph}
