@@ -2,11 +2,11 @@
 \begin{chapter}{Transmission Error Detector developer APIs}
 Transmission Error Detector è progettato per operare all'interno di un proxy client in un contesto Always Best Packet Switching.
 \\
-Tuttavia una qualsiasi applicazione che instrada del flusso informativo verso la rete attraverso un socket UDP, in esecuzione su di un kernel a cui è stato installato il modulo TED, può essere pensata e implementata per sfruttare il meccanismo di Transmission Error Detection raccontato nel capitolo precedente.
+Tuttavia una qualsiasi applicazione che instrada del flusso informativo verso la rete attraverso un socket UDP, in esecuzione su di un kernel a cui è stato installato il modulo TED, può essere progettata e implementata per sfruttare il meccanismo di Transmission Error Detection raccontato nel capitolo precedente.
 \\
 Gli unici accorgimenti che un applicativo deve adottare per beneficiare dei meccanismi forniti dalla versione di Transmission Error Detector sviluppata consistono in:
 \begin{itemize}
-\item Abilitare il socket UDP utilizzato per la trasmissione alla ricezione degli errori.
+\item Abilitare il socket UDP, utilizzato per la trasmissione, alla ricezione degli errori.
 \item Adottare la system call sendmsg e specificare nell'ancillary data del messaggio in invio che si è interessati a ricevere un identificativo per quel messaggio. 
 \\
 Inserire, inoltre, all'interno dei dati di controllo il puntatore di memoria dove si vuole venga memorizzato l'identificativo assegnato da TED.
@@ -77,7 +77,7 @@ ABPS\_CMGS\_TYPE è stato definito in socket.h.
 All'interno del campo data della struttura struct cmsghdr è necessario copiare il puntatore all'area di memoria in cui si desidera TED setti l'identificativo assegnato al messaggio in invio.
 \\
 \\
-Vediamo un esempio di utilizzo. Il codice qui di seguito presentato consente di inviare un messaggio tramite l'estensione della system call sendmsg introdotta.
+Vediamo un esempio di utilizzo. Il codice, qui di seguito presentato, consente di inviare un messaggio tramite l'estensione della system call sendmsg introdotta.
 
 \begin{lstlisting}
 
@@ -93,11 +93,11 @@ struct msghdr message_header;
     
 struct cmsghdr *cmsg;
     
-char buffer[100];
+char buffer[MESSAGE_LENGTH];
     
-memset(buffer,0,100);
+memset(buffer,0, MESSAGE_LENGTH);
 
-strncpy(buffer,"Hello from an app built on top of TED!",100);
+strncpy(buffer,"Hello, from an app built on top of TED!", MESSAGE_LENGTH);
     
     
 iov[0].iov_base = (void *) buffer; 
@@ -140,13 +140,13 @@ result_value = sendmsg(file_descriptor, &message_header, MSG_NOSIGNAL);
 
 
 \begin{section}{Receive a notification from TED}
-Per ricevere una notifica da TED è sufficiente predisporre l'app in lettura sulla coda di errore del socket sfruttato in precedenza per l'invio di un messaggio.
+Per ricevere una notifica da TED è sufficiente predisporre l'app in lettura sulla coda d'errore del socket sfruttato, in precedenza, per l'invio di un messaggio.
 \\
 È possibile leggere dalla coda degli errori di un socket attraverso la system call \textbf{recvmsg} specificando il flag MSG\_ERRQUEUE.
 \\
 La notifica può essere ricevuta da un'app allo stesso modo in cui, l'app, potrebbe ricevere un messaggio di tipo ICMP.
 \\
-Come già accennato precedentemente le informazioni della First-hop Transmission Notification sono contenute all'interno di una struttura sock\_extended\_err.
+Come già accennato precedentemente, le informazioni della First-hop Transmission Notification sono contenute all'interno di una struttura sock\_extended\_err.
 
 \begin{lstlisting}
 
@@ -171,7 +171,7 @@ for(cmsg = CMSG_FIRSTHDR(message); cmsg; cmsg = CMSG_NXTHDR(message, cmsg))
 				{
 					uint32_t identifier = ted_message_identifier_from_notification(first_hop_transmission_notification);
 					
-					printf("Just got a new notification for message marked with identifier \%" PRIu32 ". \n", identifier);
+					printf("Just got a new notification for a message marked with identifier \%" PRIu32 ". \n", identifier);
 					
 					/* perform some cool actions with the data fetched from TED notification*/.
 				}
@@ -190,12 +190,12 @@ Si è deciso di definire una convient API per accedere ai valori memorizzati all'
 \\
 Le nuove macro introdotte fungono da wrapper per facilitare l'accesso ad alcuni campi della struttura stessa.
 \\
-L'utilizzo di queste funzioni è consigliato per una maggiore chiarezza e astrazione. Tutte le macro sono definite assieme alla struttura sock\_extended\_err nel file errqueue.h.
+L'utilizzo di queste funzioni è consigliato al fine di una maggiore chiarezza e astrazione. Tutte le macro sono definite assieme alla struttura sock\_extended\_err nel file errqueue.h.
 \\
 Tutte le funzioni definite in questa nuova interfaccia accettano come unico parametro una struttura di tipo sock\_extended\_err.
 
 \begin{paragraph}{ted\_message\_identifier\_from\_notification}
-Utilizzata per accedere all'identificativo del messaggio di cui la notifica è associata.
+Utilizzata per accedere all'identificativo del messaggio a cui la notifica fa riferimento.
 \\
 \\
 \emph{Parameter:} struct sock\_exetended\_err *notification.
@@ -205,7 +205,7 @@ Utilizzata per accedere all'identificativo del messaggio di cui la notifica è as
 \\
 \end{paragraph}
 \begin{paragraph}{ted\_message\_status\_from\_notification}
-Ritorna lo status di consegna del messaggio a cui la notifica vuole fare riferimento. 
+Ritorna lo status di consegna del messaggio a cui la notifica fa riferimento. 
 \\
 Se il valore ritornato è 1 il messaggio è stato consegnato con successo al primo Access Point ( ACK ), se 0 altrimenti ( NACK ).
 \\
@@ -246,7 +246,7 @@ Restituisce l'offset, rispetto al frammento originario, del fragment a cui fa ri
 \emph{Parameter:} struct sock\_exetended\_err *notification.
 \\
 \\
-\emph{Return value:} un uint16\_t indicante l'offset del frammento rispetto al frammento originario a cui si riferisce la notifica espressa in bytes del frammento.
+\emph{Return value:} un uint16\_t indicante l'offset del frammento, espresso in byte, rispetto al messaggio originario.
 \end{paragraph}
 \begin{paragraph}{ted\_message\_more\_fragment\_info\_from\_notification}
 Ritorna 1 se vi sono altri frammenti relativi allo stesso messaggio, 0 altrimenti.
@@ -257,34 +257,9 @@ Ritorna 1 se vi sono altri frammenti relativi allo stesso messaggio, 0 altriment
 \\
 \emph{Return value:} un uint8\_t indicante la presenza, o meno, di ulteriori frammenti per lo stesso messaggio.
 \end{paragraph}
-\\
-\\
-\\
-I wrapper per la l'accesso ai campi della stuct sock\_extended\_err appena descritti.
-
-\begin{lstlisting}
-/* TED convenient wrapper APIs for First-hop Transmission Notification. */
-
-/* Transmission Error Notification identifier of the datagram whose notification refers to. */
-#define ted_message_identifier_from_notification(notification)   ((struct sock_extended_err *) notification)->notification_info
-
-/* Message status to the first hop. Return 1 if the message was successfully delivered to the AP, 0 otherwise. */
-#define ted_message_status_from_notification(notification)  ((struct sock_extended_err *) notification)->notification_type
-
-/* Returns the number of times that the packet, associated to the notification provided, was retrasmitted to the AP.  */
-#define ted_message_retry_count_from_notification(notification) ((struct sock_extended_err *) notification)->notification_retry_count
-
-/* Returns the fragment length */
-#define ted_message_fragmentation_length_info_from_notification(notification)   (((struct sock_extended_err *) notification)->notification_data >> 16)
-
-/* Returns the offset of the current message associated with the notification from the original message. */
-#define ted_message_fragmentation_offset_info_from_notification(notification)   ((((struct sock_extended_err *) notification)->notification_data << 16) >> 16)
-
-/* Indicates if there is more fragment with the same TED identifier */
-#define ted_message_more_fragment_info_from_notification ((struct sock_extended_err *) notification)->notification_code
-\end{lstlisting}
-
-
 \end{section}
+\\
+Si ricorda, infine, che tutto il codice sorgente prodotto per lo sviluppo di TED e della sua interfaccia di sistema è disponibile su \textit{http://github.com/gdibernardo/ABPS\-4.0}.
+
 
 \end{chapter}

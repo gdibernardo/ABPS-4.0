@@ -136,7 +136,6 @@
 \linespread{1.3}  
 \begin{document}
 
-\clearpage{\pagestyle{empty}\cleardoublepage}
 \begin{titlepage}               
 
 \thispagestyle{empty}                  
@@ -151,22 +150,23 @@
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \end{titlepage}
 \pagenumbering{roman}                   
-\chapter*{Introduzione}             
+\chapter*{Abstract}             
 
 \rhead[\fancyplain{}{\bfseries
-Introduzione}]{\fancyplain{}{\bfseries\thepage}}
+Abstract}]{\fancyplain{}{\bfseries\thepage}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
-Introduzione}}
+Abstract}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Introduzione
                                         %   nell'indice
-\addcontentsline{toc}{chapter}{Introduzione}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \tableofcontents                        %crea l'indice
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
-INDICE}}
+ABSTRACT}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \listoffigures                          %crea l'elenco delle figure
@@ -202,7 +202,7 @@ INDICE}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%per fare le conclusioni
-\chapter*{Conclusioni}
+\chapter*{Conclusioni e sviluppi futuri}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries
 CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
@@ -210,77 +210,25 @@ CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
 CONCLUSIONI}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Conclusioni
                                         %   nell'indice
-\addcontentsline{toc}{chapter}{Conclusioni} Queste sono le
-conclusioni.\\
-In queste conclusioni voglio fare un riferimento alla
-bibliografia: questo \`e il mio riferimento %\cite{K3,K4}.
+\addcontentsline{toc}{chapter}{Conclusioni e sviluppi futuri} 
+\input{ConclusionAndFutureWorks}
+
+
+ %\cite{K3,K4}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
 \appendix                               %imposta le appendici
 \chapter{Prima Appendice}               %crea l'appendice
-\begin{section}{Descrizione configurazioni}
- Durante il lavoro di tesi sono state utilizzate diverse configurazioni per effettuare i test.
- Descriviamo ora alcune delle configurazioni, in particolare quelle utilizzate all'interno del testo.
- \begin{paragraph}{Conf. 5}
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 50 Bytes.
-   
-  
- \end{paragraph}
- \begin{paragraph}{Conf. 6}
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 50 Bytes.
-   
-  
- \end{paragraph}
- \begin{paragraph}{Conf. 7}
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 50 Bytes.
-   
-  
- \end{paragraph}
- \begin{paragraph}{Conf. 8}
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 50 Bytes.
-   
-  
- \end{paragraph}
-
-  \begin{paragraph}{Conf. 9}
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 50 Bytes.
-   
-  
- \end{paragraph}	
- \begin{paragraph}{Conf. 83}
-  Questa configurazione in realtà ne racchiude due, che abbiamo indicato con 83A ed 83B.
-  L'unica differenza tra le due è che la A ha il client fermo, mentre la B ha il client in movimento.
-  Visto che la struttura della rete è la stessa, sarà descritta solo una volta.
-  \\
-  Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-  I pacchetti inviati avevano dimensione 1096 Bytes.
-   
-  
- \end{paragraph}
- \begin{paragraph}{Conf. 85}
-   Come per la configurazione 83, anche questa ne racchiude due divise come quelle precedenti.
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 1096 Bytes.
-   
-  
- \end{paragraph}
- \begin{paragraph}{Conf. 87}
-   Come client è stato utilizzato il PC HP che trasmetteva 5000 pacchetti per ogni test.
-   I pacchetti inviati avevano dimensione 50 Bytes.
-   
-  
- \end{paragraph}
-
- 
-\end{section}
-
-
+In questa Appendice non si \`e utilizzato il comando:\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\verb"" è equivalente all'
+                                        %   ambiente verbatim,
+                                        %   ma si utilizza all'interno
+                                        %   di un discorso.
+\verb"\clearpage{\pagestyle{empty}\cleardoublepage}", ed infatti
+l'ultima pagina 8 ha l'intestazione con il numero di pagina in
+alto.
+ METTERE COS'È E COME È FATTO UN SOCKET??
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries \thechapter \:Prima Appendice}]
 {\fancyplain{}{\bfseries\thepage}}
@@ -394,6 +342,4 @@ Una volta riavviato il sistema è possibile utilizzare il proprio kernel customiz
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter*{Ringraziamenti}
 \thispagestyle{empty}
-Qui possiamo ringraziare il mondo intero!!!!!!!!!!\\
-Ovviamente solo se uno vuole, non \`e obbligatorio.
 \end{document}

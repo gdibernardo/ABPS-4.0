@@ -1,0 +1,21 @@
+Lo scopo di questo progetto di tesi era quello di sviluppare un modulo Transmission Error Detector da poter adottare all'interno dell'architettura Always Best Packet Switching in un contesto a supporto della mobilità per device multi-homed.
+\\
+Tutti gli obiettivi preposti sono stati realizzati. Ovvero, è stato creato un modulo che estende il kernel Linux 4.0.1 e che consente di monitorare ciascun datagram UDP in invio attraverso l'interfaccia di rete Wi-Fi.
+\\
+È stata, inoltre, definita un'API di sistema, in modo tale da rendere possibile lo sviluppo di un'applicazione che facesse largo uso del modulo Transmission Error Detector.
+\\
+Sono state condotte, quindi, delle valutazioni sperimentali, che non solo dimostrano l'effettivo funzionamento del modulo sviluppato ma, evidenziano come questo possa venire effettivamente adottato in un contesto ABPS. In particolare, un proxy client, o un qualsiasi applicativo, in esecuzione su un dispositivo multi-homed, sfruttando le APIs messe a disposizione da TED, può condurre un'analisi del link che sta attualmente utilizzando. Nel caso in cui la scheda di rete monitorata non consenta più di mantenere i requisiti di QoS richiesti dalla specifica applicazione, può essere valutato un cambio di interfaccia wireless tra quelle attive e disponibili sul device mobile.
+\\
+Va sottolineato, infine, che questo progetto di tesi non è mai stato testato su un vero e proprio device mobile. Sicuramente uno degli sviluppi futuri dovrebbe essere il porting su piattaforma Android.
+Android è un sistema operativo mobile basato su una versione lightweight del kernel Linux.
+\\
+Può essere possibile, quindi, effettuare il porting della versione di Transmission Error Detector sviluppata verso il sistema Android.
+\\
+Nell'ultima edizione del Google I/O, tenutasi lo scorso 28 Maggio 2015 a San Francisco, Google annuncia Android M, ovvero la futura versione del sistema operativo mobile più diffuso al mondo.
+\\
+Non sono stati rivelati, però, i dettagli sulla versione del kernel Linux adottata, ma non è da escludere che sarà la versione 4.x, rendendo così ancora più semplice un eventuale porting su piattaforma Android.
+\\
+Un'altra miglioria, che potrebbe essere apportata al modulo TED, è l'introduzione, all'interno della First-hop Transmission Notification, del bit rate usato per la trasmissione di uno specifico frame. In particolare la notifica proveniente da TED, e diretta verso l'applicazione interessata, potrebbe contenere il bit rate utilizzato dall'interfaccia di rete per trasmettere il frame. 
+\\
+Questo potrebbe portare a nuovi scenari valutativi e consentire ad applicazioni, o ad ABPS proxy client, nuovi parametri valutativi sullo stato di un certo link trasmissivo.
+
