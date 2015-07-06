@@ -156,7 +156,6 @@ Per poter analizzare i test in modo ottimale e per avere dei dati su cui lavorar
 I parametri che ci interessano maggiormente sono:
 
 \begin{itemize}
- \item \textbf{Id}: l'Id del pacchetto inviato.
  \item \textbf{ACK}: se è stato ricevuto un ACK o un NACK da parte dell'AP. 
  \item \textbf{Data}: è dato dalla data e dall'orario di invio del pacchetto.
  \item \textbf{Tempo}: è il tempo in millisecondi tra l'invio del pacchetto e la ricezione della notifica da parte dell'access point.
@@ -201,8 +200,9 @@ In particolare abbiamo deciso di tenere conto di alcuni possibili scenari di uti
  \item Utilizzo indoor o outdoor.
  \item Trasmissione in linea diretta oppure trasmissione con un ostacolo tra nodo mobile ed AP.
  \item Assenza di traffico sulla rete in contrapposizione ad uno o più hosts wireless a creare traffico.
- \item Nel caso di presenza di nodi sulla rete, abbiamo utilizzato anche la distanza e la velocità come parametri.
+ \item In caso di presenza di nodi sulla rete abbiamo utilizzato anche la distanza e la velocità come parametri.
  \item Trasmissioni ad un host della stessa sottorete oppure ad una rete esterna.
+ \item Dimensione dei pacchetti.
 \end{itemize}
 Dati questi possibili utilizzi, abbiamo creato alcune configurazioni per valutare la qualità del collegamento.
 Il nostro interesse si è focalizzato sulla costruzione di un prodotto cartesiano tra tutte le opzioni.
@@ -233,8 +233,7 @@ Avendo comunque analizzato separatamente il comportamento bloccante e non, possi
 Anche in questo caso, per ogni configurazione creata, ne abbiamo create altre in cui abbiamo scelto parametri diversi.
 Quindi per ognuna è stata tenuta una determinata struttura e siamo andati a modificare un parametro alla volta, registrato tutti i dati ottenuti.
 \\
-Grazie a questo grande numero di possibili utilizzi, abbiamo raccolto sufficienti dati empirici. 
-
+Le configurazioni che useremo nel corso delle valutazioni dei risultati sono descritte in appendice.
 
 \end{subsection}
 
@@ -384,11 +383,40 @@ Per ovviare al problema è stata creata un rete locale con l'uso del ZyXEL descri
 Andiamo ora ad analizzare i risultati ottenuti.
 Le analisi che abbiamo effettuato riguardano la qualità della trasmissione, i tempi medi di ricezione di una notifica proveniente dall'access point, il numero medio di NACK ricevuti e la media dei retry per l'invio dei pacchetti.
 Andremo anche ad aggiungere una ulteriore analisi per la configurazione in movimento, che saranno i \emph{burst NACK} ( ovvero quanti NACK consecutivi sono notificati ).
+\\
+Riguardo alla qualità della trasmissione valutiamo se, per ogni test effettuato, vengono rispettate le linee guida di ITU-T G.1010 \cite{ITUTRacc}.
+Per rispettare i parametri dettati dall'ITU è necessario avere ritardi inferiori ai 150 ms e numero di pacchetti persi inferiore al 3\% del totale.
+\\
+Analizzeremo solo alcuni dei risultati ottenuti.
+In particolare ci concentreremo su:
+\begin{itemize}
+ \item \textbf{Dimensione pacchetti}: abbiamo eseguito test spedendo pacchetti di varie dimensioni. In questo caso abbiamo analizzato il funzionamento dell'applicazione in caso di frammentazione. 
+ \item \textbf{Confronto tra IPv4 ed IPv6}: abbiamo analizzato i risultati relativi ad IPv4 ed IPv6 per verificare l'eventuale presenza di differenze in ricezione delle notifiche.
+ \item \textbf{Interferenza di altri hosts nella rete}: a parità di pacchetti nella rete è interessante notare come varia la qualità della trasmissione a variare del numero degli hosts sulla rete.
+ \item \textbf{Interferenza di altri hosts nella rete}: in questo caso vogliamo sapere quanto incide la velocità degli altri hosts sul client. Abbiamo lasciato invariato il numero di hosts ed abbiamo cambiato la loro velocità.
+ \item \textbf{Trasmissione in movimento}: dato il possibile utilizzo su un nodo mobile, ci interessa sapere come varia la connessione durante il movimento.
+ \end{itemize}
+ 
+Abbiamo deciso di discutere solamente di questi risultati in quanto risultano i più significativi.
+Altre prove effettuate sono state spiegate precedentemente e ne sono state anche accennate alcune analisi.
+\\
+Per quanto riguarda le prove effettuate sulle dimensione dei pacchetti abbiamo inviato dati di 50 Bytes, 1096 Bytes e da 15.000 Bytes.
+I pacchetti da 15.000 B sono stati inviati per verificare il comportamento da parte dell'applicazione.
+In particolare il risultato è stata la notifica di ogni singolo frame inviato, come è stato anche descritto precedentemente nel capitolo relativo al TED.
+Visto questo comportamento, è necessario gestire a livello applicazione l'avvenuta ricezione di tutti i frame.
+Questo dettaglio sarà maggiormente spiegato nel capitolo conclusivo e come sviluppo futuro.
+\\
 
 
-Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere nella trasmissione, lasciando inalterati tutti gli altri parametri.
+Prima di procedere ad illustrare quali conclusioni sono state tratte è necessario soffermarsi sulle analisi fatte.
+Per quanto riguarda i tempi di ricezioni della notifica proveniente dall'AP sono stati prese tutte le notifiche arrivate.
+Invece per i retry sono state fatte le medie solamente delle notifiche con ACK, in quanto risultano più interessanti di quelle con NACK.
+Infine per quanto riguarda i NACK è stata fatta una media di pacchetti persi su tutti quelli inviati.
+Quest'ultima analisi è importante per conoscere la qualità del segnale, insieme ai millisecondi di ricezione della notifica.
 
-
+Le tabelle che andranno a contenere i dati sono strutturate principalmente con il numero della configurazione su di un asse e il numero della prova sull'altro.
+Per quanto riguarda le configurazioni sono indicate solo con un identificativo, per conoscere come è strutturata si può consultare l'appendice.
+Invece, riguardo al numero della prova, sono state indicate tre o quattro prove effettuate separatamente che andranno a comporre una media.
 %MENGO: aggiungere che abbiamo messo solo alcuni dati,
 
 
@@ -479,6 +507,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
 
   \end{subsection}
 
+  
 \begin{subsection}{Valutazione problemi dovuti a pacchetti nella rete} %MENGO: titolo del cazzo
   Un'osservazione riguardo alla qualità del segnale può essere effettuata controllando il numero di pacchetti e di hosts sulla rete.
   In particolare vogliamo analizzare i risultati relativi all'interferenza di un host che trasmette N pacchetti rispetto a K hosts che trasmettono N/K pacchetti ciascuno.
@@ -504,26 +533,23 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \end{tabular}
   \end{table}
 
-  I tempi presi in considerazione nella tabella~\ref{tab:AvgTimePkt} sono relativi solamente alle notifiche ricevute mentre tutti gli altri host trasmettevano dati.
+  È importante sottolineare che i tempi presi in considerazione nella tabella~\ref{tab:AvgTimePkt} sono relativi solamente alle notifiche ricevute mentre tutti gli altri host trasmettevano dati.
   Abbiamo scelto di non considerare le altre notifiche in quanto non avrebbero avuto un significato importante nella nostra analisi.
   Dal grafico~\ref{PktDelay} si possono osservare le percentuali di notifiche che hanno subito un ritardo a causa degli altri hosts.
   È interessante notare come la percentuale cali all'aumentare degli host.
   Questo è dovuto ad un pesante degrado delle prestazioni con conseguente aumento dei tempi di notifica.
   A causa di questo per ogni pacchetto si aspetterà più tempo per la notifica, quindi la percentuale aumenta.
   Inoltre gli altri host hanno mano mano meno dati da inviare quindi ci metteranno meno tempo.
-<<<<<<< HEAD
 
   
   
 \begin{figure}
   \centering
   \caption{Percentuale di pacchetti che hanno subito ritardo.} 
-=======
-   
- \begin{tikzpicture}[font=\small]
->>>>>>> b654a0b3152d680c67d96caeaf88e4bafb8f15e8
     \label{PktDelay}
-  
+
+  \begin{tikzpicture}[font=\small]
+
     \begin{axis}[
       ybar,
       bar width=20pt,
@@ -539,7 +565,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
       xticklabel style={anchor=base,yshift=-\baselineskip},
       nodes near coords={\pgfmathprintnumber\pgfplotspointmeta\%}
     ]
-      \addplot[fill=green] coordinates {
+      \addplot[fill=orange] coordinates {
         (Conf.58,10)
         (Conf.63,3)
         (Conf.68,0.3)
@@ -547,8 +573,13 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
 
       \end{axis}
   \end{tikzpicture}
+\end{figure}
+
+
+  Analizzando i tempi della tabella~\ref{tab:AvgTimePkt} possiamo notare come all'aumentare degli hosts i tempi medi di ricezione di notifica crescano rapidamente.
+  È un comportamento interessante in quanto il numero pacchetti totali all'interno della rete rimane invariato.
+  Questo andamento è dovuto alla politica di accesso al mezzo adottata dal IEEE802.11, come spiegato precedentemente nel primo capitolo.
  
-  
  
  
    
@@ -604,7 +635,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   Per farlo abbiamo calcolato la percentuale di notifiche con ritardo superiore ai 150 ms, i cui risulati sono rappresentati nella figura~\ref{QoSLossTraf}.
   \begin{figure}[width=1\textwidth]
    \centering
-   \caption{Percentuale notifiche con ritardo per QoS.}
+   \caption{Percentuale notifiche con ritardo per QoS per traffico.}
     \label{QoSLossTraf}
     
    \begin{tikzpicture}[font=\small, width=1\textwidth]
@@ -639,6 +670,11 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   \\
   I dati su cui ci vogliamo soffermare, invece, sono quelli riguardanti il movimento dietro ad un ostacolo.
   A causa dell'ostacolo ci aspettiamo di avere un peggioramento della connessione.
+  \\
+  Il test è stato strutturato ponendo prima il nodo mobile da solo, poi con altri hosts sulla rete.
+  Gli altri hosts hanno la funzione di creare traffico.
+  Tutti i dettagli sono descritti in appendice.
+  \\
   Per analizzare in maniera dettagliata i risultati ottenuti ci siamo inizialmente concentrati su un'analisi delle medie dei tempi e dei retry di trasmissioni da fermo ed in movimento.
   Le statistiche dei tempi sono indicate nelle tabelle~\ref{tab:AvgTimeStay} e~\ref{tab:AvgTimeMove}.
 
@@ -728,7 +764,6 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   Perdendo anche solo qualche istante si potrebbe alterare il senso del discorso ( si pensi ad esempio alla perdita di una negazione all'interno di una frase ).
   
   
-<<<<<<< HEAD
 \begin{figure}
   \centering
   \caption{Massimo numero di NACK consecutivi.}
@@ -776,11 +811,8 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   Oltre a questi casi di massimi ci sono stati altri valori alti di NACK contigui.
   
   
-=======
->>>>>>> b654a0b3152d680c67d96caeaf88e4bafb8f15e8
   
-  Come si può notare dal grafico !!!!!!!!!!!!!!!!!!!!!!!!!METTERE GRAFICO O TABELLA, e collegare meglio i due pezzi!!!!!!!!!!!!!!!!!!!!!!!!!!!!, si ha burst di NACK.
-  Questo dato è molto importante in quanto se il client, durante un movimento, si mette in una condizione sfavorevole andando dietro ad un ostacolo la qualità della trasmissione peggiora sensibilmente.
+  Questa conclusione è molto importante in quanto se il client, durante un movimento, si mette in una condizione sfavorevole andando dietro ad un ostacolo la qualità della trasmissione peggiora sensibilmente.
   \\
   In questa situazione l'applicazione dovrebbe cambiare NIC per continuare ad avere una buona QoS.
   Se il client ha dei sensori di movimento incorporati, potrebbe sfruttarli per migliorare le proprie prestazioni.
@@ -794,7 +826,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
   
 \begin{figure}
    \centering
-   \caption{Percentuale notifiche con ritardo per QoS.}
+   \caption{Percentuale notifiche con ritardo per QoS in movimento.}
     \label{QoSTimeMove}
     
    \begin{tikzpicture}[font=\small]
@@ -818,7 +850,7 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
  \\
 \begin{figure}
    \centering
-   \caption{Percentuale notifiche con ritardo per QoS.}
+   \caption{Percentuale pacchetti per QoS in movimento.}
     \label{QoSLossMove}
     
    \begin{tikzpicture}[font=\small]
@@ -845,60 +877,6 @@ Per ogni parametro che vogliamo valutare andremo a stabilire quanto può incidere
 \end{subsection}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%   \begin{table}[h]
-%   \centering
-%   \caption{Tempi di ricezione di notifica in caso di recv bloccante}
-%   \label{WaitTable}
-%   \begin{tabular}{|l|c|c|c|c|}
-%   \hline
-%   WAIT  & Da solo  & Un host a 70Mb/s  & Un host a 10Mb/s  & Un host a 6 Mb/s \\ \hline
-%   prima  & 0.4736  & 0.6684 & 0.716 & 0.943 \\ \hline
-%   seconda & 0.4536  & 0.7096 & 1.027  & 0.7282  \\ \hline
-%   terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
-%   quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
-%   Media & 0.4821 & 0.66595  & 0.90885 & 0.952125  \\ \hline
-%   \end{tabular}
-%   \end{table}
-
-% 
-% 
-%   \begin{table}[h]
-%   \centering
-%   \caption{Tabella no wait}
-%   \label{FirstTable2}
-%   \begin{tabular}{|l|c|c|c|c|}
-%   \hline
-%   NO WAIT ERRATA!!!  & Da solo  & Un host  & Due hosts  & Tre hosts \\ \hline
-%   prima  & 0.4736  & 0.6684 & 1.1236 & 0.6174 \\ \hline
-%   seconda & 0.4536  & 0.7096 & 1.2464  & 0.7282  \\ \hline
-%   terza & 0.4716 & 0.6664 & 0.906 & 0.8855  \\ \hline
-%   quarta & 0.5296 & 0.6194  & 0.9864 & 1.2518  \\ \hline \hline
-%   Media & 0.4821 & 0.66595  & 1.0656 & 0.870725  \\ \hline
-% 
-%   \end{tabular}
-%   \end{table}
 
 
 \end{section}
