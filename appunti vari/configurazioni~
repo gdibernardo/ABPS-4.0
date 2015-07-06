@@ -428,7 +428,7 @@ da qua in poi trasmetto tutti a circa 15Mb/s
 
 
 94
-	rasp a 3/5
+	rasp a 3/5/8
 
 
 95
@@ -437,8 +437,8 @@ da qua in poi trasmetto tutti a circa 15Mb/s
 
 
 96
-	r1: 
-	r2: 
+	r1: 3/5/8
+	r2: 27
 
 
 97

@@ -541,6 +541,8 @@ Invece, riguardo al numero della prova, sono state indicate tre o quattro prove 
   A causa di questo per ogni pacchetto si aspetterà più tempo per la notifica, quindi la percentuale aumenta.
   Inoltre gli altri host hanno mano mano meno dati da inviare quindi ci metteranno meno tempo.
 
+  
+  
 \begin{figure}
   \centering
   \caption{Percentuale di pacchetti che hanno subito ritardo.} 
@@ -579,6 +581,16 @@ Invece, riguardo al numero della prova, sono state indicate tre o quattro prove 
   Questo andamento è dovuto alla politica di accesso al mezzo adottata dal IEEE802.11, come spiegato precedentemente nel primo capitolo.
  
  
+ 
+   
+  Abbiamo inoltre analizzato la QoS, in particolare con riferimento ai tempi.
+  Dall'analisi effettuata abbiamo riscontrato un numero di notifiche con ritardo superiore a 150 ms di circa il 5\% nel caso della Conf. 58, mentre nelle Conf. 63 e 68 le percentuali si alzano rispettivamente fino al 90\% ed al 100\%.
+
+  
+  
+  
+  
+ 
 \end{subsection}
 
 
@@ -607,14 +619,41 @@ Invece, riguardo al numero della prova, sono state indicate tre o quattro prove 
   \end{table}
  
  
-  Dai tempi in tabella~\ref{tab:AvgTimeMbs} si può notare come, in realtà, ci sia un ampio aumento del tempo medio di ricezione di una notifica al diminuire della velocità dell'altro host.
+
+  Dai tempi in tabella~\ref{tab:AvgTimeMbs} si può notare come, in realtà, ci sia un cospicuo aumento del tempo medio di ricezione di una notifica al diminuire della velocità di trasmissione dell'altro host.
   Una possibile spiegazione è data dal maggior tempo che impiega l'host a velocità ridotta per inviare il proprio frame.
   Occupando il canale per più tempo viene, ovviamente, rallentato il client.
   
-  
+ 
+ 
   In questo caso l'applicazione non può intervenire per migliorare la connessione in quanto il problema è dovuto ad altri dispositivi.
   L'applicazione può, però, capire il degrado della rete e cambiare NIC se la situazione diventa insostenibile per la comunicazione.
+
+  
  
+  Andiamo ora ad analizzare la qualità della trasmissione.
+  Per farlo abbiamo calcolato la percentuale di notifiche con ritardo superiore ai 150 ms, i cui risulati sono rappresentati nella figura~\ref{QoSLossTraf}.
+  \begin{figure}[width=1\textwidth]
+   \centering
+   \caption{Percentuale notifiche con ritardo per QoS.}
+    \label{QoSLossTraf}
+    
+   \begin{tikzpicture}[font=\small, width=1\textwidth]
+   \pie[cloud, text=legend, scale font, width=1\textwidth]
+     {
+        0.03/Conf98, 0.47/Conf93,1.41/Conf94
+     }
+   
+   \end{tikzpicture}
+  
+ \end{figure}
+
+
+   
+  Come si può notare la percentuale è molto bassa nel caso di assenza di altri hosts nella rete, mentre si registra un aumento in caso di una presenza da parte di un altro host.
+  In particolare si ha un incremento maggiore se l'altro host trasmette ad una velocità più bassa.
+  
+  
  
 \end{subsection}
 
@@ -716,7 +755,7 @@ Invece, riguardo al numero della prova, sono state indicate tre o quattro prove 
   Empiricamente si potrebbe arrivare alla conclusione che se il client è in movimento e c'è un ostacolo tra lui e l'AP, il numero di retry si alza indipendentemente dal numero di hosts sulla rete.
   
   
-  Come ultimo, ma fondamentale, aspetto osserviamo il dato relativo ai NACK. 
+  Un altro fondamentale aspetto che possiamo osservare è il dato relativo ai NACK. 
   In particolare è interessante notare il burst NACK, ovvero quanti ne arrivano in modo contiguo.
   Questo aspetto è importante perché, in caso di ostacolo, si può avere un elevato numero di notifiche di questo tipo.
   Il problema di avere NACK a burst è la perdita di informazione durante la trasmissione.
@@ -766,9 +805,10 @@ Invece, riguardo al numero della prova, sono state indicate tre o quattro prove 
 
   
   Per analizzare i test effettuati usiamo il grafico~\ref{MaxBurstNackIsto}.
-  Per ogni configurazione viene mostrato il massimo numero di NACK consecutivi nel caso di trasmissione da fermo ( colore blu) e nel caso di trasmissione in movimento ( colore giallo ).
+  Per ogni configurazione viene mostrato il massimo numero di NACK consecutivi, sia nel caso di trasmissione da fermo ( colore blu) che in movimento ( colore giallo ).
   Come si può notare, nel caso di movimento c'è un elevato numero di NACK a burst.
   Si può inoltre notare che non dipende dal numero di dispotivi in rete ma dall'eventuale presenza di ostacolo, ricordando che stiamo analizzando solo il caso di movimento in presenza di ostacolo.
+  Oltre a questi casi di massimi ci sono stati altri valori alti di NACK contigui.
   
   
   
@@ -784,6 +824,56 @@ Invece, riguardo al numero della prova, sono state indicate tre o quattro prove 
   
   
   
+\begin{figure}
+   \centering
+   \caption{Percentuale notifiche con ritardo per QoS.}
+    \label{QoSTimeMove}
+    
+   \begin{tikzpicture}[font=\small]
+   \pie[cloud, text=legend, scale font, width=1\textwidth]
+     {
+        1.324/Conf85A, 2.78/Conf85B,5.31/Conf87A, 6.91/Conf87B %0.0/Conf83A, 0.0186/Conf83B,
+     }
+   
+   \end{tikzpicture}
+  
+ \end{figure}
+ 
+
+ Come ultima analisi andiamo a valutare la QoS della trasmissione.
+ In questo caso abbiamo considerato sia i tempi che il numero di pacchetti persi.
+ Per quanto riguarda i tempi abbiamo calcolato la percentuale di notifiche con ritardo superiore ai 150 ms e abbiamo inserito i dati nel grafico~\ref{QoSTimeMove}.
+ In tale grafico, però, non compaiono i dati relativi alle configurazioni 83A ed 83B in quanto sono prossime allo zero.
+ Analizzando le statistiche si può innanzitutto notare come ci sia una notevole differenza tra le configurazioni 83A, 85A ed 87A.
+ Questo è dovuto al maggior traffico che viene creato sulla rete, che porta ad un significativo rallentamento della trasmissione da parte del nodo mobile.
+ Andando invece ad esaminare il caso di trasmissione in movimento si può notare come le percentuali subiscano quasi un raddoppio rispetto al caso da fermo.
+ \\
+\begin{figure}
+   \centering
+   \caption{Percentuale notifiche con ritardo per QoS.}
+    \label{QoSLossMove}
+    
+   \begin{tikzpicture}[font=\small]
+   \pie[cloud, text=legend, scale font, width=1\textwidth]
+     {
+        2.159/Conf83B, 3.476/Conf85B,4.512/Conf87B
+     }
+   
+   \end{tikzpicture}
+  
+ \end{figure}
+
+ Riguardo ai pacchetti persi abbiamo seguito un procedimento simile ed abbiamo inserito i dati nel grafico~\ref{QoSLossMove}.
+ Nel grafico sono state indicate solo le statistiche relative alla trasmissione in movimento visto che per le trasmissioni da fermo i dati erano intorno allo zero e quindi ben sotto la soglia.
+ In caso, invece, di trasmissione con nodo mobile in movimento le percentuali subiscono un sostanziale aumento e si supera la soglia del 3\% nel caso di trasmissione con due hosts.
+ \\
+ 
+ Dalle valutazioni che abbiamo fatto precedentemente, quindi, si può stabilire che l'elevato numero di NACK dipende principalmente da un movimento da parte del client che porti il nodo ad essere dietro ad un ostacolo.
+ In maniera minore, comunque, incide anche il traffico presente nella rete.
+ 
+ 
+ 
+ 
 \end{subsection}
 
 
