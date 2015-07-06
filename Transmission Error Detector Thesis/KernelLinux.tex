@@ -24,14 +24,14 @@
 %\begin{document}
 
 
-\begin{chapter}{A glance to kernel Linux and to its network modules}
+\begin{chapter}{Il kernel Linux \& alcuni dei suoi moduli di rete}
 In questo capitolo verrà offerta una breve panoramica sul kernel Linux.
 \\
-Verrà inoltre descritto un aspetto del kernel Linux che risulta cruciale per lo sviluppo del progetto che questa tesi si propone di raccontare: i suoi moduli di rete.
+Verrà, inoltre, descritto un aspetto del kernel Linux cruciale per lo sviluppo del progetto che questa tesi si propone di raccontare: i suoi moduli di rete.
 \\
 Ma prima di addentrarci all'interno del kernel Linux, e dei suoi moduli di rete, verrà introdotto brevemente il concetto di kernel.
 \begin{section}{Cos'è un kernel?}
-Il kernel rappresenta il nucleo di un sistema operativo e racchiude tutte le funzioni principali del sistema stesso come gestione della memoria, gestione delle risorse, lo scheduling e il file system.
+Il kernel rappresenta il nucleo di un sistema operativo e racchiude tutte le funzioni principali del sistema stesso come gestione della memoria, la gestione delle risorse, lo scheduling e il file system.
 \\
 Le applicazioni in esecuzione nel sistema possono richiedere particolari servizi al kernel tramite chiamate di sistema ( system call ) senza accedere direttamente alle risorse fisiche.
 \\
@@ -51,8 +51,6 @@ I kernel si possono classificare in quattro categorie:
 Nell'aprile del 1991 Linus Torvalds, uno studente finlandese di informatica, comincia a sviluppare un semplice sistema operativo chiamato Linux.
 \\
 L'architettura del kernel sviluppato da Torvalds è di tipo monolitico a discapito di una struttura più moderna e flessibile come quella basata su micro kernel. 
-
-I
 
 Sebbene oggi il kernel possa essere compilato in modo da ottenere un'immagine binaria ridotta al minimo, e i driver possono essere caricati da moduli esterni, l'architettura originaria è chiaramente visibile: tutti i driver, infatti, devono avere una parte eseguita in kernel mode, anche quelli per cui ciò non sarebbe affatto necessario ( come ad esempio i driver dei file system ). 
 \\
@@ -125,7 +123,7 @@ La funzione dev\_hard\_start\_xmit utilizzerà l'interfaccia esposta dalla strutt
 \\
 Nel caso di un interfaccia di rete \emph{softMAC}, ovvero che il MLME ( MAC Sublayer Management Entity, cioè dove viene implementata la logica del Medium Access Control ) è implementato via software ( vi sono dispositivi detti \emph{fullMAC} che implementano il MLME direttamente in hardware ) questa funzione si appoggerà sul sottosistema mac80211.
 
-\begin{paragraph}{Sottosistema mac80211}Il sottosistema mac80211 è stato rilasciato nel 2005 e si occupa di implementare la logica MLME per device softMAC interpretando e generando frame IEEE 802.11. Prima della sua adozione all'interno del kernel Linux la gestione e l'implementazione di IEEE 802.11 era lasciata ai device driver.
+\begin{paragraph}{Sottosistema mac80211}Il sottosistema mac80211\cite{mac80211Bibliography} è stato rilasciato nel 2005 e si occupa di implementare la logica MLME per device softMAC interpretando e generando frame IEEE 802.11. Prima della sua adozione all'interno del kernel Linux la gestione e l'implementazione di IEEE 802.11 era lasciata ai device driver.
 \\
 Oggi la maggior parte dei device supportano questo sistema e in molti dei vecchi dispositivi i device driver sono stati riscritti tenendo conto di esso.
 \\

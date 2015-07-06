@@ -146,28 +146,28 @@
 \em                                    
 %Questa \`e la \textsc{Dedica}:\\
 %ognuno pu\`o scrivere quello che vuole, \\
-%anche nulla \ldots                    
+%anche nulla \ldots     
 \newpage                            
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \end{titlepage}
 \pagenumbering{roman}                   
-\chapter*{Introduzione}             
+\chapter*{Abstract}             
 
 \rhead[\fancyplain{}{\bfseries
-Introduzione}]{\fancyplain{}{\bfseries\thepage}}
+Abstract}]{\fancyplain{}{\bfseries\thepage}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
-Introduzione}}
+Abstract}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Introduzione
                                         %   nell'indice
-\addcontentsline{toc}{chapter}{Introduzione}
-Questa \`e l'introduzione.
+\addcontentsline{toc}{chapter}{Abstract}
+\input{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \tableofcontents                        %crea l'indice
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
-INDICE}}
+ABSTRACT}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \listoffigures                          %crea l'elenco delle figure
@@ -185,18 +185,25 @@ INDICE}}
 
 
 \include{NetworkIntroduction}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{KernelLinux}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{Architettura}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{TED}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 %!TEX encoding = UTF-8 Unicode\pagestyle{empty}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{APIs}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 \include{Test}
+\clearpage{\pagestyle{empty}\cleardoublepage}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
 \clearpage{\pagestyle{empty}\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%per fare le conclusioni
-\chapter*{Conclusioni}
+\chapter*{Conclusioni e sviluppi futuri}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries
 CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
@@ -204,15 +211,17 @@ CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
 CONCLUSIONI}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Conclusioni
                                         %   nell'indice
-\addcontentsline{toc}{chapter}{Conclusioni} Queste sono le
-conclusioni.\\
-In queste conclusioni voglio fare un riferimento alla
-bibliografia: questo \`e il mio riferimento %\cite{K3,K4}.
+\addcontentsline{toc}{chapter}{Conclusioni e sviluppi futuri} 
+\input{ConclusionAndFutureWorks}
+
+
+ %\cite{K3,K4}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
 \appendix                               %imposta le appendici
 \chapter{Prima Appendice}               %crea l'appendice
+<<<<<<< HEAD
 \begin{section}{Descrizione configurazioni}
  Durante il lavoro di tesi sono state utilizzate diverse configurazioni per effettuare i test.
  Descriviamo ora alcune delle configurazioni, in particolare quelle utilizzate all'interno del testo.
@@ -330,6 +339,17 @@ bibliografia: questo \`e il mio riferimento %\cite{K3,K4}.
 \end{section}
 
 
+=======
+In questa Appendice non si \`e utilizzato il comando:\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\verb"" è equivalente all'
+                                        %   ambiente verbatim,
+                                        %   ma si utilizza all'interno
+                                        %   di un discorso.
+\verb"\clearpage{\pagestyle{empty}\cleardoublepage}", ed infatti
+l'ultima pagina 8 ha l'intestazione con il numero di pagina in
+alto.
+ METTERE COS'È E COME È FATTO UN SOCKET??
+>>>>>>> b654a0b3152d680c67d96caeaf88e4bafb8f15e8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
 \rhead[\fancyplain{}{\bfseries \thechapter \:Prima Appendice}]
 {\fancyplain{}{\bfseries\thepage}}
@@ -426,6 +446,7 @@ Con questo comando si va a compilare il kernel. Questa operazione può richiedere
 \end{mdframed}
 Come ultima operazione si va ad installare l'immagine del nuovo kernel.
 Una volta riavviato il sistema è possibile utilizzare il proprio kernel customizzato.
+
 \end{paragraph}
 
 
@@ -442,6 +463,4 @@ Una volta riavviato il sistema è possibile utilizzare il proprio kernel customiz
 \clearpage{\pagestyle{empty}\cleardoublepage}
 \chapter*{Ringraziamenti}
 \thispagestyle{empty}
-Qui possiamo ringraziare il mondo intero!!!!!!!!!!\\
-Ovviamente solo se uno vuole, non \`e obbligatorio.
 \end{document}
