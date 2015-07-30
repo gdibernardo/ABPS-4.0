@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  6 JUL 2015 03:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  6 JUL 2015 03:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -951,7 +951,9 @@ Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'italian'.
 
-(./Thesis.aux)
+(./Thesis.aux (./NetworkIntroduction.aux) (./KernelLinux.aux)
+(./Architettura.aux) (./TED.aux) (./APIs.aux) (./Test.aux) (./Bibliography.aux)
+)
 \openout1 = `Thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 138.
@@ -1022,31 +1024,51 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.10}).
 [2
 
 
-] (./Thesis.toc)
+] (./Thesis.toc
+LaTeX Font Info:    Try loading font information for U+lasy on input line 5.
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 5.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 5.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [3
+
+]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[4])
 \tf@toc=\write4
 \openout4 = `Thesis.toc'.
 
- [3
-
-] [4
+ [5] [6
 
 
 ] (./Thesis.lof)
 \tf@lof=\write5
 \openout5 = `Thesis.lof'.
 
- [5
+ [7
 
-] [6
-
-
-] (./Thesis.lot)
+] [8] (./Thesis.lot)
 \tf@lot=\write6
 \openout6 = `Thesis.lot'.
 
- [7
+ [9
 
-] [8
+
+
+] [10
 
 
 ]
@@ -1056,10 +1078,6 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.10}).
 (./NetworkIntroduction.tex
 Capitolo 1.
 
-LaTeX Warning: Citation `ISOOSIBibliography' on page 1 undefined on input line 
-35.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 35--42
 
  []
@@ -1067,20 +1085,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--42
 [1
 
 
-]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[2] [3]
-
-LaTeX Warning: Reference `fig:ISOOSI' on page 4 undefined on input line 92.
-
-<Images/ISOOSI.png, id=43, 350.2686pt x 232.7094pt>
+] [2] [3] <Images/ISOOSI.png, id=50, 350.2686pt x 232.7094pt>
 File: Images/ISOOSI.png Graphic file (type png)
- <use Images/ISOOSI.png>
+
+<use Images/ISOOSI.png>
 Package pdftex.def Info: Images/ISOOSI.png used on input line 97.
 (pdftex.def)             Requested size: 390.0pt x 259.11652pt.
 
@@ -1115,20 +1123,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 138--143
 
  []
 
-[6] [7]
-
-LaTeX Warning: Citation `IEEE802dot11Bibliography' on page 8 undefined on input
- line 161.
-
-
-LaTeX Warning: Citation `ISOOSIBibliography' on page 8 undefined on input line 
-166.
-
-
-LaTeX Warning: Citation `IEEE802dot11Bibliography' on page 8 undefined on input
- line 172.
-
-[8] <Images/HiddenNodeProblemImage.png, id=61, 669.50125pt x 598.235pt>
+[6] [7] [8]
+<Images/HiddenNodeProblemImage.png, id=67, 669.50125pt x 598.235pt>
 File: Images/HiddenNodeProblemImage.png Graphic file (type png)
 
 <use Images/HiddenNodeProblemImage.png>
@@ -1139,12 +1135,8 @@ Package pdftex.def Info: Images/HiddenNodeProblemImage.png used on input line 1
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-LaTeX Warning: Reference `fig:HiddenNodeProblemImage' on page 9 undefined on in
-put line 192.
-
 [9] [10 <./Images/HiddenNodeProblemImage.png>]
-<Images/HiddenNodeFourWayHandshake.jpg, id=70, 277.035pt x 279.29344pt>
+<Images/HiddenNodeFourWayHandshake.jpg, id=77, 277.035pt x 279.29344pt>
 File: Images/HiddenNodeFourWayHandshake.jpg Graphic file (type jpg)
 
 <use Images/HiddenNodeFourWayHandshake.jpg>
@@ -1152,33 +1144,15 @@ Package pdftex.def Info: Images/HiddenNodeFourWayHandshake.jpg used on input li
 ne 207.
 (pdftex.def)             Requested size: 272.99881pt x 275.22711pt.
  [11 <./Images/HiddenNodeFourWayHandshake.jpg>] <Images/802dot11FrameImage.png,
- id=75, 540.0175pt x 255.95625pt>
+ id=81, 540.0175pt x 255.95625pt>
 File: Images/802dot11FrameImage.png Graphic file (type png)
 
 <use Images/802dot11FrameImage.png>
 Package pdftex.def Info: Images/802dot11FrameImage.png used on input line 225.
 (pdftex.def)             Requested size: 390.0pt x 184.85466pt.
  [12 <./Images/802dot11FrameImage.png>]
-[13] [14]
-
-LaTeX Warning: Citation `SecurityBibliography' on page 15 undefined on input li
-ne 269.
-
-[15]
-
-LaTeX Warning: Citation `SecurityBibliography' on page 16 undefined on input li
-ne 281.
-
-[16] [17] [18]
-
-LaTeX Warning: Citation `SecurityBibliography' on page 19 undefined on input li
-ne 303.
-
-
-LaTeX Warning: Citation `IPv4Bibliography' on page 19 undefined on input line 3
-12.
-
-[19] <Images/IPv4HeaderImage.png, id=101, 521.95pt x 180.675pt>
+[13] [14] [15] [16] [17] [18] [19]
+<Images/IPv4HeaderImage.png, id=107, 521.95pt x 180.675pt>
 File: Images/IPv4HeaderImage.png Graphic file (type png)
 
 <use Images/IPv4HeaderImage.png>
@@ -1189,24 +1163,6 @@ Underfull \vbox (badness 1147) has occurred while \output is active []
 
  [22]
 [23] [24]
-
-LaTeX Warning: Citation `IPv6Bibliography' on page 25 undefined on input line 3
-69.
-
-LaTeX Font Info:    Try loading font information for U+lasy on input line 369.
-(/usr/local/texlive/2014/texmf-dist/tex/latex/base/ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 369.
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 369.
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
 Overfull \hbox (7.38353pt too wide) in paragraph at lines 369--375
 \OT1/cmr/m/n/12 quen-za \OT1/cmr/m/it/12 :: \OT1/cmr/m/n/12 ri-du-cen-do cos^^R
 ^^P l'in-di-riz-zo ap-pe-na il-lu-stra-to a fe80::a4f5:f1ff:fe49:8d93. 
@@ -1216,7 +1172,7 @@ Overfull \hbox (7.38353pt too wide) in paragraph at lines 369--375
 Underfull \vbox (badness 2229) has occurred while \output is active []
 
  [25]
-<Images/IPv6HeaderImage.jpg, id=123, 547.04375pt x 210.7875pt>
+<Images/IPv6HeaderImage.jpg, id=129, 547.04375pt x 210.7875pt>
 File: Images/IPv6HeaderImage.jpg Graphic file (type jpg)
 
 <use Images/IPv6HeaderImage.jpg>
@@ -1227,12 +1183,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 400--415
 
  []
 
-[27]
-
-LaTeX Warning: Citation `UDPBibliography' on page 28 undefined on input line 42
-3.
-
-<Images/UDPHeader.jpg, id=130, 578.16pt x 199.74625pt>
+[27] <Images/UDPHeader.jpg, id=137, 578.16pt x 199.74625pt>
 File: Images/UDPHeader.jpg Graphic file (type jpg)
 
 <use Images/UDPHeader.jpg>
@@ -1242,17 +1193,6 @@ Package pdftex.def Info: Images/UDPHeader.jpg used on input line 429.
 Underfull \vbox (badness 2359) has occurred while \output is active []
 
  [28]
-
-LaTeX Warning: Citation `VoIPBibliography' on page 29 undefined on input line 4
-46.
-
-
-LaTeX Warning: Citation `Hdot323' on page 29 undefined on input line 452.
-
-
-LaTeX Warning: Citation `SIPBibliography' on page 29 undefined on input line 45
-4.
-
 [29 <./Images/UDPHeader.jpg>]
 Underfull \vbox (badness 3646) has occurred while \output is active []
 
@@ -1269,16 +1209,8 @@ Capitolo 2.
 [33
 
 
-] [34]
-
-LaTeX Warning: Citation `KernelLinuxChangelog' on page 35 undefined on input li
-ne 67.
-
-
-LaTeX Warning: Citation `SocketBufferLinuxFoundation' on page 35 undefined on i
-nput line 74.
-
-[35] <Images/SocketBufferImage.png, id=157, 653.44125pt x 553.06625pt>
+] [34] [35]
+<Images/SocketBufferImage.png, id=163, 653.44125pt x 553.06625pt>
 File: Images/SocketBufferImage.png Graphic file (type png)
 
 <use Images/SocketBufferImage.png>
@@ -1300,11 +1232,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [37 <./Images/SocketBufferImage.png>] [38]
-
-LaTeX Warning: Citation `mac80211Bibliography' on page 39 undefined on input li
-ne 126.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 126--142
 
  []
@@ -1335,43 +1262,8 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-
-LaTeX Warning: Citation `MobileIPv6FastHandovers' on page 44 undefined on input
- line 45.
-
-
-LaTeX Warning: Citation `HierarchicalMobileIPv6' on page 44 undefined on input 
-line 45.
-
-
-LaTeX Warning: Citation `ProxyMobileIPv6' on page 44 undefined on input line 45
-.
-
-[44]
-
-LaTeX Warning: Citation `HostIdentityProtocol' on page 45 undefined on input li
-ne 54.
-
-
-LaTeX Warning: Citation `LIN6' on page 45 undefined on input line 54.
-
-[45]
-
-LaTeX Warning: Citation `TMSP' on page 46 undefined on input line 60.
-
-
-LaTeX Warning: Citation `802dot11e' on page 46 undefined on input line 64.
-
-
-LaTeX Warning: Citation `802dot11r' on page 46 undefined on input line 64.
-
-
-LaTeX Warning: Citation `CISCOLISP' on page 46 undefined on input line 64.
-
-
-LaTeX Warning: Citation `ABPSSipBased' on page 46 undefined on input line 67.
-
-[46] <Images/ABPSArchitectureImage.png, id=194, 936.49875pt x 425.08812pt>
+[44] [45] [46]
+<Images/ABPSArchitectureImage.png, id=201, 936.49875pt x 425.08812pt>
 File: Images/ABPSArchitectureImage.png Graphic file (type png)
 
 <use Images/ABPSArchitectureImage.png>
@@ -1379,21 +1271,12 @@ Package pdftex.def Info: Images/ABPSArchitectureImage.png used on input line 76
 .
 (pdftex.def)             Requested size: 390.0pt x 177.02448pt.
 
-
-LaTeX Warning: Citation `ABPSVoipCaseStudy' on page 47 undefined on input line 
-90.
-
-
-LaTeX Warning: Reference `fig:ABPSSIPImage' on page 47 undefined on input line 
-92.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 81--93
 
  []
 
 [47 <./Images/ABPSArchitectureImage.png>]
-<Images/ABPSSIPImage.png, id=200, 1179.90813pt x 498.86375pt>
+<Images/ABPSSIPImage.png, id=206, 1179.90813pt x 498.86375pt>
 File: Images/ABPSSIPImage.png Graphic file (type png)
 
 <use Images/ABPSSIPImage.png>
@@ -1408,7 +1291,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [48]
 [49 <./Images/ABPSSIPImage.png>] [50]
-<Images/ABPSMobileNodeArchitectureImage.png, id=211, 1218.5525pt x 698.10812pt>
+<Images/ABPSMobileNodeArchitectureImage.png, id=217, 1218.5525pt x 698.10812pt>
 File: Images/ABPSMobileNodeArchitectureImage.png Graphic file (type png)
 <use Images/ABPSMobileNodeArchitectureImage.png>
 Package pdftex.def Info: Images/ABPSMobileNodeArchitectureImage.png used on inp
@@ -1458,7 +1341,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 160--187
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [60]
-<Images/TEDImplementationImage.png, id=247, 2291.56125pt x 1482.53876pt>
+<Images/TEDImplementationImage.png, id=253, 2291.56125pt x 1482.53876pt>
 File: Images/TEDImplementationImage.png Graphic file (type png)
 
 <use Images/TEDImplementationImage.png>
@@ -1666,9 +1549,383 @@ LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 [81] (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
+<Images/salaMengo.png, id=323, 815.045pt x 413.545pt>
+File: Images/salaMengo.png Graphic file (type png)
 
-LaTeX Warning: Reference `fig:salaMengo' on page 82 undefined on input line 355
-.
+<use Images/salaMengo.png>
+Package pdftex.def Info: Images/salaMengo.png used on input line 360.
+(pdftex.def)             Requested size: 390.0pt x 197.88094pt.
+ [82]
 
-<Images/salaMengo.png, id=316, 815.045pt x 413.545pt>
-File: Images/salaMengo.png 
+LaTeX Warning: Citation `ITUTRacc' on page 83 undefined on input line 387.
+
+[83 <./Images/salaMengo.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 400--409
+
+ []
+
+[84] [85]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[86] [87] [88] [89]
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: ThereGraphic file (type png)
+
+<use Images/salaMengo.png>
+Package pdftex.def Info: Images/salaMengo.png used on input line 360.
+(pdftex.def)             Requested size: 390.0pt x 197.88094pt.
+ [82]
+
+LaTeX Warning: Citation `ITUTRacc' on page 83 undefined on input line 387.
+
+[83 <./Images/salaMengo.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 400--409
+
+ []
+
+[84]
+
+LaTeX Warning: Reference `tab:AvgTimeIPv4' on page 85 undefined on input line 4
+31.
+
+
+LaTeX Warning: Reference `tab:AvgTimeIPv6' on page 85 undefined on input line 4
+31.
+
+[85]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `tab:AvgRetryIPv4' on page 86 undefined on input line 
+504.
+
+
+LaTeX Warning: Reference `tab:AvgRetryIPv6' on page 86 undefined on input line 
+504.
+
+[86] [87]
+
+LaTeX Warning: Reference `tab:AvgTimePkt' on page 88 undefined on input line 53
+6.
+
+
+LaTeX Warning: Reference `PktDelay' on page 88 undefined on input line 538.
+
+
+LaTeX Warning: Reference `tab:AvgTimePkt' on page 88 undefined on input line 57
+9.
+
+[88]
+
+LaTeX Warning: Reference `tab:AvgTimeMbs' on page 89 undefined on input line 62
+3.
+
+[89]
+
+LaTeX Warning: Reference `QoSLossTraf' on page 90 undefined on input line 635.
+
+
+./Test.tex:641: Package pgfkeys Error: I do not know the key '/tikz/width', to 
+which you passed '1\textwidth ', and I am going to ignore it. Perhaps you missp
+elled it.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.641 ...zpicture}[font=\small, width=1\textwidth]
+                                                  
+? 
+./Test.tex:641: Emergency stop.
+ ...                                              
+                                                  
+l.641 ...zpicture}[font=\small, width=1\textwidth]
+                                                  
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 31536 strings out of 493117
+ 723872 string characters out of 6135433
+ 1096873 words of memory out of 5000000
+ 34457 multiletter control sequences out of 15000+600000
+ 13412 words of font info for 53 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 62i,12n,83p,10416b,2372s stack positions out of 5000i,500n,10000p,200000b,80000s
+./Test.tex:641:  ==> Fatal error occurred, no output PDF file produced!
+ There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no ! in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+
+Underfull \vbox (badness 1668) has occurred while \output is active []
+
+ [94]
+Underfull \hbox (badness 10000) in paragraph at lines 866--870
+
+ []
+
+) [95] [96
+
+
+
+] (./ConclusionAndFutureWorks.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [97
+
+
+
+])
+[98]
+Appendice A.
+[99
+
+] [100] [101] [102]
+Appendice B.
+[103
+
+]
+Package mdframed Info: mdframed works in twoside mode on input line 373.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 373.
+Package mdframed Info: mdframed works in twoside mode on input line 385.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 385.
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--395
+
+ []
+
+[104] <Images/KernelLinuxMenuconfig.png, id=400, 716.6775pt x 546.04pt>
+File: Images/KernelLinuxMenuconfig.png Graphic file (type png)
+
+<use Images/KernelLinuxMenuconfig.png>
+Package pdftex.def Info: Images/KernelLinuxMenuconfig.png used on input line 40
+3.
+(pdftex.def)             Requested size: 390.0pt x 297.14847pt.
+Package mdframed Info: mdframed works in twoside mode on input line 410.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 410.
+ [105 <./Images/KernelLinuxMenuconfig.png>]
+Package mdframed Info: mdframed works in twoside mode on input line 419.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 419.
+Package mdframed Info: mdframed works in twoside mode on input line 429.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 429.
+ [106]
+\openout2 = `Bibliography.aux'.
+
+ (./Bibliography.tex
+Underfull \hbox (badness 4403) in paragraph at lines 7--8
+[]\OT1/cmr/m/n/12 ISO 7498-2:1989, \OT1/cmr/m/it/12 ``In-for-ma-tion pro-ces-si
+ng sy-stems -- Open Sy-
+ []
+
+
+Underfull \hbox (badness 3323) in paragraph at lines 19--20
+[]\OT1/cmr/m/n/12 IETF RFC: 3550, \OT1/cmr/m/it/12 ``RTP: A Trans-port Pro-to-c
+ol for Real-Time
+ []
+
+[107
+
+
+]
+Overfull \hbox (76.77264pt too wide) in paragraph at lines 26--27
+[]\OT1/cmr/m/it/12 ``Linux 4.0.1 Chan-ge-Log''\OT1/cmr/m/n/12 , https://www.ker
+nel.org/pub/linux/kernel/v4.x/ChangeLog-
+ []
+
+
+Overfull \hbox (156.09668pt too wide) in paragraph at lines 28--29
+[]\OT1/cmr/m/it/12 ``The sk[]buff struc-tu-re''\OT1/cmr/m/n/12 , http://www.lin
+uxfoundation.org/collaborate/workgroups/networking/sk[]buff,
+ []
+
+[108]
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+[]\OT1/cmr/m/it/12 ``Locator/ID Se-pa-ra-tion Pro-to-col LI-SP''\OT1/cmr/m/n/12
+ ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+[]\OT1/cmr/m/it/12 ``The mac80211 de-ve-lo-per do-cu-men-ta-tion ''
+ []
+
+
+Overfull \hbox (14.65274pt too wide) in paragraph at lines 44--45
+\OT1/cmr/m/n/12 ,https://wireless.wiki.kernel.org/en/developers/documentation/m
+ac80211,
+ []
+
+) [109] [110
+
+
+
+] [111
+
+] (./Thesis.aux (./NetworkIntroduction.aux)
+(./KernelLinux.aux) (./Architettura.aux) (./TED.aux) (./APIs.aux) (./Test.aux)
+(./Bibliography.aux))
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 0.40123pt have occurred.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 31837 strings out of 493117
+ 730114 string characters out of 6135433
+ 1096873 words of memory out of 5000000
+ 34722 multiletter control sequences out of 15000+600000
+ 13412 words of font info for 53 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 62i,12n,83p,10416b,2370s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/l
+ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
+l/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
+/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/
+texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on Thesis.pdf (121 pages, 2292354 bytes).
+PDF statistics:
+ 462 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
+

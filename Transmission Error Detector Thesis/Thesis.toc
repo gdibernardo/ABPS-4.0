@@ -1,0 +1,131 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {chapter}{Abstract}{i}
+\contentsline {chapter}{\numberline {1}Una panoramica sullo stack di rete}{1}
+\contentsline {section}{\numberline {1.1}Il modello ISO/OSI}{1}
+\contentsline {paragraph}{Physical layer}{2}
+\contentsline {paragraph}{Data link layer}{2}
+\contentsline {paragraph}{Network layer}{2}
+\contentsline {paragraph}{Transport layer}{3}
+\contentsline {paragraph}{Session layer}{3}
+\contentsline {paragraph}{Presentation layer}{4}
+\contentsline {paragraph}{Application layer}{4}
+\contentsline {section}{\numberline {1.2}ISO/OSI vs TCP/IP}{4}
+\contentsline {section}{\numberline {1.3}Wi-Fi}{5}
+\contentsline {subsection}{\numberline {1.3.1}WLAN architecture and types}{5}
+\contentsline {paragraph}{Stazioni}{6}
+\contentsline {paragraph}{Basic service set}{6}
+\contentsline {paragraph}{Extended Service Set}{6}
+\contentsline {paragraph}{Distribution System}{6}
+\contentsline {section}{\numberline {1.4}IEEE 802.11}{7}
+\contentsline {subsection}{\numberline {1.4.1}Physical layer in 802.11}{8}
+\contentsline {subsection}{\numberline {1.4.2}Media Access Control}{8}
+\contentsline {subsection}{\numberline {1.4.3}CSMA/CA}{8}
+\contentsline {subsection}{\numberline {1.4.4}Il problema dei nodi nascosti}{9}
+\contentsline {subsection}{\numberline {1.4.5}IEEE 802.11 frame}{11}
+\contentsline {paragraph}{MAC header}{12}
+\contentsline {paragraph}{Payload}{14}
+\contentsline {paragraph}{Frame check sequence (FCS)}{14}
+\contentsline {subsection}{\numberline {1.4.6}Security in IEEE 802.11}{14}
+\contentsline {paragraph}{Access Control List}{15}
+\contentsline {paragraph}{WEP ( Wired Equivalent Privacy )}{15}
+\contentsline {paragraph}{WPA ( Wi-Fi Protected Access)}{16}
+\contentsline {paragraph}{IEEE 802.11i (a.k.a. WPA2)}{19}
+\contentsline {section}{\numberline {1.5}Livello Network}{19}
+\contentsline {subsection}{\numberline {1.5.1}IPv4}{19}
+\contentsline {paragraph}{Indirizzi IPv4}{19}
+\contentsline {paragraph}{IPv4 header}{20}
+\contentsline {subsection}{\numberline {1.5.2}NAT}{23}
+\contentsline {subsection}{\numberline {1.5.3}ARP}{23}
+\contentsline {subsection}{\numberline {1.5.4}Frammentazione}{24}
+\contentsline {subsection}{\numberline {1.5.5}Routing}{24}
+\contentsline {subsection}{\numberline {1.5.6}IPv6}{25}
+\contentsline {paragraph}{Datagram IPv6}{26}
+\contentsline {subsection}{\numberline {1.5.7}Frammentazione in IPv6}{27}
+\contentsline {section}{\numberline {1.6}Transport Layer}{28}
+\contentsline {paragraph}{Protocollo UDP}{28}
+\contentsline {section}{\numberline {1.7}Application Layer}{29}
+\contentsline {subsection}{\numberline {1.7.1}VoIP}{30}
+\contentsline {chapter}{\numberline {2}Il kernel Linux \& alcuni dei suoi moduli di rete}{33}
+\contentsline {section}{\numberline {2.1}Cos'\`e un kernel?}{33}
+\contentsline {section}{\numberline {2.2}Il kernel Linux}{34}
+\contentsline {section}{\numberline {2.3}Linux kernel v4.0}{35}
+\contentsline {section}{\numberline {2.4}Linux networking}{35}
+\contentsline {paragraph}{Socket buffer}{35}
+\contentsline {paragraph}{struct net\_device}{37}
+\contentsline {subsection}{\numberline {2.4.1}Dall'app al device driver}{38}
+\contentsline {paragraph}{Sottosistema mac80211}{39}
+\contentsline {chapter}{\numberline {3}Scenario}{43}
+\contentsline {section}{\numberline {3.1}Seamless Host Mobility \& State Of the Art}{44}
+\contentsline {paragraph}{Implementazioni a livello network}{44}
+\contentsline {paragraph}{Implementazioni tra livello rete e trasporto}{45}
+\contentsline {paragraph}{Implementazioni a livello trasporto}{45}
+\contentsline {paragraph}{Implementazioni a livello Sessione}{46}
+\contentsline {section}{\numberline {3.2}Always Best Packet Switching}{46}
+\contentsline {subsection}{\numberline {3.2.1}Architettura}{49}
+\contentsline {paragraph}{Fixed proxy server}{49}
+\contentsline {paragraph}{Mobile node}{49}
+\contentsline {section}{\numberline {3.3}Considerazioni finali}{51}
+\contentsline {chapter}{\numberline {4}Transmission Error Detector}{53}
+\contentsline {section}{\numberline {4.1}Design and implementation}{53}
+\contentsline {subsection}{\numberline {4.1.1}Application layer}{55}
+\contentsline {subsection}{\numberline {4.1.2}Transport layer}{57}
+\contentsline {subsection}{\numberline {4.1.3}Network layer}{58}
+\contentsline {subsection}{\numberline {4.1.4}The mac80211 subsystem}{59}
+\contentsline {subsection}{\numberline {4.1.5}First-hop Transmission Notification}{62}
+\contentsline {section}{\numberline {4.2}Remark}{64}
+\contentsline {chapter}{\numberline {5}Transmission Error Detector developer APIs}{65}
+\contentsline {section}{\numberline {5.1}Send a message}{66}
+\contentsline {section}{\numberline {5.2}Receive a notification from TED}{69}
+\contentsline {section}{\numberline {5.3}Interact with First-hop Transmission Notification}{70}
+\contentsline {paragraph}{ted\_message\_identifier\_from\_notification}{71}
+\contentsline {paragraph}{ted\_message\_status\_from\_notification}{71}
+\contentsline {paragraph}{ted\_message\_retry\_count\_from\_notification}{71}
+\contentsline {paragraph}{ted\_message\_fragmentation\_length\_info\_from\_notification}{72}
+\contentsline {paragraph}{ted\_message\_fragmentation\_offset\_info\_from\_notification}{72}
+\contentsline {paragraph}{ted\_message\_more\_fragment\_info\_from\_notification}{72}
+\contentsline {chapter}{\numberline {6}Test \& valutazioni sperimentali}{73}
+\contentsline {section}{\numberline {6.1}Raccolta dati}{73}
+\contentsline {subsection}{\numberline {6.1.1}Dispositivi}{73}
+\contentsline {paragraph}{ZyXEL NBG4615 v2}{74}
+\contentsline {paragraph}{LB-LINK BL-WN151}{74}
+\contentsline {paragraph}{NETGEAR WG111}{74}
+\contentsline {paragraph}{HP Pavilion dv6 Entertainment PC}{74}
+\contentsline {paragraph}{DELL Latitude E6400}{74}
+\contentsline {paragraph}{Raspberry Pi Model 2}{75}
+\contentsline {paragraph}{UDOO Quad}{75}
+\contentsline {paragraph}{Raspberry Pi Model B}{75}
+\contentsline {subsection}{\numberline {6.1.2}Parametri di valutazione}{75}
+\contentsline {subsection}{\numberline {6.1.3}Configurazioni}{77}
+\contentsline {subsection}{\numberline {6.1.4}Dettagli implementativi}{79}
+\contentsline {subsection}{\numberline {6.1.5}Test effettuati}{83}
+\contentsline {section}{\numberline {6.2}Analisi dei risultati}{83}
+\contentsline {subsection}{\numberline {6.2.1}Confronto tra IPv4 e IPv6}{85}
+\contentsline {subsection}{\numberline {6.2.2}Valutazione problemi dovuti a pacchetti nella rete}{87}
+\contentsline {subsection}{\numberline {6.2.3}Valutazione interferenza traffico}{89}
+\contentsline {subsection}{\numberline {6.2.4}Problemi dovuti alla trasmissione in movimento}{90}
+\contentsline {chapter}{Conclusioni e sviluppi futuri}{97}
+\contentsline {chapter}{\numberline {A}Prima Appendice}{99}
+\contentsline {section}{\numberline {A.1}Descrizione configurazioni}{99}
+\contentsline {paragraph}{Conf. 5}{99}
+\contentsline {paragraph}{Conf. 6}{99}
+\contentsline {paragraph}{Conf. 7}{99}
+\contentsline {paragraph}{Conf. 8}{100}
+\contentsline {paragraph}{Conf. 9}{100}
+\contentsline {paragraph}{Conf. 58}{100}
+\contentsline {paragraph}{Conf. 63}{100}
+\contentsline {paragraph}{Conf. 68}{100}
+\contentsline {paragraph}{Conf. 83}{101}
+\contentsline {paragraph}{Conf. 85}{101}
+\contentsline {paragraph}{Conf. 87}{101}
+\contentsline {paragraph}{Conf. 93}{102}
+\contentsline {paragraph}{Conf. 94}{102}
+\contentsline {paragraph}{Conf. 98}{102}
+\contentsline {chapter}{\numberline {B}Seconda Appendice}{103}
+\contentsline {section}{\numberline {B.1}Customizzazione kernel Linux}{103}
+\contentsline {paragraph}{Scaricare una versione stabile del kernel ed estrarlo}{104}
+\contentsline {paragraph}{Scegliere la configurazione}{104}
+\contentsline {paragraph}{Compilare il Kernel}{105}
+\contentsline {paragraph}{Compilare i moduli ed installarli}{106}
+\contentsline {paragraph}{Installare il Kernel}{106}
+\contentsline {chapter}{Bibliografia}{107}
