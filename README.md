@@ -5,5 +5,6 @@ Transmission Error Detector is a cross-layer kernel mechanism that provides appl
 
 
 For more information please visit:
+
 http://www.cs.unibo.it/~ghini/didattica/sistdistrib/ABPS_VoIP_JSS.pdf
 http://www.cs.unibo.it/~ghini/accepted/Ghini_JCM17.pdf
