@@ -2,6 +2,7 @@
 Transmission Error Detector for ABPS Linux kernel v4.0
 
 Transmission Error Detector is a cross-layer kernel mechanism that provides applications information about the successful (unsuccessful) UDP datagram transmissions through a given wireless access point.
+Transmission Error Detector is a core module component of a distributed architecture called ABPS (Always Best Packet Switching).
 
 
 
