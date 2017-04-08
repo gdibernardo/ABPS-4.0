@@ -13,4 +13,7 @@ http://www.cs.unibo.it/~ghini/didattica/sistdistrib/ABPS_VoIP_JSS.pdf
 
 http://www.cs.unibo.it/~ghini/accepted/Ghini_JCM17.pdf
 
-http://www.slideshare.net/GabrieleDiBernardo1/transmission-error-detector-per-wifi-su-kernel-linux-40
+http://amslaurea.unibo.it/8982/1/dibernardo_gabriele_tesi.pdf (Italian only)
+
+http://www.slideshare.net/GabrieleDiBernardo1/transmission-error-detector-per-wifi-su-kernel-linux-40 (Italian only)
+
